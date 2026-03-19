@@ -20,8 +20,8 @@
       --bad:#dc2626;
       --wa:#25d366;
 
-      --shadow: 0 10px 25px rgba(15,23,42,.06);
-      --shadowStrong: 0 18px 45px rgba(15,23,42,.12);
+      --shadow:0 10px 25px rgba(15,23,42,.06);
+      --shadowStrong:0 18px 45px rgba(15,23,42,.12);
     }
 
     *{box-sizing:border-box}
@@ -30,7 +30,7 @@
     body{
       margin:0;
       font-family:"Arimo", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #fef3c7 0, #f4f8f8 35%, #dbeafe 100%);
+      background:radial-gradient(circle at top, #fef3c7 0, #f4f8f8 35%, #dbeafe 100%);
       color:var(--text);
       line-height:1.6;
     }
@@ -48,8 +48,8 @@
       overflow:hidden;
     }
 
+    /* TOPBAR */
     .topbar{
-      position:relative;
       display:flex;
       align-items:center;
       justify-content:space-between;
@@ -69,7 +69,6 @@
     .topbar-avatars{
       display:flex;
       align-items:center;
-      margin-right:.1rem;
     }
 
     .topbar-avatars img{
@@ -108,10 +107,11 @@
       white-space:nowrap;
     }
 
+    /* HERO */
     header.hero{
       padding:2rem 1.4rem 2.2rem;
       border-bottom:1px solid var(--border);
-      background: radial-gradient(circle at top left, #fdf4e6 0, #ffffff 40%, #e0f2fe 100%);
+      background:radial-gradient(circle at top left, #fdf4e6 0, #ffffff 40%, #e0f2fe 100%);
     }
 
     .hero-inner{
@@ -122,7 +122,7 @@
     }
 
     .hero-text{
-      flex:1 1 260px;
+      flex:1 1 280px;
       min-width:0;
     }
 
@@ -216,75 +216,88 @@
       transition:transform .12s ease, filter .12s ease;
     }
 
-    .btn-primary, .btn-gold{
+    .btn-primary,
+    .btn-gold{
       background:var(--accent);
       color:#1f2933;
       box-shadow:0 6px 18px rgba(0,0,0,.12);
     }
 
-    .btn-secondary{
-      background:#fff;
-      color:var(--primary);
-      border:1px solid rgba(148,163,184,.85);
-    }
-
+    .btn-secondary,
     .btn-wa{
       background:var(--wa);
       color:#fff;
       box-shadow:0 6px 18px rgba(0,0,0,.12);
     }
 
-    .btn-primary:hover, .btn-secondary:hover, .btn-wa:hover, .btn-gold:hover{
+    .btn-primary:hover,
+    .btn-secondary:hover,
+    .btn-wa:hover,
+    .btn-gold:hover{
       filter:brightness(1.03);
       transform:translateY(-1px);
     }
 
     .hero-photo{
-      flex:0 0 320px;
-      text-align:right;
+      flex:0 0 360px;
       position:relative;
       display:flex;
       justify-content:center;
       align-items:center;
       flex-direction:column;
-      gap:.7rem;
-      min-width:280px;
+      min-width:300px;
     }
 
     .hero-photo::before{
       content:"";
       position:absolute;
-      width:260px;
-      height:260px;
+      width:300px;
+      height:300px;
       border-radius:50%;
-      background: radial-gradient(circle, #f4be69 0, #ffffff 50%, #93c5fd 100%);
-      opacity:.6;
-      top:20px;
+      background:radial-gradient(circle, #f4be69 0, #ffffff 52%, #cfe7ff 100%);
+      opacity:.62;
+      top:0;
       z-index:0;
     }
 
-    .hero-people{
+    .hero-people-wrap{
       position:relative;
       z-index:1;
-      display:flex;
-      align-items:flex-end;
-      justify-content:center;
-      gap:.5rem;
       width:100%;
-      min-height:300px;
+      display:flex;
+      justify-content:center;
+      align-items:flex-end;
+      min-height:340px;
+      padding:30px 0 70px;
+    }
+
+    .hero-people{
+      display:flex;
+      justify-content:center;
+      align-items:flex-end;
+      gap:18px;
+      width:100%;
     }
 
     .hero-person{
+      width:150px;
       display:flex;
       flex-direction:column;
       align-items:center;
       justify-content:flex-end;
-      position:relative;
     }
 
-    .hero-person img{
-      max-width:165px;
-      width:100%;
+    .hero-image-box{
+      width:150px;
+      height:190px;
+      display:flex;
+      align-items:flex-end;
+      justify-content:center;
+    }
+
+    .hero-image-box img{
+      width:150px;
+      max-height:190px;
       height:auto;
       display:block;
       object-fit:contain;
@@ -292,52 +305,61 @@
     }
 
     .hero-person-name{
-      margin-top:.35rem;
+      margin-top:.45rem;
       font-size:.82rem;
-      font-weight:700;
+      font-weight:800;
       color:var(--primary);
       text-align:center;
+      line-height:1.2;
+      min-height:1.9em;
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
     }
 
     .hero-tagcard{
       position:absolute;
-      bottom:0;
-      right:0;
+      right:-8px;
+      bottom:28px;
       background:#fff;
-      border-radius:14px;
+      border-radius:20px;
       border:1px solid rgba(148,163,184,.6);
-      padding:.55rem .7rem;
+      padding:.8rem 1rem;
       font-size:.78rem;
       color:var(--muted);
-      box-shadow:0 8px 20px rgba(15,23,42,.2);
+      box-shadow:0 8px 20px rgba(15,23,42,.18);
       z-index:2;
-      max-width:230px;
+      max-width:315px;
     }
 
     .hero-tagcard-title{
       font-family:"Raleway",system-ui,sans-serif;
       font-weight:800;
-      font-size:.8rem;
+      font-size:.9rem;
       color:var(--primary);
-      margin-bottom:.2rem;
+      margin-bottom:.35rem;
+      text-align:center;
     }
 
     .hero-tagcard-line{
       display:flex;
-      align-items:center;
-      gap:.35rem;
-      margin-bottom:.1rem;
+      align-items:flex-start;
+      gap:.45rem;
+      margin-bottom:.18rem;
+      font-size:.82rem;
     }
 
     .hero-tagcard-dot{
-      width:6px;
-      height:6px;
+      width:8px;
+      height:8px;
       border-radius:999px;
       background:var(--accent);
+      margin-top:.38rem;
+      flex:0 0 8px;
     }
 
     .contact-strip{
-      margin-top:1.1rem;
+      margin-top:1rem;
       display:grid;
       grid-template-columns:repeat(2, minmax(0,1fr));
       gap:.8rem;
@@ -376,6 +398,7 @@
       text-decoration:underline;
     }
 
+    /* MAIN */
     main{
       padding:1.8rem 1.4rem 2.4rem;
       flex:1;
@@ -435,6 +458,7 @@
     .card li{margin-bottom:.18rem}
     .num{font-weight:800;color:var(--primary)}
 
+    /* Rechner */
     .calc-wrapper{
       border-radius:18px;
       padding:1.2rem 1.1rem 1.4rem;
@@ -559,6 +583,7 @@
       cursor:pointer;
     }
 
+    /* Beispiele */
     .example-grid{
       display:grid;
       grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
@@ -627,6 +652,7 @@
       margin-top:.4rem;
     }
 
+    /* Bottom CTA */
     .bottom-cta{
       margin-top:1.6rem;
       padding:1.1rem 1.1rem 1.3rem;
@@ -662,6 +688,17 @@
       transform:translateY(0);
     }
 
+    @media (max-width:900px){
+      .hero-photo{
+        flex:1 1 100%;
+        min-width:0;
+      }
+
+      .hero-tagcard{
+        right:0;
+      }
+    }
+
     @media (max-width:768px){
       .topbar{padding-inline:1rem}
       .topbar-right{display:none}
@@ -679,33 +716,42 @@
 
       .hero-photo{
         width:100%;
-        justify-content:center;
-        align-items:center;
         min-width:0;
       }
 
       .hero-photo::before{
-        width:210px;
-        height:210px;
-        top:12px;
+        width:240px;
+        height:240px;
+      }
+
+      .hero-people-wrap{
+        min-height:300px;
+        padding:20px 0 20px;
       }
 
       .hero-people{
-        min-height:260px;
-        gap:.2rem;
+        gap:10px;
       }
 
-      .hero-person img{
-        max-width:135px;
+      .hero-person{
+        width:130px;
+      }
+
+      .hero-image-box{
+        width:130px;
+        height:165px;
+      }
+
+      .hero-image-box img{
+        width:130px;
+        max-height:165px;
       }
 
       .hero-tagcard{
         position:static;
-        transform:none;
-        margin-top:.6rem;
-        box-shadow:0 4px 14px rgba(15,23,42,.15);
-        max-width:260px;
-        text-align:left;
+        margin-top:.7rem;
+        max-width:100%;
+        width:100%;
       }
 
       .contact-strip{
@@ -715,8 +761,6 @@
       .calc-grid{
         grid-template-columns:minmax(0,1fr);
       }
-
-      .calc-btn-row button{width:100%}
 
       .cta-row{gap:.5rem}
       .btn-primary,.btn-secondary,.btn-wa,.btn-gold{
@@ -753,13 +797,15 @@
 
     <header class="hero">
       <div class="hero-inner">
+
         <div class="hero-text animate-on-scroll">
           <div class="hero-label"><span class="dot"></span>Eltern-Renten-Check · unverbindlich</div>
+
           <h1>Bis zu <strong>120 €</strong> pro Kind: Weißt Du, ob Du alles bekommst?</h1>
 
           <p class="hero-lead">
-            Wir sind Jonas Plener und Timo Hügel. Viele Eltern verschenken jeden Monat Rentenansprüche
-            und staatliche Förderungen, weil niemand das Thema mit ihnen klar durchgeht.
+            Wir sind Jonas Plener und Timo Hügel. Viele Eltern verschenken jeden Monat
+            Rentenansprüche und staatliche Förderungen, weil niemand das Thema mit ihnen klar durchgeht.
             Genau da setzen wir an: <strong>kurz, verständlich und auf Augenhöhe.</strong>
           </p>
 
@@ -784,24 +830,39 @@
         </div>
 
         <div class="hero-photo animate-on-scroll">
-          <div class="hero-people">
-            <div class="hero-person">
-              <img src="jonas-halbkoerper.png" alt="Jonas Plener" />
-              <div class="hero-person-name">Jonas Plener</div>
+          <div class="hero-people-wrap">
+            <div class="hero-people">
+
+              <div class="hero-person">
+                <div class="hero-image-box">
+                  <img src="jonas-halbkoerper.png" alt="Jonas Plener" />
+                </div>
+                <div class="hero-person-name">Jonas Plener</div>
+              </div>
+
+              <div class="hero-person">
+                <div class="hero-image-box">
+                  <img src="timo-halbkoerper.png" alt="Timo Hügel" />
+                </div>
+                <div class="hero-person-name">Timo Hügel</div>
+              </div>
+
             </div>
 
-            <div class="hero-person">
-              <img src="timo-halbkoerper.png" alt="Timo Hügel" />
-              <div class="hero-person-name">Timo Hügel</div>
+            <div class="hero-tagcard">
+              <div class="hero-tagcard-title">Eure Ansprechpartner</div>
+              <div class="hero-tagcard-line">
+                <span class="hero-tagcard-dot"></span>
+                <span>Eltern und Familien im Fokus</span>
+              </div>
+              <div class="hero-tagcard-line">
+                <span class="hero-tagcard-dot"></span>
+                <span>Beratung digital und vor Ort</span>
+              </div>
             </div>
-          </div>
-
-          <div class="hero-tagcard">
-            <div class="hero-tagcard-title">Eure Ansprechpartner</div>
-            <div class="hero-tagcard-line"><span class="hero-tagcard-dot"></span><span>Eltern und Familien im Fokus</span></div>
-            <div class="hero-tagcard-line"><span class="hero-tagcard-dot"></span><span>Beratung digital und vor Ort</span></div>
           </div>
         </div>
+
       </div>
 
       <div class="contact-strip">
@@ -860,10 +921,10 @@
             <div class="calc-result" id="calc-result">
               <p class="calc-expl">
                 Unten siehst Du vier Zahlen:
-                <br /><strong>1. Rente heute</strong> ist das, was Deine Rente ungefähr wäre, wenn Du nichts änderst.
-                <br /><strong>2. Rente mit Förderung</strong> zeigt, was möglich sein kann, wenn passende Bausteine genutzt werden.
-                <br /><strong>3. Mehr-Rente pro Monat</strong> ist die Differenz zwischen heute und mit Förderung.
-                <br /><strong>4. Summe bis 100 Jahre</strong> ist das Geld, das sich daraus bis zu Deinem 100. Geburtstag aufsummieren kann.
+                <br><strong>1. Rente heute</strong> ist das, was Deine Rente ungefähr wäre, wenn Du nichts änderst.
+                <br><strong>2. Rente mit Förderung</strong> zeigt, was möglich sein kann, wenn passende Bausteine genutzt werden.
+                <br><strong>3. Mehr-Rente pro Monat</strong> ist die Differenz zwischen heute und mit Förderung.
+                <br><strong>4. Summe bis 100 Jahre</strong> ist das Geld, das sich daraus bis zu Deinem 100. Geburtstag aufsummieren kann.
               </p>
 
               <div class="calc-values">
@@ -1158,7 +1219,7 @@
     }
 
     document.getElementById("calcBtn")?.addEventListener("click", calculatePension);
-    ["birthdate","brutto","children"].forEach(id => {
+    ["birthdate", "brutto", "children"].forEach(id => {
       document.getElementById(id)?.addEventListener("keydown", (e) => {
         if (e.key === "Enter") calculatePension();
       });
