@@ -1,3 +1,6 @@
+Ja, absolut. Hier ist der komplette HTML-Code der Seite als ein durchgehender Stand mit den zuletzt gewünschten Anpassungen im Hero-Bereich:
+
+```html
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -295,11 +298,10 @@
     }
 
     .hero-person.jonas{
-      left:90px;
+      left:52px;
       top:-8px;
     }
 
-    /* Kleine Person 25 % größer */
     .hero-person.jonas .hero-image-box img{
       width:341px;
       max-height:435px;
@@ -307,15 +309,14 @@
     }
 
     .hero-person.timo{
-      left:0;
+      left:-40px;
       top:-8px;
     }
 
-    /* Große Person 25 % kleiner */
     .hero-person.timo .hero-image-box img{
       width:168px;
       max-height:225px;
-      transform:translateY(0);
+      transform:translateY(12px);
     }
 
     .hero-name{
@@ -324,15 +325,15 @@
 
     .hero-card{
       position:absolute;
-      bottom:8px;
-      right:0;
+      bottom:18px;
+      right:72px;
       background:#fff;
-      padding:18px 22px;
+      padding:18px 30px;
       border-radius:22px;
       border:1px solid rgba(148,163,184,.6);
       box-shadow:0 8px 20px rgba(15,23,42,.18);
       z-index:3;
-      max-width:350px;
+      width:363px;
       color:var(--muted);
     }
 
@@ -346,6 +347,9 @@
     }
 
     .hero-card ul{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
       margin:0;
       padding:0;
       list-style:none;
@@ -353,10 +357,12 @@
 
     .hero-card li{
       display:flex;
+      justify-content:center;
       align-items:flex-start;
       gap:.55rem;
       margin-bottom:.3rem;
       font-size:.82rem;
+      text-align:center;
     }
 
     .hero-card li::before{
@@ -753,13 +759,11 @@
         top:-2px;
       }
 
-      /* Kleine Person 25 % größer mobil */
       .hero-person.jonas .hero-image-box img{
         width:238px;
         max-height:293px;
       }
 
-      /* Große Person 25 % kleiner mobil */
       .hero-person.timo .hero-image-box img{
         width:106px;
         max-height:139px;
@@ -1240,3 +1244,4 @@
   </script>
 </body>
 </html>
+```
