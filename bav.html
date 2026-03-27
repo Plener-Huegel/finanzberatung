@@ -2,399 +2,673 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Leistungsseite</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Betriebliche Altersvorsorge - Jonas Plener &amp; Timo Huegel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500&family=Raleway:wght@500;600;700;800&display=swap" rel="stylesheet" />
   <style>
-    body {
-      margin: 0;
-      font-family: "Raleway", sans-serif;
-      background: #f9fafb;
-      color: #111827;
+    :root{
+      --primary:#4a787d;
+      --accent:#f4be69;
+      --text:#111111;
+      --muted:#4b5563;
+      --bg:#f4f8f8;
+      --bg-soft:#f9fbfb;
+      --border:#e5e7eb;
+      --good:#16a34a;
+      --wa:#25d366;
+      --shadow:0 10px 25px rgba(15,23,42,.06);
+      --shadowStrong:0 18px 45px rgba(15,23,42,.12);
     }
-
-    header.hero {
-      background: #eef7fa;
-      padding: 2.5rem 1.2rem;
-      border-bottom: 1px solid #e5e7eb;
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:"Arimo",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:radial-gradient(circle at top,#fef3c7 0,#f4f8f8 35%,#dbeafe 100%);
+      color:var(--text);
+      line-height:1.6;
     }
+    a{color:inherit;text-decoration:none}
+    .page{max-width:1100px;margin:0 auto;min-height:100vh;background:#fff;box-shadow:0 12px 35px rgba(15,23,42,.12);display:flex;flex-direction:column;overflow:hidden;}
 
-    .hero-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
+    /* TOPBAR */
+    .topbar{display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.8rem;border-bottom:1px solid var(--border);background:linear-gradient(to right,#ffffff,#fef3c7);gap:1rem;}
+    .topbar-left{display:flex;align-items:center;gap:.85rem;min-width:0;}
+    .topbar-avatars{display:flex;align-items:center;}
+    .topbar-avatars img{width:54px;height:54px;border-radius:50%;object-fit:cover;display:block;box-shadow:0 4px 10px rgba(15,23,42,.25);border:2px solid #fff;background:#fff;}
+    .topbar-avatars img+img{margin-left:-10px;}
+    .topbar-title{font-family:"Raleway",system-ui,sans-serif;font-weight:700;letter-spacing:.03em;font-size:.95rem;text-transform:uppercase;color:var(--primary);}
+    .topbar-tagline{font-size:.8rem;color:var(--muted);}
+    .menu-wrap{position:relative;display:flex;align-items:center;justify-content:flex-end;gap:.65rem;min-width:0;margin-left:auto;}
+    .menu-text{font-size:.8rem;color:var(--muted);text-align:right;white-space:nowrap;}
+    .burger-btn{display:inline-flex;align-items:center;justify-content:center;border:none;background:transparent;cursor:pointer;transition:opacity .12s ease;padding:0;}
+    .burger-btn:hover{opacity:.7;}
+    .burger-lines{display:flex;flex-direction:column;gap:4px;}
+    .burger-lines span{display:block;width:22px;height:2.5px;background:#4a787d;border-radius:999px;transition:transform .18s ease,opacity .18s ease;}
+    .burger-btn[aria-expanded="true"] .burger-lines span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+    .burger-btn[aria-expanded="true"] .burger-lines span:nth-child(2){opacity:0;}
+    .burger-btn[aria-expanded="true"] .burger-lines span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+    .menu-overlay{position:fixed;inset:0;background:rgba(0,0,0,.3);opacity:0;pointer-events:none;transition:opacity .15s ease;z-index:40;}
+    .menu-overlay.open{opacity:1;pointer-events:auto;}
+    .menu-panel{position:fixed;top:0;right:0;height:100vh;width:min(420px,80vw);background:#fff;box-shadow:-8px 0 20px rgba(0,0,0,.15);transform:translateX(100%);transition:transform .25s cubic-bezier(.4,0,.2,1);z-index:50;overflow-y:auto;display:flex;flex-direction:column;}
+    .menu-panel.open{transform:translateX(0);}
+    .menu-header{display:flex;align-items:center;justify-content:space-between;padding:1.2rem;border-bottom:1px solid var(--border);gap:1rem;flex-shrink:0;}
+    .menu-header-title{font-family:"Raleway",system-ui,sans-serif;font-weight:700;color:var(--primary);font-size:1rem;text-transform:uppercase;letter-spacing:.02em;}
+    .menu-close-btn{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border:none;background:transparent;cursor:pointer;color:var(--primary);font-size:1.4rem;padding:0;transition:color .12s ease;}
+    .menu-close-btn:hover{color:var(--muted);}
+    .menu-content{flex:1;padding:.8rem 0;overflow-y:auto;}
+    .menu-section{padding:0;margin:0;}
+    .menu-section-title{font-family:"Raleway",system-ui,sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.03em;font-size:.75rem;color:var(--primary);padding:.8rem 1.2rem .4rem;margin:0;}
+    .menu-section-links{display:flex;flex-direction:column;margin:0;padding:0;list-style:none;}
+    .menu-section-links li{margin:0;padding:0;}
+    .menu-section-links a{display:flex;align-items:center;padding:.6rem 1.2rem;font-size:.92rem;color:#1f2937;transition:background .12s ease;border-left:3px solid transparent;position:relative;}
+    .menu-section-links a:hover{background:#f3f4f6;}
+    .menu-section-links a.active{border-left-color:var(--accent);background:rgba(244,190,105,.08);}
+
+    /* HERO */
+    header.hero{padding:2rem 1.4rem 2.2rem;border-bottom:1px solid var(--border);background:radial-gradient(circle at top left,#fdf4e6 0,#ffffff 40%,#e0f2fe 100%);}
+    .hero-inner{display:flex;flex-wrap:wrap;gap:2rem;align-items:center;}
+    .hero-text{flex:1 1 280px;min-width:0;}
+    .hero-label{display:inline-flex;align-items:center;gap:.4rem;padding:.15rem .65rem;border-radius:999px;border:1px solid rgba(148,163,184,.8);font-size:.8rem;color:var(--muted);margin-bottom:.6rem;background:rgba(255,255,255,.9);}
+    .hero-label .dot{width:6px;height:6px;border-radius:999px;background:var(--accent);}
+    .hero h1{font-family:"Raleway",system-ui,sans-serif;font-weight:800;font-size:2rem;margin:0 0 .7rem;letter-spacing:.02em;}
+    .hero h1 strong{color:var(--primary)}
+    .hero-lead{margin:0 0 1rem;color:var(--muted);max-width:38rem;font-size:.98rem;}
+    .hero-lead strong{font-weight:800;color:var(--primary);}
+    .hero-badges{display:flex;flex-wrap:wrap;gap:.5rem;margin:.6rem 0 1.1rem;}
+    .badge{display:inline-flex;align-items:center;gap:.32rem;padding:.3rem .7rem;border-radius:999px;border:1px solid rgba(148,163,184,.9);font-size:.8rem;color:var(--muted);background:#fff;box-shadow:0 3px 8px rgba(15,23,42,.08);}
+    .badge .arrow{font-size:.9rem;color:var(--primary);}
+    .cta-row{display:flex;flex-wrap:wrap;gap:.8rem;align-items:center;margin-top:1rem;}
+    .btn-primary,.btn-secondary,.btn-wa,.btn-gold{display:inline-flex;align-items:center;justify-content:center;padding:.9rem 1.7rem;border-radius:999px;font-weight:700;font-size:.95rem;cursor:pointer;border:none;text-align:center;white-space:nowrap;transition:transform .12s ease,filter .12s ease;min-height:54px;}
+    .btn-primary,.btn-gold{background:var(--accent);color:#1f2933;box-shadow:0 6px 18px rgba(0,0,0,.12);}
+    .btn-secondary,.btn-wa{background:var(--wa);color:#fff;box-shadow:0 6px 18px rgba(0,0,0,.12);}
+    .btn-primary:hover,.btn-secondary:hover,.btn-wa:hover,.btn-gold:hover{filter:brightness(1.03);transform:translateY(-1px);}
+    .btn-forms{display:inline-flex;align-items:center;justify-content:center;padding:.9rem 1.7rem;border-radius:999px;font-weight:700;font-size:.95rem;cursor:pointer;border:none;text-align:center;white-space:nowrap;transition:transform .12s ease,filter .12s ease;min-height:54px;background:var(--primary);color:#fff;box-shadow:0 6px 18px rgba(0,0,0,.12);}
+    .btn-forms:hover{filter:brightness(1.05);transform:translateY(-1px);}
+
+    /* HERO PHOTO */
+    .hero-photo{flex:0 0 450px;position:relative;display:flex;justify-content:center;align-items:center;min-width:360px;min-height:420px;}
+    .hero-photo::before{content:"";position:absolute;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,#f4be69 0,#ffffff 52%,#cfe7ff 100%);opacity:.62;top:0;left:50%;transform:translateX(-50%);z-index:0;}
+    .hero-people{position:absolute;inset:0;display:flex;justify-content:center;align-items:flex-end;gap:16px;padding:28px 24px 112px;z-index:1;}
+    .hero-person{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;position:relative;z-index:1;}
+    .hero-image-box{width:210px;height:290px;display:flex;align-items:flex-end;justify-content:center;}
+    .hero-image-box img{height:auto;object-fit:contain;display:block;filter:drop-shadow(0 10px 20px rgba(15,23,42,.16));}
+    .hero-person.jonas{left:52px;top:-8px;}
+    .hero-person.jonas .hero-image-box img{width:341px;max-height:435px;transform:translateY(12px);}
+    .hero-person.timo{left:-40px;top:-8px;}
+    .hero-person.timo .hero-image-box img{width:168px;max-height:225px;transform:translateY(12px);}
+    .hero-card{position:absolute;bottom:18px;right:57px;background:#fff;padding:18px 30px;border-radius:22px;border:1px solid rgba(148,163,184,.6);box-shadow:0 8px 20px rgba(15,23,42,.18);z-index:3;width:333px;color:var(--muted);}
+    .hero-card h3{margin:0 0 10px;color:var(--primary);font-family:"Raleway",system-ui,sans-serif;font-size:.92rem;text-align:center;font-weight:800;}
+    .hero-card ul{display:flex;flex-direction:column;align-items:center;margin:0;padding:0;list-style:none;}
+    .hero-card li{display:flex;justify-content:center;align-items:flex-start;gap:.55rem;margin-bottom:.3rem;font-size:.82rem;text-align:center;}
+    .hero-card li::before{content:"";width:8px;height:8px;border-radius:999px;background:var(--accent);margin-top:.42rem;flex:0 0 8px;}
+    .contact-strip{margin-top:1rem;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem;}
+    .contact-card{background:rgba(255,255,255,.92);border:1px solid var(--border);border-radius:16px;padding:.9rem 1rem;box-shadow:var(--shadow);}
+    .contact-name{font-family:"Raleway",system-ui,sans-serif;font-weight:800;color:var(--primary);margin-bottom:.25rem;font-size:1rem;}
+    .contact-role{font-size:.84rem;color:var(--muted);margin-bottom:.45rem;}
+    .contact-links{display:flex;flex-direction:column;gap:.28rem;font-size:.92rem;}
+    .contact-links a:hover{text-decoration:underline;}
+
+    /* MAIN */
+    main{padding:1.8rem 1.4rem 2.4rem;flex:1;background:linear-gradient(to bottom,#ffffff 0,#f9fafb 100%);}
+    section{margin-bottom:2.2rem;}
+    h2{font-family:"Raleway",system-ui,sans-serif;margin:0 0 .4rem;font-size:1.45rem;color:var(--primary);font-weight:800;}
+    .section-subtitle{margin-bottom:1rem;color:var(--muted);font-size:.9rem;}
+    .grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;}
+    .card{background:linear-gradient(to bottom,#fff,var(--bg-soft));border-radius:16px;padding:1rem 1.05rem;border:2px solid rgba(74,120,125,.20);box-shadow:var(--shadow);font-size:.92rem;color:var(--muted);}
+    .card-title{font-family:"Raleway",system-ui,sans-serif;font-weight:800;margin-bottom:.35rem;color:var(--text);font-size:1rem;}
+    .card ul{margin:.2rem 0 0;padding-left:1.1rem;}
+    .card li{margin-bottom:.18rem;}
+    .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.8rem;margin-top:.6rem;}
+    .stat-card{border-radius:14px;border:1px solid rgba(22,163,74,.3);background:linear-gradient(135deg,#f0fdf4,#ecfdf5);padding:.9rem 1rem;box-shadow:var(--shadow);}
+    .stat-label{font-size:.78rem;color:#166534;margin-bottom:.2rem;}
+    .stat-value{font-family:"Raleway",system-ui,sans-serif;font-weight:800;font-size:1.22rem;color:#14532d;line-height:1.2;}
+    .bottom-cta{margin-top:1.6rem;padding:1.1rem 1.1rem 1.3rem;border-radius:18px;background:linear-gradient(to right,#e0f2fe,#fef3c7);border:1px solid var(--border);text-align:center;font-size:.95rem;box-shadow:var(--shadow);}
+    .bottom-cta p{margin:0 0 .8rem;color:var(--muted);}
+
+    /* RECHNER */
+    .rechner-box{background:linear-gradient(135deg,#f0fdf4,#fffbeb);border:2px solid rgba(74,120,125,.25);border-radius:20px;padding:1.4rem 1.4rem 1.6rem;box-shadow:var(--shadowStrong);}
+    .rechner-box h3{font-family:"Raleway",system-ui,sans-serif;font-weight:800;color:var(--primary);margin:0 0 .3rem;font-size:1.1rem;}
+    .rechner-hint{font-size:.83rem;color:var(--muted);margin-bottom:1.2rem;}
+    .rechner-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-bottom:1.2rem;}
+    .rechner-field{display:flex;flex-direction:column;gap:.3rem;}
+    .rechner-field label{font-size:.82rem;font-weight:700;color:var(--primary);}
+    .stepper{display:flex;align-items:center;gap:.55rem;}
+    .step-btn{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;border:2px solid var(--primary);background:#fff;color:var(--primary);font-size:1.3rem;font-weight:700;cursor:pointer;transition:background .12s,color .12s;line-height:1;flex-shrink:0;}
+    .step-btn:hover{background:var(--primary);color:#fff;}
+    .step-val{font-family:"Raleway",system-ui,sans-serif;font-weight:800;font-size:1.15rem;color:#14532d;min-width:72px;text-align:center;}
+    .toggle-row{display:flex;align-items:center;gap:.8rem;margin-top:.1rem;}
+    .toggle-label{font-size:.82rem;font-weight:700;color:var(--primary);}
+    .toggle-btn{display:flex;align-items:center;gap:0;border:2px solid var(--border);border-radius:999px;overflow:hidden;font-size:.82rem;font-weight:700;}
+    .toggle-btn span{padding:.3rem .85rem;cursor:pointer;transition:background .12s,color .12s;color:var(--muted);}
+    .toggle-btn span.active{background:var(--primary);color:#fff;}
+    .ag-field label{font-size:.82rem;font-weight:700;color:var(--primary);}
+    .ag-stepper{display:flex;align-items:center;gap:.55rem;margin-top:.3rem;}
+    .rechner-trennlinie{border:none;border-top:1px solid var(--border);margin:.4rem 0 1rem;}
+
+    /* ERGEBNIS */
+    .ergebnis-row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:1rem;}
+    .ergebnis-card{border-radius:14px;padding:.9rem 1rem;box-shadow:var(--shadow);}
+    .ergebnis-card.netto{background:linear-gradient(135deg,#fff7ed,#fffbeb);border:1.5px solid rgba(244,190,105,.5);}
+    .ergebnis-card.einzahlung{background:linear-gradient(135deg,#f0fdf4,#ecfdf5);border:1.5px solid rgba(22,163,74,.3);}
+    .ergebnis-card .e-label{font-size:.75rem;color:var(--muted);margin-bottom:.15rem;}
+    .ergebnis-card .e-val{font-family:"Raleway",system-ui,sans-serif;font-weight:800;font-size:1.3rem;line-height:1.2;}
+    .ergebnis-card.netto .e-val{color:#92400e;}
+    .ergebnis-card.einzahlung .e-val{color:#14532d;}
+    .ergebnis-card .e-sub{font-size:.73rem;color:var(--muted);margin-top:.12rem;}
+
+    /* BALKENDIAGRAMM */
+    .chart-wrap{margin-top:.2rem;}
+    .chart-title{font-size:.8rem;font-weight:700;color:var(--muted);margin-bottom:.55rem;}
+    .bar-group{display:flex;flex-direction:column;gap:.55rem;}
+    .bar-row{display:flex;align-items:center;gap:.7rem;}
+    .bar-label{font-size:.78rem;color:var(--muted);width:130px;flex-shrink:0;text-align:right;}
+    .bar-track{flex:1;background:#e5e7eb;border-radius:999px;height:22px;position:relative;overflow:hidden;}
+    .bar-fill{height:100%;border-radius:999px;transition:width .5s cubic-bezier(.4,0,.2,1);display:flex;align-items:center;padding-left:.5rem;font-size:.73rem;font-weight:700;color:#fff;white-space:nowrap;min-width:2px;}
+    .bar-fill.bar-netto{background:linear-gradient(90deg,#f4be69,#e09a30);}
+    .bar-fill.bar-gesamt{background:linear-gradient(90deg,#4a787d,#2d5c61);}
+    .bar-val{font-size:.78rem;font-weight:700;color:var(--primary);white-space:nowrap;min-width:48px;}
+
+    /* AUFSCHLUESSE */
+    .aufschluss{margin-top:.9rem;display:flex;flex-wrap:wrap;gap:.45rem;}
+    .aufschluss-item{display:flex;align-items:center;gap:.35rem;font-size:.78rem;color:var(--muted);}
+    .aufschluss-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+    .aufschluss-dot.netto-color{background:#f4be69;}
+    .aufschluss-dot.einzahlung-color{background:#4a787d;}
+    .aufschluss-dot.steuer-color{background:#a3e635;}
+    .aufschluss-dot.sv-color{background:#38bdf8;}
+    .aufschluss-dot.ag-color{background:#2dd4bf;}
+    .aufschluss-dot.vwl-color{background:#c084fc;}
+
+    /* KONTAKT-BOX */
+    .kontakt-box{background:linear-gradient(135deg,#e0f2fe,#fef3c7);border:1px solid var(--border);border-radius:20px;padding:1.5rem 1.4rem 1.7rem;text-align:center;box-shadow:var(--shadowStrong);}
+    .kontakt-box h2{color:var(--primary);margin-bottom:.35rem;font-size:1.3rem;}
+    .kontakt-box p{color:var(--muted);font-size:.95rem;margin-bottom:1.1rem;max-width:480px;margin-left:auto;margin-right:auto;}
+    .kontakt-btn-row{display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center;margin-bottom:.8rem;}
+    .kontakt-mini-row{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;}
+    .kontakt-mini-link{font-size:.82rem;color:var(--primary);display:flex;align-items:center;gap:.25rem;}
+    .kontakt-mini-link:hover{text-decoration:underline;}
+
+    footer{padding:1rem 1.4rem 1.3rem;font-size:.78rem;color:#6b7280;border-top:1px solid var(--border);background:#f9fafb;}
+    .animate-on-scroll{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease;}
+    .animate-on-scroll.in-view{opacity:1;transform:translateY(0);}
+
+    @media(min-width:768px){
+      .cta-row .btn-primary{flex:0 0 auto;}
+      .cta-row .btn-wa,.cta-row .btn-secondary{flex:0 0 315px;}
     }
-
-    .hero-label {
-      text-transform: uppercase;
-      font-size: 0.8rem;
-      color: #4a787d;
-      letter-spacing: 0.05em;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .dot {
-      width: 8px;
-      height: 8px;
-      background: #4a787d;
-      border-radius: 50%;
-      display: block;
-    }
-
-    .hero h1 {
-      margin-top: 0.6rem;
-      font-size: 1.9rem;
-      line-height: 1.3;
-      color: #1f2937;
-    }
-
-    .hero-lead {
-      margin-top: 0.75rem;
-      font-size: 1.05rem;
-      line-height: 1.55;
-      color: #374151;
-    }
-
-    .hero-photo img {
-      width: 100%;
-      border-radius: 14px;
-      object-fit: cover;
-    }
-
-    .btn-primary {
-      display: inline-block;
-      padding: 0.9rem 1.4rem;
-      background: #4a787d;
-      color: #ffffff;
-      border-radius: 12px;
-      text-decoration: none;
-      font-weight: 600;
-      margin-top: 1rem;
-    }
-
-    .btn-secondary {
-      display: inline-block;
-      padding: 0.8rem 1.3rem;
-      background: #d1d5db;
-      color: #1f2937;
-      border-radius: 12px;
-      text-decoration: none;
-      margin-top: 1rem;
-    }
-
-    main {
-      max-width: 1100px;
-      margin: 2rem auto;
-      padding: 0 1.2rem;
-    }
-
-    h2 {
-      color: #1f2937;
-      margin-top: 2.2rem;
-      margin-bottom: 1rem;
-      font-size: 1.5rem;
-    }
-
-    .grid-2 {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1rem;
-    }
-
-    @media (min-width: 768px) {
-      .grid-2 {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    .card {
-      background: #ffffff;
-      border-radius: 14px;
-      padding: 1.2rem;
-      border: 1px solid #e5e7eb;
-    }
-
-    .card-title {
-      font-weight: 600;
-      margin-bottom: 0.6rem;
-      color: #4a787d;
-    }
-
-    /* BURGER MENU */
-    .menu-toggle {
-      position: fixed;
-      right: 18px;
-      top: 18px;
-      background: white;
-      border: 1px solid #e5e7eb;
-      padding: 0.5rem;
-      border-radius: 10px;
-      cursor: pointer;
-      z-index: 50;
-    }
-
-    .menu-burger {
-      width: 22px;
-      height: 3px;
-      background: #111827;
-      margin: 3px 0;
-      border-radius: 50px;
-    }
-
-    .menu-panel-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.35);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.25s ease;
-      z-index: 40;
-    }
-
-    .menu-panel-backdrop.open {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .menu-panel {
-      position: fixed;
-      right: -260px;
-      top: 0;
-      height: 100%;
-      width: 260px;
-      background: #ffffff;
-      border-left: 1px solid #e5e7eb;
-      padding: 1.2rem;
-      z-index: 45;
-      transition: right 0.25s ease;
-    }
-
-    .menu-panel.open {
-      right: 0;
-    }
-
-    .menu-section-title {
-      text-transform: uppercase;
-      font-size: 0.8rem;
-      color: #9ca3af;
-      margin-top: 1rem;
-    }
-
-    .menu-link {
-      display: block;
-      padding: 0.4rem 0;
-      color: #111827;
-      text-decoration: none;
-      font-size: 0.95rem;
-    }
-
-    footer {
-      text-align: center;
-      padding: 3rem 1rem;
-      color: #6b7280;
-      font-size: 0.85rem;
-      margin-top: 4rem;
+    @media(max-width:900px){.hero-photo{flex:1 1 100%;min-width:0;}}
+    @media(max-width:767px){
+      .topbar{padding-inline:1rem;}
+      .menu-panel{width:100vw;}
+      .menu-text{display:none;}
+      header.hero{padding:1.2rem 1rem 1.5rem;}
+      main{padding:1.6rem 1rem 2.2rem;}
+      .hero-inner{flex-direction:column-reverse;align-items:stretch;}
+      .hero h1{font-size:1.45rem;}
+      .hero-lead{font-size:.92rem;}
+      .hero-photo{width:100%;flex:none;min-width:0;min-height:0;display:flex;flex-direction:column;align-items:stretch;position:relative;overflow:hidden;}
+      .hero-photo::before{width:200px;height:200px;}
+      .hero-people{position:relative;inset:auto;display:flex;justify-content:center;align-items:flex-end;padding:24px 16px 0;gap:0;}
+      .hero-image-box{width:auto;height:auto;}
+      .hero-person.jonas{left:10px;top:0;}
+      .hero-person.jonas .hero-image-box img{width:min(63vw,231px);max-height:300px;transform:none;}
+      .hero-person.timo{left:-50px;top:0;}
+      .hero-person.timo .hero-image-box img{width:min(31vw,116px);max-height:156px;transform:none;}
+      .hero-card{position:static;right:auto;bottom:auto;width:auto;margin:-11px 45px 0;border-radius:16px;padding:14px 20px;}
+      .cta-row{flex-direction:column;align-items:stretch;}
+      .cta-row a{width:100%;}
+      .contact-strip{grid-template-columns:1fr;}
+      .btn-primary,.btn-secondary,.btn-wa,.btn-gold,.btn-forms{width:100%;justify-content:center;}
+      .ergebnis-row{grid-template-columns:1fr;}
+      .bar-label{width:90px;font-size:.72rem;}
+      .rechner-grid{grid-template-columns:1fr;}
     }
   </style>
 </head>
-
 <body>
+<div class="page">
 
-<!-- 🔥 BURGER BUTTON -->
-<button class="menu-toggle" id="menu-toggle">
-  <div class="menu-burger"></div>
-  <div class="menu-burger"></div>
-  <div class="menu-burger"></div>
-</button>
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <div class="topbar-avatars">
+        <img src="jonas-halbkoerper.png" alt="Jonas Plener" />
+        <img src="timo-halbkoerper.png" alt="Timo Huegel" />
+      </div>
+      <div>
+        <div class="topbar-title">Jonas Plener &amp; Timo Huegel</div>
+        <div class="topbar-tagline">Agentur fuer Deutsche Vermoegensberatung<br />Region Kinzigtal / Ortenau</div>
+      </div>
+    </div>
+    <div class="menu-wrap">
+      <div class="menu-text">Fuer Eltern, Selbststaendige und Angestellte<br />im Kinzigtal &amp; der Ortenau</div>
+      <button type="button" class="burger-btn" id="burgerBtn" aria-label="Menue oeffnen" aria-expanded="false" aria-controls="menuPanel">
+        <span class="burger-lines" aria-hidden="true"><span></span><span></span><span></span></span>
+      </button>
+    </div>
+    <div class="menu-overlay" id="menuOverlay"></div>
+    <nav class="menu-panel" id="menuPanel" aria-label="Navigation">
+      <div class="menu-header">
+        <span class="menu-header-title">Menue</span>
+        <button type="button" class="menu-close-btn" aria-label="Menue schliessen">&#x2715;</button>
+      </div>
+      <div class="menu-content">
+        <section class="menu-section">
+          <h2 class="menu-section-title">Startseite</h2>
+          <ul class="menu-section-links"><li><a href="index.html">Themenauswahl</a></li></ul>
+        </section>
+        <section class="menu-section">
+          <h2 class="menu-section-title">Angestellt</h2>
+          <ul class="menu-section-links">
+            <li><a href="vermoegen-aufbauen-investieren.html">Vermoegen aufbauen</a></li>
+            <li><a href="bav.html" class="active">bAV</a></li>
+            <li><a href="arbeitskraftabsicherung.html">Arbeitskraft absichern</a></li>
+            <li><a href="risikoleben.html">Familie absichern</a></li>
+            <li><a href="sachversicherungen.html">Sachversicherungen</a></li>
+            <li><a href="immobilien-finanzierung.html">Immobilien &amp; Finanzierung</a></li>
+          </ul>
+        </section>
+        <section class="menu-section">
+          <h2 class="menu-section-title">Eltern &amp; Familie</h2>
+          <ul class="menu-section-links">
+            <li><a href="kinder-absichern.html">Kinder absichern</a></li>
+            <li><a href="eltern-retter-kindererziehungszeiten.html">Kindererziehungszeiten</a></li>
+            <li><a href="riester.html">Riester</a></li>
+            <li><a href="risikoleben.html">Familie absichern</a></li>
+          </ul>
+        </section>
+        <section class="menu-section">
+          <h2 class="menu-section-title">Unternehmer &amp; Selbststaendig</h2>
+          <ul class="menu-section-links">
+            <li><a href="liquiditaet.html">Liquiditaet</a></li>
+            <li><a href="mitarbeiter-benefits.html">Mitarbeiter Benefits</a></li>
+            <li><a href="energie.html">Energie</a></li>
+            <li><a href="unternehmer-absicherung.html">Unternehmer absichern</a></li>
+            <li><a href="vertraege-optimieren.html">Vertraege optimieren</a></li>
+            <li><a href="ruerup.html">Ruerup</a></li>
+            <li><a href="immobilien-finanzierung.html">Immobilien &amp; Finanzierung</a></li>
+          </ul>
+        </section>
+        <section class="menu-section">
+          <h2 class="menu-section-title">Karriere &amp; Ausbildung</h2>
+          <ul class="menu-section-links">
+            <li><a href="ausbildung-und-zukunft.html">Ausbildung &amp; Zukunft</a></li>
+            <li><a href="karriere-im-finanzbereich.html">Karriere im Finanzbereich</a></li>
+          </ul>
+        </section>
+      </div>
+    </nav>
+  </div>
 
-<!-- 🔥 BURGER OVERLAY + PANEL -->
-<div id="menu-backdrop" class="menu-panel-backdrop"></div>
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="hero-text animate-on-scroll">
+        <div class="hero-label"><span class="dot"></span>bAV-Check fuer Angestellte</div>
+        <h1>Mehr Rente mit <strong>kleinem Nettoeinsatz</strong></h1>
+        <p class="hero-lead">
+          Viele Angestellte nutzen die betriebliche Altersvorsorge nicht voll aus. Dabei kann aus einem Bruttobeitrag von <strong>100 EUR</strong> durch Steuer- und Sozialversicherungsersparnis ein Nettoaufwand von nur ca. 55-65 EUR werden. Und dein Arbeitgeber zahlt noch obendrauf.
+        </p>
+        <div class="hero-badges">
+          <a href="#wie-es-funktioniert" class="badge"><span>Wie es funktioniert</span><span class="arrow">&#8595;</span></a>
+          <a href="#rechner" class="badge"><span>Interaktiver Rechner</span><span class="arrow">&#8595;</span></a>
+          <a href="#problem" class="badge"><span>Typische Fehler</span><span class="arrow">&#8595;</span></a>
+          <a href="#kontakt" class="badge"><span>Hier anfragen</span><span class="arrow">&#8595;</span></a>
+        </div>
+        <div class="cta-row">
+          <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-primary">bAV-Check starten</a>
+          <a href="https://wa.me/4915141678134" target="_blank" rel="noopener" class="btn-wa">Jonas kontaktieren</a>
+          <a href="https://wa.me/4917663796605" target="_blank" rel="noopener" class="btn-secondary">Timo kontaktieren</a>
+        </div>
+      </div>
+      <div class="hero-photo animate-on-scroll">
+        <div class="hero-people">
+          <div class="hero-person jonas">
+            <div class="hero-image-box"><img src="jonas-halbkoerper.png" alt="Jonas Plener" /></div>
+          </div>
+          <div class="hero-person timo">
+            <div class="hero-image-box"><img src="timo-halbkoerper.png" alt="Timo Huegel" /></div>
+          </div>
+        </div>
+        <div class="hero-card">
+          <h3>Eure Ansprechpartner</h3>
+          <ul>
+            <li>Angestellte und Familien im Fokus</li>
+            <li>Beratung digital und vor Ort</li>
+            <li>Unverbindlich und kostenlos</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="contact-strip">
+      <div class="contact-card">
+        <div class="contact-name">Jonas Plener</div>
+        <div class="contact-role">Vermoegensberater bei der Deutschen Vermoegensberatung</div>
+        <div class="contact-links">
+          <a href="tel:+4915141678134">&#128222; 0151 41678134</a>
+          <a href="mailto:Jonas.Plener@dvag.de">&#9993; Jonas.Plener@dvag.de</a>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-name">Timo Huegel</div>
+        <div class="contact-role">Vermoegensberater bei der Deutschen Vermoegensberatung</div>
+        <div class="contact-links">
+          <a href="tel:+4917663796605">&#128222; 0176 63796605</a>
+          <a href="mailto:Timo.Huegel@dvag.de">&#9993; Timo.Huegel@dvag.de</a>
+        </div>
+      </div>
+    </div>
+  </header>
 
-<nav id="menu-panel" class="menu-panel">
-  <div class="menu-section-title">Absicherung & Schutz</div>
-  <a class="menu-link" href="arbeitskraftabsicherung.html">Arbeitskraft & BU</a>
-  <a class="menu-link" href="haftpflicht-hausrat-gebaeude.html">Haftpflicht / Hausrat / Gebäude</a>
-  <a class="menu-link" href="risikoleben.html">Risikoleben</a>
+  <main>
 
-  <div class="menu-section-title">Vorsorge & Rente</div>
-  <a class="menu-link" href="riester.html">Riester</a>
-  <a class="menu-link" href="basisrente.html">Rürup / Basisrente</a>
-  <a class="menu-link" href="bav.html">Betriebliche Altersvorsorge</a>
+    <!-- WIE ES FUNKTIONIERT -->
+    <section id="wie-es-funktioniert">
+      <h2>Was ist die betriebliche Altersvorsorge?</h2>
+      <div class="section-subtitle">Kurz und klar erklaert: So funktioniert bAV fuer Angestellte.</div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">Das Prinzip</div>
+          <p>Bei der bAV zahlt dein Arbeitgeber einen Teil deines Bruttogehalts direkt in eine Altersvorsorge ein. Du sparst dadurch Steuern und Sozialversicherungsbeitraege auf diesen Betrag. Dein Nettogehalt sinkt deutlich weniger als der Bruttobeitrag.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">Rentenstarkungsgesetz 2019</div>
+          <p>Seit 2019 ist dein Arbeitgeber gesetzlich verpflichtet, mindestens <strong>15 % deines Beitrags</strong> als Zuschuss obendrauf zu legen, wenn er durch deine Beitraege selbst Sozialversicherungsbeitraege spart. Viele Arbeitgeber zahlen freiwillig noch mehr.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">Wer hat Anspruch?</div>
+          <ul>
+            <li>Alle sozialversicherungspflichtig Angestellten haben gesetzlichen Anspruch auf Entgeltumwandlung in eine bAV.</li>
+            <li>Der Arbeitgeberzuschuss gilt fuer Neuvertraege ab 2019 und Bestandsvertraege ab 2022 verpflichtend.</li>
+            <li>Beitraege bis zur Beitragsbemessungsgrenze sind steuer- und SV-frei.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">Was muss ich in Rente beachten?</div>
+          <ul>
+            <li>Auszahlungen im Rentenalter sind steuer- und krankenversicherungspflichtig (nachgelagerte Besteuerung).</li>
+            <li>Trotzdem ueberwiegt bei den meisten der Effekt im Vergleich zur privaten Vorsorge deutlich.</li>
+            <li>Eine individuelle Beispielrechnung zeigt dir klar, was sich lohnt.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
-  <div class="menu-section-title">Vermögensaufbau & Sparen</div>
-  <a class="menu-link" href="fondssparen.html">Fondssparen</a>
-  <a class="menu-link" href="einmalanlagen.html">Einmalanlagen</a>
-  <a class="menu-link" href="vermoegensstruktur.html">Vermögensstruktur</a>
+    <!-- PROBLEM & LOESUNG -->
+    <section id="problem">
+      <h2>Das eigentliche Problem</h2>
+      <div class="section-subtitle">Die meisten wissen, dass es bAV gibt, aber nicht wie stark der Effekt wirklich ist.</div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">Was viele falsch machen</div>
+          <ul>
+            <li>bAV nicht aktivieren, obwohl Anspruch besteht.</li>
+            <li>Zu niedrig ansetzen und damit den Hebel verschenken.</li>
+            <li>Arbeitgeberzuschuss nicht einfordern oder pruefen.</li>
+            <li>Vertrag einmal abschliessen und nie anpassen.</li>
+          </ul>
+        </div>
+        <div class="card" id="loesung">
+          <div class="card-title">Die einfache Loesung</div>
+          <ul>
+            <li>Anspruch und moeglichen Zuschuss gemeinsam pruefen.</li>
+            <li>Beitrag so waehlen, dass dein Netto stabil bleibt.</li>
+            <li>VWL und bAV clever kombinieren wo moeglich.</li>
+            <li>Vertrag jaehrlich auf Gehaltsanpassungen abstimmen.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
-  <div class="menu-section-title">Familie & Kinder</div>
-  <a class="menu-link" href="eltern-retter-kindererziehungszeiten.html">Eltern-Retter</a>
-  <a class="menu-link" href="kinder-absichern.html">Kinder absichern</a>
-  <a class="menu-link" href="ausbildung-und-zukunft.html">Ausbildung & Zukunft</a>
-</nav>
+    <!-- INTERAKTIVER RECHNER -->
+    <section id="rechner">
+      <h2>Dein bAV-Rechner</h2>
+      <div class="section-subtitle">Stelle deinen Bruttobeitrag ein und sieh sofort, was dich das Netto kostet und was in deinen Vertrag fliesst.</div>
+
+      <div class="rechner-box animate-on-scroll">
+        <h3>Wie viel moechtest du monatlich in deine bAV einzahlen?</h3>
+        <p class="rechner-hint">Alle Angaben sind Pauschalschaetzungen zur Orientierung, keine individuelle Beratung. Steuer- und SV-Ersparnis haengen von deinem persoenlichen Steuersatz und Gehalt ab.</p>
+
+        <div class="rechner-grid">
+          <div class="rechner-field">
+            <label for="bruttoBeitrag">Bruttobeitrag (Entgeltumwandlung)</label>
+            <div class="stepper">
+              <button class="step-btn" id="btnMinus" aria-label="Weniger">&#8722;</button>
+              <span class="step-val" id="bruttoBeitragVal">100 EUR</span>
+              <button class="step-btn" id="btnPlus" aria-label="Mehr">&#43;</button>
+            </div>
+          </div>
+          <div class="rechner-field ag-field">
+            <label>Arbeitgeber zahlt zus. (ueber 15 % Pflicht)</label>
+            <div class="ag-stepper">
+              <button class="step-btn" id="btnAgMinus" aria-label="AG-Zuschuss weniger">&#8722;</button>
+              <span class="step-val" id="agZuschussVal">0 EUR</span>
+              <button class="step-btn" id="btnAgPlus" aria-label="AG-Zuschuss mehr">&#43;</button>
+            </div>
+          </div>
+          <div class="rechner-field">
+            <div class="toggle-label">Vermoegenswirksame Leistungen (VWL) einbringen?</div>
+            <div class="toggle-row">
+              <div class="toggle-btn" id="vwlToggle">
+                <span id="vwlNein" class="active" onclick="setVwl(false)">Nein</span>
+                <span id="vwlJa" onclick="setVwl(true)">Ja (40 EUR)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="rechner-trennlinie" />
+
+        <div class="ergebnis-row">
+          <div class="ergebnis-card netto">
+            <div class="e-label">Dein effektiver Nettoaufwand</div>
+            <div class="e-val" id="resNettoaufwand">ca. 58 EUR</div>
+            <div class="e-sub" id="resNettoSub">bei 100 EUR Bruttobeitrag</div>
+          </div>
+          <div class="ergebnis-card einzahlung">
+            <div class="e-label">Was monatlich in deinen Vertrag fliesst</div>
+            <div class="e-val" id="resGesamteinzahlung">115 EUR</div>
+            <div class="e-sub" id="resGesamtSub">Brutto + 15 % AG-Pflicht</div>
+          </div>
+        </div>
+
+        <div class="chart-wrap">
+          <div class="chart-title">Monatliche Gegenuebertstellung</div>
+          <div class="bar-group">
+            <div class="bar-row">
+              <div class="bar-label">Dein Nettoaufwand</div>
+              <div class="bar-track"><div class="bar-fill bar-netto" id="barNetto"></div></div>
+              <div class="bar-val" id="barNettoVal">58 EUR</div>
+            </div>
+            <div class="bar-row">
+              <div class="bar-label">Gesamteinzahlung</div>
+              <div class="bar-track"><div class="bar-fill bar-gesamt" id="barGesamt"></div></div>
+              <div class="bar-val" id="barGesamtVal">115 EUR</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="aufschluss" id="aufschluss">
+          <div class="aufschluss-item"><span class="aufschluss-dot netto-color"></span><span id="aufschlussNetto">Nettoaufwand: 58 EUR</span></div>
+          <div class="aufschluss-item"><span class="aufschluss-dot steuer-color"></span><span id="aufschlusssteuer">Steuerersparnis: ~20 EUR</span></div>
+          <div class="aufschluss-item"><span class="aufschluss-dot sv-color"></span><span id="aufschluss-sv">SV-Ersparnis: ~22 EUR</span></div>
+          <div class="aufschluss-item"><span class="aufschluss-dot ag-color"></span><span id="aufschluss-ag">AG Pflicht 15 %: 15 EUR</span></div>
+          <div class="aufschluss-item" id="aufschluss-ag-extra-wrap"><span class="aufschluss-dot" style="background:#0ea5e9;"></span><span id="aufschluss-ag-extra">AG Zusatz: 0 EUR</span></div>
+          <div class="aufschluss-item" id="aufschluss-vwl-wrap" style="display:none;"><span class="aufschluss-dot vwl-color"></span><span id="aufschluss-vwl">VWL: 40 EUR</span></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ZAHLEN -->
+    <section id="zahlen">
+      <h2>Zahlen, die wirklich zaehlen</h2>
+      <div class="section-subtitle">Beispiel: 100 EUR Brutto monatlich in die bAV. Was hinein fliesst, was dich das kostet.</div>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">Effektiver Nettoaufwand (100 EUR Brutto)</div>
+          <div class="stat-value">ca. 55-65 EUR</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">AG-Zuschuss Pflichtanteil (Rental-starkungsgesetz)</div>
+          <div class="stat-value">mind. 15 %</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Gesamteinzahlung (ohne Extra-Zuschuss)</div>
+          <div class="stat-value">115 EUR</div>
+        </div>
+      </div>
+      <div class="grid-2" style="margin-top:.9rem;">
+        <div class="card">
+          <div class="card-title">Der positive Hebel</div>
+          <ul>
+            <li>Mehr Kapital bei gleichem Lebensstandard.</li>
+            <li>Steuer- und SV-Vorteile arbeiten fuer dich.</li>
+            <li>AG-Zuschuss ist kostenloses Zusatzkapital.</li>
+            <li>VWL kann clever in die bAV eingebaut werden.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">Warum jetzt handeln?</div>
+          <ul>
+            <li>Jedes Jahr ohne bAV ist verschenkte Foerderung.</li>
+            <li>Der Zinseszinseffekt wirkt ab dem ersten Beitrag.</li>
+            <li>Mit steigendem Gehalt laesst sich der Beitrag einfach anpassen.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- KONTAKT -->
+    <section id="kontakt">
+      <div class="kontakt-box animate-on-scroll">
+        <h2>Jetzt deinen bAV-Check starten</h2>
+        <p>Wir pruefen gemeinsam, welcher Beitrag fuer dich optimal ist, was dein Arbeitgeber dazugibt und wie viel du am Ende mehr Rente bekommst. Kostenlos und unverbindlich.</p>
+        <div class="kontakt-btn-row">
+          <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-forms">bAV-Check starten (Formular)</a>
+          <a href="https://wa.me/4915141678134" target="_blank" rel="noopener" class="btn-wa">Jonas via WhatsApp</a>
+          <a href="https://wa.me/4917663796605" target="_blank" rel="noopener" class="btn-secondary">Timo via WhatsApp</a>
+        </div>
+        <div class="kontakt-mini-row">
+          <a href="tel:+4915141678134" class="kontakt-mini-link">&#128222; Jonas: 0151 41678134</a>
+          <span style="color:var(--border);">|</span>
+          <a href="tel:+4917663796605" class="kontakt-mini-link">&#128222; Timo: 0176 63796605</a>
+          <span style="color:var(--border);">|</span>
+          <a href="leistung.html" class="kontakt-mini-link">Alle Leistungen &#8594;</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    Diese Seite ersetzt keine individuelle Rechts-, Steuer- oder Sozialversicherungsberatung. Alle Angaben ohne Gewaehr. Massgeblich sind die gesetzlichen Regelungen und die Informationen der jeweiligen Anbieter.
+  </footer>
+</div>
 
 <script>
-  const menuToggle = document.getElementById("menu-toggle");
-  const menuBackdrop = document.getElementById("menu-backdrop");
-  const menuPanel = document.getElementById("menu-panel");
+(function(){
+  const burgerBtn = document.getElementById("burgerBtn");
+  const menuPanel = document.getElementById("menuPanel");
+  const menuOverlay = document.getElementById("menuOverlay");
+  const menuCloseBtn = menuPanel.querySelector(".menu-close-btn");
+  if(!burgerBtn||!menuPanel||!menuOverlay) return;
+  function closeMenu(){menuPanel.classList.remove("open");menuOverlay.classList.remove("open");burgerBtn.setAttribute("aria-expanded","false");document.body.style.overflow="";}
+  function openMenu(){menuPanel.classList.add("open");menuOverlay.classList.add("open");burgerBtn.setAttribute("aria-expanded","true");document.body.style.overflow="hidden";}
+  burgerBtn.addEventListener("click",function(){const isOpen=burgerBtn.getAttribute("aria-expanded")==="true";if(isOpen)closeMenu();else openMenu();});
+  menuCloseBtn.addEventListener("click",closeMenu);
+  menuOverlay.addEventListener("click",closeMenu);
+  menuPanel.querySelectorAll("a").forEach(function(link){link.addEventListener("click",function(){const href=this.getAttribute("href");if(href&&!href.startsWith("#"))closeMenu();});});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape"&&menuPanel.classList.contains("open"))closeMenu();});
+})();
 
-  menuToggle.addEventListener("click", () => {
-    menuPanel.classList.toggle("open");
-    menuBackdrop.classList.toggle("open");
-  });
-
-  menuBackdrop.addEventListener("click", () => {
-    menuPanel.classList.remove("open");
-    menuBackdrop.classList.remove("open");
-  });
+document.addEventListener("DOMContentLoaded",function(){
+  const elements=document.querySelectorAll(".animate-on-scroll");
+  const observer=new IntersectionObserver(function(entries,obs){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.classList.add("in-view");obs.unobserve(entry.target);}});},{threshold:0.15});
+  elements.forEach(function(el){observer.observe(el);});
+});
 </script>
 
-<!-- ========================================================= -->
-<!-- 🚀 PAGE CONTENT – diesen Teil tauscht du aus! -->
-<!-- ========================================================= -->
+<script>
+/* === bAV Rechner === */
+(function(){
+  var brutto = 100;
+  var agExtra = 0;
+  var vwl = false;
+  var STEP = 25;
+  var MIN = 25;
+  var MAX = 175;
+  var AG_STEP = 10;
+  var AG_MIN = 0;
+  var AG_MAX = 100;
+  var VWL_BETRAG = 40;
 
-<!-- PAGE CONTENT START -->
+  /* Pauschalsaetze fuer Orientierung */
+  var STEUER_RATE = 0.20;   /* ~20% Grenzsteuer pauschal (Orientierung) */
+  var SV_RATE    = 0.195;   /* ~19.5% SV-Ersparnis pauschal (AN-Anteil) */
 
-<header class="hero">
-  <div class="hero-inner">
-    <div class="hero-text animate-on-scroll">
-      <div class="hero-label">
-        <span class="dot"></span>
-        Vorsorge & Rente · Betriebliche Altersvorsorge (bAV)
-      </div>
+  function berechne(){
+    var agPflicht = Math.round(brutto * 0.15);
+    var steuerErsparnis = Math.round(brutto * STEUER_RATE);
+    var svErsparnis     = Math.round(brutto * SV_RATE);
+    var nettoaufwand    = brutto - steuerErsparnis - svErsparnis;
+    var gesamtVertrag   = brutto + agPflicht + agExtra + (vwl ? VWL_BETRAG : 0);
 
-      <h1>bAV – Rente vom Arbeitgeber mit Steuer- und Sozialvorteilen</h1>
+    document.getElementById("bruttoBeitragVal").textContent = brutto + " EUR";
+    document.getElementById("agZuschussVal").textContent    = agExtra + " EUR";
 
-      <p class="hero-lead">
-        Mit der betrieblichen Altersvorsorge nutzt du dein Brutto-Gehalt intelligenter:
-        Ein Teil fließt direkt in deine Rente – bevor Steuern und Sozialabgaben abgehen.
-        Oft legt dein Arbeitgeber sogar noch etwas oben drauf.
-      </p>
+    document.getElementById("resNettoaufwand").textContent = "ca. " + nettoaufwand + " EUR";
+    document.getElementById("resNettoSub").textContent     = "bei " + brutto + " EUR Bruttobeitrag";
+    document.getElementById("resGesamteinzahlung").textContent = gesamtVertrag + " EUR";
 
-      <div class="hero-badges">
-        <div class="badge">Entgeltumwandlung aus dem Brutto</div>
-        <div class="badge">Arbeitgeberzuschuss möglich</div>
-      </div>
+    var subParts = [brutto + " EUR Brutto", "+" + agPflicht + " EUR AG (15%)"];
+    if(agExtra > 0) subParts.push("+" + agExtra + " EUR AG Extra");
+    if(vwl) subParts.push("+40 EUR VWL");
+    document.getElementById("resGesamtSub").textContent = subParts.join(" + ").replace(" + +","  +");
 
-      <div class="cta-row">
-        <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" class="btn-primary" target="_blank">
-          bAV-Check starten
-        </a>
-      </div>
-    </div>
+    /* Balken */
+    var maxVal = Math.max(gesamtVertrag, brutto) * 1.08;
+    var pNetto   = Math.round((nettoaufwand / maxVal) * 100);
+    var pGesamt  = Math.round((gesamtVertrag / maxVal) * 100);
+    document.getElementById("barNetto").style.width  = pNetto + "%";
+    document.getElementById("barGesamt").style.width = pGesamt + "%";
+    document.getElementById("barNettoVal").textContent  = nettoaufwand + " EUR";
+    document.getElementById("barGesamtVal").textContent = gesamtVertrag + " EUR";
 
-    <div class="hero-photo animate-on-scroll">
-      <img src="bav-symbol.png" alt="Betriebliche Altersvorsorge" />
-    </div>
-  </div>
-</header>
+    /* Aufschluss */
+    document.getElementById("aufschlussNetto").textContent    = "Nettoaufwand: " + nettoaufwand + " EUR";
+    document.getElementById("aufschlusssteuer").textContent   = "Steuerersparnis: ~" + steuerErsparnis + " EUR";
+    document.getElementById("aufschluss-sv").textContent      = "SV-Ersparnis: ~" + svErsparnis + " EUR";
+    document.getElementById("aufschluss-ag").textContent      = "AG Pflicht 15%: " + agPflicht + " EUR";
+    document.getElementById("aufschluss-ag-extra").textContent = "AG Zusatz: " + agExtra + " EUR";
+    document.getElementById("aufschluss-ag-extra-wrap").style.display = agExtra > 0 ? "flex" : "none";
+    document.getElementById("aufschluss-vwl-wrap").style.display = vwl ? "flex" : "none";
 
-<main>
+    /* Btn-Status */
+    document.getElementById("btnMinus").disabled = brutto <= MIN;
+    document.getElementById("btnPlus").disabled  = brutto >= MAX;
+    document.getElementById("btnAgMinus").disabled = agExtra <= AG_MIN;
+    document.getElementById("btnAgPlus").disabled  = agExtra >= AG_MAX;
+  }
 
-  <section class="animate-on-scroll">
-    <h2>Wie funktioniert die bAV?</h2>
-    <div class="grid-2">
-      <div class="card">
-        <div class="card-title">Entgeltumwandlung</div>
-        <ul>
-          <li>Ein Teil deines Bruttogehalts fließt direkt in die bAV.</li>
-          <li>Auf diesen Teil zahlst du keine oder weniger Steuern & Sozialabgaben.</li>
-          <li>Dadurch ist deine <strong>Nettobelastung deutlich geringer</strong> als der Beitrag.</li>
-        </ul>
-      </div>
-      <div class="card">
-        <div class="card-title">Arbeitgeberzuschuss</div>
-        <ul>
-          <li>Viele Arbeitgeber geben einen Pflicht- oder freiwilligen Zuschuss.</li>
-          <li>Dadurch erhöht sich deine spätere Rente, ohne dass du mehr ausgeben musst.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
+  document.getElementById("btnMinus").addEventListener("click",function(){if(brutto>MIN){brutto-=STEP;berechne();}});
+  document.getElementById("btnPlus").addEventListener("click",function(){if(brutto<MAX){brutto+=STEP;berechne();}});
+  document.getElementById("btnAgMinus").addEventListener("click",function(){if(agExtra>AG_MIN){agExtra-=AG_STEP;berechne();}});
+  document.getElementById("btnAgPlus").addEventListener("click",function(){if(agExtra<AG_MAX){agExtra+=AG_STEP;berechne();}});
 
-  <section class="animate-on-scroll">
-    <h2>Steuern & Sozialabgaben – heute und im Alter</h2>
-    <div class="grid-2">
-      <div class="card">
-        <div class="card-title">Während der Ansparphase</div>
-        <p>
-          Beiträge mindern dein zu versteuerndes Einkommen. Du sparst Einkommensteuer
-          und – bis zur Beitragsbemessungsgrenze – auch Sozialabgaben.
-        </p>
-        <p style="font-size:0.85rem;margin-top:0.4rem;">
-          Beispiel: 100 € bAV-Beitrag aus dem Brutto können dich netto je nach Gehaltsstufe
-          nur 50–60 € kosten. Den Rest „zahlen“ Steuer- und Sozialvorteile.
-        </p>
-      </div>
+  window.setVwl = function(val){
+    vwl = val;
+    document.getElementById("vwlJa").classList.toggle("active",val);
+    document.getElementById("vwlNein").classList.toggle("active",!val);
+    berechne();
+  };
 
-      <div class="card">
-        <div class="card-title">Im Rentenalter</div>
-        <p>
-          Die bAV-Rente ist grundsätzlich <strong>voll steuerpflichtig</strong> und kann – je nach
-          Krankenversicherung – beitragspflichtig in der gesetzlichen Kranken- und Pflegeversicherung sein.
-        </p>
-        <p style="font-size:0.85rem;margin-top:0.4rem;">
-          Dennoch lohnt sich die bAV oft, weil du die Steuerersparnis und Zuschüsse über Jahrzehnte
-          für dich arbeiten lässt. Wir rechnen das sauber durch.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <section class="animate-on-scroll">
-    <h2>bAV vs. privates Depot – was passt besser?</h2>
-    <div class="grid-2">
-      <div class="card">
-        <div class="card-title">bAV</div>
-        <ul>
-          <li>Steuer- & Sozialvorteile + Arbeitgeberzuschuss möglich.</li>
-          <li>Weniger flexibel, dafür klar auf Altersvorsorge ausgelegt.</li>
-          <li>Nachversteuerung der Rente und ggf. Krankenkassenbeiträge im Alter.</li>
-        </ul>
-      </div>
-      <div class="card">
-        <div class="card-title">Depot</div>
-        <ul>
-          <li>Komplette Flexibilität, Zugriff jederzeit möglich.</li>
-          <li>Abgeltungsteuer auf Gewinne, dafür kein Zwang zur Verrentung.</li>
-          <li>Keine Arbeitgeberzuschüsse und keine Steuer-Sozialvorteile beim Einzahlen.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section class="animate-on-scroll">
-    <h2>Nächster Schritt</h2>
-    <p class="section-subtitle">
-      Wir prüfen deinen bestehenden bAV-Vertrag, die Zuschusssituation deines Arbeitgebers
-      und rechnen durch, ob eine Erhöhung, ein Neuabschluss oder eine Alternative sinnvoll ist.
-    </p>
-
-    <div class="centered-cta">
-      <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" class="btn-primary">
-        bAV gemeinsam prüfen
-      </a>
-    </div>
-    <div class="centered-cta" style="margin-top:1rem;">
-      <a href="leistung.html#vorsorge" class="btn-secondary">
-        Zurück zu Vorsorge &amp; Rente
-      </a>
-    </div>
-  </section>
-
-</main>
-
-<!-- PAGE CONTENT END -->
-
-
-<!-- ========================================================= -->
-
-<footer>
-  © 2025 Jonas Plener – Beratung digital & vor Ort
-</footer>
+  berechne();
+})();
+</script>
 
 </body>
 </html>
