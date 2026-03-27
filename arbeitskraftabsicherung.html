@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Arbeitskraftabsicherung & Berufsunfähigkeit – Jonas Plener</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500&family=Raleway:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500&family=Raleway:wght@500;600;700&display=swap" rel="stylesheet" />
 
   <style>
     :root {
@@ -15,16 +15,12 @@
       --muted: #4b5563;
       --bg: #f4f8f8;
       --border: #e5e7eb;
-
       --danger: #b91c1c;
       --good: #15803d;
-
       --psych: #ef4444;
       --back: #f97316;
       --other: #3b82f6;
       --accident: #6b7280;
-
-      --wa: #25d366;
     }
 
     * { box-sizing: border-box; }
@@ -51,22 +47,20 @@
     }
 
     /* Topbar */
+
     .topbar {
-      position: relative; /* wichtig für Burger */
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 0.9rem 1.6rem;
       border-bottom: 1px solid var(--border);
       background: linear-gradient(to right, #ffffff, #fef3c7);
-      gap: 1rem;
     }
 
     .topbar-left {
       display: flex;
       align-items: center;
       gap: 0.75rem;
-      min-width: 0;
     }
 
     .topbar-portrait img {
@@ -80,7 +74,7 @@
 
     .topbar-title {
       font-family: "Raleway", system-ui, sans-serif;
-      font-weight: 700;
+      font-weight: 600;
       letter-spacing: 0.03em;
       font-size: 0.95rem;
       text-transform: uppercase;
@@ -96,56 +90,95 @@
       font-size: 0.8rem;
       color: var(--muted);
       text-align: right;
-      padding-right: 54px; /* Platz für Burger */
-      white-space: nowrap;
     }
 
-    /* Buttons */
-    .btn-primary,
-    .btn-secondary,
-    .btn-wa {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0.9rem 1.7rem;
-      border-radius: 999px;
-      font-weight: 700;
-      font-size: 0.95rem;
-      cursor: pointer;
-      border: none;
-      text-align: center;
-      white-space: nowrap;
-      transition: transform 0.12s ease, filter 0.12s ease;
-    }
+    /* Burger-Menü */
 
-    .btn-primary {
-      background: var(--accent);
-      color: #1f2933;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
-    }
-
-    .btn-secondary {
+    .menu-toggle {
+      position: absolute;
+      right: 18px;
+      top: 14px;
       background: #ffffff;
+      border: 1px solid #e5e7eb;
+      padding: 0.4rem 0.5rem;
+      border-radius: 10px;
+      cursor: pointer;
+      z-index: 60;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 3px;
+      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.12);
+    }
+
+    .menu-burger {
+      width: 20px;
+      height: 2px;
+      background: #111827;
+      border-radius: 999px;
+    }
+
+    .menu-panel-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.35);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+      z-index: 40;
+    }
+
+    .menu-panel-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .menu-panel {
+      position: fixed;
+      right: -270px;
+      top: 0;
+      height: 100%;
+      width: 270px;
+      background: #ffffff;
+      border-left: 1px solid #e5e7eb;
+      padding: 1.2rem 1.1rem;
+      z-index: 45;
+      transition: right 0.25s ease;
+      font-size: 0.9rem;
+    }
+
+    .menu-panel.open {
+      right: 0;
+    }
+
+    .menu-section-title {
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      color: #9ca3af;
+      margin-top: 0.7rem;
+      margin-bottom: 0.15rem;
+    }
+
+    .menu-link {
+      display: block;
+      padding: 0.35rem 0;
+    }
+
+    .menu-link span {
+      font-size: 0.8rem;
+      color: #6b7280;
+      display: block;
+    }
+
+    .menu-link:hover {
       color: var(--primary);
-      border: 1px solid rgba(148, 163, 184, 0.85);
-    }
-
-    .btn-wa {
-      background: var(--wa);
-      color: #ffffff;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
-    }
-
-    .btn-primary:hover,
-    .btn-secondary:hover,
-    .btn-wa:hover {
-      filter: brightness(1.03);
-      transform: translateY(-1px);
     }
 
     /* Hero */
+
     header.hero {
-      padding: 2.8rem 1.6rem 2.6rem;
+      padding: 2.8rem 1.6rem 2.6rem; /* etwas mehr Abstand nach oben */
       border-bottom: 1px solid var(--border);
       background: radial-gradient(circle at top left, #fdf4e6 0, #ffffff 45%, #e0f2fe 100%);
     }
@@ -184,7 +217,7 @@
 
     .hero h1 {
       font-family: "Raleway", system-ui, sans-serif;
-      font-weight: 800;
+      font-weight: 700;
       font-size: 2rem;
       margin: 0 0 0.7rem;
       letter-spacing: 0.02em;
@@ -197,7 +230,7 @@
       font-size: 0.98rem;
     }
 
-    .hero-lead strong { color: var(--primary); font-weight: 800; }
+    .hero-lead strong { color: var(--primary); }
 
     .hero-badges {
       display: flex;
@@ -225,6 +258,39 @@
       gap: 0.7rem;
       align-items: center;
       margin-top: 0.5rem;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.9rem 1.7rem;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      border: none;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #1f2933;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    }
+
+    .btn-secondary {
+      background: #ffffff;
+      color: var(--primary);
+      border: 1px solid rgba(148, 163, 184, 0.85);
+    }
+
+    .btn-primary:hover,
+    .btn-secondary:hover {
+      filter: brightness(1.03);
+      transform: translateY(-1px);
     }
 
     .hero-photo {
@@ -262,7 +328,7 @@
 
     .hero-tagcard-title {
       font-family: "Raleway", system-ui, sans-serif;
-      font-weight: 800;
+      font-weight: 600;
       font-size: 0.8rem;
       color: var(--primary);
       margin-bottom: 0.2rem;
@@ -295,7 +361,6 @@
       margin: 0 0 0.4rem;
       font-size: 1.45rem;
       color: var(--primary);
-      font-weight: 800;
     }
 
     .section-subtitle {
@@ -311,30 +376,20 @@
     }
 
     /* Karten im Stil der Leistungs-Boxen */
+
     .card {
-      background: linear-gradient(to bottom right, #f1fafb, #ffffff);
-      border-radius: 26px;
-      border: 1px solid #a5d5d9;
-      box-shadow: 0 18px 32px rgba(15, 23, 42, 0.06);
+      background: #ffffff;
+      border-radius: 22px;
+      border: 1px solid #d1e3e4;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.05);
       padding: 1.2rem 1.3rem;
       font-size: 0.9rem;
       color: var(--muted);
-      position: relative;
-    }
-
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: 26px;
-      border-top: 4px solid var(--primary);
-      pointer-events: none;
-      opacity: 0.9;
     }
 
     .card-title {
       font-family: "Raleway", system-ui, sans-serif;
-      font-weight: 800;
+      font-weight: 600;
       margin-bottom: 0.35rem;
       color: var(--text);
       font-size: 1rem;
@@ -349,7 +404,7 @@
 
     .highlight-box {
       background: #fff7ed;
-      border-radius: 18px;
+      border-radius: 14px;
       border: 1px solid #fed7aa;
       padding: 0.9rem 1rem;
       font-size: 0.9rem;
@@ -358,55 +413,44 @@
     }
 
     /* „Jeder Vierte“ Figuren */
-    .persons-section { margin-top: 1rem; }
+
+    .persons-section {
+      margin-top: 1rem;
+    }
 
     .persons-grid {
-      display: grid;
-      grid-template-columns: repeat(9, 1fr);
-      justify-items: center;
-      column-gap: 0.5rem;
-      row-gap: 1.4rem;
-      margin-top: 0.8rem;
-      margin-bottom: 0.4rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      max-width: 360px;
+      margin-top: 0.6rem;
     }
 
     .person {
-      width: 30px;
-      height: 52px;
-      border-radius: 16px 16px 10px 10px;
+      width: 26px;
+      height: 42px;
+      border-radius: 12px;
       border: 2px solid #d1d5db;
       position: relative;
+      overflow: hidden;
       background: #f9fafb;
     }
 
     .person::before {
       content: "";
       position: absolute;
-      top: -16px;
+      top: -10px;
       left: 50%;
       transform: translateX(-50%);
-      width: 18px;
-      height: 18px;
+      width: 16px;
+      height: 16px;
       border-radius: 50%;
       border: 2px solid #d1d5db;
       background: #f9fafb;
     }
 
-    .person::after {
-      content: "";
-      position: absolute;
-      bottom: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 20px;
-      height: 10px;
-      border-radius: 10px;
-      border-top: 3px solid #d1d5db;
-    }
-
     .person.filled,
-    .person.filled::before,
-    .person.filled::after {
+    .person.filled::before {
       background: var(--primary);
       border-color: var(--primary);
     }
@@ -414,10 +458,11 @@
     .persons-note {
       font-size: 0.85rem;
       color: var(--muted);
-      margin-top: 0.4rem;
+      margin-top: 0.5rem;
     }
 
-    /* Ursachen – Kreisdiagramm (SVG) */
+    /* Ursachen – Kreisdiagramm */
+
     .charts-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -433,12 +478,36 @@
       gap: 0.4rem;
     }
 
-    .pie-svg {
-      width: 170px;
-      height: 170px;
+    .pie-causes {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: conic-gradient(
+        var(--psych) 0 40%,
+        var(--back) 40% 65%,
+        var(--other) 65% 85%,
+        var(--accident) 85% 100%
+      );
+      position: relative;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.15);
     }
 
-    .legend { font-size: 0.88rem; }
+    .pie-causes-inner {
+      position: absolute;
+      inset: 24px;
+      border-radius: 50%;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 0.8rem;
+      padding: 0.2rem 0.4rem;
+    }
+
+    .legend {
+      font-size: 0.88rem;
+    }
 
     .legend-row {
       display: flex;
@@ -465,6 +534,7 @@
     }
 
     /* Timeline + Beitragsbeispiel */
+
     .timeline {
       margin-top: 0.4rem;
       border-left: 2px solid #e5e7eb;
@@ -490,7 +560,7 @@
     }
 
     .timeline-age {
-      font-weight: 800;
+      font-weight: 600;
       color: var(--primary);
       font-size: 0.9rem;
       margin-bottom: 0.15rem;
@@ -498,7 +568,7 @@
 
     .price-table {
       margin-top: 0.7rem;
-      border-radius: 18px;
+      border-radius: 16px;
       background: #f9fafb;
       border: 1px dashed #d1d5db;
       padding: 0.7rem 0.9rem;
@@ -509,17 +579,19 @@
       display: flex;
       justify-content: space-between;
       margin-bottom: 0.25rem;
-      gap: .75rem;
     }
 
     .price-row span:first-child {
-      font-weight: 700;
+      font-weight: 500;
       color: var(--primary);
     }
 
-    .price-row span:last-child { font-weight: 800; }
+    .price-row span:last-child {
+      font-weight: 600;
+    }
 
     /* Gründe-Boxen etc. */
+
     .reasons-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -528,23 +600,13 @@
     }
 
     .reason-box {
-      border-radius: 24px;
-      border: 1px solid #a5d5d9;
-      background: linear-gradient(to bottom, #f1fafb, #ffffff);
-      box-shadow: 0 16px 30px rgba(15, 23, 42, 0.04);
+      border-radius: 22px;
+      border: 1px solid #d1e3e4;
+      background: #ffffff;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.03);
       padding: 0.85rem 0.95rem;
       font-size: 0.9rem;
       color: var(--muted);
-      position: relative;
-    }
-
-    .reason-box::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: 24px;
-      border-top: 3px solid var(--accent);
-      pointer-events: none;
     }
 
     .reason-number {
@@ -556,22 +618,13 @@
       border-radius: 999px;
       background: var(--accent);
       font-size: 0.8rem;
-      font-weight: 800;
+      font-weight: 700;
       margin-right: 0.4rem;
-      color: #111827;
     }
 
     .centered-cta {
       text-align: center;
-      margin-top: 1.4rem;
-    }
-
-    .centered-cta .btn-primary {
-      width: 100%;
-      max-width: 520px;
-      white-space: normal;
-      line-height: 1.4;
-      padding-inline: 1.4rem;
+      margin-top: 1.2rem;
     }
 
     .back-link {
@@ -593,140 +646,9 @@
       background: #f9fafb;
     }
 
-    /* =============== NEUES Burger Menü (wie index) =============== */
-    .burger{
-      position:absolute;
-      top:10px;
-      right:10px;
-      width:46px;height:46px;
-      border-radius:999px;
-      border:1px solid rgba(148,163,184,.9);
-      background:#fff;
-      box-shadow:0 8px 20px rgba(15,23,42,.12);
-      display:grid;
-      place-items:center;
-      cursor:pointer;
-      z-index:1000;
-    }
-    .burger:active{transform:translateY(1px)}
-    .burger-lines{width:20px;height:14px;position:relative}
-    .burger-lines span{
-      position:absolute;left:0;right:0;
-      height:2px;border-radius:999px;
-      background:var(--primary);
-    }
-    .burger-lines span:nth-child(1){top:0}
-    .burger-lines span:nth-child(2){top:6px}
-    .burger-lines span:nth-child(3){top:12px}
-
-    .menu-backdrop{
-      position:fixed;inset:0;
-      background:rgba(15,23,42,.45);
-      opacity:0;pointer-events:none;
-      transition:opacity .25s ease;
-      z-index:1200;
-    }
-    .menu-panel{
-      position:fixed;top:0;right:0;height:100%;
-      width:min(360px, 92vw);
-      background:#fff;
-      box-shadow:-18px 0 40px rgba(15,23,42,.18);
-      transform:translateX(105%);
-      transition:transform .25s ease;
-      z-index:1300;
-      display:flex;
-      flex-direction:column;
-    }
-    .menu-backdrop.open{opacity:1;pointer-events:auto}
-    .menu-panel.open{transform:translateX(0)}
-
-    .menu-head{
-      padding:1rem 1rem .8rem;
-      border-bottom:1px solid var(--border);
-      display:flex;align-items:center;justify-content:space-between;gap:.75rem;
-      background:linear-gradient(to right, #ffffff, #fef3c7);
-    }
-    .menu-head .ttl{
-      font-family:Raleway, system-ui, sans-serif;
-      font-weight:800;
-      color:var(--primary);
-    }
-    .menu-close{
-      width:40px;height:40px;border-radius:999px;
-      border:1px solid rgba(148,163,184,.9);
-      background:#fff;
-      cursor:pointer;
-      display:grid;place-items:center;
-    }
-    .menu-close:active{transform:translateY(1px)}
-    .menu-body{padding:.6rem 1rem 1rem;overflow:auto}
-
-    .menu-group{
-      margin:.9rem 0;
-      border:1px solid rgba(148,163,184,.55);
-      border-radius:14px;
-      overflow:hidden;
-      background:linear-gradient(to bottom,#fff,#fbfdff);
-    }
-    .menu-group button.menu-toggle{
-      width:100%;
-      text-align:left;
-      border:0;background:transparent;
-      padding:.85rem .95rem;
-      cursor:pointer;
-      display:flex;align-items:center;justify-content:space-between;
-      font-family:Raleway, system-ui, sans-serif;
-      font-weight:800;
-      color:#111;
-    }
-    .menu-group button .chev{color:var(--primary);font-weight:900}
-    .menu-sub{
-      border-top:1px solid rgba(148,163,184,.45);
-      display:none;
-      padding:.35rem .5rem .6rem;
-    }
-    .menu-group.open .menu-sub{display:block}
-
-    .menu-sub a{
-      display:block;
-      padding:.55rem .55rem;
-      border-radius:10px;
-      color:var(--muted);
-      font-size:.95rem;
-      text-decoration:none;
-    }
-    .menu-sub a:hover{background:#f3f6f8;color:#111}
-    .menu-sub a strong{color:var(--primary)}
-
-    .menu-foot{
-      margin-top:auto;
-      padding:1rem;
-      border-top:1px solid var(--border);
-      background:#f9fafb;
-      display:grid;
-      gap:.6rem;
-    }
-    .menu-foot .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding:.92rem 1.2rem;
-      border-radius:999px;
-      font-weight:800;
-      font-size:.98rem;
-      border:0;
-      cursor:pointer;
-      white-space:nowrap;
-      text-align:center;
-      text-decoration:none;
-    }
-    .menu-foot .btn-gold{background:var(--accent);color:#1f2933}
-    .menu-foot .btn-wa{background:var(--wa);color:#fff}
-
-    /* Responsive */
     @media (max-width: 768px) {
       .topbar { padding-inline: 1rem; }
-      .topbar-right{display:none;} /* auf Handy reicht Burger */
+      .menu-toggle { right: 12px; top: 12px; }
 
       header.hero { padding: 2.2rem 1rem 2.2rem; }
       main { padding: 1.6rem 1rem 2.2rem; }
@@ -749,18 +671,43 @@
         max-width: 260px;
         text-align: left;
       }
-
-      .btn-primary,
-      .btn-secondary,
-      .btn-wa {
-        width: 100%;
-      }
     }
   </style>
 </head>
-
 <body>
 <div class="page">
+
+  <!-- Burger-Button -->
+  <button class="menu-toggle" id="menu-toggle" aria-label="Menü öffnen">
+    <div class="menu-burger"></div>
+    <div class="menu-burger"></div>
+    <div class="menu-burger"></div>
+  </button>
+
+  <!-- Burger-Overlay & Panel -->
+  <div id="menu-backdrop" class="menu-panel-backdrop"></div>
+
+  <nav id="menu-panel" class="menu-panel">
+    <div class="menu-section-title">Start & Überblick</div>
+    <a class="menu-link" href="index.html">Startseite</a>
+    <a class="menu-link" href="eltern-renten-check.html">Eltern-Renten-Check</a>
+    <a class="menu-link" href="leistung.html">Meine Leistungen</a>
+
+    <div class="menu-section-title">Absicherung & Schutz</div>
+    <a class="menu-link" href="arbeitskraftabsicherung.html">Arbeitskraft & BU</a>
+    <a class="menu-link" href="haftpflicht-hausrat-gebaeude.html">Haftpflicht · Hausrat · Gebäude</a>
+    <a class="menu-link" href="risikoleben.html">Risikoleben für Familie & Immobilien</a>
+
+    <div class="menu-section-title">Vorsorge & Rente</div>
+    <a class="menu-link" href="riester.html">Riester-Rente mit Zulagen</a>
+    <a class="menu-link" href="basisrente.html">Rürup / Basisrente</a>
+    <a class="menu-link" href="bav.html">Betriebliche Altersvorsorge</a>
+
+    <div class="menu-section-title">Familie & Kinder</div>
+    <a class="menu-link" href="eltern-retter-kindererziehungszeiten.html">Eltern-Retter & Kindererziehungszeiten</a>
+    <a class="menu-link" href="kinder-absichern.html">Kinder absichern</a>
+    <a class="menu-link" href="ausbildung-und-zukunft.html">Ausbildung & Zukunft</a>
+  </nav>
 
   <!-- TOPBAR -->
   <div class="topbar">
@@ -776,102 +723,29 @@
         </div>
       </div>
     </div>
-
     <div class="topbar-right">
-      Eltern, Familien &amp; Selbstständige<br />
-      im Kinzigtal &amp; der Ortenau
+      Eltern, Familien & Selbstständige<br />
+      im Kinzigtal & der Ortenau
     </div>
-
-    <!-- Burger Button -->
-    <button class="burger" id="burgerBtn" aria-label="Menü öffnen">
-      <div class="burger-lines" aria-hidden="true">
-        <span></span><span></span><span></span>
-      </div>
-    </button>
   </div>
-
-  <!-- Menü Backdrop + Panel -->
-  <div class="menu-backdrop" id="menuBackdrop"></div>
-
-  <aside class="menu-panel" id="menuPanel" aria-label="Navigation">
-    <div class="menu-head">
-      <div class="ttl">Menü</div>
-      <button class="menu-close" id="menuClose" aria-label="Menü schließen">✕</button>
-    </div>
-
-    <div class="menu-body">
-
-      <div class="menu-group open">
-        <button type="button" class="menu-toggle">
-          <span>Startseite</span><span class="chev">▾</span>
-        </button>
-        <div class="menu-sub">
-          <a href="leistung.html"><strong>Meine Leistungen</strong></a>
-          <a href="index.html">Eltern-Renten-Check</a>
-        </div>
-      </div>
-
-     <div class="menu-group open">
-  <button type="button" class="menu-toggle">
-    <span>Sachversicherungen</span><span class="chev">▾</span>
-  </button>
-  <div class="menu-sub">
-    <a href="haftpflicht-hausrat-gebaeude.html"><strong>Haftpflicht · Hausrat · Gebäude</strong></a>
-    <a href="arbeitskraftabsicherung.html">Arbeitskraft &amp; Berufsunfähigkeit</a>
-    <a href="risikoleben.html">Risikoleben für Familie &amp; Immobilien</a>
-  </div>
-</div>
-
-      <div class="menu-group">
-        <button type="button" class="menu-toggle">
-          <span>Vorsorge &amp; Rente</span><span class="chev">▾</span>
-        </button>
-        <div class="menu-sub">
-          <a href="riester.html">Riester-Rente mit Zulagen</a>
-          <a href="basisrente.html">Rürup / Basisrente</a>
-          <a href="bav.html">Betriebliche Altersvorsorge</a>
-        </div>
-      </div>
-
-      <div class="menu-group">
-        <button type="button" class="menu-toggle">
-          <span>Familie &amp; Kinder</span><span class="chev">▾</span>
-        </button>
-        <div class="menu-sub">
-          <a href="eltern-retter-kindererziehungszeiten.html">Eltern-Retter &amp; Kindererziehungszeiten</a>
-          <a href="kinder-absichern.html">Kinder absichern</a>
-          <a href="ausbildung-und-zukunft.html">Ausbildung &amp; Zukunft</a>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="menu-foot">
-      <a class="btn btn-gold" href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener">
-        Gespräch vereinbaren
-      </a>
-      <a class="btn btn-wa" href="https://wa.me/4917663796605" target="_blank" rel="noopener">
-        Kurzfrage per WhatsApp
-      </a>
-    </div>
-  </aside>
 
   <!-- HERO -->
+
   <header class="hero">
     <div class="hero-inner">
       <div class="hero-text">
         <div class="hero-label">
           <span class="dot"></span>
-          Absicherung &amp; Schutz · Berufsunfähigkeit &amp; Arbeitskraft
+          Absicherung & Schutz · Berufsunfähigkeit & Arbeitskraft
         </div>
 
         <h1>Einkommen bleibt, auch wenn du es nicht kannst</h1>
 
         <p class="hero-lead">
           Deine Arbeitskraft ist das, wovon alles andere bezahlt wird: Miete, Hauskredit, Familie,
-          Vorsorge. Fällt sie weg, kann es schnell eng werden.
-          <strong>Eine gute BU- und Arbeitskraftabsicherung sorgt dafür, dass Geld weiter reinkommt</strong>,
-          wenn dein Körper oder deine Psyche nicht mehr mitmachen.
+          Vorsorge. Fällt sie weg, kann es schnell eng werden. <strong>Eine gute BU- und
+          Arbeitskraftabsicherung sorgt dafür, dass Geld weiter reinkommt</strong>, wenn dein
+          Körper oder deine Psyche nicht mehr mitmachen.
         </p>
 
         <div class="highlight-box">
@@ -886,10 +760,10 @@
         </div>
 
         <div class="cta-row">
-          <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" class="btn-primary" target="_blank" rel="noopener">
+          <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" class="btn-primary" target="_blank">
             Gespräch zu deiner Arbeitskraft vereinbaren
           </a>
-          <a href="https://wa.me/4917663796605" class="btn-wa" target="_blank" rel="noopener">
+          <a href="https://wa.me/4917663796605" class="btn-secondary" target="_blank">
             Kurzfrage per WhatsApp stellen
           </a>
         </div>
@@ -901,11 +775,11 @@
           <div class="hero-tagcard-title">Dein Ansprechpartner</div>
           <div class="hero-tagcard-line">
             <span class="hero-tagcard-dot"></span>
-            <span>Eltern, Familien &amp; Selbstständige im Fokus</span>
+            <span>Eltern, Familien & Selbstständige im Fokus</span>
           </div>
           <div class="hero-tagcard-line">
             <span class="hero-tagcard-dot"></span>
-            <span>Beratung digital &amp; vor Ort</span>
+            <span>Beratung digital & vor Ort</span>
           </div>
         </div>
       </div>
@@ -919,7 +793,7 @@
       <h2>Warum deine Arbeitskraft dein größtes Vermögen ist</h2>
       <p class="section-subtitle">
         Statistisch wird etwa <strong>jeder Vierte bis zum Rentenalter mindestens einmal berufsunfähig</strong>.
-        Viele denken dabei an schwere Unfälle – tatsächlich sind es oft <strong>Psyche, Rücken
+        Viele denken dabei an schwere Unfälle – tatsächlich sind es oft <strong>psyche, Rücken
         und innere Erkrankungen</strong>. Genau diese Lücke zwischen Realität und „Wird schon gutgehen“
         schließt eine saubere Arbeitskraftabsicherung.
       </p>
@@ -945,27 +819,41 @@
       </div>
     </section>
 
-    <!-- „Jeder Vierte“ – Figuren -->
+    <!-- „Jeder Vierte“ – 20 Figuren -->
     <section class="persons-section">
       <h2>„Jeder Vierte“ – was heißt das eigentlich?</h2>
       <p class="section-subtitle">
-        Stell dir 27 Menschen vor, die heute mit dir im Büro, in der Werkstatt oder im Homeoffice
-        sitzen. <strong>Bei etwa sieben von ihnen wird im Laufe des Berufslebens die Arbeitskraft
+        Stell dir 20 Menschen vor, die heute mit dir im Büro, in der Werkstatt oder im Homeoffice
+        sitzen. <strong>Bei etwa fünf von ihnen wird im Laufe des Berufslebens die Arbeitskraft
         so eingeschränkt, dass der bisherige Job nicht mehr geht.</strong>
       </p>
 
       <div class="card">
         <div id="persons-container" class="persons-grid">
-          <!-- 27 Figuren (3 Reihen à 9) -->
-          <!-- Reihe 1 -->
-          <span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span>
-          <!-- Reihe 2 -->
-          <span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span>
-          <!-- Reihe 3 -->
-          <span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span><span class="person"></span>
+          <!-- 20 Figuren -->
+          <span class="person"></span>
+          <span class="person"></span>
+          <span class="person"></span>
+          <span class="person"></span>
+          <span class="person"></span>
+          <span class="person"></span>
+          <span class="person"></span>
+          <span class="person"></span>
+          <span class="person"></span>
+          <span class="person"></span>
+          <span class="person"></span>
+          <span class="person"></span>
+          <span class="person"></span>
+          <span class="person"></span>
+          <span class="person"></span>
+          <span class="person"></span>
+          <span class="person"></span>
+          <span class="person"></span>
+          <span class="person"></span>
+          <span class="person"></span>
         </div>
         <p class="persons-note">
-          Beim Scrollen werden nacheinander sieben Figuren eingefärbt – <strong>so viele betrifft
+          Beim Scrollen werden nacheinander fünf Figuren eingefärbt – <strong>so viele betrifft
           Berufsunfähigkeit statistisch gesehen</strong>. Erschreckend: Man sieht ihnen vorher
           nicht an, wer es sein wird.
         </p>
@@ -983,10 +871,12 @@
       <div class="card">
         <div class="charts-grid">
           <div class="pie-causes-wrapper">
-            <svg id="causes-chart" class="pie-svg" viewBox="0 0 120 120">
-              <circle cx="60" cy="60" r="40" fill="none" stroke="#e5e7eb" stroke-width="16" />
-              <!-- Segmente per JS -->
-            </svg>
+            <div class="pie-causes">
+              <div class="pie-causes-inner">
+                Häufige BU-Ursachen<br />
+                (vereinfacht dargestellt)
+              </div>
+            </div>
           </div>
 
           <div class="legend">
@@ -996,7 +886,7 @@
             </div>
             <div class="legend-row">
               <span class="legend-color back"></span>
-              <span><strong>Rücken &amp; Gelenke</strong> – ca. 25&nbsp;%</span>
+              <span><strong>Rücken & Gelenke</strong> – ca. 25&nbsp;%</span>
             </div>
             <div class="legend-row">
               <span class="legend-color other"></span>
@@ -1007,8 +897,8 @@
               <span><strong>Unfälle</strong> – ca. 15&nbsp;%</span>
             </div>
             <p class="small-note">
-              Die genauen Werte schwanken je nach Statistik, aber das Bild ist klar:
-              <strong>Die meisten Fälle kommen leise – über Gesundheit und Psyche</strong>, nicht über den spektakulären Unfall.
+              Die genauen Werte schwanken je nach Statistik, aber das Bild ist klar: <strong>Die meisten
+              Fälle kommen leise – über Gesundheit und Psyche</strong>, nicht über den spektakulären Unfall.
             </p>
           </div>
         </div>
@@ -1044,7 +934,7 @@
               </div>
             </div>
             <div class="timeline-step">
-              <div class="timeline-age">Karriere &amp; Familie (ca. 35)</div>
+              <div class="timeline-age">Karriere & Familie (ca. 35)</div>
               <div style="font-size:0.9rem;">
                 Einkommen steigt, Verantwortung auch: Kinder, Haus, Kredite. Hier ist wichtig,
                 dass der Schutz zu deinem neuen Leben passt.
@@ -1096,7 +986,7 @@
         </div>
 
         <div class="reason-box">
-          <div><span class="reason-number">2</span><strong>Vorsorge &amp; Vermögen schützen</strong></div>
+          <div><span class="reason-number">2</span><strong>Vorsorge & Vermögen schützen</strong></div>
           <p style="margin:0.4rem 0 0;">
             Ohne Absicherung werden als erstes Sparpläne und Altersvorsorge gestoppt.
             Eine BU verhindert, dass du mühsam aufgebautes Vermögen wieder auflösen musst.
@@ -1156,7 +1046,7 @@
 
       <div class="grid-2">
         <div class="card">
-          <div class="card-title">1. Ist-Analyse &amp; Risiko-Check</div>
+          <div class="card-title">1. Ist-Analyse & Risiko-Check</div>
           <ul>
             <li>Beruf, Einkommen, bestehende Verträge und familiäre Situation.</li>
             <li>Welche Risiken wären bei dir besonders kritisch (z. B. Alleinverdiener, Selbstständigkeit, Kredite)?</li>
@@ -1165,7 +1055,7 @@
         </div>
 
         <div class="card">
-          <div class="card-title">2. Konzept &amp; Umsetzung</div>
+          <div class="card-title">2. Konzept & Umsetzung</div>
           <ul>
             <li>Auswahl passender Lösung(en) – mit Blick auf Gesundheit, Flexibilität und Steuern.</li>
             <li>Saubere Gesundheitsdokumentation, damit im Leistungsfall alles nachvollziehbar ist.</li>
@@ -1175,7 +1065,7 @@
       </div>
 
       <div class="centered-cta">
-        <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" class="btn-primary" target="_blank" rel="noopener">
+        <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" class="btn-primary" target="_blank">
           Gespräch zu deiner Arbeitskraftabsicherung vereinbaren
         </a>
       </div>
@@ -1196,137 +1086,49 @@
 </div>
 
 <script>
-  // Burger Menü JS (neu)
-  const burgerBtn = document.getElementById("burgerBtn");
-  const menuPanel = document.getElementById("menuPanel");
-  const menuBackdrop = document.getElementById("menuBackdrop");
-  const menuClose = document.getElementById("menuClose");
+  const menuToggle = document.getElementById("menu-toggle");
+  const menuBackdrop = document.getElementById("menu-backdrop");
+  const menuPanel = document.getElementById("menu-panel");
 
-  const openMenu = () => {
-    menuPanel.classList.add("open");
-    menuBackdrop.classList.add("open");
-    document.body.style.overflow = "hidden";
-  };
-  const closeMenu = () => {
+  menuToggle.addEventListener("click", () => {
+    menuPanel.classList.toggle("open");
+    menuBackdrop.classList.toggle("open");
+  });
+
+  menuBackdrop.addEventListener("click", () => {
     menuPanel.classList.remove("open");
     menuBackdrop.classList.remove("open");
-    document.body.style.overflow = "";
-  };
-
-  burgerBtn?.addEventListener("click", openMenu);
-  menuClose?.addEventListener("click", closeMenu);
-  menuBackdrop?.addEventListener("click", closeMenu);
-
-  document.querySelectorAll(".menu-toggle").forEach(btn => {
-    btn.addEventListener("click", () => {
-      btn.closest(".menu-group")?.classList.toggle("open");
-    });
   });
 
-  // schließt Menü nach Link-Klick
-  document.querySelectorAll(".menu-sub a").forEach(a => {
-    a.addEventListener("click", closeMenu);
-  });
-
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && menuPanel.classList.contains("open")) closeMenu();
-  });
-
-  // Figuren-Animation „jeder Vierte“ (7 von 27)
+  // Figuren-Animation „jeder Vierte“
   document.addEventListener("DOMContentLoaded", () => {
     const personsContainer = document.getElementById("persons-container");
-    if (!personsContainer) return;
-
     const persons = Array.from(personsContainer.querySelectorAll(".person"));
-    const toFill = 7;
-    let animatedPersons = false;
+    const toFill = 5; // 5 von 20 = jeder Vierte
+    let animated = false;
 
-    const personsObserver = new IntersectionObserver(
+    const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting && !animatedPersons) {
-            animatedPersons = true;
+          if (entry.isIntersecting && !animated) {
+            animated = true;
             let index = 0;
             const interval = setInterval(() => {
               if (index >= toFill) {
                 clearInterval(interval);
                 return;
               }
-              persons[index]?.classList.add("filled");
+              persons[index].classList.add("filled");
               index++;
             }, 200);
-            personsObserver.unobserve(personsContainer);
+            observer.unobserve(personsContainer);
           }
         });
       },
       { threshold: 0.4 }
     );
 
-    personsObserver.observe(personsContainer);
-  });
-
-  // Kreisdiagramm (SVG) animiert aufbauen
-  document.addEventListener("DOMContentLoaded", () => {
-    const svg = document.getElementById("causes-chart");
-    if (!svg) return;
-
-    const radius = 40;
-    const center = 60;
-    const circumference = 2 * Math.PI * radius;
-
-    const rootStyles = getComputedStyle(document.documentElement);
-
-    const segments = [
-      { percent: 40, color: rootStyles.getPropertyValue("--psych").trim() || "#ef4444" },
-      { percent: 25, color: rootStyles.getPropertyValue("--back").trim() || "#f97316" },
-      { percent: 20, color: rootStyles.getPropertyValue("--other").trim() || "#3b82f6" },
-      { percent: 15, color: rootStyles.getPropertyValue("--accident").trim() || "#6b7280" },
-    ];
-
-    let startAngle = -90;
-    const segmentNodes = [];
-
-    segments.forEach((seg) => {
-      const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-      circle.setAttribute("cx", center);
-      circle.setAttribute("cy", center);
-      circle.setAttribute("r", radius);
-      circle.setAttribute("fill", "none");
-      circle.setAttribute("stroke-linecap", "round");
-      circle.style.stroke = seg.color;
-      circle.style.strokeWidth = "16";
-
-      const segLen = (circumference * seg.percent) / 100;
-      circle.style.strokeDasharray = segLen + " " + (circumference - segLen);
-      circle.style.strokeDashoffset = circumference;
-      circle.style.transformOrigin = center + "px " + center + "px";
-      circle.style.transform = "rotate(" + startAngle + "deg)";
-      svg.appendChild(circle);
-
-      startAngle += (360 * seg.percent) / 100;
-      segmentNodes.push({ node: circle });
-    });
-
-    const chartObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            let delay = 0;
-            segmentNodes.forEach((segObj) => {
-              setTimeout(() => {
-                segObj.node.style.transition = "stroke-dashoffset 0.9s ease-out";
-                segObj.node.style.strokeDashoffset = 0;
-              }, delay);
-              delay += 450;
-            });
-            chartObserver.unobserve(svg);
-          }
-        });
-      },
-      { threshold: 0.4 }
-    );
-
-    chartObserver.observe(svg);
+    observer.observe(personsContainer);
   });
 </script>
 </body>
