@@ -1,0 +1,2521 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Immobilien & Finanzierung - Jonas Plener &amp; Timo Hügel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500&family=Raleway:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #2e6f80;
+      --accent: #f0b85c;
+      --danger: #b91c1c;
+      --text: #111827;
+      --muted: #4b5563;
+      --border: #d9e2ec;
+      --soft: #f8fbff;
+      --soft-danger: #fff1f2;
+      --soft-safe: #ecfdf5;
+      --wa: #22c55e;
+      --shadow: 0 10px 25px rgba(15, 23, 42, 0.06);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: "Arimo", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #fef3c7 0, #f4f8f8 35%, #dbeafe 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      min-height: 100vh;
+      background: #fff;
+      box-shadow: 0 12px 35px rgba(15, 23, 42, 0.12);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.8rem 1.8rem;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(to right, #ffffff, #fef3c7);
+      gap: 1rem;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      min-width: 0;
+    }
+
+    .topbar-avatars {
+      display: flex;
+      align-items: center;
+    }
+
+    .topbar-avatars img {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.25);
+      border: 2px solid #fff;
+      background: #fff;
+    }
+
+    .topbar-avatars img + img { margin-left: -10px; }
+
+    .topbar-title {
+      font-family: "Raleway", system-ui, sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      color: var(--primary);
+    }
+
+    .topbar-tagline {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .menu-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0.65rem;
+      margin-left: auto;
+    }
+
+    .menu-text {
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .burger-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .burger-lines {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .burger-lines span {
+      display: block;
+      width: 22px;
+      height: 2.5px;
+      background: #4a787d;
+      border-radius: 999px;
+      transition: transform 0.18s ease, opacity 0.18s ease;
+    }
+
+    .burger-btn[aria-expanded="true"] .burger-lines span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .burger-btn[aria-expanded="true"] .burger-lines span:nth-child(2) { opacity: 0; }
+    .burger-btn[aria-expanded="true"] .burger-lines span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .menu-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.15s ease;
+      z-index: 40;
+    }
+
+    .menu-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .menu-panel {
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 100vh;
+      width: min(420px, 80vw);
+      background: #fff;
+      box-shadow: -8px 0 20px rgba(0, 0, 0, 0.15);
+      transform: translateX(100%);
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 50;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .menu-panel.open { transform: translateX(0); }
+
+    .menu-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .menu-header-title {
+      font-family: "Raleway", system-ui, sans-serif;
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 1rem;
+      text-transform: uppercase;
+    }
+
+    .menu-close-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      color: var(--primary);
+      font-size: 1.4rem;
+      padding: 0;
+    }
+
+    .menu-content { flex: 1; padding: 0.8rem 0; }
+    .menu-section { padding: 0; margin: 0; }
+
+    .menu-section-title {
+      font-family: "Raleway", system-ui, sans-serif;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      font-size: 0.75rem;
+      color: var(--primary);
+      padding: 0.8rem 1.2rem 0.4rem;
+      margin: 0;
+    }
+
+    .menu-section-links {
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .menu-section-links a {
+      display: flex;
+      align-items: center;
+      padding: 0.6rem 1.2rem;
+      font-size: 0.92rem;
+      color: #1f2937;
+      border-left: 3px solid transparent;
+    }
+
+    .menu-section-links a:hover { background: #f3f4f6; }
+    .menu-section-links a.active { border-left-color: var(--accent); background: rgba(244, 190, 105, 0.08); }
+
+    header.hero {
+      padding: 2.4rem 1.6rem 2.2rem;
+      border-bottom: 1px solid var(--border);
+      background: radial-gradient(circle at top left, #fff7ed 0, #ffffff 45%, #e0f2fe 100%);
+    }
+
+    .hero-inner {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .hero-text { flex: 1 1 260px; min-width: 0; }
+
+    .hero-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.15rem 0.65rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .hero-label .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .hero h1 {
+      font-family: "Raleway", system-ui, sans-serif;
+      font-weight: 800;
+      font-size: 2rem;
+      margin: 0 0 0.7rem;
+      letter-spacing: 0.02em;
+    }
+
+    .hero h1 strong { color: var(--danger); }
+
+    .hero-lead {
+      margin: 0 0 1rem;
+      color: var(--muted);
+      max-width: 40rem;
+      font-size: 0.98rem;
+    }
+
+    .hero-lead strong { font-weight: 800; color: var(--text); }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 0.8rem 0 1.2rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.32rem;
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.9);
+      font-size: 0.8rem;
+      color: var(--muted);
+      background: #ffffff;
+      box-shadow: 0 3px 8px rgba(15, 23, 42, 0.08);
+    }
+
+    .badge .arrow { font-size: 0.9rem; color: var(--primary); }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      align-items: center;
+      margin-top: 1rem;
+    }
+
+    .btn-primary, .btn-secondary, .btn-wa, .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.9rem 1.7rem;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      border: none;
+      text-align: center;
+      white-space: nowrap;
+      transition: transform 0.12s ease, filter 0.12s ease;
+      min-height: 54px;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #1f2933;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    }
+
+    .btn-secondary, .btn-wa {
+      background: var(--wa);
+      color: #ffffff;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    }
+
+    .btn-outline {
+      background: #ffffff;
+      color: var(--primary);
+      border: 1px solid rgba(148, 163, 184, 0.85);
+    }
+
+    .btn-primary:hover, .btn-secondary:hover, .btn-wa:hover, .btn-outline:hover {
+      filter: brightness(1.03);
+      transform: translateY(-1px);
+    }
+
+    .hero-photo {
+      flex: 0 0 450px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-width: 360px;
+      min-height: 420px;
+    }
+
+    .hero-photo::before {
+      content: "";
+      position: absolute;
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #f4be69 0, #ffffff 52%, #cfe7ff 100%);
+      opacity: 0.62;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 0;
+    }
+
+    .hero-people {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 16px;
+      padding: 28px 24px 112px;
+      z-index: 1;
+    }
+
+    .hero-person {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-image-box {
+      width: 210px;
+      height: 290px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .hero-image-box img {
+      height: auto;
+      object-fit: contain;
+      display: block;
+      filter: drop-shadow(0 10px 20px rgba(15, 23, 42, 0.16));
+    }
+
+    .hero-person.jonas { left: 52px; top: -8px; }
+    .hero-person.jonas .hero-image-box img { width: 341px; max-height: 435px; transform: translateY(12px); }
+    .hero-person.timo { left: -40px; top: -8px; }
+    .hero-person.timo .hero-image-box img { width: 168px; max-height: 225px; transform: translateY(12px); }
+
+    .hero-card {
+      position: absolute;
+      bottom: 18px;
+      right: 57px;
+      background: #fff;
+      padding: 18px 30px;
+      border-radius: 22px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.18);
+      z-index: 3;
+      width: 333px;
+      color: var(--muted);
+    }
+
+    .hero-card h3 {
+      margin: 0 0 10px;
+      color: var(--primary);
+      font-family: "Raleway", system-ui, sans-serif;
+      font-size: 0.92rem;
+      text-align: center;
+      font-weight: 800;
+    }
+
+    .hero-card ul {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .hero-card li {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 0.55rem;
+      margin-bottom: 0.3rem;
+      font-size: 0.82rem;
+      text-align: center;
+    }
+
+    .hero-card li::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent);
+      margin-top: 0.42rem;
+      flex: 0 0 8px;
+    }
+
+    .contact-strip {
+      margin-top: 1rem;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.8rem;
+    }
+
+    .contact-card {
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 0.9rem 1rem;
+      box-shadow: var(--shadow);
+    }
+
+    .contact-name {
+      font-family: "Raleway", system-ui, sans-serif;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 0.25rem;
+      font-size: 1rem;
+    }
+
+    .contact-role {
+      font-size: 0.84rem;
+      color: var(--muted);
+      margin-bottom: 0.45rem;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.28rem;
+      font-size: 0.92rem;
+    }
+
+    .contact-links a:hover { color: var(--primary); text-decoration: underline; }
+
+    main {
+      padding: 1.8rem 1.6rem 2.4rem;
+      flex: 1;
+      background: linear-gradient(to bottom, #ffffff 0, #f9fafb 100%);
+    }
+
+    section { margin-bottom: 2rem; }
+
+    h2 {
+      font-family: "Raleway", system-ui, sans-serif;
+      margin: 0 0 0.4rem;
+      font-size: 1.45rem;
+      color: var(--primary);
+      font-weight: 800;
+    }
+
+    .section-subtitle {
+      margin-bottom: 1rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .grid-2,
+    .grid-3,
+    .check-grid,
+    .result-grid {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .grid-2,
+    .check-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+    .result-grid { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+
+    .precheck-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 0.95rem;
+    }
+
+    .precheck-input-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.8rem;
+      align-items: end;
+    }
+
+    .partner-inline-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.8rem;
+      margin-top: 0.85rem;
+    }
+
+    .compact-card {
+      padding: 0.8rem 0.9rem;
+    }
+
+    .compact-card .chip {
+      margin-bottom: 0.35rem;
+    }
+
+    .compact-card .toggle-row {
+      margin-bottom: 0.28rem;
+      padding: 0.34rem 0.42rem;
+    }
+
+    .compact-card .toggle-row .label {
+      font-size: 0.78rem;
+    }
+
+    .compact-card .toggle-inline input[type="number"] {
+      min-width: 66px;
+      padding: 0.3rem 0.36rem;
+      font-size: 0.76rem;
+    }
+
+    .compact-card .toggle-inline {
+      min-width: 138px;
+      gap: 0.35rem;
+    }
+
+    .compact-card .suffix {
+      min-width: 1.8rem;
+      font-size: 0.75rem;
+    }
+
+    .compact-range-row {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-top: 0.6rem;
+    }
+
+    .compact-range-copy {
+      min-width: 150px;
+    }
+
+    .compact-range-copy label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--muted);
+      margin-bottom: 0.2rem;
+    }
+
+    .compact-range-copy p {
+      margin: 0;
+      font-size: 0.76rem;
+      color: var(--muted);
+    }
+
+    .compact-range-row .field-row {
+      flex: 1;
+    }
+
+    .calc-button-row {
+      display: flex;
+      justify-content: flex-start;
+      margin-top: 0.9rem;
+    }
+
+    .precheck-action-row {
+      margin-top: 0.6rem;
+    }
+
+    .precheck-action-row .btn-primary {
+      min-height: 48px;
+      padding: 0.72rem 1.2rem;
+      font-size: 0.9rem;
+    }
+
+    .card,
+    .calc-card,
+    .priority-card,
+    .result-card,
+    .house-card {
+      background: #fff;
+      border-radius: 22px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      padding: 1.15rem 1.2rem;
+    }
+
+    .card-title,
+    .calc-title,
+    .priority-title,
+    .result-title,
+    .house-title {
+      font-family: "Raleway", system-ui, sans-serif;
+      font-weight: 800;
+      margin: 0 0 0.45rem;
+      color: var(--text);
+      font-size: 1.02rem;
+    }
+
+    .card ul,
+    .priority-card ul {
+      margin: 0.25rem 0 0;
+      padding-left: 1.2rem;
+      color: var(--muted);
+    }
+
+    .card li,
+    .priority-card li { margin-bottom: 0.24rem; }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      width: fit-content;
+      max-width: 100%;
+      padding: 0.28rem 0.7rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--primary);
+      background: rgba(74, 120, 125, 0.08);
+      border: 1px solid rgba(74, 120, 125, 0.14);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin-bottom: 0.6rem;
+    }
+
+    .calc-shell {
+      background:
+        radial-gradient(circle at top right, rgba(240, 184, 92, 0.18) 0, rgba(240, 184, 92, 0) 26%),
+        linear-gradient(160deg, #f8fbff 0, #ffffff 90%);
+      border: 1px solid #d9e2ec;
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: 1.15rem;
+    }
+
+    .calc-shell-secondary {
+      background:
+        radial-gradient(circle at top left, rgba(46, 111, 128, 0.12) 0, rgba(46, 111, 128, 0) 28%),
+        linear-gradient(160deg, #f6fbfe 0, #ffffff 92%);
+    }
+
+    .calc-card-soft {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0, rgba(247, 250, 252, 0.96) 100%);
+    }
+
+    .calc-card-highlight {
+      background: linear-gradient(180deg, #fffef9 0, #ffffff 100%);
+      border-color: rgba(240, 184, 92, 0.45);
+      box-shadow: 0 14px 32px rgba(15, 23, 42, 0.08);
+    }
+
+    .result-note {
+      margin-top: 0.9rem;
+      border-radius: 12px;
+      border: 1px solid #d9e2ec;
+      background: #f8fbff;
+      color: var(--muted);
+      font-size: 0.87rem;
+      padding: 0.62rem 0.72rem;
+    }
+
+    .result-note.error {
+      border-color: #fecaca;
+      background: #fff1f2;
+      color: #b91c1c;
+      font-weight: 700;
+    }
+
+    .ampel-box {
+      margin-top: 0.75rem;
+      border: 1px solid #d9e2ec;
+      border-radius: 12px;
+      background: #ffffff;
+      padding: 0.62rem 0.72rem;
+    }
+
+    .ampel-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: #64748b;
+      margin-bottom: 0.25rem;
+      font-weight: 700;
+    }
+
+    .ampel-status {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      margin-bottom: 0.35rem;
+      border: 1px solid transparent;
+    }
+
+    .ampel-status.good {
+      color: #166534;
+      background: #dcfce7;
+      border-color: #86efac;
+    }
+
+    .ampel-status.warn {
+      color: #854d0e;
+      background: #fef9c3;
+      border-color: #fde68a;
+    }
+
+    .ampel-status.bad {
+      color: #991b1b;
+      background: #fee2e2;
+      border-color: #fca5a5;
+    }
+
+    .ampel-text {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .result-fun {
+      margin-top: 0.65rem;
+      border-radius: 12px;
+      border: 1px dashed #cfd9e5;
+      background: #fffdf7;
+      color: #334155;
+      font-size: 0.86rem;
+      padding: 0.55rem 0.72rem;
+      font-weight: 700;
+    }
+
+    .more-toggle {
+      margin-top: 0.85rem;
+      border: 1px solid #dbe4ee;
+      border-radius: 12px;
+      background: #f8fbff;
+      padding: 0.6rem 0.7rem;
+    }
+
+    .more-toggle summary {
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--primary);
+      list-style: none;
+    }
+
+    .more-toggle summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .more-toggle[open] summary {
+      margin-bottom: 0.45rem;
+    }
+
+    .more-toggle p,
+    .more-toggle ul {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .more-toggle ul {
+      margin-top: 0.45rem;
+      padding-left: 1.15rem;
+    }
+
+    .field-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .field-wrap label {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    .field-row {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    input[type="number"],
+    input[type="range"] {
+      width: 100%;
+    }
+
+    input[type="number"] {
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      font-size: 0.94rem;
+      padding: 0.58rem 0.7rem;
+      color: #0f172a;
+      background: #fff;
+    }
+
+    input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: #2e6f80;
+    }
+
+    input[type="range"] { accent-color: #2e6f80; }
+
+    .suffix {
+      min-width: 2.2rem;
+      font-size: 0.84rem;
+      color: var(--muted);
+      font-weight: 700;
+      text-align: right;
+    }
+
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+      padding: 0.48rem 0.55rem;
+      border-radius: 12px;
+      border: 1px solid #e5edf5;
+      background: #fff;
+      margin-bottom: 0.5rem;
+    }
+
+    .toggle-row .label {
+      font-size: 0.88rem;
+      color: #1f2937;
+      font-weight: 700;
+    }
+
+    .toggle-inline {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      min-width: 160px;
+    }
+
+    .toggle-inline input[type="number"] {
+      min-width: 88px;
+      padding: 0.42rem 0.5rem;
+      font-size: 0.84rem;
+    }
+
+    .small-note {
+      margin: 0.4rem 0 0;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .result-card {
+      background: linear-gradient(160deg, #ffffff 0, #f8fafc 100%);
+    }
+
+    .result-value {
+      font-family: "Raleway", system-ui, sans-serif;
+      font-size: 1.24rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin: 0.2rem 0 0;
+      color: #0f172a;
+    }
+
+    .result-hint {
+      margin: 0.35rem 0 0;
+      font-size: 0.83rem;
+      color: var(--muted);
+    }
+
+    .status-line {
+      margin-top: 0.75rem;
+      border-radius: 14px;
+      padding: 0.7rem 0.8rem;
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+
+    .status-line.good {
+      background: rgba(34, 197, 94, 0.15);
+      color: #166534;
+      border: 1px solid rgba(34, 197, 94, 0.35);
+    }
+
+    .status-line.warn {
+      background: rgba(245, 158, 11, 0.16);
+      color: #92400e;
+      border: 1px solid rgba(245, 158, 11, 0.38);
+    }
+
+    .status-line.bad {
+      background: rgba(239, 68, 68, 0.14);
+      color: #991b1b;
+      border: 1px solid rgba(239, 68, 68, 0.35);
+    }
+
+    .house-card {
+      background:
+        radial-gradient(circle at top right, rgba(240, 184, 92, 0.18) 0, rgba(240, 184, 92, 0) 28%),
+        linear-gradient(170deg, #f4fbff 0, #ffffff 100%);
+    }
+
+    .house-card.is-hidden {
+      display: none;
+    }
+
+    .house-visual {
+      width: 300px;
+      height: 224px;
+      margin: 0.2rem auto 0.8rem;
+      position: relative;
+    }
+
+    .house-illustration {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 24px;
+      background: linear-gradient(180deg, #e9f6ff 0, #ffffff 78%);
+      overflow: hidden;
+      border: 1px solid rgba(217, 226, 236, 0.95);
+    }
+
+    .house-sky-glow {
+      position: absolute;
+      top: 16px;
+      right: 26px;
+      width: 72px;
+      height: 72px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(240, 184, 92, 0.92) 0, rgba(240, 184, 92, 0.24) 50%, rgba(240, 184, 92, 0) 80%);
+    }
+
+    .house-cloud,
+    .house-cloud::before,
+    .house-cloud::after,
+    .house-cloud-two,
+    .house-cloud-two::before,
+    .house-cloud-two::after {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 999px;
+      content: "";
+    }
+
+    .house-cloud {
+      width: 44px;
+      height: 16px;
+      top: 34px;
+      left: 30px;
+      box-shadow: 0 6px 14px rgba(148, 163, 184, 0.18);
+    }
+
+    .house-cloud::before {
+      width: 20px;
+      height: 20px;
+      left: 6px;
+      top: -8px;
+    }
+
+    .house-cloud::after {
+      width: 24px;
+      height: 24px;
+      right: 5px;
+      top: -10px;
+    }
+
+    .house-cloud-two {
+      width: 36px;
+      height: 13px;
+      top: 54px;
+      right: 100px;
+      opacity: 0.88;
+    }
+
+    .house-cloud-two::before {
+      width: 16px;
+      height: 16px;
+      left: 4px;
+      top: -7px;
+    }
+
+    .house-cloud-two::after {
+      width: 18px;
+      height: 18px;
+      right: 3px;
+      top: -8px;
+    }
+
+    .house-ground {
+      position: absolute;
+      left: 14px;
+      right: 14px;
+      bottom: 8px;
+      height: 42px;
+      border-radius: 22px;
+      background: linear-gradient(180deg, #d8f2cb 0, #a6d37a 100%);
+      box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.3);
+    }
+
+    .house-path {
+      position: absolute;
+      left: 123px;
+      bottom: 12px;
+      width: 42px;
+      height: 40px;
+      border-radius: 16px 16px 8px 8px;
+      background: linear-gradient(180deg, #d1d5db 0, #94a3b8 100%);
+      opacity: 0.42;
+    }
+
+    .house-layer {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    .house-layer-fill {
+      inset: 0;
+    }
+
+    .house-plinth,
+    .house-lower,
+    .house-upper,
+    .house-garage,
+    .house-roof-line,
+    .house-roof-upper,
+    .house-roof-garage,
+    .house-window-wide,
+    .house-window-tall,
+    .house-window-slim,
+    .house-door,
+    .house-side-door,
+    .house-wood-panel,
+    .house-solar,
+    .house-plant-left,
+    .house-plant-right,
+    .house-shadow {
+      position: absolute;
+      box-sizing: border-box;
+    }
+
+    .house-shadow {
+      left: 58px;
+      right: 42px;
+      bottom: 26px;
+      height: 18px;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.22);
+      filter: blur(8px);
+    }
+
+    .house-plinth {
+      left: 58px;
+      bottom: 34px;
+      width: 188px;
+      height: 12px;
+      border-radius: 8px;
+      border: 2px solid var(--house-stroke, #7c8796);
+      background: var(--house-plinth, #cbd5e1);
+    }
+
+    .house-lower {
+      left: 66px;
+      bottom: 46px;
+      width: 120px;
+      height: 66px;
+      border: 2px solid var(--house-stroke, #7c8796);
+      background: var(--house-wall, #d1d5db);
+      border-radius: 8px 8px 6px 6px;
+    }
+
+    .house-upper {
+      left: 102px;
+      bottom: 112px;
+      width: 92px;
+      height: 44px;
+      border: 2px solid var(--house-stroke, #7c8796);
+      background: var(--house-wall, #d1d5db);
+      border-radius: 8px 8px 4px 4px;
+    }
+
+    .house-garage {
+      left: 190px;
+      bottom: 46px;
+      width: 54px;
+      height: 52px;
+      border: 2px solid var(--house-stroke, #7c8796);
+      background: var(--house-wall, #d1d5db);
+      border-radius: 8px 8px 6px 6px;
+    }
+
+    .house-roof-line {
+      left: 58px;
+      bottom: 110px;
+      width: 136px;
+      height: 12px;
+      border-radius: 8px;
+      border: 2px solid var(--house-stroke, #7c8796);
+      background: var(--house-roof, #cbd5e1);
+    }
+
+    .house-roof-upper {
+      left: 94px;
+      bottom: 154px;
+      width: 108px;
+      height: 10px;
+      border-radius: 8px;
+      border: 2px solid var(--house-stroke, #7c8796);
+      background: var(--house-roof, #cbd5e1);
+    }
+
+    .house-roof-garage {
+      left: 184px;
+      bottom: 98px;
+      width: 68px;
+      height: 10px;
+      border-radius: 8px;
+      border: 2px solid var(--house-stroke, #7c8796);
+      background: var(--house-roof, #cbd5e1);
+    }
+
+    .house-window-wide,
+    .house-window-tall,
+    .house-window-slim,
+    .house-door,
+    .house-side-door,
+    .house-wood-panel,
+    .house-solar,
+    .house-plant-left,
+    .house-plant-right,
+    .house-path,
+    .house-sky-glow,
+    .house-cloud,
+    .house-cloud-two,
+    .house-ground {
+      transition: opacity 0.35s ease, transform 0.35s ease, filter 0.35s ease, background 0.35s ease;
+    }
+
+    .house-window-wide,
+    .house-window-tall,
+    .house-window-slim {
+      border: 2px solid var(--house-stroke, #7c8796);
+      background: var(--house-window, #e5e7eb);
+      box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.35);
+    }
+
+    .house-window-wide {
+      left: 78px;
+      bottom: 72px;
+      width: 44px;
+      height: 22px;
+      border-radius: 5px;
+    }
+
+    .house-window-tall {
+      left: 132px;
+      bottom: 72px;
+      width: 22px;
+      height: 40px;
+      border-radius: 5px;
+    }
+
+    .house-window-slim {
+      left: 122px;
+      bottom: 124px;
+      width: 38px;
+      height: 18px;
+      border-radius: 5px;
+    }
+
+    .house-window-wide::before,
+    .house-window-wide::after,
+    .house-window-tall::before,
+    .house-window-tall::after,
+    .house-window-slim::before,
+    .house-window-slim::after {
+      content: "";
+      position: absolute;
+      background: var(--house-stroke, #7c8796);
+      opacity: 0.78;
+    }
+
+    .house-window-wide::before,
+    .house-window-tall::before,
+    .house-window-slim::before {
+      top: 50%;
+      left: 4px;
+      right: 4px;
+      height: 2px;
+      transform: translateY(-50%);
+    }
+
+    .house-window-wide::after,
+    .house-window-tall::after,
+    .house-window-slim::after {
+      left: 50%;
+      top: 4px;
+      bottom: 4px;
+      width: 2px;
+      transform: translateX(-50%);
+    }
+
+    .house-door {
+      left: 164px;
+      bottom: 46px;
+      width: 18px;
+      height: 44px;
+      border: 2px solid var(--house-stroke, #7c8796);
+      background: var(--house-door, #cbd5e1);
+      border-radius: 6px 6px 0 0;
+    }
+
+    .house-door::after,
+    .house-side-door::after {
+      content: "";
+      position: absolute;
+      right: 4px;
+      top: 22px;
+      width: 4px;
+      height: 4px;
+      border-radius: 999px;
+      background: var(--house-stroke, #7c8796);
+    }
+
+    .house-side-door {
+      left: 214px;
+      bottom: 46px;
+      width: 16px;
+      height: 28px;
+      border: 2px solid var(--house-stroke, #7c8796);
+      background: var(--house-door-soft, #d1d5db);
+      border-radius: 5px 5px 0 0;
+    }
+
+    .house-wood-panel {
+      left: 66px;
+      bottom: 46px;
+      width: 12px;
+      height: 66px;
+      border-radius: 4px 0 0 4px;
+      background: var(--house-panel, #cbd5e1);
+      border-left: 2px solid var(--house-stroke, #7c8796);
+      border-top: 2px solid var(--house-stroke, #7c8796);
+      border-bottom: 2px solid var(--house-stroke, #7c8796);
+    }
+
+    .house-solar {
+      left: 144px;
+      bottom: 158px;
+      width: 36px;
+      height: 8px;
+      border-radius: 4px;
+      border: 2px solid var(--house-stroke, #7c8796);
+      background: var(--house-solar, #cbd5e1);
+    }
+
+    .house-plant-left,
+    .house-plant-right {
+      bottom: 24px;
+      width: 26px;
+      height: 30px;
+      background: var(--house-bush, #cbd5e1);
+      border: 2px solid var(--house-stroke, #7c8796);
+      border-radius: 12px 12px 10px 10px;
+    }
+
+    .house-plant-left { left: 34px; }
+    .house-plant-right { right: 24px; }
+
+    .house-card .house-layer-fill .reveal-step {
+      opacity: 0;
+      filter: saturate(0.7);
+      transform: translateY(2px);
+    }
+
+    .house-card[data-stage="1"] .house-layer-fill .reveal-1,
+    .house-card[data-stage="2"] .house-layer-fill .reveal-1,
+    .house-card[data-stage="3"] .house-layer-fill .reveal-1,
+    .house-card[data-stage="4"] .house-layer-fill .reveal-1,
+    .house-card[data-stage="5"] .house-layer-fill .reveal-1,
+    .house-card[data-stage="2"] .house-layer-fill .reveal-2,
+    .house-card[data-stage="3"] .house-layer-fill .reveal-2,
+    .house-card[data-stage="4"] .house-layer-fill .reveal-2,
+    .house-card[data-stage="5"] .house-layer-fill .reveal-2,
+    .house-card[data-stage="3"] .house-layer-fill .reveal-3,
+    .house-card[data-stage="4"] .house-layer-fill .reveal-3,
+    .house-card[data-stage="5"] .house-layer-fill .reveal-3,
+    .house-card[data-stage="4"] .house-layer-fill .reveal-4,
+    .house-card[data-stage="5"] .house-layer-fill .reveal-4,
+    .house-card[data-stage="5"] .house-layer-fill .reveal-5 {
+      opacity: 1;
+      filter: saturate(1);
+      transform: translateY(0);
+    }
+
+    .house-layer-base {
+      --house-wall: #e5e7eb;
+      --house-roof: #cbd5e1;
+      --house-window: #f3f4f6;
+      --house-door: #d1d5db;
+      --house-door-soft: #dbe1e8;
+      --house-panel: #d5dae2;
+      --house-solar: #d7dde6;
+      --house-bush: #d1d5db;
+      --house-plinth: #d1d5db;
+      --house-stroke: #94a3b8;
+      opacity: 0.95;
+    }
+
+    .house-layer-fill {
+      --house-wall: #f7f1e6;
+      --house-roof: #3b5b76;
+      --house-window: #d9f3ff;
+      --house-door: #b46d36;
+      --house-door-soft: #d0a06e;
+      --house-panel: #9f7a5a;
+      --house-solar: #1f2937;
+      --house-bush: #5a9a39;
+      --house-plinth: #d7b98f;
+      --house-stroke: #475569;
+    }
+
+    .house-percent {
+      text-align: center;
+      font-family: "Raleway", system-ui, sans-serif;
+      font-weight: 800;
+      font-size: 1.35rem;
+      color: #0f172a;
+      margin: 0.2rem 0 0;
+    }
+
+    .house-text {
+      text-align: center;
+      margin: 0.28rem 0 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .house-status {
+      margin-top: 0.65rem;
+      border-radius: 12px;
+      padding: 0.62rem 0.72rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .house-status.good {
+      background: rgba(34, 197, 94, 0.14);
+      color: #166534;
+    }
+
+    .house-status.warn {
+      background: rgba(245, 158, 11, 0.16);
+      color: #92400e;
+    }
+
+    .house-status.bad {
+      background: rgba(239, 68, 68, 0.14);
+      color: #991b1b;
+    }
+
+    .primary-link {
+      display: inline-flex;
+      margin-top: 0.8rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.85);
+      padding: 0.5rem 0.9rem;
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: var(--primary);
+      background: #fff;
+    }
+
+    .priority-card {
+      background: linear-gradient(160deg, var(--soft-safe) 0, #ffffff 75%);
+      border-color: #bbf7d0;
+    }
+
+    .priority-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #1f2933;
+      font-weight: 800;
+      margin-bottom: 0.45rem;
+    }
+
+    .hidden { display: none; }
+
+    footer {
+      padding: 1rem 1.6rem 1.4rem;
+      font-size: 0.78rem;
+      color: #6b7280;
+      border-top: 1px solid var(--border);
+      background: #f9fafb;
+    }
+
+    @media (max-width: 767px) {
+      .topbar { padding-inline: 1rem; }
+      .menu-panel { width: 100vw; }
+      .menu-text { display: none; }
+      header.hero { padding: 2rem 1rem 2rem; }
+      main { padding: 1.6rem 1rem 2.2rem; }
+      .hero-inner { flex-direction: column-reverse; align-items: stretch; }
+      .hero h1 { font-size: 1.6rem; }
+      .hero-lead { font-size: 0.92rem; }
+      .hero-photo {
+        min-width: 0;
+        flex: 1 1 100%;
+        min-height: 330px;
+      }
+      .hero-photo::before {
+        width: 300px;
+        height: 300px;
+      }
+      .hero-people {
+        padding: 22px 10px 120px;
+        gap: 8px;
+      }
+      .hero-person.jonas { left: 20px; }
+      .hero-person.jonas .hero-image-box img { width: 230px; }
+      .hero-person.timo { left: -20px; }
+      .hero-person.timo .hero-image-box img { width: 130px; }
+      .hero-card {
+        right: 50%;
+        transform: translateX(50%);
+        width: min(92vw, 340px);
+        bottom: 8px;
+        padding: 14px 18px;
+      }
+      .contact-strip { grid-template-columns: 1fr; }
+      .cta-row,
+      .check-grid,
+      .result-grid { grid-template-columns: 1fr; }
+      .cta-row { flex-direction: column; align-items: stretch; }
+      .cta-row a,
+      .btn-outline,
+      .primary-link { width: 100%; justify-content: center; }
+      .toggle-inline { min-width: 148px; }
+      .precheck-input-grid,
+      .partner-inline-grid { grid-template-columns: 1fr; }
+      .compact-range-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .house-visual {
+        width: 240px;
+        height: 196px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="topbar">
+      <div class="topbar-left">
+        <div class="topbar-avatars">
+          <img src="jonas-halbkoerper.png" alt="Jonas Plener" />
+          <img src="timo-halbkoerper.png" alt="Timo Hügel" />
+        </div>
+        <div>
+          <div class="topbar-title">Jonas Plener &amp; Timo Hügel</div>
+          <div class="topbar-tagline">Agentur für Deutsche Vermögensberatung<br />Region Kinzigtal / Ortenau</div>
+        </div>
+      </div>
+
+      <div class="menu-wrap">
+        <div class="menu-text">Für Eltern, Selbstständige und Angestellte<br />im Kinzigtal &amp; der Ortenau</div>
+        <button type="button" class="burger-btn" id="burgerBtn" aria-label="Menü öffnen" aria-expanded="false" aria-controls="menuPanel">
+          <span class="burger-lines" aria-hidden="true"><span></span><span></span><span></span></span>
+        </button>
+      </div>
+
+      <div class="menu-overlay" id="menuOverlay"></div>
+      <nav class="menu-panel" id="menuPanel" aria-label="Navigation">
+        <div class="menu-header">
+          <span class="menu-header-title">Menü</span>
+          <button type="button" class="menu-close-btn" aria-label="Menü schließen">✕</button>
+        </div>
+        <div class="menu-content">
+          <section class="menu-section">
+            <h2 class="menu-section-title">Startseite</h2>
+            <ul class="menu-section-links"><li><a href="index.html">Themenauswahl</a></li></ul>
+          </section>
+          <section class="menu-section">
+            <h2 class="menu-section-title">Angestellt</h2>
+            <ul class="menu-section-links">
+              <li><a href="vermoegen-aufbauen-investieren.html">Vermögen aufbauen</a></li>
+              <li><a href="bav.html">bAV</a></li>
+              <li><a href="arbeitskraftabsicherung.html">Arbeitskraft absichern</a></li>
+              <li><a href="risikoleben.html">Familie absichern</a></li>
+              <li><a href="sachversicherungen.html">Sachversicherungen</a></li>
+              <li><a href="immobilien-finanzierung.html" class="active">Immobilien &amp; Finanzierung</a></li>
+            </ul>
+          </section>
+          <section class="menu-section">
+            <h2 class="menu-section-title">Eltern &amp; Familie</h2>
+            <ul class="menu-section-links">
+              <li><a href="kinder-absichern.html">Kinder absichern</a></li>
+              <li><a href="eltern-retter-kindererziehungszeiten.html">Kindererziehungszeiten</a></li>
+              <li><a href="riester.html">Riester</a></li>
+              <li><a href="risikoleben.html">Familie absichern</a></li>
+            </ul>
+          </section>
+          <section class="menu-section">
+            <h2 class="menu-section-title">Unternehmer &amp; Selbstständig</h2>
+            <ul class="menu-section-links">
+              <li><a href="liquiditaet.html">Liquidität</a></li>
+              <li><a href="mitarbeiter-benefits.html">Mitarbeiter Benefits</a></li>
+              <li><a href="energie.html">Energie</a></li>
+              <li><a href="unternehmer-absicherung.html">Unternehmer absichern</a></li>
+              <li><a href="vertraege-optimieren.html">Verträge optimieren</a></li>
+              <li><a href="ruerup.html">Ruerup</a></li>
+              <li><a href="immobilien-finanzierung.html" class="active">Immobilien &amp; Finanzierung</a></li>
+            </ul>
+          </section>
+          <section class="menu-section">
+            <h2 class="menu-section-title">Karriere &amp; Ausbildung</h2>
+            <ul class="menu-section-links">
+              <li><a href="ausbildung-und-zukunft.html">Ausbildung &amp; Zukunft</a></li>
+              <li><a href="karriere-im-finanzbereich.html">Karriere im Finanzbereich</a></li>
+            </ul>
+          </section>
+        </div>
+      </nav>
+    </div>
+
+    <header class="hero">
+      <div class="hero-inner">
+        <div class="hero-text">
+          <div class="hero-label"><span class="dot"></span>Immobilien &amp; Finanzierung · Klar planen statt raten</div>
+          <h1>Von Kaufpreis bis Zinsstrategie: <strong>damit dein Haus wirklich tragbar bleibt</strong></h1>
+          <p class="hero-lead">
+            Erst prüfen wir dein Wunschobjekt gegen dein Budget. Danach siehst du im einfachen Rechner,
+            wie viel Haus für dich realistisch ist, inklusive Nebenkosten, Beleihung und Zinslogik.
+          </p>
+
+          <div class="hero-badges">
+            <a href="#vorcheck" class="badge"><span>Vorcheck für konkreten Kaufpreis</span><span class="arrow">↓</span></a>
+            <a href="#hausbudget-rechner" class="badge"><span>Rechner: Wie viel Haus kann ich mir leisten?</span><span class="arrow">↓</span></a>
+            <a href="#kaufnebenkosten" class="badge"><span>Notar, Steuer, Makler im Blick</span><span class="arrow">↓</span></a>
+            <a href="#zinsstrategie" class="badge"><span>Zinssicherung, Forward, Bausparen</span><span class="arrow">↓</span></a>
+          </div>
+
+          <div class="cta-row">
+            <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-primary">Finanzierung gemeinsam durchgehen</a>
+            <a href="https://wa.me/4915141678134" target="_blank" rel="noopener" class="btn-wa">Jonas kontaktieren</a>
+            <a href="https://wa.me/4917663796605" target="_blank" rel="noopener" class="btn-secondary">Timo kontaktieren</a>
+          </div>
+        </div>
+
+        <div class="hero-photo">
+          <div class="hero-people">
+            <div class="hero-person jonas"><div class="hero-image-box"><img src="jonas-halbkoerper.png" alt="Jonas Plener" /></div></div>
+            <div class="hero-person timo"><div class="hero-image-box"><img src="timo-halbkoerper.png" alt="Timo Hügel" /></div></div>
+          </div>
+          <div class="hero-card">
+            <h3>Eure Ansprechpartner</h3>
+            <ul>
+              <li>Finanzierungsstruktur verständlich und praxisnah</li>
+              <li>Beratung digital und vor Ort</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-strip">
+        <div class="contact-card">
+          <div class="contact-name">Jonas Plener</div>
+          <div class="contact-role">Vermögensberater bei der Deutschen Vermögensberatung</div>
+          <div class="contact-links">
+            <a href="tel:+4915141678134">0151 41678134</a>
+            <a href="mailto:Jonas.Plener@dvag.de">Jonas.Plener@dvag.de</a>
+          </div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-name">Timo Hügel</div>
+          <div class="contact-role">Vermögensberater bei der Deutschen Vermögensberatung</div>
+          <div class="contact-links">
+            <a href="tel:+4917663796605">0176 63796605</a>
+            <a href="mailto:Timo.Huegel@dvag.de">Timo.Huegel@dvag.de</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section id="vorcheck">
+        <h2>1) Vorcheck: Passt ein konkreter Kaufpreis zu euren Daten?</h2>
+        <p class="section-subtitle">Trag zuerst genau das Haus ein, das dir im Kopf herumschwirrt. In wenigen Angaben siehst du dann sofort, ob es realistisch greifbar ist oder ob die Finanzierung euch unnötig unter Druck setzen würde.</p>
+
+        <div class="calc-shell">
+          <div class="precheck-stack">
+            <div class="calc-card">
+              <div class="chip">Objekt &amp; Haushalt</div>
+
+              <div class="precheck-input-grid">
+                <div class="field-wrap">
+                  <label for="targetPrice">Kaufpreis der Immobilie</label>
+                  <div class="field-row">
+                    <input id="targetPrice" type="number" min="0" step="1000" value="450000" />
+                    <span class="suffix">EUR</span>
+                  </div>
+                </div>
+
+                <div class="field-wrap">
+                  <label for="p1Income">Dein monatliches Nettoeinkommen</label>
+                  <div class="field-row">
+                    <input id="p1Income" type="number" min="0" step="100" value="3200" />
+                    <span class="suffix">EUR</span>
+                  </div>
+                </div>
+
+                <div class="field-wrap">
+                  <label for="p1Fixed">Deine monatlichen Fixkosten</label>
+                  <div class="field-row">
+                    <input id="p1Fixed" type="number" min="0" step="50" value="1200" />
+                    <span class="suffix">EUR</span>
+                  </div>
+                </div>
+
+                <div class="field-wrap">
+                  <label for="p1Equity">Dein Eigenkapital</label>
+                  <div class="field-row">
+                    <input id="p1Equity" type="number" min="0" step="1000" value="60000" />
+                    <span class="suffix">EUR</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="toggle-row" style="margin-top:0.2rem;">
+                <span class="label">Zu zweit finanzieren?</span>
+                <input id="isCouple" type="checkbox" />
+              </div>
+
+              <div id="partnerFields" class="partner-inline-grid hidden">
+                <div class="field-wrap">
+                  <label for="p2Income">Nettoeinkommen Person 2</label>
+                  <div class="field-row">
+                    <input id="p2Income" type="number" min="0" step="100" value="2400" />
+                    <span class="suffix">EUR</span>
+                  </div>
+                </div>
+
+                <div class="field-wrap">
+                  <label for="p2Fixed">Fixkosten Person 2</label>
+                  <div class="field-row">
+                    <input id="p2Fixed" type="number" min="0" step="50" value="650" />
+                    <span class="suffix">EUR</span>
+                  </div>
+                </div>
+
+                <div class="field-wrap">
+                  <label for="p2Equity">Eigenkapital Person 2</label>
+                  <div class="field-row">
+                    <input id="p2Equity" type="number" min="0" step="1000" value="30000" />
+                    <span class="suffix">EUR</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="calc-card compact-card">
+              <div class="chip">Nebenkosten &amp; Zins</div>
+
+              <div class="toggle-row">
+                <span class="label">Grunderwerbsteuer berücksichtigen?</span>
+                <div class="toggle-inline">
+                  <input id="taxOn" type="checkbox" checked />
+                  <input id="taxPct" type="number" min="3" max="6.5" step="0.1" value="5.0" />
+                  <span class="suffix">%</span>
+                </div>
+              </div>
+
+              <div class="toggle-row">
+                <span class="label">Notar + Grundbuch berücksichtigen?</span>
+                <div class="toggle-inline">
+                  <input id="notaryOn" type="checkbox" checked />
+                  <input id="notaryPct" type="number" min="1" max="3" step="0.1" value="2.0" />
+                  <span class="suffix">%</span>
+                </div>
+              </div>
+
+              <div class="toggle-row">
+                <span class="label">Makler berücksichtigen?</span>
+                <div class="toggle-inline">
+                  <input id="brokerOn" type="checkbox" checked />
+                  <input id="brokerPct" type="number" min="0" max="7.14" step="0.01" value="3.57" />
+                  <span class="suffix">%</span>
+                </div>
+              </div>
+
+              <div class="toggle-row">
+                <span class="label">Renovierungspuffer berücksichtigen?</span>
+                <div class="toggle-inline">
+                  <input id="renoOn" type="checkbox" checked />
+                  <input id="renoAmount" type="number" min="0" step="1000" value="15000" />
+                  <span class="suffix">EUR</span>
+                </div>
+              </div>
+
+              <div class="compact-range-row">
+                <div class="compact-range-copy">
+                  <label for="interestPct">Sollzins</label>
+                  <p>Einfach zwischen 2,0 % und 4,0 % verschieben.</p>
+                </div>
+                <div class="field-row">
+                  <input id="interestPct" type="range" min="2" max="4" step="0.1" value="3.2" />
+                  <span class="suffix" id="interestOut">3,2 %</span>
+                </div>
+              </div>
+
+              <p class="small-note">Tilgung ist fest mit 2,0 % pro Jahr berücksichtigt.</p>
+              <p class="small-note">So bekommst du in wenigen Sekunden ein ehrliches Gefühl dafür, wie viel Luft euer Haushalt wirklich hat.</p>
+
+              <div class="calc-button-row precheck-action-row">
+                <button type="button" class="btn-primary" id="precheckButton">Haus berechnen</button>
+              </div>
+            </div>
+
+            <div class="house-card is-hidden" id="houseCard" data-stage="0">
+              <div class="house-title">Ergebnis für dein Wunschobjekt</div>
+              <div class="house-visual">
+                <div class="house-illustration">
+                  <div class="house-sky-glow"></div>
+                  <div class="house-cloud"></div>
+                  <div class="house-cloud-two"></div>
+                  <div class="house-ground"></div>
+                  <div class="house-path"></div>
+                  <div class="house-layer house-layer-base">
+                    <div class="house-shadow"></div>
+                    <div class="house-plinth"></div>
+                    <div class="house-lower"></div>
+                    <div class="house-upper"></div>
+                    <div class="house-garage"></div>
+                    <div class="house-roof-line"></div>
+                    <div class="house-roof-upper"></div>
+                    <div class="house-roof-garage"></div>
+                    <div class="house-wood-panel"></div>
+                    <div class="house-window-wide"></div>
+                    <div class="house-window-tall"></div>
+                    <div class="house-window-slim"></div>
+                    <div class="house-door"></div>
+                    <div class="house-side-door"></div>
+                    <div class="house-solar"></div>
+                    <div class="house-plant-left"></div>
+                    <div class="house-plant-right"></div>
+                  </div>
+                  <div class="house-layer house-layer-fill" id="houseReveal">
+                    <div class="house-sky-glow reveal-step reveal-5"></div>
+                    <div class="house-ground reveal-step reveal-4"></div>
+                    <div class="house-path reveal-step reveal-5"></div>
+                    <div class="house-shadow reveal-step reveal-1"></div>
+                    <div class="house-plinth reveal-step reveal-2"></div>
+                    <div class="house-lower reveal-step reveal-2"></div>
+                    <div class="house-upper reveal-step reveal-3"></div>
+                    <div class="house-garage reveal-step reveal-2"></div>
+                    <div class="house-roof-line reveal-step reveal-3"></div>
+                    <div class="house-roof-upper reveal-step reveal-4"></div>
+                    <div class="house-roof-garage reveal-step reveal-3"></div>
+                    <div class="house-wood-panel reveal-step reveal-4"></div>
+                    <div class="house-window-wide reveal-step reveal-2"></div>
+                    <div class="house-window-tall reveal-step reveal-3"></div>
+                    <div class="house-window-slim reveal-step reveal-4"></div>
+                    <div class="house-door reveal-step reveal-4"></div>
+                    <div class="house-side-door reveal-step reveal-5"></div>
+                    <div class="house-solar reveal-step reveal-5"></div>
+                    <div class="house-plant-left reveal-step reveal-1"></div>
+                    <div class="house-plant-right reveal-step reveal-3"></div>
+                  </div>
+                </div>
+              </div>
+              <p class="house-percent" id="housePercent">-</p>
+              <p class="house-text" id="houseText">Nach dem Klick siehst du, wie viel von deinem Wunschhaus heute schon realistisch drin ist.</p>
+              <div class="house-status warn" id="houseStatus">Noch keine vollständige Berechnung möglich.</div>
+              <a href="#hausbudget-rechner" class="primary-link">Weiter zum Rechner „Wie viel Haus kann ich mir leisten?“</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="hausbudget-rechner">
+        <h2>2) Rechner: Wie viel Haus kann ich mir leisten?</h2>
+        <p class="section-subtitle">Wenn das Wunschobjekt noch nicht feststeht, zeigt dir dieser zweite Rechner euren belastbaren Rahmen. Gleiche Logik, bewusst schlanker Aufbau, damit du direkt mit echten Größen arbeiten kannst.</p>
+
+        <div class="calc-shell calc-shell-secondary">
+          <div class="check-grid">
+            <div class="calc-card calc-card-soft">
+              <div class="chip">Eingaben</div>
+
+              <div class="field-wrap">
+                <label for="calcIncome">Monatliches Netto Person 1</label>
+                <div class="field-row">
+                  <input id="calcIncome" type="number" min="0" step="100" value="3600" />
+                  <span class="suffix">EUR</span>
+                </div>
+              </div>
+
+              <div class="field-wrap" style="margin-bottom:0.5rem;">
+                <label style="display:flex; align-items:center; gap:0.5rem; margin:0; font-weight:700;">
+                  <input id="calcHasSecondPerson" type="checkbox" />
+                  Zweite Person einbeziehen
+                </label>
+              </div>
+
+              <div class="field-wrap hidden" id="calcPerson2Wrap">
+                <label for="calcIncomeP2">Monatliches Netto Person 2</label>
+                <div class="field-row">
+                  <input id="calcIncomeP2" type="number" min="0" step="100" value="2000" />
+                  <span class="suffix">EUR</span>
+                </div>
+              </div>
+
+              <div class="field-wrap">
+                <label for="calcFixed">Monatliche Fixkosten gesamt</label>
+                <div class="field-row">
+                  <input id="calcFixed" type="number" min="0" step="50" value="1850" />
+                  <span class="suffix">EUR</span>
+                </div>
+              </div>
+
+              <div class="field-wrap">
+                <label for="calcChildren">Kinder</label>
+                <div class="field-row">
+                  <input id="calcChildren" type="number" min="0" step="1" value="0" />
+                  <span class="suffix">Anzahl</span>
+                </div>
+              </div>
+
+              <div class="field-wrap">
+                <label for="calcEquity">Eigenkapital gesamt</label>
+                <div class="field-row">
+                  <input id="calcEquity" type="number" min="0" step="1000" value="90000" />
+                  <span class="suffix">EUR</span>
+                </div>
+              </div>
+
+              <div class="field-wrap">
+                <label for="calcInterest">Sollzins (2,0 % bis 4,0 %)</label>
+                <div class="field-row">
+                  <input id="calcInterest" type="range" min="2" max="4" step="0.1" value="3.2" />
+                  <span class="suffix" id="calcInterestOut">3,2 %</span>
+                </div>
+              </div>
+
+              <p class="small-note">Tilgung: fest 2,0 % p.a.</p>
+              <p class="small-note">Kaufnebenkosten werden automatisch berücksichtigt.</p>
+            </div>
+
+            <div class="calc-card calc-card-highlight">
+              <div class="chip">Ergebnis</div>
+
+              <div class="result-grid">
+                <article class="result-card">
+                  <div class="result-title">Leistbarer Kaufpreis</div>
+                  <div class="result-value" id="calcOutPrice">-</div>
+                  <p class="result-hint">Objektpreis ohne Nebenkosten</p>
+                </article>
+
+                <article class="result-card">
+                  <div class="result-title">Leistbare Monatsrate</div>
+                  <div class="result-value" id="calcOutRate">-</div>
+                  <p class="result-hint">aus Einkommen und Fixkosten</p>
+                </article>
+
+                <article class="result-card">
+                  <div class="result-title">Darlehensbedarf</div>
+                  <div class="result-value" id="calcOutLoan">-</div>
+                  <p class="result-hint">Projektkosten minus Eigenkapital</p>
+                </article>
+              </div>
+
+              <div class="result-note" id="calcExplain">Die Werte zeigen, welcher Kaufpreis und welche Monatsrate mit den aktuellen Eingaben rechnerisch möglich sind.</div>
+              <div class="result-fun" id="calcObjectType">Objekt-Feeling: -</div>
+              <div class="ampel-box" id="calcAmpelBox">
+                <div class="ampel-label">Sinnhaftigkeitsbewertung</div>
+                <div class="ampel-status warn" id="calcAmpelStatus">Angespannt</div>
+                <p class="ampel-text" id="calcAmpelText">Das Vorhaben ist machbar, aber finanziell angespannt.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="kaufnebenkosten">
+        <h2>Kaufnebenkosten: Was du unbedingt einplanen musst</h2>
+        <p class="section-subtitle">Gerade Notar- und Nebenkosten entscheiden oft darüber, ob eine Finanzierung wirklich tragbar ist oder nur auf dem Papier gut aussieht.</p>
+        <div class="grid-3">
+          <article class="card">
+            <div class="card-title">Grunderwerbsteuer</div>
+            <ul>
+              <li>Bundeslandabhängig, meist zwischen 3,5 % und 6,5 %.</li>
+              <li>Fällig zusätzlich zum Kaufpreis.</li>
+              <li>Wird häufig bei der ersten Kalkulation unterschätzt.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <div class="card-title">Notar und Grundbuch</div>
+            <ul>
+              <li>Typisch rund 1,5 % bis 2,0 % des Kaufpreises.</li>
+              <li>Notarvertrag, Grundschuldbestellung und Eintragungen.</li>
+              <li>Ohne diese Kosten ist der Kauf nicht umsetzbar.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <div class="card-title">Makler und Renovierung</div>
+            <ul>
+              <li>Maklerkosten je nach Objekt und Region.</li>
+              <li>Renovierungs- und Ausstattungspuffer separat planen.</li>
+              <li>Puffer reduziert Nachfinanzierungsrisiko deutlich.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section id="finanzierungskennzahlen">
+        <h2>Beleihung und Struktur: die wichtigsten Kennzahlen</h2>
+        <p class="section-subtitle">Eine gute Finanzierung ist nicht nur "Rate passt", sondern auch zins- und zukunftssicher aufgebaut.</p>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title">Beleihungsauslauf</div>
+            <ul>
+              <li>Unter 80 % oft mit besseren Konditionen verbunden.</li>
+              <li>80 % bis 90 % meist noch gut finanzierbar.</li>
+              <li>Über 90 % häufig teurer und strenger geprüft.</li>
+              <li>Mehr Eigenkapital schafft Verhandlungsspielraum.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-title">Rate, Tilgung, Restschuld</div>
+            <ul>
+              <li>Rate ergibt sich aus Sollzins plus Tilgung.</li>
+              <li>Höhere Tilgung reduziert langfristig Zinskosten.</li>
+              <li>Sondertilgung und Tilgungswechsel erhöhen Flexibilität.</li>
+              <li>Restschuldplanung ist Pflicht vor der Anschlussfinanzierung.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="zinsstrategie">
+        <h2>Zinssicherung: Forward-Darlehen und Bausparen richtig nutzen</h2>
+        <p class="section-subtitle">Zins sichern ist strategisch wichtig, wenn heute schon klar ist, dass später eine Anschlussfinanzierung ansteht.</p>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title">Forward-Darlehen</div>
+            <ul>
+              <li>Du sicherst dir den Zinssatz heute für einen späteren Start.</li>
+              <li>Sinnvoll, wenn Zinsanstieg erwartet wird und die Restschuld hoch bleibt.</li>
+              <li>Forward-Aufschlag gegen Planungssicherheit abwägen.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-title">Bausparer zur Zinssicherung</div>
+            <p class="small-note" style="margin:0 0 0.75rem; font-size:0.9rem;">Bausparen ist nicht nur ein Sparvertrag, sondern oft ein Werkzeug, um sich heute schon einen künftigen Darlehenszins zu sichern. Gerade bei langer Planung oder Anschlussfinanzierung kann das strategisch stark sein.</p>
+            <details class="more-toggle">
+              <summary>Mit dem Aufklappen starten die Details und Stichpunkte</summary>
+              <ul>
+                <li>Bausparmodelle können niedrige Darlehenszinsen absichern, z.B. 0,95 % im Darlehenstarif.</li>
+                <li>Interessant für planbare Anschlussfinanzierung, Modernisierung oder spätere Teilentschuldung.</li>
+                <li>Du sicherst nicht nur einen Zinssatz, sondern oft auch einen klar kalkulierbaren Tilgungsweg.</li>
+                <li>Spannend, wenn ihr heute schon wisst, dass in einigen Jahren eine Restschuld ansteht.</li>
+                <li>Auch bei Familien mit mittelfristigem Immobilienziel kann Bausparen Vorbereitung und Zinssicherung verbinden.</li>
+                <li>Wichtig sind Tarifwahl, Ansparphase, Zuteilung, Abschlussgebühr und die tatsächliche Gesamtlogik bis zum Darlehen.</li>
+                <li>Ein niedriger Darlehenszins klingt stark, muss aber immer gegen Opportunität, Guthabenzins und Flexibilität geprüft werden.</li>
+              </ul>
+              <p>Ein niedriger Tarifzins wie 0,95 % wirkt stark, ist aber nur ein Teilbild. Entscheidend ist die Gesamtstrecke aus Ansparen, Zuteilung und Darlehensphase.</p>
+              <ul>
+                <li>Wie hoch sind Abschlusskosten und laufende Kosten?</li>
+                <li>Wie viel muss bis zur Zuteilung angespart sein?</li>
+                <li>Passt der Zeitpunkt der Zuteilung zu eurer Restschuld?</li>
+                <li>Ist die monatliche Gesamtbelastung in beiden Phasen tragbar?</li>
+              </ul>
+              <p class="small-note" style="margin-top:0.55rem; font-size:0.88rem;">Entscheidend ist also nicht "Bausparer ja oder nein", sondern: Fuer welchen Zeitpunkt, welche Restschuld und welche Zinsannahme soll er genutzt werden?</p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section id="finanzierungsstrategien">
+        <h2>Praxisreihenfolge für eine stabile Finanzierung</h2>
+        <p class="section-subtitle">So entsteht aus vielen Einzelthemen ein klarer, umsetzbarer Finanzierungsplan.</p>
+        <div class="grid-3">
+          <article class="priority-card">
+            <div class="priority-number">1</div>
+            <h3 class="priority-title">Tragbarkeit zuerst</h3>
+            <ul>
+              <li>Kaufpreis gegen reales Haushaltsbudget prüfen.</li>
+              <li>Fixkosten und Nebenkosten vollständig erfassen.</li>
+              <li>Eigenkapital nicht bis auf null aufbrauchen.</li>
+            </ul>
+          </article>
+          <article class="priority-card">
+            <div class="priority-number">2</div>
+            <h3 class="priority-title">Struktur sauber wählen</h3>
+            <ul>
+              <li>Zinsbindung passend zur Lebensphase wählen.</li>
+              <li>Tilgungsoptionen und Sondertilgung integrieren.</li>
+              <li>Förderwege und Bankkonditionen aktiv vergleichen.</li>
+            </ul>
+          </article>
+          <article class="priority-card">
+            <div class="priority-number">3</div>
+            <h3 class="priority-title">Zinsstrategie mitdenken</h3>
+            <ul>
+              <li>Restschuld frühzeitig planen.</li>
+              <li>Forward-Darlehen oder Bausparer rechtzeitig prüfen.</li>
+              <li>Zinssicherung aktiv steuern statt später reagieren.</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="cta-row" style="margin-top:1rem;">
+          <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-primary">Immobilienfinanzierung gemeinsam sortieren</a>
+        </div>
+      </section>
+    </main>
+
+    <footer>Diese Seite ersetzt keine individuelle Rechts-, Steuer- oder Finanzierungsberatung. Alle Angaben ohne Gewähr.</footer>
+  </div>
+
+  <script>
+    (function () {
+      const burgerBtn = document.getElementById("burgerBtn");
+      const menuPanel = document.getElementById("menuPanel");
+      const menuOverlay = document.getElementById("menuOverlay");
+      const menuCloseBtn = menuPanel.querySelector(".menu-close-btn");
+      if (!burgerBtn || !menuPanel || !menuOverlay) return;
+
+      function closeMenu() {
+        menuPanel.classList.remove("open");
+        menuOverlay.classList.remove("open");
+        burgerBtn.setAttribute("aria-expanded", "false");
+        document.body.style.overflow = "";
+      }
+
+      function openMenu() {
+        menuPanel.classList.add("open");
+        menuOverlay.classList.add("open");
+        burgerBtn.setAttribute("aria-expanded", "true");
+        document.body.style.overflow = "hidden";
+      }
+
+      burgerBtn.addEventListener("click", function () {
+        const isOpen = burgerBtn.getAttribute("aria-expanded") === "true";
+        if (isOpen) closeMenu(); else openMenu();
+      });
+
+      menuCloseBtn.addEventListener("click", closeMenu);
+      menuOverlay.addEventListener("click", closeMenu);
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") closeMenu();
+      });
+
+      const TILGUNG = 2.0;
+      const FIXED_RATIO = 0.35;
+      const HYPOTHETICAL_BUFFER_RATIO = 0.8;
+      const TILGUNG_DECIMAL = 0.02;
+      const NEBENKOSTEN_QUOTE = 0.10;
+
+      const targetPrice = document.getElementById("targetPrice");
+      const p1Income = document.getElementById("p1Income");
+      const p1Fixed = document.getElementById("p1Fixed");
+      const p1Equity = document.getElementById("p1Equity");
+      const isCouple = document.getElementById("isCouple");
+      const partnerFields = document.getElementById("partnerFields");
+      const p2Income = document.getElementById("p2Income");
+      const p2Fixed = document.getElementById("p2Fixed");
+      const p2Equity = document.getElementById("p2Equity");
+
+      const taxOn = document.getElementById("taxOn");
+      const taxPct = document.getElementById("taxPct");
+      const notaryOn = document.getElementById("notaryOn");
+      const notaryPct = document.getElementById("notaryPct");
+      const brokerOn = document.getElementById("brokerOn");
+      const brokerPct = document.getElementById("brokerPct");
+      const renoOn = document.getElementById("renoOn");
+      const renoAmount = document.getElementById("renoAmount");
+
+      const interestPct = document.getElementById("interestPct");
+      const interestOut = document.getElementById("interestOut");
+      const precheckButton = document.getElementById("precheckButton");
+      const houseCard = document.getElementById("houseCard");
+
+      const houseReveal = document.getElementById("houseReveal");
+      const housePercent = document.getElementById("housePercent");
+      const houseText = document.getElementById("houseText");
+      const houseStatus = document.getElementById("houseStatus");
+
+      const calcIncome = document.getElementById("calcIncome");
+      const calcHasSecondPerson = document.getElementById("calcHasSecondPerson");
+      const calcPerson2Wrap = document.getElementById("calcPerson2Wrap");
+      const calcIncomeP2 = document.getElementById("calcIncomeP2");
+      const calcFixed = document.getElementById("calcFixed");
+      const calcEquity = document.getElementById("calcEquity");
+      const calcChildren = document.getElementById("calcChildren");
+      const calcInterest = document.getElementById("calcInterest");
+      const calcInterestOut = document.getElementById("calcInterestOut");
+
+      const calcOutPrice = document.getElementById("calcOutPrice");
+      const calcOutRate = document.getElementById("calcOutRate");
+      const calcOutLoan = document.getElementById("calcOutLoan");
+      const calcExplain = document.getElementById("calcExplain");
+      const calcAmpelStatus = document.getElementById("calcAmpelStatus");
+      const calcAmpelText = document.getElementById("calcAmpelText");
+      const calcObjectType = document.getElementById("calcObjectType");
+
+      let precheckActivated = false;
+
+      function asNumber(value, fallback) {
+        const n = Number(value);
+        return Number.isFinite(n) ? n : fallback;
+      }
+
+      function toCurrency(value) {
+        return new Intl.NumberFormat("de-DE", {
+          style: "currency",
+          currency: "EUR",
+          maximumFractionDigits: 0
+        }).format(Math.max(0, value));
+      }
+
+      function toPercent(value) {
+        return new Intl.NumberFormat("de-DE", {
+          minimumFractionDigits: 1,
+          maximumFractionDigits: 1
+        }).format(value) + " %";
+      }
+
+      function getNebenkostenProzent() {
+        const tax = taxOn.checked ? Math.max(0, asNumber(taxPct.value, 0)) : 0;
+        const notary = notaryOn.checked ? Math.max(0, asNumber(notaryPct.value, 0)) : 0;
+        const broker = brokerOn.checked ? Math.max(0, asNumber(brokerPct.value, 0)) : 0;
+        return (tax + notary + broker) / 100;
+      }
+
+      function getPuffer() {
+        return renoOn.checked ? Math.max(0, asNumber(renoAmount.value, 0)) : 0;
+      }
+
+      function maxPreisFromInputs(income, fixed, equity, zinsPct, ancillaryPct, puffer) {
+        const freieRate = Math.max(0, (income * FIXED_RATIO) - fixed);
+        return maxPreisFromRate(freieRate, equity, zinsPct, ancillaryPct, puffer);
+      }
+
+      function maxPreisFromRate(freieRate, equity, zinsPct, ancillaryPct, puffer) {
+        const annuitaetMonat = ((zinsPct + TILGUNG) / 100) / 12;
+        const maxDarlehen = annuitaetMonat > 0 ? freieRate / annuitaetMonat : 0;
+        const maxPreis = Math.max(0, (maxDarlehen + equity - puffer) / (1 + ancillaryPct));
+        const nebenkosten = maxPreis * ancillaryPct;
+        const projektkosten = maxPreis + nebenkosten + puffer;
+        const darlehen = Math.max(0, projektkosten - equity);
+        const beleihung = maxPreis > 0 ? (darlehen / maxPreis) * 100 : 0;
+
+        return {
+          freieRate: freieRate,
+          maxPreis: maxPreis,
+          darlehen: darlehen,
+          beleihung: beleihung
+        };
+      }
+
+      function toEuro(value) {
+        return new Intl.NumberFormat("de-DE", {
+          maximumFractionDigits: 0
+        }).format(Math.max(0, value)) + " EUR";
+      }
+
+      function safetyBufferByChildren(children) {
+        if (children <= 0) return 800;
+        if (children === 1) return 1000;
+        if (children === 2) return 1200;
+        return 1200 + ((children - 2) * 200);
+      }
+
+      function getObjectTypeByPrice(price) {
+        if (price < 100000) return "kleine Wohnung oder Einstieg";
+        if (price <= 200000) return "solide kleine Wohnung";
+        if (price <= 350000) return "gute Eigentumswohnung";
+        if (price <= 500000) return "Reihenhaus realistisch";
+        if (price <= 750000) return "solides Haus moeglich";
+        return "gehobenes Objekt moeglich";
+      }
+
+      function collectVorcheck() {
+        const p1Inc = Math.max(0, asNumber(p1Income.value, 0));
+        const p1Fix = Math.max(0, asNumber(p1Fixed.value, 0));
+        const p1Eq = Math.max(0, asNumber(p1Equity.value, 0));
+
+        const two = isCouple.checked;
+        const p2Inc = two ? Math.max(0, asNumber(p2Income.value, 0)) : 0;
+        const p2Fix = two ? Math.max(0, asNumber(p2Fixed.value, 0)) : 0;
+        const p2Eq = two ? Math.max(0, asNumber(p2Equity.value, 0)) : 0;
+
+        const income = p1Inc + p2Inc;
+        const fixed = p1Fix + p2Fix;
+        const equity = p1Eq + p2Eq;
+
+        const zins = Math.min(4, Math.max(2, asNumber(interestPct.value, 3.2)));
+        const ancillaryPct = getNebenkostenProzent();
+        const puffer = getPuffer();
+
+        interestOut.textContent = toPercent(zins);
+
+        const result = maxPreisFromInputs(income, fixed, equity, zins, ancillaryPct, puffer);
+        const objektPreis = Math.max(0, asNumber(targetPrice.value, 0));
+        const quote = objektPreis > 0 ? (result.maxPreis / objektPreis) * 100 : 0;
+
+        calcIncome.value = Math.round(p1Inc);
+        calcIncomeP2.value = Math.round(p2Inc);
+        calcFixed.value = Math.round(fixed);
+        calcEquity.value = Math.round(equity);
+        calcInterest.value = zins.toFixed(1);
+
+        return {
+          income: income,
+          fixed: fixed,
+          equity: equity,
+          objektPreis: objektPreis,
+          visibleQuote: Math.max(0, Math.min(140, quote)),
+          result: result
+        };
+      }
+
+      function getHouseStage(quote) {
+        if (quote <= 0) return 0;
+        if (quote < 30) return 1;
+        if (quote < 55) return 2;
+        if (quote < 75) return 3;
+        if (quote < 95) return 4;
+        return 5;
+      }
+
+      function renderVorcheck() {
+        const data = collectVorcheck();
+        const stage = getHouseStage(data.visibleQuote);
+
+        houseCard.classList.remove("is-hidden");
+        houseCard.setAttribute("data-stage", String(stage));
+        if (houseReveal) {
+          houseReveal.setAttribute("data-stage", String(stage));
+        }
+        housePercent.textContent = toPercent(data.visibleQuote);
+
+        if (data.objektPreis <= 0) {
+          houseText.textContent = "Bitte einen Kaufpreis eingeben.";
+          houseStatus.className = "house-status warn";
+          houseStatus.textContent = "Noch keine vollständige Berechnung möglich.";
+        } else if (data.visibleQuote >= 100) {
+          houseText.textContent = "Das Wunschhaus liegt mit den aktuellen Angaben in eurem machbaren Bereich und wirkt tragbar.";
+          houseStatus.className = "house-status good";
+          houseStatus.textContent = "Sehr solide Ausgangslage. Jetzt geht es um saubere Struktur, Bankvergleich und Zinssicherung.";
+        } else if (data.visibleQuote >= 75) {
+          houseText.textContent = "Das Wunschhaus ist nah dran, aber nicht ganz ohne Spannung. Kleine Stellschrauben können hier viel verändern.";
+          houseStatus.className = "house-status warn";
+          houseStatus.textContent = "Mit guter Struktur kann es passen. Prüft besonders Kaufpreis, Eigenkapital und Nebenkosten sehr sauber.";
+        } else {
+          houseText.textContent = "So wie es jetzt aussieht, wäre dieses Haus finanziell zu ambitioniert und würde euch wahrscheinlich zu eng werden.";
+          houseStatus.className = "house-status bad";
+          houseStatus.textContent = "Besser jetzt ehrlich gegenrechnen als später dauerhaft Druck im Alltag zu haben. Preis, Budget oder Eigenkapital anpassen.";
+        }
+
+        updateRechner();
+      }
+
+      function syncVorcheckOnly() {
+        collectVorcheck();
+        updateRechner();
+        if (precheckActivated) {
+          renderVorcheck();
+        }
+      }
+
+      function updateRechner() {
+        const income1 = asNumber(calcIncome.value, 0);
+        const secondPersonActive = !!(calcHasSecondPerson && calcHasSecondPerson.checked);
+        const income2 = secondPersonActive ? asNumber(calcIncomeP2.value, 0) : 0;
+        const income = Math.max(0, income1) + Math.max(0, income2);
+        const fixed = Math.max(0, asNumber(calcFixed.value, 0));
+        const equity = Math.max(0, asNumber(calcEquity.value, 0));
+        const childrenRaw = asNumber(calcChildren.value, 0);
+        const children = Math.max(0, Math.floor(childrenRaw));
+        const zins = Math.min(4, Math.max(2, asNumber(calcInterest.value, 3.2)));
+
+        const hasInvalid =
+          !Number.isFinite(income1) || income1 < 0 ||
+          (secondPersonActive && (!Number.isFinite(income2) || income2 < 0)) ||
+          !Number.isFinite(fixed) || fixed < 0 ||
+          !Number.isFinite(equity) || equity < 0 ||
+          !Number.isFinite(childrenRaw) || childrenRaw < 0;
+
+        calcInterestOut.textContent = toPercent(zins);
+
+        if (hasInvalid) {
+          calcOutPrice.textContent = toCurrency(0);
+          calcOutRate.textContent = toCurrency(0);
+          calcOutLoan.textContent = toCurrency(0);
+          if (calcExplain) {
+            calcExplain.classList.add("error");
+            calcExplain.textContent = "Unplausible Eingabe erkannt. Bitte nur Werte ab 0 eingeben.";
+          }
+          if (calcAmpelStatus) {
+            calcAmpelStatus.className = "ampel-status bad";
+            calcAmpelStatus.textContent = "Nicht sinnvoll";
+          }
+          if (calcAmpelText) {
+            calcAmpelText.textContent = "Es bleibt aktuell keine tragbare Monatsrate uebrig.";
+          }
+          if (calcObjectType) {
+            calcObjectType.textContent = "Objekt-Feeling: kein realistischer Kaufpreis ableitbar.";
+          }
+          return;
+        }
+
+        const sicherheitspuffer = safetyBufferByChildren(children);
+        const leistbareMonatsrate = Math.max(0, income - fixed - sicherheitspuffer);
+
+        const sollzins = zins / 100;
+        const jahresrate = leistbareMonatsrate * 12;
+        const annuitaetsFaktor = sollzins + TILGUNG_DECIMAL;
+        const maxDarlehen = annuitaetsFaktor <= 0 ? 0 : (jahresrate / annuitaetsFaktor);
+
+        let maxKaufpreis = (maxDarlehen + equity) / (1 + NEBENKOSTEN_QUOTE);
+        if (maxKaufpreis < 0) maxKaufpreis = 0;
+
+        const gesamtkosten = maxKaufpreis * (1 + NEBENKOSTEN_QUOTE);
+        let darlehensbedarf = gesamtkosten - equity;
+        if (darlehensbedarf < 0) darlehensbedarf = 0;
+
+        const belastungsquote = income > 0 ? (leistbareMonatsrate / income) : 1;
+        const nebenkosten = maxKaufpreis * NEBENKOSTEN_QUOTE;
+
+        let p1 = 0;
+        if (belastungsquote <= 0.30) p1 = 2;
+        else if (belastungsquote <= 0.40) p1 = 1;
+
+        let p2 = 0;
+        const kleineRateGrenze = Math.max(250, income * 0.10);
+        if (leistbareMonatsrate === 0) p2 = 0;
+        else if (leistbareMonatsrate < kleineRateGrenze) p2 = 1;
+        else p2 = 2;
+
+        let p3 = 0;
+        if (equity >= nebenkosten) p3 = 2;
+        else if (equity >= (nebenkosten * 0.7)) p3 = 1;
+
+        const points = p1 + p2 + p3;
+
+        let status = "Nicht sinnvoll";
+        let statusClass = "bad";
+        let ampelText = "Das Vorhaben ist aktuell nicht sinnvoll darstellbar.";
+
+        if (points >= 5) {
+          status = "Sinnvoll";
+          statusClass = "good";
+          ampelText = "Das Vorhaben wirkt finanziell tragbar und sinnvoll.";
+        } else if (points >= 3) {
+          status = "Angespannt";
+          statusClass = "warn";
+          ampelText = "Das Vorhaben ist machbar, aber finanziell angespannt.";
+        }
+
+        if (leistbareMonatsrate === 0) {
+          status = "Nicht sinnvoll";
+          statusClass = "bad";
+          ampelText = "Es bleibt aktuell keine tragbare Monatsrate uebrig.";
+        }
+
+        calcOutPrice.textContent = toCurrency(maxKaufpreis);
+        calcOutRate.textContent = toCurrency(leistbareMonatsrate);
+        calcOutLoan.textContent = toCurrency(darlehensbedarf);
+
+        if (calcObjectType) {
+          if (leistbareMonatsrate === 0) {
+            calcObjectType.textContent = "Objekt-Feeling: kein realistischer Kaufpreis ableitbar.";
+          } else {
+            calcObjectType.textContent = "Objekt-Feeling: " + getObjectTypeByPrice(maxKaufpreis) + ".";
+          }
+        }
+
+        if (calcExplain) {
+          calcExplain.classList.remove("error");
+          calcExplain.textContent = "Die Berechnung arbeitet intern mit 10 % Kaufnebenkosten und einem Sicherheitsbudget von " + toEuro(sicherheitspuffer) + " bei " + children + " Kind(ern).";
+        }
+
+        if (calcAmpelStatus) {
+          calcAmpelStatus.className = "ampel-status " + statusClass;
+          calcAmpelStatus.textContent = status;
+        }
+        if (calcAmpelText) {
+          calcAmpelText.textContent = ampelText;
+        }
+      }
+
+      isCouple.addEventListener("change", function () {
+        partnerFields.classList.toggle("hidden", !isCouple.checked);
+        syncVorcheckOnly();
+      });
+
+      [
+        targetPrice, p1Income, p1Fixed, p1Equity, p2Income, p2Fixed, p2Equity,
+        taxOn, taxPct, notaryOn, notaryPct, brokerOn, brokerPct, renoOn, renoAmount,
+        interestPct
+      ].forEach(function (el) {
+        el.addEventListener("input", syncVorcheckOnly);
+      });
+
+      [calcIncome, calcIncomeP2, calcFixed, calcEquity, calcChildren, calcInterest].forEach(function (el) {
+        el.addEventListener("input", updateRechner);
+      });
+
+      if (calcHasSecondPerson && calcPerson2Wrap) {
+        calcHasSecondPerson.addEventListener("change", function () {
+          calcPerson2Wrap.classList.toggle("hidden", !calcHasSecondPerson.checked);
+          updateRechner();
+        });
+      }
+
+      if (precheckButton) {
+        precheckButton.addEventListener("click", function () {
+          precheckActivated = true;
+          renderVorcheck();
+        });
+      }
+
+      partnerFields.classList.add("hidden");
+      if (calcPerson2Wrap) {
+        calcPerson2Wrap.classList.add("hidden");
+      }
+      houseCard.setAttribute("data-stage", "0");
+      syncVorcheckOnly();
+    })();
+  </script>
+</body>
+</html>
