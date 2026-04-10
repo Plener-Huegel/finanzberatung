@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Energie - Jonas Plener &amp; Timo Hügel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500&family=Raleway:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #2e6f80;
+      --accent: #f0b85c;
+      --text: #111827;
+      --muted: #4b5563;
+      --border: #d9e2ec;
+      --soft-safe: #ecfdf5;
+      --soft-warn: #fff7ed;
+      --wa: #22c55e;
+      --shadow: 0 10px 25px rgba(15, 23, 42, 0.06);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: "Arimo", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #fef3c7 0, #f4f8f8 35%, #dbeafe 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      min-height: 100vh;
+      background: #fff;
+      box-shadow: 0 12px 35px rgba(15, 23, 42, 0.12);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.8rem 1.8rem;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(to right, #ffffff, #fef3c7);
+      gap: 1rem;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      min-width: 0;
+    }
+
+    .topbar-avatars {
+      display: flex;
+      align-items: center;
+    }
+
+    .topbar-avatars img {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.25);
+      border: 2px solid #fff;
+      background: #fff;
+    }
+
+    .topbar-avatars img + img { margin-left: -10px; }
+
+    .topbar-title {
+      font-family: "Raleway", system-ui, sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      color: var(--primary);
+    }
+
+    .topbar-tagline {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .menu-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0.65rem;
+      margin-left: auto;
+    }
+
+    .menu-text {
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .burger-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .burger-lines {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .burger-lines span {
+      display: block;
+      width: 22px;
+      height: 2.5px;
+      background: #4a787d;
+      border-radius: 999px;
+      transition: transform 0.18s ease, opacity 0.18s ease;
+    }
+
+    .burger-btn[aria-expanded="true"] .burger-lines span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .burger-btn[aria-expanded="true"] .burger-lines span:nth-child(2) { opacity: 0; }
+    .burger-btn[aria-expanded="true"] .burger-lines span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .menu-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.15s ease;
+      z-index: 40;
+    }
+
+    .menu-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .menu-panel {
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 100vh;
+      width: min(420px, 80vw);
+      background: #fff;
+      box-shadow: -8px 0 20px rgba(0, 0, 0, 0.15);
+      transform: translateX(100%);
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 50;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .menu-panel.open { transform: translateX(0); }
+
+    .menu-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .menu-header-title {
+      font-family: "Raleway", system-ui, sans-serif;
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 1rem;
+      text-transform: uppercase;
+    }
+
+    .menu-close-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      color: var(--primary);
+      font-size: 1.4rem;
+      padding: 0;
+    }
+
+    .menu-content { flex: 1; padding: 0.8rem 0; }
+    .menu-section { padding: 0; margin: 0; }
+
+    .menu-section-title {
+      font-family: "Raleway", system-ui, sans-serif;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      font-size: 0.75rem;
+      color: var(--primary);
+      padding: 0.8rem 1.2rem 0.4rem;
+      margin: 0;
+    }
+
+    .menu-section-links {
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .menu-section-links a {
+      display: flex;
+      align-items: center;
+      padding: 0.6rem 1.2rem;
+      font-size: 0.92rem;
+      color: #1f2937;
+      border-left: 3px solid transparent;
+    }
+
+    .menu-section-links a:hover { background: #f3f4f6; }
+    .menu-section-links a.active { border-left-color: var(--accent); background: rgba(244, 190, 105, 0.08); }
+
+    header.hero {
+      padding: 2.2rem 1.6rem 2.1rem;
+      border-bottom: 1px solid var(--border);
+      background: radial-gradient(circle at top left, #fff7ed 0, #ffffff 45%, #e0f2fe 100%);
+    }
+
+    .hero-inner {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .hero-text { flex: 1 1 260px; min-width: 0; }
+
+    .hero-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.15rem 0.65rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .hero-label .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .hero h1 {
+      font-family: "Raleway", system-ui, sans-serif;
+      font-weight: 800;
+      font-size: 2rem;
+      margin: 0 0 0.7rem;
+      letter-spacing: 0.02em;
+    }
+
+    .hero h1 strong { color: var(--primary); }
+
+    .hero-lead {
+      margin: 0 0 1rem;
+      color: var(--muted);
+      max-width: 44rem;
+      font-size: 0.98rem;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 0.8rem 0 1.2rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.32rem;
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.9);
+      font-size: 0.8rem;
+      color: var(--muted);
+      background: #ffffff;
+      box-shadow: 0 3px 8px rgba(15, 23, 42, 0.08);
+    }
+
+    .badge .arrow { font-size: 0.9rem; color: var(--primary); }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      align-items: center;
+      margin-top: 1rem;
+    }
+
+    .btn-primary, .btn-secondary, .btn-wa {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.9rem 1.7rem;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      border: none;
+      text-align: center;
+      white-space: nowrap;
+      transition: transform 0.12s ease, filter 0.12s ease;
+      min-height: 54px;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #1f2933;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    }
+
+    .btn-secondary, .btn-wa {
+      background: var(--wa);
+      color: #ffffff;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    }
+
+    .btn-primary:hover, .btn-secondary:hover, .btn-wa:hover {
+      filter: brightness(1.03);
+      transform: translateY(-1px);
+    }
+
+    .hero-photo {
+      flex: 0 0 450px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-width: 360px;
+      min-height: 430px;
+    }
+
+    .hero-photo::before {
+      content: "";
+      position: absolute;
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #f4be69 0, #ffffff 52%, #cfe7ff 100%);
+      opacity: 0.62;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 0;
+    }
+
+    .hero-people {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 16px;
+      padding: 28px 24px 118px;
+      z-index: 1;
+    }
+
+    .hero-person { display: flex; align-items: flex-end; }
+
+    .hero-image-box {
+      width: 210px;
+      height: 290px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .hero-image-box img {
+      height: auto;
+      object-fit: contain;
+      display: block;
+      filter: drop-shadow(0 10px 20px rgba(15, 23, 42, 0.16));
+    }
+
+    .hero-person.jonas { left: 52px; top: -8px; position: relative; }
+    .hero-person.jonas .hero-image-box img { width: 341px; max-height: 435px; transform: translateY(12px); }
+    .hero-person.timo { left: -40px; top: -8px; position: relative; }
+    .hero-person.timo .hero-image-box img { width: 168px; max-height: 225px; transform: translateY(12px); }
+
+    .hero-card {
+      position: absolute;
+      bottom: -12px;
+      right: 52px;
+      background: #fff;
+      padding: 16px 22px;
+      border-radius: 20px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.18);
+      z-index: 3;
+      width: 338px;
+      color: var(--muted);
+    }
+
+    .hero-card h3 {
+      margin: 0 0 8px;
+      color: var(--primary);
+      font-family: "Raleway", system-ui, sans-serif;
+      font-size: 0.9rem;
+      text-align: center;
+      font-weight: 800;
+    }
+
+    .hero-card ul {
+      margin: 0;
+      padding-left: 1.1rem;
+      font-size: 0.83rem;
+    }
+
+    main {
+      padding: 1.8rem 1.6rem 2.3rem;
+      flex: 1;
+      background: linear-gradient(to bottom, #ffffff 0, #f9fafb 100%);
+    }
+
+    section { margin-bottom: 2rem; }
+
+    h2 {
+      font-family: "Raleway", system-ui, sans-serif;
+      margin: 0 0 0.4rem;
+      font-size: 1.45rem;
+      color: var(--primary);
+      font-weight: 800;
+    }
+
+    .section-subtitle {
+      margin-bottom: 1rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .grid-2, .grid-3, .grid-4 {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .grid-2 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+    .grid-4 { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.9rem;
+      margin-top: 1.2rem;
+    }
+
+    .stat-card {
+      border-radius: 18px;
+      padding: 1rem;
+      border: 1px solid transparent;
+      box-shadow: var(--shadow);
+    }
+
+    .stat-card.blue {
+      background: linear-gradient(160deg, #eff6ff 0, #ffffff 85%);
+      border-color: #bfdbfe;
+    }
+
+    .stat-card.orange {
+      background: linear-gradient(160deg, #fff7ed 0, #ffffff 85%);
+      border-color: #fdba74;
+    }
+
+    .stat-card.green {
+      background: linear-gradient(160deg, #ecfdf5 0, #ffffff 85%);
+      border-color: #86efac;
+    }
+
+    .stat-number {
+      font-family: "Raleway", system-ui, sans-serif;
+      font-size: 1.55rem;
+      line-height: 1;
+      font-weight: 800;
+      margin: 0 0 0.35rem;
+      color: var(--text);
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: var(--primary);
+      font-weight: 800;
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-copy {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .card, .priority-card, .service-card, .result-card {
+      background: #fff;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      padding: 1.1rem 1.15rem;
+    }
+
+    .card-title, .priority-title, .service-title, .result-title, .flow-title {
+      font-family: "Raleway", system-ui, sans-serif;
+      font-weight: 800;
+      margin: 0 0 0.45rem;
+      color: var(--text);
+      font-size: 1.02rem;
+    }
+
+    .card p, .service-card p, .result-card p, .flow-step p {
+      margin: 0 0 0.5rem;
+      color: var(--muted);
+      font-size: 0.93rem;
+    }
+
+    .card ul, .priority-card ul, .service-card ul {
+      margin: 0.2rem 0 0;
+      padding-left: 1.2rem;
+      color: var(--muted);
+      font-size: 0.93rem;
+    }
+
+    .priority-card {
+      background: linear-gradient(160deg, var(--soft-safe) 0, #ffffff 75%);
+      border-color: #bbf7d0;
+    }
+
+    .priority-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #1f2933;
+      font-weight: 800;
+      margin-bottom: 0.45rem;
+    }
+
+    .signal-card {
+      background: linear-gradient(160deg, var(--soft-warn) 0, #ffffff 80%);
+      border-color: #fed7aa;
+    }
+
+    .blue-card {
+      background: linear-gradient(160deg, #eef6ff 0, #ffffff 80%);
+      border-color: #bfdbfe;
+    }
+
+    .amber-card {
+      background: linear-gradient(160deg, #fff8e8 0, #ffffff 80%);
+      border-color: #fcd34d;
+    }
+
+    .green-card {
+      background: linear-gradient(160deg, #ecfdf5 0, #ffffff 80%);
+      border-color: #86efac;
+    }
+
+    .number-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 72px;
+      padding: 0.3rem 0.65rem;
+      border-radius: 999px;
+      font-family: "Raleway", system-ui, sans-serif;
+      font-weight: 800;
+      font-size: 0.88rem;
+      color: #0f172a;
+      background: rgba(240, 184, 92, 0.22);
+      margin: 0 0 0.55rem;
+    }
+
+    .highlight-box {
+      background: #fff7ed;
+      border-radius: 16px;
+      border: 1px solid #fed7aa;
+      padding: 0.95rem 1rem;
+      color: #7c2d12;
+      font-size: 0.92rem;
+      margin-top: 0.8rem;
+    }
+
+    .flow-diagram {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .flow-step {
+      position: relative;
+      background: linear-gradient(160deg, #ffffff 0, #f8fbff 100%);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      padding: 1rem;
+      overflow: hidden;
+    }
+
+    .flow-step::after {
+      content: "→";
+      position: absolute;
+      right: 0.9rem;
+      top: 0.7rem;
+      font-size: 1.15rem;
+      color: rgba(46, 111, 128, 0.4);
+      font-weight: 800;
+    }
+
+    .flow-step:last-child::after { content: "✓"; }
+
+    .flow-kicker {
+      display: inline-flex;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      background: rgba(240, 184, 92, 0.2);
+      color: var(--primary);
+      font-size: 0.76rem;
+      font-weight: 800;
+      margin-bottom: 0.55rem;
+    }
+
+    .calculator {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+      gap: 1rem;
+      align-items: start;
+    }
+
+    .calculator-panel {
+      background: linear-gradient(160deg, #ffffff 0, #f8fbff 100%);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      padding: 1.1rem;
+    }
+
+    .calculator-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.9rem;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .field label {
+      font-size: 0.83rem;
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .field input {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 0.85rem 0.9rem;
+      font: inherit;
+      color: var(--text);
+      background: #fff;
+    }
+
+    .field-note {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.8rem;
+    }
+
+    .result-stack {
+      display: grid;
+      gap: 0.85rem;
+    }
+
+    .result-card strong {
+      display: block;
+      font-family: "Raleway", system-ui, sans-serif;
+      font-size: 1.45rem;
+      line-height: 1.15;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
+
+    .result-card.is-positive {
+      background: linear-gradient(160deg, #ecfdf5 0, #ffffff 85%);
+      border-color: #86efac;
+    }
+
+    .result-card.is-caution {
+      background: linear-gradient(160deg, #fff7ed 0, #ffffff 85%);
+      border-color: #fdba74;
+    }
+
+    .result-card.is-info {
+      background: linear-gradient(160deg, #eff6ff 0, #ffffff 85%);
+      border-color: #bfdbfe;
+    }
+
+    .contact-strip {
+      margin-top: 1rem;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.8rem;
+    }
+
+    .contact-card {
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 0.9rem 1rem;
+      box-shadow: var(--shadow);
+    }
+
+    .contact-name {
+      font-family: "Raleway", system-ui, sans-serif;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 0.25rem;
+      font-size: 1rem;
+    }
+
+    .contact-role {
+      font-size: 0.84rem;
+      color: var(--muted);
+      margin-bottom: 0.45rem;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.28rem;
+      font-size: 0.92rem;
+    }
+
+    .contact-links a:hover { color: var(--primary); text-decoration: underline; }
+
+    footer {
+      padding: 1rem 1.6rem 1.4rem;
+      font-size: 0.78rem;
+      color: #6b7280;
+      border-top: 1px solid var(--border);
+      background: #f9fafb;
+    }
+
+    @media (max-width: 767px) {
+      .topbar { padding-inline: 1rem; }
+      .menu-panel { width: 100vw; }
+      .menu-text { display: none; }
+      header.hero { padding: 2rem 1rem 2rem; }
+      main { padding: 1.6rem 1rem 2.2rem; }
+      .hero-inner { flex-direction: column-reverse; align-items: stretch; }
+      .hero h1 { font-size: 1.6rem; }
+      .hero-lead { font-size: 0.92rem; }
+      .hero-photo { min-width: 0; flex: 1 1 100%; min-height: 340px; }
+      .hero-photo::before { width: 300px; height: 300px; }
+      .hero-people { padding: 22px 10px 126px; gap: 8px; }
+      .hero-person.jonas { left: 20px; }
+      .hero-person.jonas .hero-image-box img { width: 230px; }
+      .hero-person.timo { left: -20px; }
+      .hero-person.timo .hero-image-box img { width: 130px; }
+      .hero-card {
+        right: 50%;
+        transform: translateX(50%);
+        width: min(92vw, 340px);
+        bottom: 4px;
+        padding: 14px 18px;
+      }
+      .contact-strip { grid-template-columns: 1fr; }
+      .cta-row { flex-direction: column; align-items: stretch; }
+      .cta-row a { width: 100%; }
+      .calculator,
+      .calculator-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="topbar">
+      <div class="topbar-left">
+        <div class="topbar-avatars">
+          <img src="jonas-halbkoerper.png" alt="Jonas Plener" />
+          <img src="timo-halbkoerper.png" alt="Timo Hügel" />
+        </div>
+        <div>
+          <div class="topbar-title">Jonas Plener &amp; Timo Hügel</div>
+          <div class="topbar-tagline">Agentur für Deutsche Vermögensberatung<br />Region Kinzigtal / Ortenau</div>
+        </div>
+      </div>
+
+      <div class="menu-wrap">
+        <div class="menu-text">Für Eltern, Selbstständige und Angestellte<br />im Kinzigtal &amp; der Ortenau</div>
+        <button type="button" class="burger-btn" id="burgerBtn" aria-label="Menü öffnen" aria-expanded="false" aria-controls="menuPanel">
+          <span class="burger-lines" aria-hidden="true"><span></span><span></span><span></span></span>
+        </button>
+      </div>
+
+      <div class="menu-overlay" id="menuOverlay"></div>
+      <nav class="menu-panel" id="menuPanel" aria-label="Navigation">
+        <div class="menu-header">
+          <span class="menu-header-title">Menü</span>
+          <button type="button" class="menu-close-btn" aria-label="Menü schließen">✕</button>
+        </div>
+        <div class="menu-content">
+          <section class="menu-section">
+            <h2 class="menu-section-title">Startseite</h2>
+            <ul class="menu-section-links"><li><a href="index.html">Themenauswahl</a></li></ul>
+          </section>
+          <section class="menu-section">
+            <h2 class="menu-section-title">Angestellt</h2>
+            <ul class="menu-section-links">
+              <li><a href="vermoegen-aufbauen-investieren.html">Vermögen aufbauen</a></li>
+              <li><a href="bav.html">bAV</a></li>
+              <li><a href="arbeitskraftabsicherung.html">Arbeitskraft absichern</a></li>
+              <li><a href="risikoleben.html">Familie absichern</a></li>
+              <li><a href="sachversicherungen.html">Sachversicherungen</a></li>
+              <li><a href="immobilien-finanzierung.html">Immobilien &amp; Finanzierung</a></li>
+            </ul>
+          </section>
+          <section class="menu-section">
+            <h2 class="menu-section-title">Eltern &amp; Familie</h2>
+            <ul class="menu-section-links">
+              <li><a href="kinder-absichern.html">Kinder absichern</a></li>
+              <li><a href="eltern-retter-kindererziehungszeiten.html">Kindererziehungszeiten</a></li>
+              <li><a href="riester.html">Riester</a></li>
+              <li><a href="risikoleben.html">Familie absichern</a></li>
+            </ul>
+          </section>
+          <section class="menu-section">
+            <h2 class="menu-section-title">Unternehmer &amp; Selbstständig</h2>
+            <ul class="menu-section-links">
+              <li><a href="liquiditaet.html">Liquidität</a></li>
+              <li><a href="mitarbeiter-benefits.html">Mitarbeiter Benefits</a></li>
+              <li><a href="energie.html" class="active">Energie</a></li>
+              <li><a href="unternehmer-absicherung.html">Unternehmer absichern</a></li>
+              <li><a href="vertraege-optimieren.html">Verträge optimieren</a></li>
+              <li><a href="ruerup.html">Rürup</a></li>
+              <li><a href="immobilien-finanzierung.html">Immobilien &amp; Finanzierung</a></li>
+            </ul>
+          </section>
+          <section class="menu-section">
+            <h2 class="menu-section-title">Karriere &amp; Ausbildung</h2>
+            <ul class="menu-section-links">
+              <li><a href="ausbildung-und-zukunft.html">Ausbildung &amp; Zukunft</a></li>
+              <li><a href="karriere-im-finanzbereich.html">Karriere im Finanzbereich</a></li>
+            </ul>
+          </section>
+        </div>
+      </nav>
+    </div>
+
+    <header class="hero">
+      <div class="hero-inner">
+        <div class="hero-text">
+          <div class="hero-label"><span class="dot"></span>Energie · Strom · Gas · Effizienz</div>
+          <h1>Energiekosten im Betrieb heißt: <strong>regelmäßig prüfen, weil schon wenige Cent pro kWh große Unterschiede machen</strong></h1>
+          <p class="hero-lead">
+            In Unternehmen ist der Verbrauch häufig so hoch, dass schon kleine Preisabweichungen bei <strong>Strom und Gas</strong>
+            schnell mehrere Tausend Euro im Jahr ausmachen können. Genau deshalb lohnt sich eine regelmäßige Prüfung der
+            Versorgung, der Verträge und der technischen Lösungen im Betrieb.
+          </p>
+
+          <div class="highlight-box">
+            Energie ist nicht nur eine laufende Rechnung: <strong>Tarifprüfung, Lastprofil, Photovoltaik, Wärmepumpe,
+            LED, Speicher oder Verbrauchssteuerung</strong> können zusammengenommen deutlich mehr bewirken als ein reiner Anbieterwechsel.
+          </div>
+
+          <div class="hero-badges">
+            <a href="#warum" class="badge"><span>Warum prüfen</span><span class="arrow">↓</span></a>
+            <a href="#hebel" class="badge"><span>Hebel</span><span class="arrow">↓</span></a>
+            <a href="#rechner" class="badge"><span>Rechner</span><span class="arrow">↓</span></a>
+            <a href="#loesungen" class="badge"><span>Lösungen</span><span class="arrow">↓</span></a>
+          </div>
+
+          <div class="cta-row">
+            <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-primary">Energiekosten im Betrieb gemeinsam prüfen</a>
+            <a href="https://wa.me/4915141678134" target="_blank" rel="noopener" class="btn-wa">Jonas kontaktieren</a>
+            <a href="https://wa.me/4917663796605" target="_blank" rel="noopener" class="btn-secondary">Timo kontaktieren</a>
+          </div>
+        </div>
+
+        <div class="hero-photo">
+          <div class="hero-people">
+            <div class="hero-person jonas"><div class="hero-image-box"><img src="jonas-halbkoerper.png" alt="Jonas Plener" /></div></div>
+            <div class="hero-person timo"><div class="hero-image-box"><img src="timo-halbkoerper.png" alt="Timo Hügel" /></div></div>
+          </div>
+          <div class="hero-card">
+            <h3>Energie im Kern</h3>
+            <ul>
+              <li>Strom- und Gaskosten regelmäßig prüfen</li>
+              <li>ein paar Cent pro kWh wirken bei hohem Verbrauch massiv</li>
+              <li>Tarife, Effizienz und Technik zusammen denken</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-strip">
+        <div class="contact-card">
+          <div class="contact-name">Jonas Plener</div>
+          <div class="contact-role">Vermögensberater bei der Deutschen Vermögensberatung</div>
+          <div class="contact-links">
+            <a href="tel:+4915141678134">0151 41678134</a>
+            <a href="mailto:Jonas.Plener@dvag.de">Jonas.Plener@dvag.de</a>
+          </div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-name">Timo Hügel</div>
+          <div class="contact-role">Vermögensberater bei der Deutschen Vermögensberatung</div>
+          <div class="contact-links">
+            <a href="tel:+4917663796605">0176 63796605</a>
+            <a href="mailto:Timo.Huegel@dvag.de">Timo.Huegel@dvag.de</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <article class="stat-card blue">
+          <div class="stat-label">Warum prüfen</div>
+          <div class="stat-number">Preise ändern sich laufend</div>
+          <p class="stat-copy">Was vor 12 Monaten noch gepasst hat, kann heute schon deutlich zu teuer sein.</p>
+        </article>
+        <article class="stat-card orange">
+          <div class="stat-label">Hebel</div>
+          <div class="stat-number">wenige Cent pro kWh</div>
+          <p class="stat-copy">Bei hohem Strom- oder Gasverbrauch reichen kleine Preisunterschiede, um spürbare Kostenblöcke auszulösen.</p>
+        </article>
+        <article class="stat-card blue">
+          <div class="stat-label">Was man prüft</div>
+          <div class="stat-number">Vertrag, Verbrauch, Technik</div>
+          <p class="stat-copy">Nicht nur der Tarif ist wichtig, sondern auch der tatsächliche Verbrauch und mögliche technische Verbesserungen.</p>
+        </article>
+        <article class="stat-card green">
+          <div class="stat-label">Ergänzung</div>
+          <div class="stat-number">PV, Wärmepumpe, Effizienz</div>
+          <p class="stat-copy">Eigenerzeugung und moderne Technik können Energiekosten strukturell senken und planbarer machen.</p>
+        </article>
+      </div>
+    </header>
+
+    <main>
+      <section id="warum">
+        <h2>1) Warum Unternehmen Energiekosten immer wieder prüfen sollten</h2>
+        <p class="section-subtitle">Energie ist in vielen Betrieben kein Nebenthema, sondern ein echter Ergebnisfaktor. Gerade bei höherem Verbrauch schlagen selbst kleine Fehlkalkulationen direkt auf die Kosten durch.</p>
+        <div class="grid-2">
+          <article class="card blue-card">
+            <div class="card-title">Das eigentliche Problem</div>
+            <div class="number-pill">laufender Kostenblock</div>
+            <p>Viele Unternehmen schauen auf Löhne, Material und Steuern, aber zu selten auf Strom und Gas. Genau dort verstecken sich oft dauerhaft hohe Mehrkosten.</p>
+            <ul>
+              <li>Verträge laufen weiter, obwohl das Preisniveau sich verändert hat</li>
+              <li>Verbrauch steigt durch Wachstum, Maschinen oder längere Betriebszeiten</li>
+              <li>fehlende Transparenz macht unnötige Mehrkosten unsichtbar</li>
+            </ul>
+          </article>
+          <article class="card amber-card">
+            <div class="card-title">Warum regelmäßige Prüfung sinnvoll ist</div>
+            <div class="number-pill">Cent werden Tausender</div>
+            <p>Wenn ein Betrieb viel Energie verbraucht, machen schon wenige Cent Differenz pro kWh schnell einen fünfstelligen Betrag auf Jahressicht aus.</p>
+            <ul>
+              <li>Strom- und Gaskosten bleiben besser steuerbar</li>
+              <li>Beschaffung wird planbarer statt reaktiv</li>
+              <li>Investitionen in Technik lassen sich wirtschaftlicher bewerten</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section id="hebel">
+        <h2>2) Wo die größten Hebel bei Strom und Gas liegen</h2>
+        <p class="section-subtitle">Die beste Lösung ist selten nur ein neuer Tarif. Meist entsteht der größte Effekt aus mehreren Bausteinen, die zusammenpassen.</p>
+        <div class="grid-2">
+          <article class="service-card blue-card">
+            <div class="service-title">Beschaffung und Tarifstruktur</div>
+            <p>Der erste Hebel ist die Frage, ob Preis, Laufzeit und Modell noch zum Unternehmen passen.</p>
+            <ul>
+              <li>aktuellen Strom- und Gaspreis neu einordnen</li>
+              <li>Lastprofile und Verbrauchszeiten prüfen</li>
+              <li>Sonderkündigungen, Verlängerungen und Beschaffung sauber bewerten</li>
+            </ul>
+          </article>
+          <article class="service-card green-card">
+            <div class="service-title">Verbrauch direkt reduzieren</div>
+            <p>Beleuchtung, Heizverhalten, Anlageneinstellungen und Betriebsabläufe erzeugen oft schnell umsetzbare Einsparpotenziale.</p>
+            <ul>
+              <li>LED und Steuerung statt Dauerverbrauch</li>
+              <li>Heizung, Kühlung und Laufzeiten sauber einstellen</li>
+              <li>unnötige Spitzenlasten reduzieren</li>
+            </ul>
+          </article>
+          <article class="service-card amber-card">
+            <div class="service-title">Photovoltaik und Eigenerzeugung</div>
+            <p>Gerade tagsüber laufende Betriebe können von eigener Stromerzeugung und besserer Preisstabilität profitieren.</p>
+            <ul>
+              <li>Eigenverbrauch statt voller Netzbezug</li>
+              <li>optional kombiniert mit Speicher</li>
+              <li>sinnvoll besonders bei planbarem Tagesverbrauch</li>
+            </ul>
+          </article>
+          <article class="service-card signal-card">
+            <div class="service-title">Wärmepumpe und moderne Technik</div>
+            <p>Je nach Gebäude und Nutzung kann moderne Heiztechnik helfen, Gasabhängigkeit und laufende Energiekosten zu reduzieren.</p>
+            <ul>
+              <li>relevant besonders bei Sanierung oder Anlagentausch</li>
+              <li>mit PV häufig noch interessanter</li>
+              <li>Wirtschaftlichkeit immer im konkreten Betrieb prüfen</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section id="ablauf">
+        <h2>3) So läuft eine sinnvolle Energieprüfung typischerweise ab</h2>
+        <p class="section-subtitle">Nicht blind wechseln, sondern sauber einordnen: erst Daten verstehen, dann Preise und technische Lösungen bewerten.</p>
+        <div class="flow-diagram">
+          <article class="flow-step">
+            <div class="flow-kicker">Schritt 1</div>
+            <h3 class="flow-title">Verbrauch aufnehmen</h3>
+            <p>Strom- und Gasverbrauch, Lastspitzen, Betriebszeiten und Standorte werden sauber erfasst.</p>
+          </article>
+          <article class="flow-step">
+            <div class="flow-kicker">Schritt 2</div>
+            <h3 class="flow-title">Verträge und Preise prüfen</h3>
+            <p>Bestehende Konditionen, Laufzeiten und Beschaffungsmodelle werden mit dem aktuellen Bedarf verglichen.</p>
+          </article>
+          <article class="flow-step">
+            <div class="flow-kicker">Schritt 3</div>
+            <h3 class="flow-title">Technische Hebel bewerten</h3>
+            <p>PV, Wärmepumpe, LED, Speicher oder Verbrauchssteuerung werden wirtschaftlich eingeordnet.</p>
+          </article>
+          <article class="flow-step">
+            <div class="flow-kicker">Schritt 4</div>
+            <h3 class="flow-title">Lösung sauber umsetzen</h3>
+            <p>Die sinnvollsten Maßnahmen werden priorisiert, damit Kosten sinken und Entscheidungen nachvollziehbar bleiben.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="rechner">
+        <h2>4) Kostenrechner: Was machen ein paar Cent pro kWh bei deinem Verbrauch aus?</h2>
+        <p class="section-subtitle">Der Rechner zeigt schnell, warum sich eine Energieprüfung gerade in Unternehmen lohnt. Schon kleine Preisunterschiede wirken bei hohem Jahresverbrauch sehr deutlich.</p>
+        <div class="calculator">
+          <div class="calculator-panel">
+            <div class="calculator-grid">
+              <div class="field">
+                <label for="powerUsage">Jährlicher Stromverbrauch in kWh</label>
+                <input id="powerUsage" type="number" min="0" step="1000" value="180000" />
+              </div>
+              <div class="field">
+                <label for="gasUsage">Jährlicher Gasverbrauch in kWh</label>
+                <input id="gasUsage" type="number" min="0" step="1000" value="90000" />
+              </div>
+              <div class="field">
+                <label for="powerDelta">Preisunterschied Strom in Cent pro kWh</label>
+                <input id="powerDelta" type="number" min="0" step="0.1" value="3" />
+              </div>
+              <div class="field">
+                <label for="gasDelta">Preisunterschied Gas in Cent pro kWh</label>
+                <input id="gasDelta" type="number" min="0" step="0.1" value="2" />
+              </div>
+              <div class="field">
+                <label for="selfUseShare">Potenzial Eigennutzung durch PV in %</label>
+                <input id="selfUseShare" type="number" min="0" max="100" step="1" value="35" />
+              </div>
+              <div class="field">
+                <label for="efficiencyGain">Zusätzliche Effizienzverbesserung in %</label>
+                <input id="efficiencyGain" type="number" min="0" max="100" step="1" value="8" />
+              </div>
+            </div>
+            <p class="field-note">Orientierungslogik: Preisunterschiede bei Strom und Gas plus grober technischer Hebel durch Eigennutzung und Effizienz. Die tatsächliche Wirtschaftlichkeit hängt vom konkreten Betrieb, den Lastzeiten und der technischen Ausgangslage ab.</p>
+          </div>
+
+          <div class="result-stack">
+            <article class="result-card is-info">
+              <div class="result-title">Mehr- oder Minderkosten aus Preisunterschieden</div>
+              <strong id="deltaCost">0 EUR</strong>
+              <p id="deltaCopy">So stark wirken wenige Cent pro kWh bei deinem gesamten Jahresverbrauch.</p>
+            </article>
+            <article class="result-card is-positive">
+              <div class="result-title">Technischer Hebel pro Jahr</div>
+              <strong id="techPotential">0 EUR</strong>
+              <p id="techCopy">Hier steckt grob das Potenzial aus Eigennutzung und zusätzlicher Effizienz.</p>
+            </article>
+            <article class="result-card is-caution">
+              <div class="result-title">Gesamte Orientierungschance</div>
+              <strong id="totalPotential">0 EUR</strong>
+              <p id="totalCopy">Das ist keine Garantie, aber eine gute Einordnung, warum regelmäßiges Prüfen wirtschaftlich relevant sein kann.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="loesungen">
+        <h2>5) Welche Lösungen oft sinnvoll zusammenspielen</h2>
+        <p class="section-subtitle">Je nach Branche, Immobilie und Verbrauchsprofil sieht die passende Lösung anders aus. Wichtig ist, operative Realität und Investition gemeinsam zu betrachten.</p>
+        <div class="grid-2">
+          <article class="card blue-card">
+            <div class="card-title">Schnelle Maßnahmen</div>
+            <ul>
+              <li>Tarif- und Vertragsprüfung</li>
+              <li>LED, Zeitschaltung und Bewegungsmelder</li>
+              <li>Betriebszeiten und Abschaltlogik prüfen</li>
+              <li>Heiz- und Kühlverhalten sauber einstellen</li>
+            </ul>
+          </article>
+          <article class="card green-card">
+            <div class="card-title">Strukturelle Lösungen</div>
+            <ul>
+              <li>Photovoltaik zur Reduktion des Netzbezugs</li>
+              <li>Speicher bei passendem Lastprofil</li>
+              <li>Wärmepumpe bei geeigneter Gebäudesituation</li>
+              <li>Modernisierung energieintensiver Technik</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section id="fuer-wen">
+        <h2>6) Für wen sich die Prüfung besonders lohnt</h2>
+        <p class="section-subtitle">Vor allem dort, wo Verbrauch, Laufzeiten und technische Anlagen bereits spürbare Energiekosten erzeugen, ist das Thema nicht nur nett, sondern wirtschaftlich relevant.</p>
+        <div class="grid-3">
+          <article class="priority-card">
+            <div class="priority-number">1</div>
+            <h3 class="priority-title">Handwerk &amp; Produktion</h3>
+            <ul>
+              <li>Maschinen, Druckluft oder Hallenheizung treiben Kosten</li>
+              <li>Verbrauch steigt oft mit Auftragslage</li>
+              <li>kleine Preisfehler wirken sofort groß</li>
+            </ul>
+          </article>
+          <article class="priority-card">
+            <div class="priority-number">2</div>
+            <h3 class="priority-title">Gewerbe mit Fläche</h3>
+            <ul>
+              <li>Beleuchtung, Kühlung oder Heizung laufen lange</li>
+              <li>PV kann tagsüber besonders interessant sein</li>
+              <li>Sanierung und Technikwechsel gewinnen an Bedeutung</li>
+            </ul>
+          </article>
+          <article class="priority-card">
+            <div class="priority-number">3</div>
+            <h3 class="priority-title">Mehrere Standorte</h3>
+            <ul>
+              <li>Verträge und Verbräuche sind oft verteilt</li>
+              <li>Einheitliche Prüfung bringt Struktur rein</li>
+              <li>Skaleneffekte werden besser sichtbar</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="cta-row" style="margin-top:1rem;">
+          <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-primary">Energiekosten für deinen Betrieb konkret einordnen</a>
+        </div>
+      </section>
+    </main>
+
+    <footer>Diese Seite ersetzt keine individuelle Rechts-, Steuer- oder Energieberatung. Alle Angaben ohne Gewähr.</footer>
+  </div>
+
+  <script>
+    (function () {
+      const burgerBtn = document.getElementById("burgerBtn");
+      const menuPanel = document.getElementById("menuPanel");
+      const menuOverlay = document.getElementById("menuOverlay");
+      const menuCloseBtn = menuPanel.querySelector(".menu-close-btn");
+      if (!burgerBtn || !menuPanel || !menuOverlay) return;
+
+      function closeMenu() {
+        menuPanel.classList.remove("open");
+        menuOverlay.classList.remove("open");
+        burgerBtn.setAttribute("aria-expanded", "false");
+        document.body.style.overflow = "";
+      }
+
+      function openMenu() {
+        menuPanel.classList.add("open");
+        menuOverlay.classList.add("open");
+        burgerBtn.setAttribute("aria-expanded", "true");
+        document.body.style.overflow = "hidden";
+      }
+
+      burgerBtn.addEventListener("click", function () {
+        const isOpen = burgerBtn.getAttribute("aria-expanded") === "true";
+        if (isOpen) closeMenu(); else openMenu();
+      });
+
+      menuCloseBtn.addEventListener("click", closeMenu);
+      menuOverlay.addEventListener("click", closeMenu);
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") closeMenu();
+      });
+    })();
+
+    (function () {
+      const fields = {
+        powerUsage: document.getElementById("powerUsage"),
+        gasUsage: document.getElementById("gasUsage"),
+        powerDelta: document.getElementById("powerDelta"),
+        gasDelta: document.getElementById("gasDelta"),
+        selfUseShare: document.getElementById("selfUseShare"),
+        efficiencyGain: document.getElementById("efficiencyGain")
+      };
+
+      const outputs = {
+        deltaCost: document.getElementById("deltaCost"),
+        deltaCopy: document.getElementById("deltaCopy"),
+        techPotential: document.getElementById("techPotential"),
+        techCopy: document.getElementById("techCopy"),
+        totalPotential: document.getElementById("totalPotential"),
+        totalCopy: document.getElementById("totalCopy")
+      };
+
+      if (!fields.powerUsage || !outputs.deltaCost) return;
+
+      function readNumber(element) {
+        return Number(element.value) || 0;
+      }
+
+      function formatCurrency(value) {
+        return new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(value);
+      }
+
+      function render() {
+        const powerUsage = readNumber(fields.powerUsage);
+        const gasUsage = readNumber(fields.gasUsage);
+        const powerDelta = readNumber(fields.powerDelta) / 100;
+        const gasDelta = readNumber(fields.gasDelta) / 100;
+        const selfUseShare = readNumber(fields.selfUseShare) / 100;
+        const efficiencyGain = readNumber(fields.efficiencyGain) / 100;
+
+        const powerEffect = powerUsage * powerDelta;
+        const gasEffect = gasUsage * gasDelta;
+        const deltaCost = powerEffect + gasEffect;
+        const techPotential = (powerUsage * selfUseShare * 0.08) + ((powerUsage + gasUsage) * efficiencyGain * 0.04);
+        const totalPotential = deltaCost + techPotential;
+
+        outputs.deltaCost.textContent = formatCurrency(deltaCost);
+        outputs.deltaCopy.textContent = "So stark können schon kleine Preisabweichungen bei Strom und Gas auf Jahressicht durchschlagen.";
+        outputs.techPotential.textContent = formatCurrency(techPotential);
+        outputs.techCopy.textContent = "Das ist eine grobe Orientierung für zusätzlichen Hebel aus Eigenverbrauch und Effizienzverbesserung.";
+        outputs.totalPotential.textContent = formatCurrency(totalPotential);
+        outputs.totalCopy.textContent = totalPotential >= 10000
+          ? "Bei diesem Verbrauch ist eine regelmäßige Prüfung besonders relevant, weil sich Tarif- und Technikhebel schnell zu einer großen Summe addieren."
+          : "Auch bei moderaterem Verbrauch lohnt sich die Prüfung, weil wiederkehrende Energiekosten dauerhaft auf das Ergebnis wirken.";
+      }
+
+      Object.values(fields).forEach(function (field) {
+        field.addEventListener("input", render);
+      });
+
+      render();
+    })();
+  </script>
+</body>
+</html>
