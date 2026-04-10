@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Betriebliche Altersvorsorge - Jonas Plener &amp; Timo Huegel</title>
+  <title>Betriebliche Altersvorsorge - Jonas Plener &amp; Timo Hügel</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500&family=Raleway:wght@500;600;700;800&display=swap" rel="stylesheet" />
@@ -69,7 +69,7 @@
 
     /* HERO */
     header.hero{padding:2rem 1.4rem 2.2rem;border-bottom:1px solid var(--border);background:radial-gradient(circle at top left,#fdf4e6 0,#ffffff 40%,#e0f2fe 100%);}
-    .hero-inner{display:flex;flex-wrap:wrap;gap:2rem;align-items:center;}
+    .hero-inner{display:flex;flex-wrap:wrap;gap:2rem;align-items:flex-start;}
     .hero-text{flex:1 1 280px;min-width:0;}
     .hero-label{display:inline-flex;align-items:center;gap:.4rem;padding:.15rem .65rem;border-radius:999px;border:1px solid rgba(148,163,184,.8);font-size:.8rem;color:var(--muted);margin-bottom:.6rem;background:rgba(255,255,255,.9);}
     .hero-label .dot{width:6px;height:6px;border-radius:999px;background:var(--accent);}
@@ -89,7 +89,7 @@
     .btn-forms:hover{filter:brightness(1.05);transform:translateY(-1px);}
 
     /* HERO PHOTO */
-    .hero-photo{flex:0 0 450px;position:relative;display:flex;justify-content:center;align-items:center;min-width:360px;min-height:420px;}
+    .hero-photo{flex:0 0 450px;position:relative;display:flex;justify-content:center;align-items:center;align-self:flex-start;min-width:360px;min-height:420px;margin-top:.2rem;}
     .hero-photo::before{content:"";position:absolute;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,#f4be69 0,#ffffff 52%,#cfe7ff 100%);opacity:.62;top:0;left:50%;transform:translateX(-50%);z-index:0;}
     .hero-people{position:absolute;inset:0;display:flex;justify-content:center;align-items:flex-end;gap:16px;padding:28px 24px 112px;z-index:1;}
     .hero-person{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;position:relative;z-index:1;}
@@ -209,7 +209,7 @@
       .cta-row .btn-wa,.cta-row .btn-secondary{flex:0 0 315px;}
     }
     @media(max-width:1080px){.rechner-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
-    @media(max-width:900px){.hero-photo{flex:1 1 100%;min-width:0;}}
+    @media(max-width:900px){.hero-photo{flex:1 1 100%;min-width:0;margin-top:0;}}
     @media(max-width:767px){
       .topbar{padding-inline:1rem;}
       .menu-panel{width:100vw;}
@@ -219,7 +219,7 @@
       .hero-inner{flex-direction:column-reverse;align-items:stretch;}
       .hero h1{font-size:1.45rem;}
       .hero-lead{font-size:.92rem;}
-      .hero-photo{width:100%;flex:none;min-width:0;min-height:0;display:flex;flex-direction:column;align-items:stretch;position:relative;overflow:hidden;}
+      .hero-photo{width:100%;flex:none;min-width:0;min-height:0;display:flex;flex-direction:column;align-items:stretch;position:relative;overflow:hidden;align-self:auto;margin-top:0;}
       .hero-photo::before{width:200px;height:200px;}
       .hero-people{position:relative;inset:auto;display:flex;justify-content:center;align-items:flex-end;padding:24px 16px 0;gap:0;}
       .hero-image-box{width:auto;height:auto;}
@@ -247,24 +247,24 @@
     <div class="topbar-left">
       <div class="topbar-avatars">
         <img src="jonas-halbkoerper.png" alt="Jonas Plener" />
-        <img src="timo-halbkoerper.png" alt="Timo Huegel" />
+        <img src="timo-halbkoerper.png" alt="Timo Hügel" />
       </div>
       <div>
-        <div class="topbar-title">Jonas Plener &amp; Timo Huegel</div>
-        <div class="topbar-tagline">Agentur fuer Deutsche Vermoegensberatung<br />Region Kinzigtal / Ortenau</div>
+        <div class="topbar-title">Jonas Plener &amp; Timo Hügel</div>
+        <div class="topbar-tagline">Agentur für Deutsche Vermögensberatung<br />Region Kinzigtal / Ortenau</div>
       </div>
     </div>
     <div class="menu-wrap">
-      <div class="menu-text">Fuer Eltern, Selbststaendige und Angestellte<br />im Kinzigtal &amp; der Ortenau</div>
-      <button type="button" class="burger-btn" id="burgerBtn" aria-label="Menue oeffnen" aria-expanded="false" aria-controls="menuPanel">
+      <div class="menu-text">Für Eltern, Selbstständige und Angestellte<br />im Kinzigtal &amp; der Ortenau</div>
+      <button type="button" class="burger-btn" id="burgerBtn" aria-label="Menü öffnen" aria-expanded="false" aria-controls="menuPanel">
         <span class="burger-lines" aria-hidden="true"><span></span><span></span><span></span></span>
       </button>
     </div>
     <div class="menu-overlay" id="menuOverlay"></div>
     <nav class="menu-panel" id="menuPanel" aria-label="Navigation">
       <div class="menu-header">
-        <span class="menu-header-title">Menue</span>
-        <button type="button" class="menu-close-btn" aria-label="Menue schliessen">&#x2715;</button>
+        <span class="menu-header-title">Menü</span>
+        <button type="button" class="menu-close-btn" aria-label="Menü schließen">&#x2715;</button>
       </div>
       <div class="menu-content">
         <section class="menu-section">
@@ -274,7 +274,7 @@
         <section class="menu-section">
           <h2 class="menu-section-title">Angestellt</h2>
           <ul class="menu-section-links">
-            <li><a href="vermoegen-aufbauen-investieren.html">Vermoegen aufbauen</a></li>
+            <li><a href="vermoegen-aufbauen-investieren.html">Vermögen aufbauen</a></li>
             <li><a href="bav.html" class="active">bAV</a></li>
             <li><a href="arbeitskraftabsicherung.html">Arbeitskraft absichern</a></li>
             <li><a href="risikoleben.html">Familie absichern</a></li>
@@ -292,15 +292,13 @@
           </ul>
         </section>
         <section class="menu-section">
-          <h2 class="menu-section-title">Unternehmer &amp; Selbststaendig</h2>
+          <h2 class="menu-section-title">Unternehmer &amp; Selbstständig</h2>
           <ul class="menu-section-links">
-            <li><a href="liquiditaet.html">Liquiditaet</a></li>
-            <li><a href="mitarbeiter-benefits.html">Mitarbeiter Benefits</a></li>
+            <li><a href="liquiditaet.html">Liquidität</a></li>
+              <li><a href="mitarbeiter-benefits.html">Betriebliche Krankenversicherung</a></li>
             <li><a href="energie.html">Energie</a></li>
-            <li><a href="unternehmer-absicherung.html">Unternehmer absichern</a></li>
-            <li><a href="vertraege-optimieren.html">Vertraege optimieren</a></li>
-            <li><a href="ruerup.html">Ruerup</a></li>
-            <li><a href="immobilien-finanzierung.html">Immobilien &amp; Finanzierung</a></li>
+              <li><a href="betriebliche-sachversicherung.html">Betriebliche Sachversicherungen</a></li>
+            <li><a href="ruerup.html">Rürup</a></li>
           </ul>
         </section>
         <section class="menu-section">
@@ -318,7 +316,7 @@
   <header class="hero">
     <div class="hero-inner">
       <div class="hero-text animate-on-scroll">
-        <div class="hero-label"><span class="dot"></span>bAV-Check fuer Angestellte</div>
+        <div class="hero-label"><span class="dot"></span>bAV-Check für Angestellte</div>
         <h1>Mehr Rente mit <strong>kleinem Nettoeinsatz</strong></h1>
         <p class="hero-lead">
           Viele Angestellte nutzen die betriebliche Altersvorsorge nicht voll aus. Dabei kann aus einem Bruttobeitrag von <strong>100 EUR</strong> durch Steuer- und Sozialversicherungsersparnis ein Nettoaufwand von nur ca. 55-65 EUR werden. Und dein Arbeitgeber zahlt noch obendrauf.
@@ -341,7 +339,7 @@
             <div class="hero-image-box"><img src="jonas-halbkoerper.png" alt="Jonas Plener" /></div>
           </div>
           <div class="hero-person timo">
-            <div class="hero-image-box"><img src="timo-halbkoerper.png" alt="Timo Huegel" /></div>
+            <div class="hero-image-box"><img src="timo-halbkoerper.png" alt="Timo Hügel" /></div>
           </div>
         </div>
         <div class="hero-card">
@@ -357,15 +355,15 @@
     <div class="contact-strip">
       <div class="contact-card">
         <div class="contact-name">Jonas Plener</div>
-        <div class="contact-role">Vermoegensberater bei der Deutschen Vermoegensberatung</div>
+        <div class="contact-role">Vermögensberater bei der Deutschen Vermögensberatung</div>
         <div class="contact-links">
           <a href="tel:+4915141678134">&#128222; 0151 41678134</a>
           <a href="mailto:Jonas.Plener@dvag.de">&#9993; Jonas.Plener@dvag.de</a>
         </div>
       </div>
       <div class="contact-card">
-        <div class="contact-name">Timo Huegel</div>
-        <div class="contact-role">Vermoegensberater bei der Deutschen Vermoegensberatung</div>
+        <div class="contact-name">Timo Hügel</div>
+        <div class="contact-role">Vermögensberater bei der Deutschen Vermögensberatung</div>
         <div class="contact-links">
           <a href="tel:+4917663796605">&#128222; 0176 63796605</a>
           <a href="mailto:Timo.Huegel@dvag.de">&#9993; Timo.Huegel@dvag.de</a>
@@ -379,36 +377,36 @@
     <!-- WIE ES FUNKTIONIERT -->
     <section id="wie-es-funktioniert">
       <h2>Was ist die betriebliche Altersvorsorge?</h2>
-      <div class="section-subtitle">Kurz und klar erklaert: So funktioniert bAV fuer Angestellte.</div>
+      <div class="section-subtitle">Kurz und klar erklärt: So funktioniert bAV für Angestellte.</div>
       <div class="grid-2">
         <div class="card">
           <div class="card-title">Das Prinzip</div>
-          <p>Bei der bAV zahlt dein Arbeitgeber einen Teil deines Bruttogehalts direkt in eine Altersvorsorge ein. Du sparst dadurch Steuern und Sozialversicherungsbeitraege auf diesen Betrag. Dein Nettogehalt sinkt deutlich weniger als der Bruttobeitrag.</p>
+          <p>Bei der bAV zahlt dein Arbeitgeber einen Teil deines Bruttogehalts direkt in eine Altersvorsorge ein. Du sparst dadurch Steuern und Sozialversicherungsbeiträge auf diesen Betrag. Dein Nettogehalt sinkt deutlich weniger als der Bruttobeitrag.</p>
         </div>
         <div class="card">
-          <div class="card-title">Rentenstarkungsgesetz 2019</div>
-          <p>Seit 2019 ist dein Arbeitgeber gesetzlich verpflichtet, mindestens <strong>15 % deines Beitrags</strong> als Zuschuss obendrauf zu legen, wenn er durch deine Beitraege selbst Sozialversicherungsbeitraege spart. Viele Arbeitgeber zahlen freiwillig noch mehr.</p>
+          <div class="card-title">Rentenstärkungsgesetz 2019</div>
+          <p>Seit 2019 ist dein Arbeitgeber gesetzlich verpflichtet, mindestens <strong>15 % deines Beitrags</strong> als Zuschuss obendrauf zu legen, wenn er durch deine Beiträge selbst Sozialversicherungsbeiträge spart. Viele Arbeitgeber zahlen freiwillig noch mehr.</p>
         </div>
         <div class="card">
           <div class="card-title">Wer hat Anspruch?</div>
           <ul>
             <li>Alle sozialversicherungspflichtig Angestellten haben gesetzlichen Anspruch auf Entgeltumwandlung in eine bAV.</li>
-            <li>Der Arbeitgeberzuschuss gilt fuer Neuvertraege ab 2019 und Bestandsvertraege ab 2022 verpflichtend.</li>
-            <li>Beitraege bis zur Beitragsbemessungsgrenze sind steuer- und SV-frei.</li>
+            <li>Der Arbeitgeberzuschuss gilt für Neuverträge ab 2019 und Bestandsverträge ab 2022 verpflichtend.</li>
+            <li>Beiträge bis zur Beitragsbemessungsgrenze sind steuer- und SV-frei.</li>
           </ul>
         </div>
         <div class="card">
           <div class="card-title">Was muss ich in Rente beachten?</div>
           <ul>
             <li>Auszahlungen im Rentenalter sind steuer- und krankenversicherungspflichtig (nachgelagerte Besteuerung).</li>
-            <li>Trotzdem ueberwiegt bei den meisten der Effekt im Vergleich zur privaten Vorsorge deutlich.</li>
+            <li>Trotzdem überwiegt bei den meisten der Effekt im Vergleich zur privaten Vorsorge deutlich.</li>
             <li>Eine individuelle Beispielrechnung zeigt dir klar, was sich lohnt.</li>
           </ul>
         </div>
       </div>
     </section>
 
-    <!-- PROBLEM & LOESUNG -->
+    <!-- PROBLEM & LÖSUNG -->
     <section id="problem">
       <h2>Das eigentliche Problem</h2>
       <div class="section-subtitle">Die meisten wissen, dass es bAV gibt, aber nicht wie stark der Effekt wirklich ist.</div>
@@ -418,17 +416,17 @@
           <ul>
             <li>bAV nicht aktivieren, obwohl Anspruch besteht.</li>
             <li>Zu niedrig ansetzen und damit den Hebel verschenken.</li>
-            <li>Arbeitgeberzuschuss nicht einfordern oder pruefen.</li>
-            <li>Vertrag einmal abschliessen und nie anpassen.</li>
+            <li>Arbeitgeberzuschuss nicht einfordern oder prüfen.</li>
+            <li>Vertrag einmal abschließen und nie anpassen.</li>
           </ul>
         </div>
         <div class="card" id="loesung">
-          <div class="card-title">Die einfache Loesung</div>
+          <div class="card-title">Die einfache Lösung</div>
           <ul>
-            <li>Anspruch und moeglichen Zuschuss gemeinsam pruefen.</li>
-            <li>Beitrag so waehlen, dass dein Netto stabil bleibt.</li>
-            <li>VWL und bAV clever kombinieren wo moeglich.</li>
-            <li>Vertrag jaehrlich auf Gehaltsanpassungen abstimmen.</li>
+            <li>Anspruch und möglichen Zuschuss gemeinsam prüfen.</li>
+            <li>Beitrag so wählen, dass dein Netto stabil bleibt.</li>
+            <li>VWL und bAV clever kombinieren wo möglich.</li>
+            <li>Vertrag jährlich auf Gehaltsanpassungen abstimmen.</li>
           </ul>
         </div>
       </div>
@@ -437,12 +435,12 @@
     <!-- INTERAKTIVER RECHNER -->
     <section id="rechner">
       <h2>Dein bAV-Rechner</h2>
-      <div class="section-subtitle">Stelle deinen Bruttobeitrag ein und sieh sofort, was dich das Netto kostet und was in deinen Vertrag fliesst.</div>
+      <div class="section-subtitle">Stelle deinen Bruttobeitrag ein und sieh sofort, was dich das Netto kostet und was in deinen Vertrag fließt.</div>
 
       <div class="rechner-box animate-on-scroll">
-        <h3>Wie viel moechtest du monatlich in deine bAV einzahlen?</h3>
-        <p class="rechner-hint">Alle Angaben sind Pauschalschaetzungen zur Orientierung, keine individuelle Beratung. Steuer- und SV-Ersparnis haengen von deinem persoenlichen Steuersatz und Gehalt ab.</p>
-        <p class="rechner-copy">Du stellst hier deinen Bruttobeitrag, einen moeglichen Extra-Zuschuss deines Arbeitgebers und optional VWL ein. Die Grafik zeigt den direkten Monats-Hebel zwischen deinem Nettoeinsatz und dem Betrag, der in deinen Vertrag fliesst.</p>
+        <h3>Wie viel möchtest du monatlich in deine bAV einzahlen?</h3>
+        <p class="rechner-hint">Alle Angaben sind Pauschalschätzungen zur Orientierung, keine individuelle Beratung. Steuer- und SV-Ersparnis hängen von deinem persönlichen Steuersatz und Gehalt ab.</p>
+        <p class="rechner-copy">Du stellst hier deinen Bruttobeitrag, einen möglichen Extra-Zuschuss deines Arbeitgebers und optional VWL ein. Die Grafik zeigt den direkten Monats-Hebel zwischen deinem Nettoeinsatz und dem Betrag, der in deinen Vertrag fließt.</p>
 
         <div class="rechner-grid">
           <div class="control-card">
@@ -469,7 +467,7 @@
           </div>
           <div class="control-card">
             <div class="control-card-title">VWL einbringen?</div>
-            <div class="control-card-text">Wenn moeglich, kann VWL direkt in die bAV eingebunden werden.</div>
+            <div class="control-card-text">Wenn möglich, kann VWL direkt in die bAV eingebunden werden.</div>
             <div class="toggle-row">
               <div class="toggle-btn" id="vwlToggle">
                 <span id="vwlNein" class="active" onclick="setVwl(false)">Nein</span>
@@ -488,16 +486,16 @@
             <div class="e-sub" id="resNettoSub">bei 100 EUR Bruttobeitrag</div>
           </div>
           <div class="ergebnis-card einzahlung">
-            <div class="e-label">Was monatlich in deinen Vertrag fliesst</div>
+            <div class="e-label">Was monatlich in deinen Vertrag fließt</div>
             <div class="e-val" id="resGesamteinzahlung">115 EUR</div>
             <div class="e-sub" id="resGesamtSub">Brutto + 15 % AG-Pflicht</div>
           </div>
         </div>
 
         <div class="foerder-box">
-          <span class="f-label">Foerderquote aktuell:</span>
+          <span class="f-label">Förderquote aktuell:</span>
           <span class="f-val" id="resFoerderquote">+0 %</span>
-          <span class="f-sub" id="resFoerderSub">gegenueber deinem Nettoaufwand</span>
+          <span class="f-sub" id="resFoerderSub">gegenüber deinem Nettoaufwand</span>
         </div>
 
         <div class="chart-wrap">
@@ -572,15 +570,15 @@
 
     <!-- ZAHLEN -->
     <section id="zahlen">
-      <h2>Zahlen, die wirklich zaehlen</h2>
-      <div class="section-subtitle">Beispiel: 100 EUR Brutto monatlich in die bAV. Was hinein fliesst, was dich das kostet.</div>
+      <h2>Zahlen, die wirklich zählen</h2>
+      <div class="section-subtitle">Beispiel: 100 EUR Brutto monatlich in die bAV. Was hinein fließt, was dich das kostet.</div>
       <div class="stats-grid">
         <div class="stat-card">
           <div class="stat-label">Effektiver Nettoaufwand (100 EUR Brutto)</div>
           <div class="stat-value">ca. 55-65 EUR</div>
         </div>
         <div class="stat-card">
-          <div class="stat-label">AG-Zuschuss Pflichtanteil (Rental-starkungsgesetz)</div>
+          <div class="stat-label">AG-Zuschuss Pflichtanteil (Rentenstärkungsgesetz)</div>
           <div class="stat-value">mind. 15 %</div>
         </div>
         <div class="stat-card">
@@ -593,7 +591,7 @@
           <div class="card-title">Der positive Hebel</div>
           <ul>
             <li>Mehr Kapital bei gleichem Lebensstandard.</li>
-            <li>Steuer- und SV-Vorteile arbeiten fuer dich.</li>
+            <li>Steuer- und SV-Vorteile arbeiten für dich.</li>
             <li>AG-Zuschuss ist kostenloses Zusatzkapital.</li>
             <li>VWL kann clever in die bAV eingebaut werden.</li>
           </ul>
@@ -601,9 +599,9 @@
         <div class="card">
           <div class="card-title">Warum jetzt handeln?</div>
           <ul>
-            <li>Jedes Jahr ohne bAV ist verschenkte Foerderung.</li>
+            <li>Jedes Jahr ohne bAV ist verschenkte Förderung.</li>
             <li>Der Zinseszinseffekt wirkt ab dem ersten Beitrag.</li>
-            <li>Mit steigendem Gehalt laesst sich der Beitrag einfach anpassen.</li>
+            <li>Mit steigendem Gehalt lässt sich der Beitrag einfach anpassen.</li>
           </ul>
         </div>
       </div>
@@ -613,7 +611,7 @@
     <section id="kontakt">
       <div class="kontakt-box animate-on-scroll">
         <h2>Jetzt deinen bAV-Check starten</h2>
-        <p>Wir pruefen gemeinsam, welcher Beitrag fuer dich optimal ist, was dein Arbeitgeber dazugibt und wie viel du am Ende mehr Rente bekommst. Kostenlos und unverbindlich.</p>
+        <p>Wir prüfen gemeinsam, welcher Beitrag für dich optimal ist, was dein Arbeitgeber dazugibt und wie viel du am Ende mehr Rente bekommst. Kostenlos und unverbindlich.</p>
         <div class="kontakt-btn-row">
           <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-forms">bAV-Check starten (Formular)</a>
           <a href="https://wa.me/4915141678134" target="_blank" rel="noopener" class="btn-wa">Jonas via WhatsApp</a>
@@ -632,7 +630,7 @@
   </main>
 
   <footer>
-    Diese Seite ersetzt keine individuelle Rechts-, Steuer- oder Sozialversicherungsberatung. Alle Angaben ohne Gewaehr. Massgeblich sind die gesetzlichen Regelungen und die Informationen der jeweiligen Anbieter.
+    Diese Seite ersetzt keine individuelle Rechts-, Steuer- oder Sozialversicherungsberatung. Alle Angaben ohne Gewähr. Maßgeblich sind die gesetzlichen Regelungen und die Informationen der jeweiligen Anbieter.
   </footer>
 </div>
 
