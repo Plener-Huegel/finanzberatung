@@ -2,374 +2,1098 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Leistungsseite</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ausbildung und Berufsstart - Jonas Plener &amp; Timo Hügel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500&family=Raleway:wght@500;600;700;800&display=swap" rel="stylesheet" />
   <style>
+    :root {
+      --primary: #2e6f80;
+      --accent: #f0b85c;
+      --text: #111827;
+      --muted: #4b5563;
+      --border: #d9e2ec;
+      --soft-safe: #ecfdf5;
+      --soft-warn: #fff7ed;
+      --wa: #22c55e;
+      --shadow: 0 10px 25px rgba(15, 23, 42, 0.06);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
     body {
       margin: 0;
-      font-family: "Raleway", sans-serif;
-      background: #f9fafb;
-      color: #111827;
+      font-family: "Arimo", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #fef3c7 0, #f4f8f8 35%, #dbeafe 100%);
+      color: var(--text);
+      line-height: 1.6;
     }
 
-    header.hero {
-      background: #eef7fa;
-      padding: 2.5rem 1.2rem;
-      border-bottom: 1px solid #e5e7eb;
-    }
+    a { color: inherit; text-decoration: none; }
 
-    .hero-inner {
+    .page {
       max-width: 1100px;
       margin: 0 auto;
+      min-height: 100vh;
+      background: #fff;
+      box-shadow: 0 12px 35px rgba(15, 23, 42, 0.12);
       display: flex;
       flex-direction: column;
-      gap: 2rem;
+      overflow: hidden;
     }
 
-    .hero-label {
-      text-transform: uppercase;
-      font-size: 0.8rem;
-      color: #4a787d;
-      letter-spacing: 0.05em;
+    .topbar {
       display: flex;
       align-items: center;
-      gap: 6px;
-    }
-
-    .dot {
-      width: 8px;
-      height: 8px;
-      background: #4a787d;
-      border-radius: 50%;
-      display: block;
-    }
-
-    .hero h1 {
-      margin-top: 0.6rem;
-      font-size: 1.9rem;
-      line-height: 1.3;
-      color: #1f2937;
-    }
-
-    .hero-lead {
-      margin-top: 0.75rem;
-      font-size: 1.05rem;
-      line-height: 1.55;
-      color: #374151;
-    }
-
-    .hero-photo img {
-      width: 100%;
-      border-radius: 14px;
-      object-fit: cover;
-    }
-
-    .btn-primary {
-      display: inline-block;
-      padding: 0.9rem 1.4rem;
-      background: #4a787d;
-      color: #ffffff;
-      border-radius: 12px;
-      text-decoration: none;
-      font-weight: 600;
-      margin-top: 1rem;
-    }
-
-    .btn-secondary {
-      display: inline-block;
-      padding: 0.8rem 1.3rem;
-      background: #d1d5db;
-      color: #1f2937;
-      border-radius: 12px;
-      text-decoration: none;
-      margin-top: 1rem;
-    }
-
-    main {
-      max-width: 1100px;
-      margin: 2rem auto;
-      padding: 0 1.2rem;
-    }
-
-    h2 {
-      color: #1f2937;
-      margin-top: 2.2rem;
-      margin-bottom: 1rem;
-      font-size: 1.5rem;
-    }
-
-    .grid-2 {
-      display: grid;
-      grid-template-columns: 1fr;
+      justify-content: space-between;
+      padding: 0.8rem 1.8rem;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(to right, #ffffff, #fef3c7);
       gap: 1rem;
     }
 
-    @media (min-width: 768px) {
-      .grid-2 {
-        grid-template-columns: 1fr 1fr;
-      }
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      min-width: 0;
     }
 
-    .card {
-      background: #ffffff;
-      border-radius: 14px;
-      padding: 1.2rem;
-      border: 1px solid #e5e7eb;
+    .topbar-avatars {
+      display: flex;
+      align-items: center;
     }
 
-    .card-title {
-      font-weight: 600;
-      margin-bottom: 0.6rem;
-      color: #4a787d;
+    .topbar-avatars img {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.25);
+      border: 2px solid #fff;
+      background: #fff;
     }
 
-    /* BURGER MENU */
-    .menu-toggle {
-      position: fixed;
-      right: 18px;
-      top: 18px;
-      background: white;
-      border: 1px solid #e5e7eb;
-      padding: 0.5rem;
-      border-radius: 10px;
+    .topbar-avatars img + img { margin-left: -10px; }
+
+    .topbar-title {
+      font-family: "Raleway", system-ui, sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      color: var(--primary);
+    }
+
+    .topbar-tagline {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .menu-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0.65rem;
+      margin-left: auto;
+    }
+
+    .menu-text {
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .burger-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      background: transparent;
       cursor: pointer;
-      z-index: 50;
+      padding: 0;
     }
 
-    .menu-burger {
+    .burger-lines {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .burger-lines span {
+      display: block;
       width: 22px;
-      height: 3px;
-      background: #111827;
-      margin: 3px 0;
-      border-radius: 50px;
+      height: 2.5px;
+      background: #4a787d;
+      border-radius: 999px;
+      transition: transform 0.18s ease, opacity 0.18s ease;
     }
 
-    .menu-panel-backdrop {
+    .burger-btn[aria-expanded="true"] .burger-lines span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .burger-btn[aria-expanded="true"] .burger-lines span:nth-child(2) { opacity: 0; }
+    .burger-btn[aria-expanded="true"] .burger-lines span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .menu-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.35);
+      background: rgba(0, 0, 0, 0.3);
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.25s ease;
+      transition: opacity 0.15s ease;
       z-index: 40;
     }
 
-    .menu-panel-backdrop.open {
+    .menu-overlay.open {
       opacity: 1;
       pointer-events: auto;
     }
 
     .menu-panel {
       position: fixed;
-      right: -260px;
       top: 0;
-      height: 100%;
-      width: 260px;
-      background: #ffffff;
-      border-left: 1px solid #e5e7eb;
-      padding: 1.2rem;
-      z-index: 45;
-      transition: right 0.25s ease;
+      right: 0;
+      height: 100vh;
+      width: min(420px, 80vw);
+      background: #fff;
+      box-shadow: -8px 0 20px rgba(0, 0, 0, 0.15);
+      transform: translateX(100%);
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 50;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
     }
 
-    .menu-panel.open {
-      right: 0;
+    .menu-panel.open { transform: translateX(0); }
+
+    .menu-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem;
+      border-bottom: 1px solid var(--border);
     }
+
+    .menu-header-title {
+      font-family: "Raleway", system-ui, sans-serif;
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 1rem;
+      text-transform: uppercase;
+    }
+
+    .menu-close-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      color: var(--primary);
+      font-size: 1.4rem;
+      padding: 0;
+    }
+
+    .menu-content { flex: 1; padding: 0.8rem 0; }
+    .menu-section { padding: 0; margin: 0; }
 
     .menu-section-title {
+      font-family: "Raleway", system-ui, sans-serif;
+      font-weight: 700;
       text-transform: uppercase;
+      letter-spacing: 0.03em;
+      font-size: 0.75rem;
+      color: var(--primary);
+      padding: 0.8rem 1.2rem 0.4rem;
+      margin: 0;
+    }
+
+    .menu-section-links {
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .menu-section-links a {
+      display: flex;
+      align-items: center;
+      padding: 0.6rem 1.2rem;
+      font-size: 0.92rem;
+      color: #1f2937;
+      border-left: 3px solid transparent;
+    }
+
+    .menu-section-links a:hover { background: #f3f4f6; }
+    .menu-section-links a.active { border-left-color: var(--accent); background: rgba(244, 190, 105, 0.08); }
+
+    header.hero {
+      padding: 2.2rem 1.6rem 2.1rem;
+      border-bottom: 1px solid var(--border);
+      background: radial-gradient(circle at top left, #fff7ed 0, #ffffff 45%, #e0f2fe 100%);
+    }
+
+    .hero-inner {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .hero-text { flex: 1 1 260px; min-width: 0; }
+
+    .hero-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.15rem 0.65rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.8);
       font-size: 0.8rem;
-      color: #9ca3af;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .hero-label .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .hero h1 {
+      font-family: "Raleway", system-ui, sans-serif;
+      font-weight: 800;
+      font-size: 2rem;
+      margin: 0 0 0.7rem;
+      letter-spacing: 0.02em;
+    }
+
+    .hero h1 strong { color: var(--primary); }
+
+    .hero-lead {
+      margin: 0 0 1rem;
+      color: var(--muted);
+      max-width: 44rem;
+      font-size: 0.98rem;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 0.8rem 0 1.2rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.32rem;
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.9);
+      font-size: 0.8rem;
+      color: var(--muted);
+      background: #ffffff;
+      box-shadow: 0 3px 8px rgba(15, 23, 42, 0.08);
+    }
+
+    .badge .arrow { font-size: 0.9rem; color: var(--primary); }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      align-items: center;
       margin-top: 1rem;
     }
 
-    .menu-link {
+    .btn-primary, .btn-secondary, .btn-wa {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.9rem 1.7rem;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      border: none;
+      text-align: center;
+      white-space: nowrap;
+      transition: transform 0.12s ease, filter 0.12s ease;
+      min-height: 54px;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #1f2933;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    }
+
+    .btn-secondary, .btn-wa {
+      background: var(--wa);
+      color: #ffffff;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    }
+
+    .btn-primary:hover, .btn-secondary:hover, .btn-wa:hover {
+      filter: brightness(1.03);
+      transform: translateY(-1px);
+    }
+
+    .hero-photo {
+      flex: 0 0 450px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-width: 360px;
+      min-height: 430px;
+    }
+
+    .hero-photo::before {
+      content: "";
+      position: absolute;
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #f4be69 0, #ffffff 52%, #cfe7ff 100%);
+      opacity: 0.62;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 0;
+    }
+
+    .hero-people {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 16px;
+      padding: 28px 24px 118px;
+      z-index: 1;
+    }
+
+    .hero-person { display: flex; align-items: flex-end; }
+
+    .hero-image-box {
+      width: 210px;
+      height: 290px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .hero-image-box img {
+      height: auto;
+      object-fit: contain;
       display: block;
-      padding: 0.4rem 0;
-      color: #111827;
-      text-decoration: none;
+      filter: drop-shadow(0 10px 20px rgba(15, 23, 42, 0.16));
+    }
+
+    .hero-person.jonas { left: 52px; top: -8px; position: relative; }
+    .hero-person.jonas .hero-image-box img { width: 341px; max-height: 435px; transform: translateY(12px); }
+    .hero-person.timo { left: -40px; top: -8px; position: relative; }
+    .hero-person.timo .hero-image-box img { width: 168px; max-height: 225px; transform: translateY(12px); }
+
+    .hero-card {
+      position: absolute;
+      bottom: -12px;
+      right: 52px;
+      background: #fff;
+      padding: 16px 22px;
+      border-radius: 20px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.18);
+      z-index: 3;
+      width: 338px;
+      color: var(--muted);
+    }
+
+    .hero-card h3 {
+      margin: 0 0 8px;
+      color: var(--primary);
+      font-family: "Raleway", system-ui, sans-serif;
+      font-size: 0.9rem;
+      text-align: center;
+      font-weight: 800;
+    }
+
+    .hero-card ul {
+      margin: 0;
+      padding-left: 1.1rem;
+      font-size: 0.83rem;
+    }
+
+    main {
+      padding: 1.8rem 1.6rem 2.3rem;
+      flex: 1;
+      background: linear-gradient(to bottom, #ffffff 0, #f9fafb 100%);
+    }
+
+    section { margin-bottom: 2rem; }
+
+    h2 {
+      font-family: "Raleway", system-ui, sans-serif;
+      margin: 0 0 0.4rem;
+      font-size: 1.45rem;
+      color: var(--primary);
+      font-weight: 800;
+    }
+
+    .section-subtitle {
+      margin-bottom: 1rem;
+      color: var(--muted);
       font-size: 0.95rem;
     }
 
+    .grid-2, .grid-3, .grid-4 {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .grid-2 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+    .grid-4 { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.9rem;
+      margin-top: 1.2rem;
+    }
+
+    .stat-card {
+      border-radius: 18px;
+      padding: 1rem;
+      border: 1px solid transparent;
+      box-shadow: var(--shadow);
+    }
+
+    .stat-card.blue {
+      background: linear-gradient(160deg, #eff6ff 0, #ffffff 85%);
+      border-color: #bfdbfe;
+    }
+
+    .stat-card.orange {
+      background: linear-gradient(160deg, #fff7ed 0, #ffffff 85%);
+      border-color: #fdba74;
+    }
+
+    .stat-card.green {
+      background: linear-gradient(160deg, #ecfdf5 0, #ffffff 85%);
+      border-color: #86efac;
+    }
+
+    .stat-number {
+      font-family: "Raleway", system-ui, sans-serif;
+      font-size: 1.55rem;
+      line-height: 1;
+      font-weight: 800;
+      margin: 0 0 0.35rem;
+      color: var(--text);
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: var(--primary);
+      font-weight: 800;
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-copy {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .card, .priority-card, .service-card {
+      background: #fff;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      padding: 1.1rem 1.15rem;
+    }
+
+    .card-title, .priority-title, .service-title, .flow-title {
+      font-family: "Raleway", system-ui, sans-serif;
+      font-weight: 800;
+      margin: 0 0 0.45rem;
+      color: var(--text);
+      font-size: 1.02rem;
+    }
+
+    .card p, .service-card p, .flow-step p {
+      margin: 0 0 0.5rem;
+      color: var(--muted);
+      font-size: 0.93rem;
+    }
+
+    .card ul, .priority-card ul, .service-card ul {
+      margin: 0.2rem 0 0;
+      padding-left: 1.2rem;
+      color: var(--muted);
+      font-size: 0.93rem;
+    }
+
+    .priority-card {
+      background: linear-gradient(160deg, var(--soft-safe) 0, #ffffff 75%);
+      border-color: #bbf7d0;
+    }
+
+    .priority-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #1f2933;
+      font-weight: 800;
+      margin-bottom: 0.45rem;
+    }
+
+    .signal-card {
+      background: linear-gradient(160deg, var(--soft-warn) 0, #ffffff 80%);
+      border-color: #fed7aa;
+    }
+
+    .blue-card {
+      background: linear-gradient(160deg, #eef6ff 0, #ffffff 80%);
+      border-color: #bfdbfe;
+    }
+
+    .amber-card {
+      background: linear-gradient(160deg, #fff8e8 0, #ffffff 80%);
+      border-color: #fcd34d;
+    }
+
+    .green-card {
+      background: linear-gradient(160deg, #ecfdf5 0, #ffffff 80%);
+      border-color: #86efac;
+    }
+
+    .number-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 72px;
+      padding: 0.3rem 0.65rem;
+      border-radius: 999px;
+      font-family: "Raleway", system-ui, sans-serif;
+      font-weight: 800;
+      font-size: 0.88rem;
+      color: #0f172a;
+      background: rgba(240, 184, 92, 0.22);
+      margin: 0 0 0.55rem;
+    }
+
+    .highlight-box {
+      background: #fff7ed;
+      border-radius: 16px;
+      border: 1px solid #fed7aa;
+      padding: 0.95rem 1rem;
+      color: #7c2d12;
+      font-size: 0.92rem;
+      margin-top: 0.8rem;
+    }
+
+    .flow-diagram {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .flow-step {
+      position: relative;
+      background: linear-gradient(160deg, #ffffff 0, #f8fbff 100%);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      padding: 1rem;
+      overflow: hidden;
+    }
+
+    .flow-step::after {
+      content: "→";
+      position: absolute;
+      right: 0.9rem;
+      top: 0.7rem;
+      font-size: 1.15rem;
+      color: rgba(46, 111, 128, 0.4);
+      font-weight: 800;
+    }
+
+    .flow-step:last-child::after { content: "✓"; }
+
+    .flow-kicker {
+      display: inline-flex;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      background: rgba(240, 184, 92, 0.2);
+      color: var(--primary);
+      font-size: 0.76rem;
+      font-weight: 800;
+      margin-bottom: 0.55rem;
+    }
+
+    .contact-strip {
+      margin-top: 1rem;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.8rem;
+    }
+
+    .contact-card {
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 0.9rem 1rem;
+      box-shadow: var(--shadow);
+    }
+
+    .contact-name {
+      font-family: "Raleway", system-ui, sans-serif;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 0.25rem;
+      font-size: 1rem;
+    }
+
+    .contact-role {
+      font-size: 0.84rem;
+      color: var(--muted);
+      margin-bottom: 0.45rem;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.28rem;
+      font-size: 0.92rem;
+    }
+
+    .contact-links a:hover { color: var(--primary); text-decoration: underline; }
+
     footer {
-      text-align: center;
-      padding: 3rem 1rem;
+      padding: 1rem 1.6rem 1.4rem;
+      font-size: 0.78rem;
       color: #6b7280;
-      font-size: 0.85rem;
-      margin-top: 4rem;
+      border-top: 1px solid var(--border);
+      background: #f9fafb;
+    }
+
+    @media (max-width: 767px) {
+      .topbar { padding-inline: 1rem; }
+      .menu-panel { width: 100vw; }
+      .menu-text { display: none; }
+      header.hero { padding: 2rem 1rem 2rem; }
+      main { padding: 1.6rem 1rem 2.2rem; }
+      .hero-inner { flex-direction: column-reverse; align-items: stretch; }
+      .hero h1 { font-size: 1.6rem; }
+      .hero-lead { font-size: 0.92rem; }
+      .hero-photo { min-width: 0; flex: 1 1 100%; min-height: 340px; }
+      .hero-photo::before { width: 300px; height: 300px; }
+      .hero-people { padding: 22px 10px 126px; gap: 8px; }
+      .hero-person.jonas { left: 20px; }
+      .hero-person.jonas .hero-image-box img { width: 230px; }
+      .hero-person.timo { left: -20px; }
+      .hero-person.timo .hero-image-box img { width: 130px; }
+      .hero-card {
+        right: 50%;
+        transform: translateX(50%);
+        width: min(92vw, 340px);
+        bottom: 4px;
+        padding: 14px 18px;
+      }
+      .contact-strip { grid-template-columns: 1fr; }
+      .cta-row { flex-direction: column; align-items: stretch; }
+      .cta-row a { width: 100%; }
     }
   </style>
 </head>
-
 <body>
-
-<!-- 🔥 BURGER BUTTON -->
-<button class="menu-toggle" id="menu-toggle">
-  <div class="menu-burger"></div>
-  <div class="menu-burger"></div>
-  <div class="menu-burger"></div>
-</button>
-
-<!-- 🔥 BURGER OVERLAY + PANEL -->
-<div id="menu-backdrop" class="menu-panel-backdrop"></div>
-
-<nav id="menu-panel" class="menu-panel">
-  <div class="menu-section-title">Absicherung & Schutz</div>
-  <a class="menu-link" href="arbeitskraftabsicherung.html">Arbeitskraft & BU</a>
-  <a class="menu-link" href="haftpflicht-hausrat-gebaeude.html">Haftpflicht / Hausrat / Gebäude</a>
-  <a class="menu-link" href="risikoleben.html">Risikoleben</a>
-
-  <div class="menu-section-title">Vorsorge & Rente</div>
-  <a class="menu-link" href="riester.html">Riester</a>
-  <a class="menu-link" href="basisrente.html">Rürup / Basisrente</a>
-  <a class="menu-link" href="bav.html">Betriebliche Altersvorsorge</a>
-
-  <div class="menu-section-title">Vermögensaufbau & Sparen</div>
-  <a class="menu-link" href="fondssparen.html">Fondssparen</a>
-  <a class="menu-link" href="einmalanlagen.html">Einmalanlagen</a>
-  <a class="menu-link" href="vermoegensstruktur.html">Vermögensstruktur</a>
-
-  <div class="menu-section-title">Familie & Kinder</div>
-  <a class="menu-link" href="eltern-retter-kindererziehungszeiten.html">Eltern-Retter</a>
-  <a class="menu-link" href="kinder-absichern.html">Kinder absichern</a>
-  <a class="menu-link" href="ausbildung-und-zukunft.html">Ausbildung & Zukunft</a>
-</nav>
-
-<script>
-  const menuToggle = document.getElementById("menu-toggle");
-  const menuBackdrop = document.getElementById("menu-backdrop");
-  const menuPanel = document.getElementById("menu-panel");
-
-  menuToggle.addEventListener("click", () => {
-    menuPanel.classList.toggle("open");
-    menuBackdrop.classList.toggle("open");
-  });
-
-  menuBackdrop.addEventListener("click", () => {
-    menuPanel.classList.remove("open");
-    menuBackdrop.classList.remove("open");
-  });
-</script>
-
-<!-- ========================================================= -->
-<!-- 🚀 PAGE CONTENT – diesen Teil tauscht du aus! -->
-<!-- ========================================================= -->
-
-<!-- PAGE CONTENT START -->
-
-<header class="hero">
-  <div class="hero-inner">
-    <div class="hero-text animate-on-scroll">
-      <div class="hero-label">
-        <span class="dot"></span>
-        Familie & Kinder · Ausbildung & Zukunft
+  <div class="page">
+    <div class="topbar">
+      <div class="topbar-left">
+        <div class="topbar-avatars">
+          <img src="jonas-halbkoerper.png" alt="Jonas Plener" />
+          <img src="timo-halbkoerper.png" alt="Timo Hügel" />
+        </div>
+        <div>
+          <div class="topbar-title">Jonas Plener &amp; Timo Hügel</div>
+          <div class="topbar-tagline">Agentur für Deutsche Vermögensberatung<br />Region Kinzigtal / Ortenau</div>
+        </div>
       </div>
 
-      <h1>Ausbildung & Zukunft – früh sparen, später Freiheit schenken</h1>
-
-      <p class="hero-lead">
-        Studium, Ausbildung, Auslandsjahr oder der erste Schritt in die Selbstständigkeit:
-        Mit einem gut geplanten Ausbildungskapital schenkst du deinem Kind später
-        Freiheit statt Druck.
-      </p>
-
-      <div class="hero-badges">
-        <div class="badge">Sparpläne auf den Namen des Kindes möglich</div>
-        <div class="badge">Steuern & Zugriff klar geregelt</div>
+      <div class="menu-wrap">
+        <div class="menu-text">Für Eltern, Selbstständige und Angestellte<br />im Kinzigtal &amp; der Ortenau</div>
+        <button type="button" class="burger-btn" id="burgerBtn" aria-label="Menü öffnen" aria-expanded="false" aria-controls="menuPanel">
+          <span class="burger-lines" aria-hidden="true"><span></span><span></span><span></span></span>
+        </button>
       </div>
 
-      <div class="cta-row">
-        <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" class="btn-primary" target="_blank">
-          Zukunftskonto planen
-        </a>
-      </div>
+      <div class="menu-overlay" id="menuOverlay"></div>
+      <nav class="menu-panel" id="menuPanel" aria-label="Navigation">
+        <div class="menu-header">
+          <span class="menu-header-title">Menü</span>
+          <button type="button" class="menu-close-btn" aria-label="Menü schließen">✕</button>
+        </div>
+        <div class="menu-content">
+          <section class="menu-section">
+            <h2 class="menu-section-title">Startseite</h2>
+            <ul class="menu-section-links"><li><a href="index.html">Themenauswahl</a></li></ul>
+          </section>
+          <section class="menu-section">
+            <h2 class="menu-section-title">Angestellt</h2>
+            <ul class="menu-section-links">
+              <li><a href="vermoegen-aufbauen-investieren.html">Vermögen aufbauen</a></li>
+              <li><a href="bav.html">bAV</a></li>
+              <li><a href="arbeitskraftabsicherung.html">Arbeitskraft absichern</a></li>
+              <li><a href="risikoleben.html">Familie absichern</a></li>
+              <li><a href="sachversicherungen.html">Sachversicherungen</a></li>
+              <li><a href="immobilien-finanzierung.html">Immobilien &amp; Finanzierung</a></li>
+            </ul>
+          </section>
+          <section class="menu-section">
+            <h2 class="menu-section-title">Eltern &amp; Familie</h2>
+            <ul class="menu-section-links">
+              <li><a href="kinder-absichern.html">Kinder absichern</a></li>
+              <li><a href="eltern-retter-kindererziehungszeiten.html">Kindererziehungszeiten</a></li>
+              <li><a href="riester.html">Riester</a></li>
+              <li><a href="risikoleben.html">Familie absichern</a></li>
+            </ul>
+          </section>
+          <section class="menu-section">
+            <h2 class="menu-section-title">Unternehmer &amp; Selbstständig</h2>
+            <ul class="menu-section-links">
+              <li><a href="liquiditaet.html">Liquidität</a></li>
+              <li><a href="mitarbeiter-benefits.html">Betriebliche Krankenversicherung</a></li>
+              <li><a href="energie.html">Energie</a></li>
+              <li><a href="betriebliche-sachversicherung.html">Betriebliche Sachversicherungen</a></li>
+              <li><a href="ruerup.html">Rürup</a></li>
+            </ul>
+          </section>
+          <section class="menu-section">
+            <h2 class="menu-section-title">Karriere &amp; Ausbildung</h2>
+            <ul class="menu-section-links">
+              <li><a href="ausbildung-und-zukunft.html" class="active">Ausbildung &amp; Zukunft</a></li>
+              <li><a href="karriere-im-finanzbereich.html">Karriere im Finanzbereich</a></li>
+            </ul>
+          </section>
+        </div>
+      </nav>
     </div>
 
-    <div class="hero-photo animate-on-scroll">
-      <img src="ausbildung-zukunft-symbol.png" alt="Ausbildung & Zukunft" />
-    </div>
+    <header class="hero">
+      <div class="hero-inner">
+        <div class="hero-text">
+          <div class="hero-label"><span class="dot"></span>Azubi · Berufsstart · Zukunft aufbauen</div>
+          <h1>Beim Berufsstart zählt nicht Perfektion, sondern <strong>früh die richtigen Grundlagen legen</strong></h1>
+          <p class="hero-lead">
+            Ausbildung, erster Job und das erste eigene Geld sind genau die Phase, in der viele Weichen gestellt werden. Wer früh anfängt,
+            <strong>Rücklagen aufzubauen, Arbeitskraft zu sichern, Gesundheitsfragen sauber zu ordnen und mit kleinen Beträgen zu investieren</strong>,
+            hat später meist deutlich bessere Möglichkeiten als jemand, der erst Jahre später startet.
+          </p>
+
+          <div class="highlight-box">
+            Gerade am Anfang geht es nicht darum, alles sofort perfekt zu machen. Wichtig ist, <strong>früh überhaupt anzufangen</strong> und
+            Themen wie Haftpflicht, Berufsunfähigkeit, Krankenversicherung und Vermögensaufbau nicht erst dann zu prüfen, wenn es teuer oder zu spät wird.
+          </div>
+
+          <div class="hero-badges">
+            <a href="#start" class="badge"><span>Was jetzt zählt</span><span class="arrow">↓</span></a>
+            <a href="#schutz" class="badge"><span>Schutz am Anfang</span><span class="arrow">↓</span></a>
+            <a href="#investieren" class="badge"><span>Früh investieren</span><span class="arrow">↓</span></a>
+            <a href="#gesundheit" class="badge"><span>Gesundheitsfragen</span><span class="arrow">↓</span></a>
+          </div>
+
+          <div class="cta-row">
+            <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-primary">Berufsstart gemeinsam sortieren</a>
+            <a href="https://wa.me/4915141678134" target="_blank" rel="noopener" class="btn-wa">Jonas kontaktieren</a>
+            <a href="https://wa.me/4917663796605" target="_blank" rel="noopener" class="btn-secondary">Timo kontaktieren</a>
+          </div>
+        </div>
+
+        <div class="hero-photo">
+          <div class="hero-people">
+            <div class="hero-person jonas"><div class="hero-image-box"><img src="jonas-halbkoerper.png" alt="Jonas Plener" /></div></div>
+            <div class="hero-person timo"><div class="hero-image-box"><img src="timo-halbkoerper.png" alt="Timo Hügel" /></div></div>
+          </div>
+          <div class="hero-card">
+            <h3>Im Kern wichtig</h3>
+            <ul>
+              <li>früh kleine Sparroutinen statt später großer Druck</li>
+              <li>Gesundheitsfragen möglichst früh sichern und dokumentieren</li>
+              <li>Arbeitskraft und Haftung nicht auf später verschieben</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-strip">
+        <div class="contact-card">
+          <div class="contact-name">Jonas Plener</div>
+          <div class="contact-role">Vermögensberater bei der Deutschen Vermögensberatung</div>
+          <div class="contact-links">
+            <a href="tel:+4915141678134">0151 41678134</a>
+            <a href="mailto:Jonas.Plener@dvag.de">Jonas.Plener@dvag.de</a>
+          </div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-name">Timo Hügel</div>
+          <div class="contact-role">Vermögensberater bei der Deutschen Vermögensberatung</div>
+          <div class="contact-links">
+            <a href="tel:+4917663796605">0176 63796605</a>
+            <a href="mailto:Timo.Huegel@dvag.de">Timo.Huegel@dvag.de</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <article class="stat-card blue">
+          <div class="stat-label">Früher Start</div>
+          <div class="stat-number">klein anfangen reicht</div>
+          <p class="stat-copy">Schon kleine monatliche Beträge können über Jahre einen spürbaren Unterschied machen.</p>
+        </article>
+        <article class="stat-card orange">
+          <div class="stat-label">Gesundheit</div>
+          <div class="stat-number">früh oft einfacher</div>
+          <p class="stat-copy">Gesundheitsfragen sind in jungen Jahren oft noch überschaubarer als später nach Diagnosen oder Behandlungen.</p>
+        </article>
+        <article class="stat-card blue">
+          <div class="stat-label">Absicherung</div>
+          <div class="stat-number">Arbeitskraft zuerst</div>
+          <p class="stat-copy">Die Fähigkeit, Geld zu verdienen, ist für Azubis und Berufsanfänger meist der wichtigste Vermögenswert.</p>
+        </article>
+        <article class="stat-card green">
+          <div class="stat-label">Ziel</div>
+          <div class="stat-number">sauber statt kompliziert</div>
+          <p class="stat-copy">Am Anfang braucht es keine Produktflut, sondern eine klare Reihenfolge und gute Grundlagen.</p>
+        </article>
+      </div>
+    </header>
+
+    <main>
+      <section id="start">
+        <h2>1) Was beim Berufsstart wirklich wichtig ist</h2>
+        <p class="section-subtitle">Die ersten Berufsjahre wirken klein, sind aber oft die Phase, in der Gewohnheiten und Entscheidungen für viele Jahre geprägt werden.</p>
+        <div class="grid-2">
+          <article class="card blue-card">
+            <div class="card-title">Typische Ausgangslage</div>
+            <div class="number-pill">viel Neues auf einmal</div>
+            <p>Ausbildung oder erster Job bringen zum ersten Mal eigenes Einkommen, eigene Verträge und eigene Verantwortung. Genau dadurch werden Finanzthemen plötzlich konkret.</p>
+            <ul>
+              <li>erstes regelmäßiges Gehalt oder Azubi-Einkommen</li>
+              <li>eigene Krankenversicherung und erste Verträge</li>
+              <li>wenig Erfahrung, aber viele wichtige Entscheidungen</li>
+            </ul>
+          </article>
+          <article class="card amber-card">
+            <div class="card-title">Worauf es ankommt</div>
+            <div class="number-pill">Reihenfolge statt Chaos</div>
+            <p>Entscheidend ist nicht, sofort alles zu lösen, sondern die wichtigen Themen in der richtigen Reihenfolge anzugehen.</p>
+            <ul>
+              <li>erst Risiken absichern, die wirklich existenziell sind</li>
+              <li>dann mit kleinen Sparraten Vermögensaufbau starten</li>
+              <li>früh günstige und saubere Gesundheitsangaben sichern</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section id="schutz">
+        <h2>2) Welche Absicherungen zu Beginn oft besonders wichtig sind</h2>
+        <p class="section-subtitle">Nicht alles muss sofort abgeschlossen werden. Einige Themen sind aber so grundlegend, dass man sie beim Berufsstart nicht liegen lassen sollte.</p>
+        <div class="grid-2">
+          <article class="service-card blue-card">
+            <div class="service-title">Private Haftpflicht</div>
+            <p>Sie gehört fast immer zu den ersten sinnvollen Absicherungen, weil schon kleine Fehler schnell teuer werden können.</p>
+            <ul>
+              <li>oft sehr günstig im Verhältnis zum Nutzen</li>
+              <li>wichtig, sobald keine Familienlösung mehr greift</li>
+              <li>klärt existenzielle Schäden gegen Dritte</li>
+            </ul>
+          </article>
+          <article class="service-card green-card">
+            <div class="service-title">Krankenversicherung sauber prüfen</div>
+            <p>Gerade beim Wechsel in Ausbildung, Studium oder ersten Job ändern sich Zuständigkeiten häufig. Das sollte früh sauber geordnet sein.</p>
+            <ul>
+              <li>Familienversicherung, Ausbildung oder Anstellung richtig einordnen</li>
+              <li>Leistungslücken und Zusatzbausteine bewusst prüfen</li>
+              <li>nicht einfach nebenbei laufen lassen</li>
+            </ul>
+          </article>
+          <article class="service-card amber-card">
+            <div class="service-title">Berufsunfähigkeit oder Arbeitskraftschutz</div>
+            <p>Viele unterschätzen, wie wichtig das Thema schon in jungen Jahren ist. Dabei ist gerade der frühe Einstieg oft entscheidend.</p>
+            <ul>
+              <li>junges Eintrittsalter kann Beiträge deutlich günstiger halten</li>
+              <li>Gesundheitszustand ist oft noch günstiger als später</li>
+              <li>Arbeitskraft ist am Anfang das Fundament für alles Weitere</li>
+            </ul>
+          </article>
+          <article class="service-card signal-card">
+            <div class="service-title">Erste Rücklage statt nur Konto auf null</div>
+            <p>Neben Versicherungen ist ein kleiner Notgroschen oft der erste vernünftige Vermögensbaustein.</p>
+            <ul>
+              <li>verhindert, dass jede Rechnung zum Problem wird</li>
+              <li>schafft Ruhe für Ausbildung und Jobstart</li>
+              <li>ist die Basis vor langfristigem Investieren</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section id="investieren">
+        <h2>3) Warum frühes Investieren so wichtig sein kann</h2>
+        <p class="section-subtitle">Der große Vorteil am Berufsstart ist nicht ein hohes Einkommen, sondern Zeit. Genau diese Zeit kann beim Investieren mehr ausmachen als spätere große Einzahlungen.</p>
+        <div class="grid-2">
+          <article class="card blue-card">
+            <div class="card-title">Der Zeitvorteil</div>
+            <div class="number-pill">früher Start wirkt lange</div>
+            <p>Wer mit 25 oder 50 EUR im Monat startet, baut erst einmal keine Riesensumme auf. Aber die Gewohnheit und der lange Zeitraum sind genau der Hebel.</p>
+            <ul>
+              <li>Zinseszins braucht vor allem Zeit</li>
+              <li>kleine Raten sind am Anfang oft realistischer als hohe Ziele</li>
+              <li>früher Start kann später viel Druck aus der Sparphase nehmen</li>
+            </ul>
+          </article>
+          <article class="card green-card">
+            <div class="card-title">Worauf man achten sollte</div>
+            <div class="number-pill">einfach und durchhaltbar</div>
+            <p>Beim Berufsstart ist nicht die komplizierteste Strategie entscheidend, sondern eine Lösung, die man durchhält und versteht.</p>
+            <ul>
+              <li>kleine feste Sparrate statt unrealistischem Perfektionsplan</li>
+              <li>zuerst Puffer, dann langfristiger Vermögensaufbau</li>
+              <li>nicht aus Aktionismus, sondern mit klarer Logik starten</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="highlight-box">
+          Der eigentliche Unterschied entsteht oft nicht dadurch, ob jemand mit 19 schon große Summen investiert, sondern dadurch, ob <strong>früh eine Routine entsteht</strong>.
+          Wer klein anfängt und dranbleibt, hat später oft deutlich bessere Karten als jemand, der das Thema zehn Jahre aufschiebt.
+        </div>
+      </section>
+
+      <section id="gesundheit">
+        <h2>4) Warum Gesundheitsfragen möglichst früh gesichert werden sollten</h2>
+        <p class="section-subtitle">Gerade bei Absicherungen rund um Arbeitskraft oder Gesundheit sind frühere Zeitpunkte oft einfacher als spätere.</p>
+        <div class="flow-diagram">
+          <article class="flow-step">
+            <div class="flow-kicker">Punkt 1</div>
+            <h3 class="flow-title">Heute oft weniger Einträge</h3>
+            <p>In jungen Jahren sind Arztakten und Diagnosen häufig noch überschaubarer als nach einigen Jahren mit Beschwerden, Behandlungen oder Operationen.</p>
+          </article>
+          <article class="flow-step">
+            <div class="flow-kicker">Punkt 2</div>
+            <h3 class="flow-title">Später kann es teurer oder schwieriger werden</h3>
+            <p>Mehr Vorerkrankungen oder laufende Themen können Beiträge verändern, Ausschlüsse auslösen oder Anträge erschweren.</p>
+          </article>
+          <article class="flow-step">
+            <div class="flow-kicker">Punkt 3</div>
+            <h3 class="flow-title">Gesundheitsangaben sauber vorbereiten</h3>
+            <p>Nicht schätzen, sondern Unterlagen und Zeiträume ordentlich zusammentragen. Genau hier passieren sonst später unnötige Probleme.</p>
+          </article>
+          <article class="flow-step">
+            <div class="flow-kicker">Punkt 4</div>
+            <h3 class="flow-title">Früh prüfen heißt nicht blind abschließen</h3>
+            <p>Es geht nicht um Hektik, sondern darum, Chancen zu erkennen, solange die Ausgangslage meist noch günstiger ist.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="fahrplan">
+        <h2>5) Ein sinnvoller Fahrplan für Azubis und Berufsanfänger</h2>
+        <p class="section-subtitle">Nicht alles auf einmal, sondern Schritt für Schritt. So bleibt der Einstieg überschaubar und trotzdem sinnvoll.</p>
+        <div class="grid-3">
+          <article class="priority-card">
+            <div class="priority-number">1</div>
+            <h3 class="priority-title">Grundschutz ordnen</h3>
+            <ul>
+              <li>Krankenversicherung und Haftpflicht sauber klären</li>
+              <li>Arbeitskraftschutz früh prüfen</li>
+              <li>offene Gesundheitsfragen ordentlich sammeln</li>
+            </ul>
+          </article>
+          <article class="priority-card">
+            <div class="priority-number">2</div>
+            <h3 class="priority-title">Puffer aufbauen</h3>
+            <ul>
+              <li>kleine Reserve für unerwartete Ausgaben schaffen</li>
+              <li>Kontobewegungen und feste Kosten kennen</li>
+              <li>nicht jeden Monat komplett auf null enden</li>
+            </ul>
+          </article>
+          <article class="priority-card">
+            <div class="priority-number">3</div>
+            <h3 class="priority-title">Investieren anfangen</h3>
+            <ul>
+              <li>kleine Sparrate fest etablieren</li>
+              <li>langfristig denken statt kurzfristig springen</li>
+              <li>Routine wichtiger als Perfektion</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="cta-row" style="margin-top:1rem;">
+          <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-primary">Berufsstart konkret sortieren</a>
+        </div>
+      </section>
+    </main>
+
+    <footer>Diese Seite ersetzt keine individuelle Rechts-, Steuer- oder Versicherungsberatung. Alle Angaben ohne Gewähr.</footer>
   </div>
-</header>
 
-<main>
+  <script>
+    (function () {
+      const burgerBtn = document.getElementById("burgerBtn");
+      const menuPanel = document.getElementById("menuPanel");
+      const menuOverlay = document.getElementById("menuOverlay");
+      const menuCloseBtn = menuPanel.querySelector(".menu-close-btn");
+      if (!burgerBtn || !menuPanel || !menuOverlay || !menuCloseBtn) return;
 
-  <section class="animate-on-scroll">
-    <h2>Bausteine für Ausbildung & Start ins Leben</h2>
-    <div class="grid-2">
-      <div class="card">
-        <div class="card-title">Fondssparpläne</div>
-        <ul>
-          <li>Langfristige Anlage über viele Jahre.</li>
-          <li>Hohe Flexibilität bei Höhe und Dauer der Einzahlungen.</li>
-          <li>Gute Kombination aus Renditechancen und Streuung.</li>
-        </ul>
-      </div>
-      <div class="card">
-        <div class="card-title">Versicherungslösungen</div>
-        <ul>
-          <li>Ausbildungs- oder Rentenversicherungen mit Auszahlung zu bestimmten Zeitpunkten.</li>
-          <li>Optional mit Hinterbliebenenschutz oder Garantien.</li>
-          <li>Steuerliche Vorteile je nach Vertragsart und Laufzeit möglich.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
+      function closeMenu() {
+        menuPanel.classList.remove("open");
+        menuOverlay.classList.remove("open");
+        burgerBtn.setAttribute("aria-expanded", "false");
+        document.body.style.overflow = "";
+      }
 
-  <section class="animate-on-scroll">
-    <h2>Steuer & Gestaltung</h2>
-    <div class="grid-2">
-      <div class="card">
-        <div class="card-title">Depotlösungen</div>
-        <ul>
-          <li>Kapitalerträge unterliegen der Abgeltungsteuer.</li>
-          <li>Bei Konto/Depot auf den Namen des Kindes kann dessen Freibetrag genutzt werden.</li>
-          <li>Wichtig: Zugriff & Verfügungsrechte rechtzeitig planen.</li>
-        </ul>
-      </div>
-      <div class="card">
-        <div class="card-title">Versicherungen</div>
-        <ul>
-          <li>
-            Bei bestimmten Laufzeiten und Auszahlungszeitpunkten können Erträge
-            steuerlich begünstigt sein (z. B. hälftige Versteuerung bestimmter Ertragsanteile
-            oder Ertragsanteilsbesteuerung bei Rentenlösungen).
-          </li>
-          <li>Gleichzeitig können Sicherheiten und Garantien eine Rolle spielen.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
+      function openMenu() {
+        menuPanel.classList.add("open");
+        menuOverlay.classList.add("open");
+        burgerBtn.setAttribute("aria-expanded", "true");
+        document.body.style.overflow = "hidden";
+      }
 
-  <section class="animate-on-scroll">
-    <h2>Nächster Schritt</h2>
-    <p class="section-subtitle">
-      Wir klären, wie viel du monatlich oder als Einmalbetrag investieren möchtest, wann
-      dein Kind vor allem Geld braucht – und bauen daraus ein klares Zukunftskonzept.
-    </p>
+      burgerBtn.addEventListener("click", function () {
+        const isOpen = burgerBtn.getAttribute("aria-expanded") === "true";
+        if (isOpen) closeMenu(); else openMenu();
+      });
 
-    <div class="centered-cta">
-      <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" class="btn-primary">
-        Ausbildung & Zukunft jetzt planen
-      </a>
-    </div>
-    <div class="centered-cta" style="margin-top:1rem;">
-      <a href="leistung.html#familie" class="btn-secondary">
-        Zurück zu Familie &amp; Kinder
-      </a>
-    </div>
-  </section>
+      menuCloseBtn.addEventListener("click", closeMenu);
+      menuOverlay.addEventListener("click", closeMenu);
 
-</main>
-
-<!-- PAGE CONTENT END -->
-
-
-<!-- ========================================================= -->
-
-<footer>
-  © 2025 Jonas Plener – Beratung digital & vor Ort
-</footer>
-
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") closeMenu();
+      });
+    })();
+  </script>
 </body>
 </html>
