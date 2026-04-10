@@ -3,1115 +3,1255 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Riester-Rente – Rechner & Check · Jonas Plener</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500&family=Raleway:wght@600;700;800&display=swap" rel="stylesheet" />
-
+  <title>Riester - Jonas Plener &amp; Timo Hügel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500&family=Raleway:wght@500;600;700;800&display=swap" rel="stylesheet" />
   <style>
-    :root{
-      --primary:#4a787d;
-      --accent:#f4be69;
-      --text:#111111;
-      --muted:#4b5563;
-      --border:#e5e7eb;
-      --wa:#25d366;
-
-      --good:#16a34a;
-      --warn:#f59e0b;
-      --bad:#dc2626;
-
-      --shadow: 0 10px 25px rgba(15,23,42,.06);
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:"Arimo", system-ui, -apple-system, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #fef3c7 0, #f4f8f8 35%, #dbeafe 100%);
-      color:var(--text);
-      line-height:1.6;
-    }
-    a{color:inherit;text-decoration:none}
-
-    .page{
-      max-width:1100px;
-      margin:0 auto;
-      min-height:100vh;
-      background:#fff;
-      box-shadow:0 12px 35px rgba(15,23,42,.12);
-      display:flex;
-      flex-direction:column;
+    :root {
+      --primary: #2e6f80;
+      --accent: #f0b85c;
+      --danger: #b91c1c;
+      --text: #111827;
+      --muted: #4b5563;
+      --border: #d9e2ec;
+      --soft: #f8fbff;
+      --soft-safe: #ecfdf5;
+      --soft-warn: #fff7ed;
+      --wa: #22c55e;
+      --shadow: 0 10px 25px rgba(15, 23, 42, 0.06);
     }
 
-    /* Topbar */
-    .topbar{
-      position:relative;
-      display:flex;align-items:center;justify-content:space-between;gap:1rem;
-      padding:.85rem 1.8rem;
-      border-bottom:1px solid var(--border);
-      background:linear-gradient(to right,#ffffff,#fef3c7);
-    }
-    .topbar-left{display:flex;align-items:center;gap:.75rem;min-width:0}
-    .topbar-portrait img{
-      width:54px;height:54px;border-radius:50%;object-fit:cover;display:block;
-      box-shadow:0 4px 10px rgba(15,23,42,.25);
-    }
-    .topbar-title{
-      font-family:"Raleway",system-ui,sans-serif;
-      font-weight:800;letter-spacing:.03em;font-size:.95rem;text-transform:uppercase;
-      color:var(--primary);
-    }
-    .topbar-tagline{font-size:.8rem;color:var(--muted)}
-    .topbar-right{
-      font-size:.8rem;color:var(--muted);
-      text-align:right;padding-right:54px;white-space:nowrap;
-    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
-    /* Burger Button */
-    .burger{
-      position:absolute;top:10px;right:10px;
-      width:46px;height:46px;border-radius:999px;
-      border:1px solid rgba(148,163,184,.9);
-      background:#fff;
-      box-shadow:0 8px 20px rgba(15,23,42,.12);
-      display:grid;place-items:center;cursor:pointer;z-index:1000;
-    }
-    .burger:active{transform:translateY(1px)}
-    .burger-lines{width:20px;height:14px;position:relative}
-    .burger-lines span{
-      position:absolute;left:0;right:0;height:2px;border-radius:999px;background:var(--primary);
-    }
-    .burger-lines span:nth-child(1){top:0}
-    .burger-lines span:nth-child(2){top:6px}
-    .burger-lines span:nth-child(3){top:12px}
-
-    /* ===== Neues Menü (wie "Meine Leistungen") ===== */
-    .menu-backdrop{
-      position:fixed;inset:0;
-      background:rgba(15,23,42,.45);
-      opacity:0;pointer-events:none;
-      transition:opacity .25s ease;
-      z-index:1200;
-    }
-    .menu-panel{
-      position:fixed;top:0;right:0;height:100%;
-      width:min(380px, 92vw);
-      background:#fff;
-      box-shadow:-18px 0 40px rgba(15,23,42,.18);
-      transform:translateX(105%);
-      transition:transform .25s ease;
-      z-index:1300;
-      display:flex;flex-direction:column;
-    }
-    .menu-backdrop.open{opacity:1;pointer-events:auto}
-    .menu-panel.open{transform:translateX(0)}
-
-    .menu-head{
-      padding:1rem 1rem .85rem;
-      border-bottom:1px solid var(--border);
-      display:flex;align-items:center;justify-content:space-between;gap:.75rem;
-      background:linear-gradient(to right,#ffffff,#fef3c7);
-    }
-    .menu-head .ttl{
-      font-family:Raleway,system-ui,sans-serif;
-      font-weight:800;
-      color:var(--primary);
-      font-size:1.05rem;
-    }
-    .menu-close{
-      width:40px;height:40px;border-radius:999px;
-      border:1px solid rgba(148,163,184,.9);
-      background:#fff;cursor:pointer;display:grid;place-items:center;
-    }
-
-    .menu-body{
-      padding:1rem 1rem 1rem;
-      overflow:auto;
-    }
-    .menu-section{
-      padding:.9rem .0 .3rem;
-    }
-    .menu-kicker{
-      font-size:.78rem;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      color:#9ca3af;
-      margin:0 0 .65rem;
-    }
-
-    .menu-block{
-      border:1px solid rgba(148,163,184,.55);
-      border-radius:16px;
-      overflow:hidden;
-      background:linear-gradient(to bottom,#fff,#fbfdff);
-      box-shadow:0 8px 18px rgba(15,23,42,.06);
-      margin-bottom:.85rem;
-    }
-    .menu-block a.big{
-      display:block;
-      padding:.85rem .95rem .1rem;
-      font-family:Raleway,system-ui,sans-serif;
-      font-weight:800;
-      color:#111;
-      font-size:1.0rem;
-    }
-    .menu-block a.big:hover{background:#f3f6f8}
-    .menu-block .subline{
-      padding:0 .95rem .75rem;
-      color:var(--muted);
-      font-size:.9rem;
-    }
-    .menu-sublist{
-      border-top:1px solid rgba(148,163,184,.35);
-      padding:.55rem .55rem .7rem;
-      display:grid;
-      gap:.2rem;
-    }
-    .menu-sublist a{
-      display:block;
-      padding:.55rem .55rem;
-      border-radius:12px;
-      color:var(--muted);
-      font-size:.95rem;
-    }
-    .menu-sublist a:hover{background:#f3f6f8;color:#111}
-    .menu-sublist a strong{color:var(--primary)}
-
-    .menu-foot{
-      margin-top:auto;
-      padding:1rem;
-      border-top:1px solid var(--border);
-      background:#f9fafb;
-      display:grid;
-      gap:.6rem;
-    }
-    .menu-foot .btn{
-      display:inline-flex;align-items:center;justify-content:center;
-      padding:.92rem 1.2rem;border-radius:999px;
-      font-weight:900;font-size:.98rem;border:0;cursor:pointer;
-      white-space:nowrap;text-align:center;text-decoration:none;
-      box-shadow:0 10px 22px rgba(15,23,42,.12);
-    }
-    .menu-foot .btn-gold{background:var(--accent);color:#1f2933}
-    .menu-foot .btn-wa{background:var(--wa);color:#fff}
-
-    /* Hero */
-    header.hero{
-      padding:1.9rem 1.4rem .9rem;
-      border-bottom:1px solid var(--border);
-      background: radial-gradient(circle at top left, #fdf4e6 0, #ffffff 40%, #e0f2fe 100%);
-      position:relative;
-      overflow:hidden;
-    }
-    .hero-label{
-      display:inline-flex;align-items:center;gap:.45rem;
-      padding:.15rem .7rem;border-radius:999px;
-      border:1px solid rgba(148,163,184,.8);
-      font-size:.82rem;color:var(--muted);
-      background:rgba(255,255,255,.9);
-      margin-bottom:.6rem;
-    }
-    .hero-label .dot{width:6px;height:6px;border-radius:999px;background:var(--accent)}
-    .hero h1{
-      font-family:"Raleway",system-ui,sans-serif;
-      font-weight:800;font-size:1.85rem;margin:0 0 .55rem;
-    }
-    .hero-lead{margin:0;color:var(--muted);max-width:62rem;font-size:.98rem}
-    .hero-lead strong{color:var(--primary);font-weight:800}
-
-    /* HERO: Bild + Ansprechpartner-Box */
-    .hero-inner{
-      display:grid;
-      grid-template-columns: 1.35fr .65fr;
-      gap: 1.2rem;
-      align-items: end;
-    }
-    .hero-left{min-width:0}
-    .hero-right{
-      position: relative;
-      display:flex;
-      justify-content:center;
-      align-items:flex-end;
-      min-height: 360px;
-    }
-    .hero-portrait{
-      width: min(320px, 86%);
-      height: auto;
-      display:block;
-      filter: drop-shadow(0 18px 28px rgba(15,23,42,.18));
-      margin-bottom: 56px;
-    }
-    .partner-card{
-      position:absolute;
-      left: 50%;
-      bottom: 0;
-      transform: translateX(-50%);
-      width: min(520px, 92%);
-      background:#fff;
-      border: 1px solid rgba(148,163,184,.65);
-      border-radius: 22px;
-      box-shadow: 0 14px 30px rgba(15,23,42,.14);
-      padding: 1.05rem 1.15rem;
-    }
-    .partner-title{
-      font-family:"Raleway",system-ui,sans-serif;
-      font-weight: 800;
-      color: var(--primary);
-      text-align:center;
-      margin: 0 0 .55rem;
-    }
-    .partner-list{
-      list-style: none;
-      padding: 0;
+    body {
       margin: 0;
-      display:grid;
-      gap: .35rem;
+      font-family: "Arimo", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #fef3c7 0, #f4f8f8 35%, #dbeafe 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      min-height: 100vh;
+      background: #fff;
+      box-shadow: 0 12px 35px rgba(15, 23, 42, 0.12);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.8rem 1.8rem;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(to right, #ffffff, #fef3c7);
+      gap: 1rem;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      min-width: 0;
+    }
+
+    .topbar-avatars {
+      display: flex;
+      align-items: center;
+    }
+
+    .topbar-avatars img {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.25);
+      border: 2px solid #fff;
+      background: #fff;
+    }
+
+    .topbar-avatars img + img { margin-left: -10px; }
+
+    .topbar-title {
+      font-family: "Raleway", system-ui, sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      color: var(--primary);
+    }
+
+    .topbar-tagline {
+      font-size: 0.8rem;
       color: var(--muted);
-      font-size: .95rem;
     }
-    .partner-list li{
-      display:flex;
-      align-items:flex-start;
-      gap:.6rem;
+
+    .menu-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0.65rem;
+      margin-left: auto;
     }
-    .partner-dot{
-      width: 8px;
-      height: 8px;
+
+    .menu-text {
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .burger-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .burger-lines {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .burger-lines span {
+      display: block;
+      width: 22px;
+      height: 2.5px;
+      background: #4a787d;
+      border-radius: 999px;
+      transition: transform 0.18s ease, opacity 0.18s ease;
+    }
+
+    .burger-btn[aria-expanded="true"] .burger-lines span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .burger-btn[aria-expanded="true"] .burger-lines span:nth-child(2) { opacity: 0; }
+    .burger-btn[aria-expanded="true"] .burger-lines span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .menu-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.15s ease;
+      z-index: 40;
+    }
+
+    .menu-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .menu-panel {
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 100vh;
+      width: min(420px, 80vw);
+      background: #fff;
+      box-shadow: -8px 0 20px rgba(0, 0, 0, 0.15);
+      transform: translateX(100%);
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 50;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .menu-panel.open { transform: translateX(0); }
+
+    .menu-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .menu-header-title {
+      font-family: "Raleway", system-ui, sans-serif;
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 1rem;
+      text-transform: uppercase;
+    }
+
+    .menu-close-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      color: var(--primary);
+      font-size: 1.4rem;
+      padding: 0;
+    }
+
+    .menu-content { flex: 1; padding: 0.8rem 0; }
+    .menu-section { padding: 0; margin: 0; }
+
+    .menu-section-title {
+      font-family: "Raleway", system-ui, sans-serif;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      font-size: 0.75rem;
+      color: var(--primary);
+      padding: 0.8rem 1.2rem 0.4rem;
+      margin: 0;
+    }
+
+    .menu-section-links {
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .menu-section-links a {
+      display: flex;
+      align-items: center;
+      padding: 0.6rem 1.2rem;
+      font-size: 0.92rem;
+      color: #1f2937;
+      border-left: 3px solid transparent;
+    }
+
+    .menu-section-links a:hover { background: #f3f4f6; }
+    .menu-section-links a.active { border-left-color: var(--accent); background: rgba(244, 190, 105, 0.08); }
+
+    header.hero {
+      padding: 2.2rem 1.6rem 2.1rem;
+      border-bottom: 1px solid var(--border);
+      background: radial-gradient(circle at top left, #fff7ed 0, #ffffff 45%, #e0f2fe 100%);
+    }
+
+    .hero-inner {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .hero-text { flex: 1 1 260px; min-width: 0; }
+
+    .hero-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.15rem 0.65rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .hero-label .dot {
+      width: 6px;
+      height: 6px;
       border-radius: 999px;
       background: var(--accent);
-      margin-top: .45rem;
-      flex: 0 0 auto;
     }
 
-    main{
-      padding:1.6rem 1.4rem 2.4rem;
-      background:linear-gradient(to bottom,#fff 0,#f9fafb 100%);
-      flex:1;
-    }
-    section{margin-bottom:1.6rem}
-    h2{
-      font-family:"Raleway",system-ui,sans-serif;
-      font-weight:800;font-size:1.45rem;color:var(--primary);
-      margin:0 0 .4rem;
-    }
-    .section-sub{margin:0 0 1rem;color:var(--muted);font-size:.92rem;max-width:62rem}
-
-    /* Cards */
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem}
-    .card{
-      background:linear-gradient(to bottom,#fff,#fbfdff);
-      border-radius:18px;
-      border:2px solid rgba(74,120,125,.18);
-      box-shadow:var(--shadow);
-      padding:1rem 1.05rem 1.05rem;
-    }
-    .card-title{
-      font-family:"Raleway",system-ui,sans-serif;
-      font-weight:800;font-size:1.05rem;margin:0 0 .4rem;color:#111;
-    }
-    .card p{margin:.35rem 0 0;color:var(--muted);font-size:.92rem}
-
-    .info{
-      margin-top:.75rem;
-      padding:.75rem .85rem;
-      border-radius:16px;
-      border:1px solid rgba(148,163,184,.7);
-      background:#fff;
-      color:var(--muted);
-      font-size:.9rem;
-    }
-    .info strong{color:#111}
-    .nowrap{white-space:nowrap}
-
-    /* Rechner */
-    .calc-wrap{
-      margin-top:.6rem;
-      border-radius:18px;
-      padding:1.1rem 1.05rem 1.15rem;
-      background:linear-gradient(to right, rgba(254,243,199,.8) 0, #ffffff 45%, rgba(224,242,254,.8) 100%);
-      border:1px solid var(--border);
-      box-shadow:0 10px 25px rgba(15,23,42,.08);
-    }
-    .calc-grid{
-      display:grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
-      gap:1rem;
-      align-items:start;
-    }
-    .field{margin-bottom:.7rem}
-    label{
-      display:block;font-size:.85rem;font-weight:900;margin-bottom:.25rem;color:#111;
-    }
-    input{
-      width:100%;
-      padding:.6rem .65rem;
-      border-radius:12px;
-      border:1px solid var(--border);
-      font-size:.92rem;
-      background:#fff;
+    .hero h1 {
+      font-family: "Raleway", system-ui, sans-serif;
+      font-weight: 800;
+      font-size: 2rem;
+      margin: 0 0 0.7rem;
+      letter-spacing: 0.02em;
     }
 
-    .btn{
-      display:inline-flex;align-items:center;justify-content:center;
-      padding:.9rem 1.15rem;border-radius:999px;
-      font-weight:900;font-size:.95rem;border:0;cursor:pointer;
-      text-align:center;white-space:nowrap;
-      box-shadow:0 10px 22px rgba(15,23,42,.12);
-    }
-    .btn:hover{filter:brightness(1.02);transform:translateY(-1px)}
-    .btn-gold{background:var(--accent);color:#1f2933}
-    .btn-outline{background:#fff;border:1px solid rgba(148,163,184,.85);box-shadow:none;color:var(--primary)}
-    .row-2{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+    .hero h1 strong { color: var(--primary); }
 
-    .optional{
-      margin-top:.2rem;
-      border:1px solid rgba(148,163,184,.7);
-      border-radius:16px;
-      background:#fff;
-      overflow:hidden;
-    }
-    .optional button{
-      width:100%;
-      text-align:left;
-      border:0;
-      background:linear-gradient(to right, rgba(254,243,199,.55), rgba(224,242,254,.45));
-      padding:.8rem .9rem;
-      cursor:pointer;
-      display:flex;align-items:center;justify-content:space-between;gap:.7rem;
-      font-family:"Raleway",system-ui,sans-serif;
-      font-weight:900;color:#111;
-    }
-    .optional .body{display:none;padding:.85rem .9rem .95rem}
-    .optional.open .body{display:block}
-    .optional .hint{
-      margin:0 0 .55rem;
-      color:var(--muted);
-      font-size:.9rem;
+    .hero-lead {
+      margin: 0 0 1rem;
+      color: var(--muted);
+      max-width: 44rem;
+      font-size: 0.98rem;
     }
 
-    .calc-result{
-      background:rgba(255,255,255,.92);
-      border-radius:16px;
-      padding:1rem;
-      border:1px solid var(--border);
-      color:var(--muted);
-      font-size:.92rem;
-    }
-    .calc-expl{margin:0 0 .65rem}
-
-    .values{
-      display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap:.65rem;
-      margin-top:.2rem;
-    }
-    .val{
-      padding:.65rem .75rem;border-radius:14px;border:2px solid var(--border);
-      background:#fff;box-shadow:0 8px 18px rgba(15,23,42,.06);
-      min-width:0;
-    }
-    .val .k{font-size:.8rem;color:var(--muted);margin-bottom:.1rem}
-    .val .v{font-weight:900;font-size:1.05rem;color:#111}
-    .val.good{border-color:rgba(22,163,74,.55);background:#dcfce7}
-    .val.warn{border-color:rgba(245,158,11,.55);background:#fef3c7}
-    .val.bad{border-color:rgba(220,38,38,.55);background:#fee2e2}
-
-    /* Bereich: nur anzeigen wenn aktueller Beitrag eingetragen */
-    .needs-currentpay{display:none}
-    .needs-currentpay.show{display:block}
-
-    /* Donut */
-    .donut-wrap{
-      display:grid;
-      grid-template-columns: 180px 1fr;
-      gap:1rem;
-      align-items:center;
-      margin-top:.85rem;
-      padding:.85rem .9rem;
-      border-radius:16px;
-      border:1px solid rgba(148,163,184,.65);
-      background:linear-gradient(to right, rgba(254,243,199,.55), rgba(224,242,254,.55));
-    }
-    .donut{
-      width:180px;height:180px;border-radius:50%;
-      background:conic-gradient(
-        rgba(74,120,125,.75) 0deg,
-        rgba(74,120,125,.75) var(--eigenAngle),
-        var(--accent) var(--eigenAngle),
-        var(--accent) 360deg
-      );
-      position:relative;
-      box-shadow:0 10px 20px rgba(15,23,42,.10);
-      border:1px solid rgba(148,163,184,.55);
-    }
-    .donut::after{
-      content:"";
-      position:absolute;inset:22px;
-      background:#fff;border-radius:50%;
-      box-shadow: inset 0 0 0 1px rgba(148,163,184,.35);
-    }
-    .donut-center{
-      position:absolute;inset:0;
-      display:grid;place-items:center;
-      z-index:2;
-      text-align:center;
-      padding:0 12px;
-      color:#111;
-      font-weight:900;
-      font-family:Raleway,system-ui,sans-serif;
-      line-height:1.1;
-    }
-    .donut-center .pct{
-      font-size:1.55rem;
-      letter-spacing:.01em;
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 0.8rem 0 1.2rem;
     }
 
-    .legend{
-      display:grid;
-      gap:.45rem;
-      color:#6b7280;
-      font-size:.9rem;
-    }
-    .chip{display:inline-flex;align-items:center;gap:.5rem}
-    .dot{width:10px;height:10px;border-radius:999px;display:inline-block}
-    .dot.eigen{background:rgba(74,120,125,.75)}
-    .dot.zul{background:var(--accent)}
-    .hintline{
-      margin-top:.5rem;
-      color:#6b7280;
-      font-size:.82rem;
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.32rem;
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.9);
+      font-size: 0.8rem;
+      color: var(--muted);
+      background: #ffffff;
+      box-shadow: 0 3px 8px rgba(15, 23, 42, 0.08);
     }
 
-    /* Unter-Minimum */
-    .cut-box{
-      margin-top:.85rem;
-      border-radius:16px;
-      border:1px solid rgba(148,163,184,.65);
-      background:linear-gradient(to right, rgba(254,243,199,.6), rgba(224,242,254,.55));
-      padding:.85rem .9rem;
-    }
-    .cut-top{
-      display:flex;justify-content:space-between;gap:.8rem;flex-wrap:wrap;
-      align-items:baseline;margin-bottom:.55rem;
-    }
-    .cut-top .ttl{font-family:Raleway,system-ui,sans-serif;font-weight:900;color:#111}
-    .cut-top .sub{color:var(--muted);font-size:.88rem}
-    .track{
-      width:100%;height:16px;border-radius:999px;background:#d1d5db;overflow:hidden;
-      border:1px solid rgba(148,163,184,.65);
-    }
-    .fill{
-      height:100%;width:0%;
-      background:linear-gradient(to right, var(--bad), var(--warn));
-      transition:width .65s ease;
-    }
-    .cut-foot{margin-top:.5rem;font-size:.82rem;color:#6b7280}
+    .badge .arrow { font-size: 0.9rem; color: var(--primary); }
 
-    footer{
-      padding:1rem 1.4rem 1.3rem;
-      font-size:.78rem;color:#6b7280;
-      border-top:1px solid var(--border);
-      background:#f9fafb;
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      align-items: center;
+      margin-top: 1rem;
     }
 
-    @media (max-width:768px){
-      .topbar{padding-inline:1rem}
-      .topbar-right{display:none}
-      header.hero{padding:1.55rem 1rem .75rem}
-      main{padding:1.4rem 1rem 2.1rem}
-      .hero h1{font-size:1.45rem}
+    .btn-primary, .btn-secondary, .btn-wa {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.9rem 1.7rem;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      border: none;
+      text-align: center;
+      white-space: nowrap;
+      transition: transform 0.12s ease, filter 0.12s ease;
+      min-height: 54px;
+    }
 
-      .hero-inner{grid-template-columns:1fr; align-items:start}
-      .hero-right{min-height:460px;}
-      .partner-card{bottom:0;}
-      .hero-portrait{margin-bottom:62px;}
+    .btn-primary {
+      background: var(--accent);
+      color: #1f2933;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    }
 
-      .calc-grid{grid-template-columns:1fr}
-      .row-2{grid-template-columns:1fr}
-      .btn{width:100%}
+    .btn-secondary, .btn-wa {
+      background: var(--wa);
+      color: #ffffff;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    }
 
-      .donut-wrap{grid-template-columns:1fr;justify-items:center;text-align:left}
-      .donut{width:170px;height:170px}
-      .values{grid-template-columns:1fr}
+    .btn-primary:hover, .btn-secondary:hover, .btn-wa:hover {
+      filter: brightness(1.03);
+      transform: translateY(-1px);
+    }
+
+    .hero-photo {
+      flex: 0 0 450px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-width: 360px;
+      min-height: 420px;
+    }
+
+    .hero-photo::before {
+      content: "";
+      position: absolute;
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #f4be69 0, #ffffff 52%, #cfe7ff 100%);
+      opacity: 0.62;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 0;
+    }
+
+    .hero-people {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 16px;
+      padding: 28px 24px 112px;
+      z-index: 1;
+    }
+
+    .hero-person { display: flex; align-items: flex-end; }
+
+    .hero-image-box {
+      width: 210px;
+      height: 290px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .hero-image-box img {
+      height: auto;
+      object-fit: contain;
+      display: block;
+      filter: drop-shadow(0 10px 20px rgba(15, 23, 42, 0.16));
+    }
+
+    .hero-person.jonas { left: 52px; top: -8px; position: relative; }
+    .hero-person.jonas .hero-image-box img { width: 341px; max-height: 435px; transform: translateY(12px); }
+    .hero-person.timo { left: -40px; top: -8px; position: relative; }
+    .hero-person.timo .hero-image-box img { width: 168px; max-height: 225px; transform: translateY(12px); }
+
+    .hero-card {
+      position: absolute;
+      bottom: -26px;
+      right: 57px;
+      background: #fff;
+      padding: 16px 22px;
+      border-radius: 20px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.18);
+      z-index: 3;
+      width: 330px;
+      color: var(--muted);
+    }
+
+    .hero-card h3 {
+      margin: 0 0 8px;
+      color: var(--primary);
+      font-family: "Raleway", system-ui, sans-serif;
+      font-size: 0.9rem;
+      text-align: center;
+      font-weight: 800;
+    }
+
+    .hero-card ul {
+      margin: 0;
+      padding-left: 1.1rem;
+      font-size: 0.83rem;
+    }
+
+    main {
+      padding: 1.8rem 1.6rem 2.3rem;
+      flex: 1;
+      background: linear-gradient(to bottom, #ffffff 0, #f9fafb 100%);
+    }
+
+    section { margin-bottom: 2rem; }
+
+    h2 {
+      font-family: "Raleway", system-ui, sans-serif;
+      margin: 0 0 0.4rem;
+      font-size: 1.45rem;
+      color: var(--primary);
+      font-weight: 800;
+    }
+
+    .section-subtitle {
+      margin-bottom: 1rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .grid-2, .grid-3 {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .grid-2 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.9rem;
+      margin-top: 1.2rem;
+    }
+
+    .stat-card {
+      border-radius: 18px;
+      padding: 1rem;
+      border: 1px solid transparent;
+      box-shadow: var(--shadow);
+    }
+
+    .stat-card.blue {
+      background: linear-gradient(160deg, #eff6ff 0, #ffffff 85%);
+      border-color: #bfdbfe;
+    }
+
+    .stat-card.orange {
+      background: linear-gradient(160deg, #fff7ed 0, #ffffff 85%);
+      border-color: #fdba74;
+    }
+
+    .stat-card.green {
+      background: linear-gradient(160deg, #ecfdf5 0, #ffffff 85%);
+      border-color: #86efac;
+    }
+
+    .stat-number {
+      font-family: "Raleway", system-ui, sans-serif;
+      font-size: 1.55rem;
+      line-height: 1;
+      font-weight: 800;
+      margin: 0 0 0.35rem;
+      color: var(--text);
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: var(--primary);
+      font-weight: 800;
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-copy {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .card, .priority-card {
+      background: #fff;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      padding: 1.1rem 1.15rem;
+    }
+
+    .card-title, .priority-title {
+      font-family: "Raleway", system-ui, sans-serif;
+      font-weight: 800;
+      margin: 0 0 0.45rem;
+      color: var(--text);
+      font-size: 1.02rem;
+    }
+
+    .card p {
+      margin: 0 0 0.5rem;
+      color: var(--muted);
+      font-size: 0.93rem;
+    }
+
+    .card ul, .priority-card ul {
+      margin: 0.2rem 0 0;
+      padding-left: 1.2rem;
+      color: var(--muted);
+      font-size: 0.93rem;
+    }
+
+    .priority-card {
+      background: linear-gradient(160deg, var(--soft-safe) 0, #ffffff 75%);
+      border-color: #bbf7d0;
+    }
+
+    .priority-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #1f2933;
+      font-weight: 800;
+      margin-bottom: 0.45rem;
+    }
+
+    .signal-card {
+      background: linear-gradient(160deg, var(--soft-warn) 0, #ffffff 80%);
+      border-color: #fed7aa;
+    }
+
+    .blue-card {
+      background: linear-gradient(160deg, #eef6ff 0, #ffffff 80%);
+      border-color: #bfdbfe;
+    }
+
+    .amber-card {
+      background: linear-gradient(160deg, #fff8e8 0, #ffffff 80%);
+      border-color: #fcd34d;
+    }
+
+    .rose-card {
+      background: linear-gradient(160deg, #fff1f2 0, #ffffff 80%);
+      border-color: #fda4af;
+    }
+
+    .green-card {
+      background: linear-gradient(160deg, #ecfdf5 0, #ffffff 80%);
+      border-color: #86efac;
+    }
+
+    .number-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 72px;
+      padding: 0.3rem 0.65rem;
+      border-radius: 999px;
+      font-family: "Raleway", system-ui, sans-serif;
+      font-weight: 800;
+      font-size: 0.88rem;
+      color: #0f172a;
+      background: rgba(240, 184, 92, 0.22);
+      margin: 0 0 0.55rem;
+    }
+
+    .calculator-wrap {
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      background: #fff;
+      padding: 1rem;
+    }
+
+    .calc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .calc-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .calc-label {
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .calc-input {
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 0.62rem 0.75rem;
+      font-size: 0.95rem;
+      font-family: "Arimo", system-ui, sans-serif;
+      background: #fff;
+      color: var(--text);
+    }
+
+    .calc-input:focus {
+      outline: none;
+      border-color: #60a5fa;
+      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+    }
+
+    .stepper {
+      display: grid;
+      grid-template-columns: 44px 1fr 44px;
+      gap: 0.45rem;
+      align-items: center;
+    }
+
+    .step-btn {
+      height: 44px;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      background: #f8fafc;
+      color: #0f172a;
+      font-size: 1.3rem;
+      line-height: 1;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .step-btn:hover {
+      background: #eef2f7;
+    }
+
+    .calc-note {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 0.75rem;
+      margin-top: 0.85rem;
+    }
+
+    .result-card {
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 0.7rem 0.8rem;
+      background: linear-gradient(160deg, #f8fafc 0, #ffffff 90%);
+    }
+
+    .result-title {
+      margin: 0 0 0.2rem;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .result-value {
+      margin: 0;
+      font-family: "Raleway", system-ui, sans-serif;
+      font-weight: 800;
+      color: #0f172a;
+      font-size: 1.12rem;
+    }
+
+    .small-disclaimer {
+      margin-top: 0.75rem;
+      font-size: 0.78rem;
+      color: #6b7280;
+    }
+
+    .contact-strip {
+      margin-top: 1rem;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.8rem;
+    }
+
+    .contact-card {
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 0.9rem 1rem;
+      box-shadow: var(--shadow);
+    }
+
+    .contact-name {
+      font-family: "Raleway", system-ui, sans-serif;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 0.25rem;
+      font-size: 1rem;
+    }
+
+    .contact-role {
+      font-size: 0.84rem;
+      color: var(--muted);
+      margin-bottom: 0.45rem;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.28rem;
+      font-size: 0.92rem;
+    }
+
+    .contact-links a:hover { color: var(--primary); text-decoration: underline; }
+
+    footer {
+      padding: 1rem 1.6rem 1.4rem;
+      font-size: 0.78rem;
+      color: #6b7280;
+      border-top: 1px solid var(--border);
+      background: #f9fafb;
+    }
+
+    @media (max-width: 767px) {
+      .topbar { padding-inline: 1rem; }
+      .menu-panel { width: 100vw; }
+      .menu-text { display: none; }
+      header.hero { padding: 2rem 1rem 2rem; }
+      main { padding: 1.6rem 1rem 2.2rem; }
+      .hero-inner { flex-direction: column-reverse; align-items: stretch; }
+      .hero h1 { font-size: 1.6rem; }
+      .hero-lead { font-size: 0.92rem; }
+      .hero-photo { min-width: 0; flex: 1 1 100%; min-height: 330px; }
+      .hero-photo::before { width: 300px; height: 300px; }
+      .hero-people { padding: 22px 10px 120px; gap: 8px; }
+      .hero-person.jonas { left: 20px; }
+      .hero-person.jonas .hero-image-box img { width: 230px; }
+      .hero-person.timo { left: -20px; }
+      .hero-person.timo .hero-image-box img { width: 130px; }
+      .hero-card {
+        right: 50%;
+        transform: translateX(50%);
+        width: min(92vw, 340px);
+        bottom: 8px;
+        padding: 14px 18px;
+      }
+      .contact-strip { grid-template-columns: 1fr; }
+      .cta-row { flex-direction: column; align-items: stretch; }
+      .cta-row a { width: 100%; }
     }
   </style>
 </head>
-
 <body>
   <div class="page">
-
     <div class="topbar">
       <div class="topbar-left">
-        <div class="topbar-portrait">
+        <div class="topbar-avatars">
           <img src="jonas-halbkoerper.png" alt="Jonas Plener" />
+          <img src="timo-halbkoerper.png" alt="Timo Hügel" />
         </div>
-        <div style="min-width:0">
-          <div class="topbar-title">Jonas Plener</div>
-          <div class="topbar-tagline">
-            Agentur für Deutsche Vermögensberatung<br />
-            (Region Kinzigtal / Ortenau)
-          </div>
+        <div>
+          <div class="topbar-title">Jonas Plener &amp; Timo Hügel</div>
+          <div class="topbar-tagline">Agentur für Deutsche Vermögensberatung<br />Region Kinzigtal / Ortenau</div>
         </div>
       </div>
 
-      <div class="topbar-right">
-        Eltern, Selbstständige und Angestellte<br />
-        im Kinzigtal &amp; der Ortenau
+      <div class="menu-wrap">
+        <div class="menu-text">Für Eltern, Selbstständige und Angestellte<br />im Kinzigtal &amp; der Ortenau</div>
+        <button type="button" class="burger-btn" id="burgerBtn" aria-label="Menü öffnen" aria-expanded="false" aria-controls="menuPanel">
+          <span class="burger-lines" aria-hidden="true"><span></span><span></span><span></span></span>
+        </button>
       </div>
 
-      <button class="burger" id="burgerBtn" aria-label="Menü öffnen">
-        <div class="burger-lines" aria-hidden="true">
-          <span></span><span></span><span></span>
+      <div class="menu-overlay" id="menuOverlay"></div>
+      <nav class="menu-panel" id="menuPanel" aria-label="Navigation">
+        <div class="menu-header">
+          <span class="menu-header-title">Menü</span>
+          <button type="button" class="menu-close-btn" aria-label="Menü schließen">✕</button>
         </div>
-      </button>
+        <div class="menu-content">
+          <section class="menu-section">
+            <h2 class="menu-section-title">Startseite</h2>
+            <ul class="menu-section-links"><li><a href="index.html">Themenauswahl</a></li></ul>
+          </section>
+          <section class="menu-section">
+            <h2 class="menu-section-title">Angestellt</h2>
+            <ul class="menu-section-links">
+              <li><a href="vermoegen-aufbauen-investieren.html">Vermögen aufbauen</a></li>
+              <li><a href="bav.html">bAV</a></li>
+              <li><a href="arbeitskraftabsicherung.html">Arbeitskraft absichern</a></li>
+              <li><a href="risikoleben.html">Familie absichern</a></li>
+              <li><a href="sachversicherungen.html">Sachversicherungen</a></li>
+              <li><a href="immobilien-finanzierung.html">Immobilien &amp; Finanzierung</a></li>
+            </ul>
+          </section>
+          <section class="menu-section">
+            <h2 class="menu-section-title">Eltern &amp; Familie</h2>
+            <ul class="menu-section-links">
+              <li><a href="kinder-absichern.html">Kinder absichern</a></li>
+              <li><a href="eltern-retter-kindererziehungszeiten.html">Kindererziehungszeiten</a></li>
+              <li><a href="riester.html" class="active">Riester</a></li>
+              <li><a href="risikoleben.html">Familie absichern</a></li>
+            </ul>
+          </section>
+          <section class="menu-section">
+            <h2 class="menu-section-title">Unternehmer &amp; Selbstständig</h2>
+            <ul class="menu-section-links">
+              <li><a href="liquiditaet.html">Liquidität</a></li>
+              <li><a href="mitarbeiter-benefits.html">Mitarbeiter Benefits</a></li>
+              <li><a href="energie.html">Energie</a></li>
+              <li><a href="unternehmer-absicherung.html">Unternehmer absichern</a></li>
+              <li><a href="vertraege-optimieren.html">Verträge optimieren</a></li>
+              <li><a href="ruerup.html">Rürup</a></li>
+              <li><a href="immobilien-finanzierung.html">Immobilien &amp; Finanzierung</a></li>
+            </ul>
+          </section>
+          <section class="menu-section">
+            <h2 class="menu-section-title">Karriere &amp; Ausbildung</h2>
+            <ul class="menu-section-links">
+              <li><a href="ausbildung-und-zukunft.html">Ausbildung &amp; Zukunft</a></li>
+              <li><a href="karriere-im-finanzbereich.html">Karriere im Finanzbereich</a></li>
+            </ul>
+          </section>
+        </div>
+      </nav>
     </div>
-
-    <!-- Neues Burger Menü -->
-    <div class="menu-backdrop" id="menuBackdrop"></div>
-
-    <aside class="menu-panel" id="menuPanel" aria-label="Navigation">
-      <div class="menu-head">
-        <div class="ttl">Meine Leistungen</div>
-        <button class="menu-close" id="menuClose" aria-label="Menü schließen">✕</button>
-      </div>
-
-      <div class="menu-body">
-
-        <div class="menu-section">
-          <div class="menu-kicker">Privatkunden</div>
-
-          <div class="menu-block">
-            <a class="big" href="arbeitskraftabsicherung.html">Absicherung &amp; Schutz</a>
-            <div class="subline">Sachschutz, Haftpflicht, Hausrat, Risikoleben</div>
-            <div class="menu-sublist">
-              <a href="sachversicherungen.html">Haftpflicht, Hausrat, Wohngebäude</a>
-              <a href="risikoleben.html">Risikolebensversicherung</a>
-            </div>
-          </div>
-
-          <div class="menu-block">
-            <a class="big" href="riester.html"><strong>Vorsorge &amp; Rente</strong></a>
-            <div class="subline">Riester, Rürup, bAV, Arbeitskraft</div>
-            <div class="menu-sublist">
-              <!-- WICHTIG: BU & Arbeitskraft hier -->
-              <a href="arbeitskraftabsicherung.html">Berufsunfähigkeit &amp; Arbeitskraftabsicherung</a>
-              <a href="riester.html"><strong>Riester-Rente</strong></a>
-              <a href="ruerup.html">Rürup / Basisrente</a>
-              <a href="bav.html">Betriebliche Altersvorsorge (bAV)</a>
-            </div>
-          </div>
-
-          <div class="menu-block">
-            <a class="big" href="fonds-sparplaene.html">Vermögensaufbau &amp; Sparen</a>
-            <div class="subline">Fondssparen, Einmalanlagen, Struktur</div>
-            <div class="menu-sublist">
-              <a href="fonds-sparplaene.html">Investment- &amp; Fondssparpläne</a>
-              <a href="einmalanlage.html">Strategien für Einmalanlagen</a>
-              <a href="vermoegensstruktur.html">Vermögensstruktur &amp; Strategie</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="menu-section">
-          <div class="menu-kicker">Familie &amp; Kinder</div>
-
-          <div class="menu-block">
-            <a class="big" href="eltern-retter.html">Eltern-Retter &amp; Kindererziehungszeiten</a>
-            <div class="subline">Rentenansprüche für Eltern prüfen</div>
-            <div class="menu-sublist">
-              <a href="eltern-retter.html">Eltern-Retter Überblick</a>
-              <a href="kindererziehungszeiten.html">Kindererziehungszeiten prüfen</a>
-              <a href="eltern-rente-optimieren.html">Eltern-Rente optimieren</a>
-            </div>
-          </div>
-
-          <div class="menu-block">
-            <a class="big" href="kinder-absichern.html">Kinder absichern</a>
-            <div class="subline">Gesundheit, Unfall, Arbeitskraft</div>
-            <div class="menu-sublist">
-              <a href="kinder-absichern.html">Gesundheits- &amp; Zusatzschutz</a>
-              <a href="kinder-unfall.html">Kinder-Unfallabsicherung</a>
-              <a href="schueler-bu.html">Frühe Arbeitskraftabsicherung (Schüler-BU)</a>
-            </div>
-          </div>
-
-          <div class="menu-block">
-            <a class="big" href="ausbildung-zukunft.html">Ausbildung &amp; Zukunft</a>
-            <div class="subline">Sparen für Ausbildung, Studium &amp; Start ins Leben</div>
-            <div class="menu-sublist">
-              <a href="ausbildung-zukunft.html">Sparen für Ausbildung &amp; Studium</a>
-              <a href="sparplaene-kind.html">Langfristige Sparpläne fürs Kind</a>
-              <a href="zukunftsplan.html">Zukunftsplan &amp; Rollenverteilung</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="menu-section">
-          <div class="menu-kicker">Unternehmen</div>
-
-          <div class="menu-block">
-            <a class="big" href="unternehmer-termin.html">Unternehmen &amp; Selbstständige</a>
-            <div class="subline">bAV, BKV, Unternehmer-Absicherung, Factoring</div>
-          </div>
-
-          <div class="menu-block">
-            <a class="big" href="karriere.html">Karriere &amp; Jobchance</a>
-            <div class="subline">DVAG als berufliche Alternative</div>
-          </div>
-        </div>
-
-        <div class="menu-section">
-          <div class="menu-kicker">Weitere Seiten</div>
-
-          <div class="menu-block">
-            <a class="big" href="index.html">Eltern-Renten-Check</a>
-            <div class="subline">Renten-Booster für Eltern</div>
-          </div>
-
-          <div class="menu-block">
-            <a class="big" href="leistung.html">Meine Leistungen</a>
-            <div class="subline">Übersicht aller Themen</div>
-          </div>
-        </div>
-
-        <div class="menu-section">
-          <div class="menu-kicker">Direkt Kontakt aufnehmen</div>
-          <div class="menu-block">
-            <a class="big" href="https://wa.me/4917663796605" target="_blank" rel="noopener">WhatsApp schreiben</a>
-            <div class="subline">Kurzfrage reicht völlig</div>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="menu-foot">
-        <a class="btn btn-gold" href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener">Gespräch vereinbaren</a>
-        <a class="btn btn-wa" href="https://wa.me/4917663796605" target="_blank" rel="noopener">Kurzfrage per WhatsApp</a>
-      </div>
-    </aside>
 
     <header class="hero">
       <div class="hero-inner">
-        <div class="hero-left">
-          <div class="hero-label"><span class="dot"></span> Riester · Mindesteigenbeitrag &amp; Zulagen (verständlich)</div>
-          <h1>Riester-Check: Was musst du wirklich zahlen – und wie groß ist die Zulage?</h1>
+        <div class="hero-text">
+          <div class="hero-label"><span class="dot"></span>Riester · Förderung sichtbar machen</div>
+          <h1>Riester sinnvoll nutzen heißt: <strong>staatliche Förderung + planbare Garantie</strong></h1>
           <p class="hero-lead">
-            Du gibst <strong>Jahresbrutto</strong> und <strong>Kinder</strong> ein (Geburtsjahre).
-            Optional: <strong>aktueller Beitrag</strong> + <strong>Alter</strong> → dann bekommst du zusätzlich eine grobe „im Alter“-Orientierung
-            und die Prozent-Grafik <strong>Eigen</strong> vs. <strong>Zulagen</strong>.
+            Auf dieser Seite geht es konkret um die Riester-Logik: Wie viel Brutto zählt,
+            wie Kinderzulagen wirken, wie hoch dein Eigenbeitrag ist und wann Riester
+            wirklich stark ist. Mit Rechner, ohne Marketing-Nebel.
           </p>
+
+          <div class="hero-badges">
+            <a href="#foerderlogik" class="badge"><span>Förderlogik</span><span class="arrow">↓</span></a>
+            <a href="#rechner" class="badge"><span>Riester-Rechner</span><span class="arrow">↓</span></a>
+            <a href="#garantie" class="badge"><span>Garantie &amp; Zins</span><span class="arrow">↓</span></a>
+            <a href="#fuer-wen" class="badge"><span>Für wen sinnvoll</span><span class="arrow">↓</span></a>
+          </div>
+
+          <div class="cta-row">
+            <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-primary">Riester gemeinsam durchrechnen</a>
+            <a href="https://wa.me/4915141678134" target="_blank" rel="noopener" class="btn-wa">Jonas kontaktieren</a>
+            <a href="https://wa.me/4917663796605" target="_blank" rel="noopener" class="btn-secondary">Timo kontaktieren</a>
+          </div>
         </div>
 
-        <div class="hero-right">
-          <img class="hero-portrait" src="jonas-halbkoerper.png" alt="Jonas Plener" />
-          <div class="partner-card">
-            <div class="partner-title">Dein Ansprechpartner</div>
-            <ul class="partner-list">
-              <li><span class="partner-dot"></span><span>Eltern, Familien &amp; Selbstständige</span></li>
-              <li><span class="partner-dot"></span><span>Beratung digital und vor Ort</span></li>
+        <div class="hero-photo">
+          <div class="hero-people">
+            <div class="hero-person jonas"><div class="hero-image-box"><img src="jonas-halbkoerper.png" alt="Jonas Plener" /></div></div>
+            <div class="hero-person timo"><div class="hero-image-box"><img src="timo-halbkoerper.png" alt="Timo Hügel" /></div></div>
+          </div>
+          <div class="hero-card">
+            <h3>Die Kernfrage bei Riester</h3>
+            <ul>
+              <li>Wie hoch ist dein Mindesteigenbeitrag pro Monat aus deinem Brutto?</li>
+              <li>Wie stark reduzieren Zulagen deine eigene Einzahlung?</li>
+              <li>Ist die Beitragsgarantie für dich eher Vorteil oder Bremse?</li>
             </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <article class="stat-card blue">
+          <div class="stat-label">Grundzulage</div>
+          <div class="stat-number">175 EUR / Jahr</div>
+          <p class="stat-copy">Für jeden unmittelbar Zulageberechtigten bei erfülltem Mindesteigenbeitrag.</p>
+        </article>
+        <article class="stat-card orange">
+          <div class="stat-label">Kinderzulage</div>
+          <div class="stat-number">185 / 300 EUR</div>
+          <p class="stat-copy">185 EUR für vor 2008 geborene Kinder, 300 EUR für ab 2008 geborene Kinder.</p>
+        </article>
+        <article class="stat-card blue">
+          <div class="stat-label">Mindesteinzahlung</div>
+          <div class="stat-number">4 % vom Brutto</div>
+          <p class="stat-copy">Maximal 2.100 EUR pro Jahr, davon werden die Zulagen abgezogen.</p>
+        </article>
+        <article class="stat-card green">
+          <div class="stat-label">Mindestbeitrag</div>
+          <div class="stat-number">ab 5 EUR / Monat</div>
+          <p class="stat-copy">Auch bei vielen Zulagen bleibt ein kleiner Sockel-Eigenbeitrag bestehen.</p>
+        </article>
+      </div>
+
+      <div class="contact-strip">
+        <div class="contact-card">
+          <div class="contact-name">Jonas Plener</div>
+          <div class="contact-role">Vermögensberater bei der Deutschen Vermögensberatung</div>
+          <div class="contact-links">
+            <a href="tel:+4915141678134">0151 41678134</a>
+            <a href="mailto:Jonas.Plener@dvag.de">Jonas.Plener@dvag.de</a>
+          </div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-name">Timo Hügel</div>
+          <div class="contact-role">Vermögensberater bei der Deutschen Vermögensberatung</div>
+          <div class="contact-links">
+            <a href="tel:+4917663796605">0176 63796605</a>
+            <a href="mailto:Timo.Huegel@dvag.de">Timo.Huegel@dvag.de</a>
           </div>
         </div>
       </div>
     </header>
 
     <main>
-      <section>
-        <h2>Rechner</h2>
-        <p class="section-sub">
-          Ziel: <strong>Mindesteigenbeitrag (nach Zulagen)</strong> + <strong>Zulagen</strong> auf einen Blick.
-          Wenn du weniger einzahlst: <strong>ungefähre Zulage nach Kürzung</strong> (vereinfacht).
-        </p>
-
-        <div class="calc-wrap">
-          <div class="calc-grid">
-
-            <!-- LEFT -->
-            <div>
-              <div class="field">
-                <label for="income">Jahresbrutto in €</label>
-                <input id="income" type="number" min="0" step="100" placeholder="z. B. 45.000" />
-              </div>
-
-              <div class="field">
-                <label for="kids">Anzahl Kinder</label>
-                <input id="kids" type="number" min="0" max="10" step="1" placeholder="z. B. 2" />
-              </div>
-
-              <div id="kidsFields"></div>
-
-              <div class="field">
-                <label for="age">Dein Alter (optional, für grobe „im Alter“-Orientierung)</label>
-                <input id="age" type="number" min="16" max="80" step="1" placeholder="z. B. 33" />
-              </div>
-
-              <!-- Optionaler Reiter: aktueller Beitrag -->
-              <div class="optional" id="optBox">
-                <button type="button" id="optToggle" aria-expanded="false">
-                  <span>Optional: Wie viel zahlst du aktuell in Riester ein?</span>
-                  <span style="color:var(--primary);font-weight:900">▾</span>
-                </button>
-                <div class="body">
-                  <p class="hint">
-                    Trägst du deinen aktuellen Beitrag ein, zeigen wir dir zusätzlich:
-                    <strong>Zulage nach Kürzung</strong> + <strong>Unter-Minimum-Anzeige</strong>.
-                  </p>
-                  <div class="field" style="margin:0">
-                    <label for="currentPay">Aktueller Riester-Beitrag pro Jahr in € (optional)</label>
-                    <input id="currentPay" type="number" min="0" step="50" placeholder="z. B. 1.200" />
-                  </div>
-                </div>
-              </div>
-
-              <div class="row-2" style="margin-top:.75rem">
-                <button class="btn btn-gold" type="button" id="calcBtn">Berechnen</button>
-                <button class="btn btn-outline" type="button" id="resetBtn">Zurücksetzen</button>
-              </div>
-
-              <div class="info" style="margin-top:.85rem">
-                <strong>So rechnen wir hier (einfach &amp; praxisnah):</strong><br>
-                Mindesteigenbeitrag ≈ <strong>4% vom Jahresbrutto − Zulagen</strong> (mind. <strong class="nowrap">60&nbsp;€</strong>).<br>
-                Wenn du weniger zahlst: Zulage wird (vereinfacht) <strong>proportional</strong> gekürzt.
-              </div>
-
-              <div class="info">
-                <strong>Hinweis (Ehe/Partner):</strong>
-                In Ehe-/Partnerschafts-Konstellationen kann die Zulagen- und Beitragslogik je nach Situation anders wirken.
-                Der Rechner bildet das bewusst <strong>nicht</strong> kompliziert ab – im Check rechnen wir das sauber.
-              </div>
-            </div>
-
-            <!-- RIGHT -->
-            <div class="calc-result">
-              <p class="calc-expl">
-                <strong>Ergebnis:</strong> Mindesteigenbeitrag (nach Zulagen) + volle Zulage.
-                Nur wenn du einen aktuellen Beitrag eingibst, zeigen wir dir zusätzlich die Kürzung.
-              </p>
-
-              <div class="values">
-                <div class="val">
-                  <div class="k">Mindesteigenbeitrag / Jahr (nach Zulagen)</div>
-                  <div class="v" id="vMinEigen">–</div>
-                </div>
-
-                <div class="val warn">
-                  <div class="k">Zulagen (bei voller Förderung) / Jahr</div>
-                  <div class="v" id="vZulFull">–</div>
-                </div>
-
-                <!-- diese beiden erscheinen erst, wenn currentPay angegeben -->
-                <div class="val good needs-currentpay" id="boxCurPay">
-                  <div class="k">Aktueller Beitrag / Jahr (optional)</div>
-                  <div class="v" id="vCurPay">–</div>
-                </div>
-
-                <div class="val bad needs-currentpay" id="boxZulCut">
-                  <div class="k">Zulage nach Kürzung (wenn unter Minimum)</div>
-                  <div class="v" id="vZulCut">–</div>
-                </div>
-              </div>
-
-              <!-- Donut: Eigen vs Zulagen (bei Mindestbeitrag) -->
-              <div class="donut-wrap" style="margin-top:.9rem">
-                <div class="donut" id="donut" style="--eigenAngle:0deg">
-                  <div class="donut-center">
-                    <div class="pct" id="donutPct">–</div>
-                  </div>
-                </div>
-
-                <div>
-                  <div class="legend">
-                    <span class="chip"><span class="dot eigen"></span> Eigenbeitrag</span>
-                    <span class="chip"><span class="dot zul"></span> Zulagen</span>
-                  </div>
-                  <div class="hintline" id="donutLine">–</div>
-                  <div class="hintline" id="ageLine" style="margin-top:.4rem">–</div>
-                </div>
-              </div>
-
-              <!-- Unter Minimum: nur bei currentPay -->
-              <div class="cut-box needs-currentpay" id="cutBox">
-                <div class="cut-top">
-                  <div class="ttl">„Unter Minimum“ – Anzeige</div>
-                  <div class="sub"><span id="cutInfo">–</span></div>
-                </div>
-                <div class="track"><div class="fill" id="cutFill"></div></div>
-                <div class="cut-foot">
-                  Je mehr du unter dem Mindesteigenbeitrag liegst, desto mehr wird die Zulage gekürzt (vereinfacht).
-                </div>
-              </div>
-
-            </div>
-          </div>
+      <section id="foerderlogik">
+        <h2>1) Förderlogik: Brutto, Kinder und Eigenbeitrag</h2>
+        <p class="section-subtitle">Riester ist dann stark, wenn die staatliche Förderung im Verhältnis zu deiner eigenen Einzahlung hoch ist. Genau dafür ist die 4-%-Regel entscheidend.</p>
+        <div class="grid-2">
+          <article class="card blue-card">
+            <div class="card-title">So wird der Mindesteigenbeitrag berechnet</div>
+            <div class="number-pill">Formel</div>
+            <p>Vereinfacht gilt: 4 % des rentenversicherungspflichtigen Vorjahresbruttos (maximal 2.100 EUR) minus Zulagen. Daraus ergibt sich dein eigener Jahresbeitrag.</p>
+            <ul>
+              <li>Rechenbasis: 4 % vom Brutto, gedeckelt bei 2.100 EUR.</li>
+              <li>Davon gehen Grund- und Kinderzulagen ab.</li>
+              <li>Sockel: mindestens 5 EUR Eigenbeitrag pro Monat.</li>
+            </ul>
+          </article>
+          <article class="card amber-card">
+            <div class="card-title">Warum Kinder den Hebel stark erhöhen</div>
+            <div class="number-pill">+185 / +300 EUR</div>
+            <p>Je mehr Kinderzulage, desto niedriger deine eigene Einzahlung für die volle Förderung. Gerade Familien erreichen dadurch oft sehr hohe Förderquoten auf den Eigenbeitrag.</p>
+            <ul>
+              <li>Ein Kind ab 2008: 300 EUR Zulage pro Jahr.</li>
+              <li>Zwei Kinder ab 2008: 600 EUR Zulage pro Jahr.</li>
+              <li>Zusammen mit 175 EUR Grundzulage sinkt der Eigenanteil deutlich.</li>
+            </ul>
+          </article>
         </div>
       </section>
 
-      <section>
-        <h2>Riester kurz erklärt</h2>
-        <p class="section-sub">
-          Drei Dinge, die in der Praxis am meisten entscheiden.
-        </p>
+      <section id="rechner">
+        <h2>2) Riester-Rechner: ganz einfach</h2>
+        <p class="section-subtitle">Nur Brutto und Kinder eintragen. Dann siehst du sofort, was du selbst pro Jahr und pro Monat zahlen musst.</p>
 
-        <div class="grid">
-          <div class="card">
-            <div class="card-title">1) Mindesteigenbeitrag ist der „volle-Zulage-Trigger“</div>
-            <p>
-              Wenn du deutlich unter dem Mindesteigenbeitrag bleibst, ist das meist der Klassiker:
-              <strong>Zulage wird gekürzt</strong> – und viele merken’s erst später.
-            </p>
+        <div class="calculator-wrap">
+          <div class="calc-grid">
+            <label class="calc-field" for="grossInput">
+              <span class="calc-label">Jahresbrutto (EUR)</span>
+              <input class="calc-input" id="grossInput" type="number" min="0" step="100" value="42000" />
+            </label>
+            <label class="calc-field" for="childrenAfter2008">
+              <span class="calc-label">Kinder ab 2008</span>
+              <div class="stepper">
+                <button type="button" class="step-btn" data-target="childrenAfter2008" data-step="-1" aria-label="Kinder ab 2008 reduzieren">-</button>
+                <input class="calc-input" id="childrenAfter2008" type="number" min="0" step="1" value="1" inputmode="numeric" />
+                <button type="button" class="step-btn" data-target="childrenAfter2008" data-step="1" aria-label="Kinder ab 2008 erhöhen">+</button>
+              </div>
+            </label>
+            <label class="calc-field" for="childrenBefore2008">
+              <span class="calc-label">Kinder vor 2008</span>
+              <div class="stepper">
+                <button type="button" class="step-btn" data-target="childrenBefore2008" data-step="-1" aria-label="Kinder vor 2008 reduzieren">-</button>
+                <input class="calc-input" id="childrenBefore2008" type="number" min="0" step="1" value="0" inputmode="numeric" />
+                <button type="button" class="step-btn" data-target="childrenBefore2008" data-step="1" aria-label="Kinder vor 2008 erhöhen">+</button>
+              </div>
+            </label>
           </div>
 
-          <div class="card">
-            <div class="card-title">2) Kinderzulage hängt am Geburtsjahr</div>
-            <p>
-              Deshalb fragen wir nach <strong>Geburtsjahren</strong> – damit die Größenordnung passt.
-            </p>
+          <p class="calc-note">Berechnet wird eine Einzelperson mit direkter Zulageberechtigung. Sonderfälle wie Ehepartner-Modelle bitte separat prüfen.</p>
+
+          <div class="result-grid">
+            <article class="result-card">
+              <h3 class="result-title">Dein Riester-Zielbeitrag pro Jahr</h3>
+              <p class="result-value" id="resultOwnYear">-</p>
+            </article>
+            <article class="result-card">
+              <h3 class="result-title">Dein Riester-Zielbeitrag pro Monat</h3>
+              <p class="result-value" id="resultOwnMonth">-</p>
+            </article>
+            <article class="result-card">
+              <h3 class="result-title">Staatliche Förderung pro Jahr</h3>
+              <p class="result-value" id="resultAllowance">-</p>
+            </article>
+            <article class="result-card">
+              <h3 class="result-title">Förderquote auf deinen Beitrag</h3>
+              <p class="result-value" id="resultAllowanceRate">-</p>
+            </article>
           </div>
 
-          <div class="card">
-            <div class="card-title">3) Kosten &amp; Produkt entscheiden die Netto-Wirkung</div>
-            <p>
-              Förderung ist gut – ob es sich unterm Strich lohnt, hängt stark am Vertrag.
-              Das prüfen wir im Check mit echten Daten.
-            </p>
-          </div>
+          <p class="small-disclaimer">Hinweis: Vereinfachte Darstellung der Zulagen-Logik mit 4-%-Regel und 2.100-EUR-Deckel.</p>
+        </div>
+      </section>
+
+      <section id="garantie">
+        <h2>3) Garantie, Garantiezins und Renditechance</h2>
+        <p class="section-subtitle">Riester ist nicht gleich Riester. Die Beitragsgarantie gilt produktübergreifend, der Garantiezins dagegen ist vor allem ein Thema klassischer Riester-Rentenversicherungen.</p>
+        <div class="grid-3">
+          <article class="card rose-card">
+            <div class="card-title">Beitragsgarantie: gesetzlicher Kern</div>
+            <div class="number-pill">100 % garantiert</div>
+            <p>Zum Rentenbeginn müssen mindestens deine eingezahlten Beiträge plus Zulagen zur Verfügung stehen. Das macht Riester planbarer, kann aber je nach Produkt die Aktienquote begrenzen.</p>
+            <ul>
+              <li>Garantie bezieht sich auf Kapitalerhalt zum Rentenstart.</li>
+              <li>Schutz vor Totalausfall des eingezahlten Kapitals.</li>
+              <li>Bei Marktturbulenzen kann das Renditechancen reduzieren.</li>
+            </ul>
+          </article>
+          <article class="card amber-card">
+            <div class="card-title">Garantiezins: häufig missverstanden</div>
+            <div class="number-pill">nur klassisch</div>
+            <p>Der Garantiezins gilt bei klassischen Policen nur auf den Sparanteil nach Kosten, nicht auf jeden eingezahlten Euro. In fondsgebundenen Riester-Modellen ist eher die Kapitalanlage entscheidend.</p>
+            <ul>
+              <li>Garantiezins ist kein Gesamtertragsversprechen.</li>
+              <li>Kostenstruktur beeinflusst die Netto-Wirkung stark.</li>
+              <li>Langfristig ist Produktqualität wichtiger als Schlagwort-Zins.</li>
+            </ul>
+          </article>
+          <article class="card green-card">
+            <div class="card-title">Prozentuale Förderung zur Einzahlung</div>
+            <div class="number-pill">häufig sehr hoch</div>
+            <p>Wenn Zulagen im Verhältnis zum Eigenbeitrag groß sind, ist die Förderquote hoch. Genau dann macht Riester oft besonders Sinn, selbst wenn die reine Kapitalmarktchance begrenzt ist.</p>
+            <ul>
+              <li>Beispiel: 700 EUR Zulage bei 900 EUR Eigenbeitrag = 78 % Förderquote.</li>
+              <li>Hohe Förderquote verbessert den Startwert jedes Jahres.</li>
+              <li>Deshalb immer zuerst die Zulagenlogik rechnen, dann Produkt wählen.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section id="fuer-wen">
+        <h2>4) Für wen Riester absolut Sinn macht - und warum</h2>
+        <p class="section-subtitle">Riester ist nicht für jeden gleich gut. Besonders stark ist es bei hoher Zulage im Verhältnis zum Eigenbeitrag und bei Wunsch nach planbarer Sicherheit.</p>
+        <div class="grid-2">
+          <article class="card blue-card">
+            <div class="card-title">Sehr sinnvoll</div>
+            <ul>
+              <li>Familien mit Kindern und Zulageanspruch.</li>
+              <li>Haushalte mit mittlerem Einkommen und klarer Förderquote.</li>
+              <li>Menschen, die planbare Mindestsicherheit im Vertrag wollen.</li>
+              <li>Personen, die diszipliniert langfristig sparen möchten.</li>
+            </ul>
+          </article>
+          <article class="card signal-card">
+            <div class="card-title">Eher kritisch prüfen</div>
+            <ul>
+              <li>Sehr hohe Einkommen mit geringer relativer Zulagewirkung.</li>
+              <li>Personen mit Fokus auf maximale Kapitalmarktfreiheit ohne Garantie.</li>
+              <li>Fälle mit ungeklärter Zulageberechtigung oder häufigen Statuswechseln.</li>
+              <li>Verträge mit hoher Kostenlast und schwacher Transparenz.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section id="fahrplan">
+        <h2>Praxis-Fahrplan für Riester</h2>
+        <p class="section-subtitle">Mit dieser Reihenfolge wird Riester nachvollziehbar und objektiv: erst Förderung rechnen, dann Produktentscheidung.</p>
+        <div class="grid-3">
+          <article class="priority-card">
+            <div class="priority-number">1</div>
+            <h3 class="priority-title">Zulageberechtigung klären</h3>
+            <ul>
+              <li>Direkt oder mittelbar förderberechtigt?</li>
+              <li>Kinderzulagen korrekt zuordnen</li>
+              <li>Dauerzulagenantrag sauber setzen</li>
+            </ul>
+          </article>
+          <article class="priority-card">
+            <div class="priority-number">2</div>
+            <h3 class="priority-title">Eigenbeitrag berechnen</h3>
+            <ul>
+              <li>4 %-Wert aus Brutto bestimmen</li>
+              <li>Zulagen abziehen</li>
+              <li>Monatsrate praktisch festlegen</li>
+            </ul>
+          </article>
+          <article class="priority-card">
+            <div class="priority-number">3</div>
+            <h3 class="priority-title">Produktqualität vergleichen</h3>
+            <ul>
+              <li>Kosten und Anlagekonzept prüfen</li>
+              <li>Garantie-/Rendite-Spannung verstehen</li>
+              <li>Jährlich Beitrag und Zulagen prüfen</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="cta-row" style="margin-top:1rem;">
+          <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-primary">Riester jetzt konkret durchrechnen</a>
         </div>
       </section>
     </main>
 
-    <footer>
-      Diese Seite ersetzt keine individuelle Rechts-, Steuer- oder Sozialversicherungsberatung.
-      Alle Angaben ohne Gewähr. Maßgeblich sind Vertragsbedingungen und gesetzliche Regelungen.
-    </footer>
+    <footer>Diese Seite ersetzt keine individuelle Rechts-, Steuer- oder Sozialversicherungsberatung. Alle Angaben ohne Gewähr.</footer>
   </div>
 
   <script>
-    // ===== Menü öffnen/schließen =====
-    const burgerBtn = document.getElementById("burgerBtn");
-    const menuPanel = document.getElementById("menuPanel");
-    const menuBackdrop = document.getElementById("menuBackdrop");
-    const menuClose = document.getElementById("menuClose");
+    (function () {
+      const burgerBtn = document.getElementById("burgerBtn");
+      const menuPanel = document.getElementById("menuPanel");
+      const menuOverlay = document.getElementById("menuOverlay");
+      const menuCloseBtn = menuPanel.querySelector(".menu-close-btn");
+      if (!burgerBtn || !menuPanel || !menuOverlay) return;
 
-    const openMenu = () => { menuPanel.classList.add("open"); menuBackdrop.classList.add("open"); };
-    const closeMenu = () => { menuPanel.classList.remove("open"); menuBackdrop.classList.remove("open"); };
-
-    burgerBtn?.addEventListener("click", openMenu);
-    menuClose?.addEventListener("click", closeMenu);
-    menuBackdrop?.addEventListener("click", closeMenu);
-    document.addEventListener("keydown", (e) => { if(e.key === "Escape") closeMenu(); });
-
-    // ===== Optional-Reiter =====
-    const optBox = document.getElementById("optBox");
-    const optToggle = document.getElementById("optToggle");
-    optToggle?.addEventListener("click", () => {
-      optBox.classList.toggle("open");
-      optToggle.setAttribute("aria-expanded", optBox.classList.contains("open") ? "true" : "false");
-      const chev = optToggle.querySelector("span:last-child");
-      if (chev) chev.textContent = optBox.classList.contains("open") ? "▴" : "▾";
-    });
-
-    // ===== Riester Rechner =====
-    const kidsInput = document.getElementById("kids");
-    const kidsFields = document.getElementById("kidsFields");
-    const calcBtn = document.getElementById("calcBtn");
-    const resetBtn = document.getElementById("resetBtn");
-
-    const vMinEigen = document.getElementById("vMinEigen");
-    const vZulFull = document.getElementById("vZulFull");
-    const vCurPay = document.getElementById("vCurPay");
-    const vZulCut = document.getElementById("vZulCut");
-
-    const donut = document.getElementById("donut");
-    const donutPct = document.getElementById("donutPct");
-    const donutLine = document.getElementById("donutLine");
-    const ageLine = document.getElementById("ageLine");
-
-    const cutBox = document.getElementById("cutBox");
-    const cutFill = document.getElementById("cutFill");
-    const cutInfo = document.getElementById("cutInfo");
-
-    const boxCurPay = document.getElementById("boxCurPay");
-    const boxZulCut = document.getElementById("boxZulCut");
-
-    function fmtEUR(n){
-      return new Intl.NumberFormat("de-DE", { maximumFractionDigits: 0 }).format(Math.round(n)) + " €";
-    }
-    function clamp(n, a, b){ return Math.max(a, Math.min(b, n)); }
-
-    function childAllowanceByYear(y){
-      // Vereinfachte Orientierung:
-      // ab 2008 => 300 €/Jahr, davor => 185 €/Jahr
-      if(!Number.isFinite(y)) return 185;
-      return (y >= 2008) ? 300 : 185;
-    }
-
-    function buildKidFields(){
-      const k = parseInt(kidsInput.value || "0", 10);
-      const kids = clamp(isNaN(k) ? 0 : k, 0, 10);
-
-      kidsFields.innerHTML = "";
-      if(kids === 0) return;
-
-      const head = document.createElement("div");
-      head.className = "info";
-      head.style.marginTop = ".75rem";
-      head.innerHTML = "<strong>Geburtsjahre der Kinder</strong><br><span style='color:#6b7280'>Nur für die grobe Kinderzulage-Berechnung.</span>";
-      kidsFields.appendChild(head);
-
-      for(let i=1;i<=kids;i++){
-        const div = document.createElement("div");
-        div.className = "field";
-        div.style.marginTop = ".55rem";
-        div.innerHTML = `
-          <label for="kidYear${i}">Kind ${i}: Geburtsjahr</label>
-          <input id="kidYear${i}" type="number" min="1990" max="2100" step="1" placeholder="z. B. 2019" />
-        `;
-        kidsFields.appendChild(div);
-      }
-    }
-
-    kidsInput?.addEventListener("input", buildKidFields);
-    buildKidFields();
-
-    function toggleNeedsCurrentPay(show){
-      const els = document.querySelectorAll(".needs-currentpay");
-      els.forEach(el => el.classList.toggle("show", !!show));
-    }
-
-    function calc(){
-      const income = parseFloat((document.getElementById("income").value || "").replace(",", "."));
-      const kids = clamp(parseInt(kidsInput.value || "0", 10) || 0, 0, 10);
-      const age = parseInt((document.getElementById("age").value || "").trim(), 10);
-
-      // Optional: aktueller Beitrag/Jahr
-      const curRaw = (document.getElementById("currentPay").value || "").trim();
-      const curPay = curRaw === "" ? null : parseFloat(curRaw.replace(",", "."));
-
-      // Reset view parts
-      toggleNeedsCurrentPay(false);
-      cutFill.style.width = "0%";
-      cutInfo.textContent = "–";
-
-      if(!Number.isFinite(income) || income < 0){
-        vMinEigen.textContent = "Bitte Jahresbrutto eingeben.";
-        vZulFull.textContent = "–";
-        vCurPay.textContent = "–";
-        vZulCut.textContent = "–";
-        donut.style.setProperty("--eigenAngle", "0deg");
-        donutPct.textContent = "–";
-        donutLine.textContent = "–";
-        ageLine.textContent = "–";
-        return;
+      function closeMenu() {
+        menuPanel.classList.remove("open");
+        menuOverlay.classList.remove("open");
+        burgerBtn.setAttribute("aria-expanded", "false");
+        document.body.style.overflow = "";
       }
 
-      // Zulagen (Orientierung)
-      const baseAllowance = 175;
-      let kidAllowanceSum = 0;
-      for(let i=1;i<=kids;i++){
-        const y = parseInt((document.getElementById("kidYear"+i)?.value || "").trim(), 10);
-        kidAllowanceSum += childAllowanceByYear(Number.isFinite(y) ? y : NaN);
-      }
-      const fullAllowances = baseAllowance + kidAllowanceSum;
-
-      // Beitrags-Basis (vereinfachte Orientierung): 4% Jahresbrutto, min 60, max 2100
-      const base4pct = income * 0.04;
-      const cappedBase = clamp(base4pct, 60, 2100);
-
-      // Mindesteigenbeitrag nach Zulagen: 4% (gecappt) - Zulagen, mind. 60
-      // (Praxisnah: Eigenbeitrag kann nicht negativ sein)
-      const minEigenRaw = cappedBase - fullAllowances;
-      const minEigen = clamp(minEigenRaw, 60, 2100); // 60€ Mindest-Eigenbeitrag als Orientierung
-      // Hinweis: Ob 60€ immer greift, hängt von Konstellationen ab; hier bewusst simpel.
-
-      vMinEigen.textContent = fmtEUR(minEigen);
-      vZulFull.textContent = fmtEUR(fullAllowances);
-
-      // Donut (bei Mindestbeitrag): Eigen vs Zulagen in %
-      const totalAtMin = minEigen + fullAllowances;
-      const eigenPct = totalAtMin <= 0 ? 0 : clamp((minEigen / totalAtMin) * 100, 0, 100);
-      const eigenAngle = (eigenPct / 100) * 360;
-
-      donut.style.setProperty("--eigenAngle", eigenAngle.toFixed(2) + "deg");
-      donutPct.textContent = Math.round(eigenPct) + "%";
-      donutLine.textContent =
-        "Bei Mindestbeitrag: Gesamt " + fmtEUR(totalAtMin) + " = Eigen " + fmtEUR(minEigen) +
-        " (" + Math.round(eigenPct) + "%) + Zulagen " + fmtEUR(fullAllowances) + ".";
-
-      // Alters-Orientierung (sehr grob, ohne Rendite / ohne Produktannahmen)
-      if(Number.isFinite(age) && age >= 16 && age <= 80){
-        const yearsTo67 = Math.max(0, 67 - age);
-        if(yearsTo67 === 0){
-          ageLine.textContent = "Alter-Orientierung: Du bist bereits bei ~67 – hier zählt die konkrete Auszahlungs-/Rentenplanung.";
-        } else {
-          const totalPaidUntil67 = totalAtMin * yearsTo67;
-          ageLine.textContent =
-            "Grobe „im Alter“-Orientierung: " + fmtEUR(totalAtMin) + "/Jahr über ca. " + yearsTo67 +
-            " Jahre → insgesamt ca. " + fmtEUR(totalPaidUntil67) + " (ohne Rendite/ohne Kosten).";
-        }
-      } else {
-        ageLine.textContent = "–";
+      function openMenu() {
+        menuPanel.classList.add("open");
+        menuOverlay.classList.add("open");
+        burgerBtn.setAttribute("aria-expanded", "true");
+        document.body.style.overflow = "hidden";
       }
 
-      // Wenn kein aktueller Beitrag angegeben:
-      if (curPay === null){
-        vCurPay.textContent = "–";
-        vZulCut.textContent = "–";
-        return;
+      burgerBtn.addEventListener("click", function () {
+        const isOpen = burgerBtn.getAttribute("aria-expanded") === "true";
+        if (isOpen) closeMenu(); else openMenu();
+      });
+
+      menuCloseBtn.addEventListener("click", closeMenu);
+      menuOverlay.addEventListener("click", closeMenu);
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") closeMenu();
+      });
+    })();
+
+    (function () {
+      const grossInput = document.getElementById("grossInput");
+      const childrenAfter2008 = document.getElementById("childrenAfter2008");
+      const childrenBefore2008 = document.getElementById("childrenBefore2008");
+
+      const resultAllowance = document.getElementById("resultAllowance");
+      const resultOwnYear = document.getElementById("resultOwnYear");
+      const resultOwnMonth = document.getElementById("resultOwnMonth");
+      const resultAllowanceRate = document.getElementById("resultAllowanceRate");
+
+      if (!grossInput || !childrenAfter2008 || !childrenBefore2008) return;
+
+      function asNumber(value) {
+        const n = Number(value);
+        return Number.isFinite(n) && n > 0 ? n : 0;
       }
 
-      // Ab hier: Zusatzanzeigen nur wenn currentPay vorhanden
-      toggleNeedsCurrentPay(true);
-
-      const pay = Math.max(0, curPay);
-      vCurPay.textContent = fmtEUR(pay);
-
-      // Verhältnis: aktuelle Zahlung vs. Mindesteigenbeitrag (nach Zulagen)
-      const ratio = (minEigen <= 0) ? 0 : clamp(pay / minEigen, 0, 1);
-
-      // Zulage nach Kürzung (vereinfachtes Modell): proportional nach Eigen-Anteil
-      const allowanceAfterCut = fullAllowances * ratio;
-      vZulCut.textContent = fmtEUR(allowanceAfterCut);
-
-      // Unter Minimum Anzeige: wie viel unter minEigen
-      const cutPct = Math.round((1 - ratio) * 100);
-      cutFill.style.width = clamp(cutPct, 0, 100) + "%";
-
-      if (pay >= minEigen){
-        cutInfo.textContent = "Passt: Beitrag liegt bei/über Mindesteigenbeitrag → keine Kürzung.";
-      } else {
-        const diff = minEigen - pay;
-        cutInfo.textContent = "Du liegst ca. " + fmtEUR(diff) + " unter Minimum → Kürzung grob ~ " + cutPct + "%";
+      function asInt(value) {
+        const n = Math.floor(Number(value));
+        return Number.isFinite(n) && n > 0 ? n : 0;
       }
-    }
 
-    calcBtn?.addEventListener("click", calc);
+      function euro(value) {
+        return value.toLocaleString("de-DE", {
+          style: "currency",
+          currency: "EUR",
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 0
+        });
+      }
 
-    resetBtn?.addEventListener("click", () => {
-      document.getElementById("income").value = "";
-      kidsInput.value = "";
-      document.getElementById("age").value = "";
-      document.getElementById("currentPay").value = "";
-      buildKidFields();
+      function percent(value) {
+        return value.toLocaleString("de-DE", {
+          minimumFractionDigits: 1,
+          maximumFractionDigits: 1
+        }) + " %";
+      }
 
-      vMinEigen.textContent = "–";
-      vZulFull.textContent = "–";
-      vCurPay.textContent = "–";
-      vZulCut.textContent = "–";
+      function calculate() {
+        const gross = asNumber(grossInput.value);
+        const kids300 = asInt(childrenAfter2008.value);
+        const kids185 = asInt(childrenBefore2008.value);
 
-      donut.style.setProperty("--eigenAngle", "0deg");
-      donutPct.textContent = "–";
-      donutLine.textContent = "–";
-      ageLine.textContent = "–";
+        const baseAllowance = 175;
+        const childAllowance = kids300 * 300 + kids185 * 185;
+        const totalAllowance = baseAllowance + childAllowance;
 
-      toggleNeedsCurrentPay(false);
-      cutFill.style.width = "0%";
-      cutInfo.textContent = "–";
+        const fourPercentTarget = Math.min(2100, gross * 0.04);
+        const ownContributionYear = Math.max(60, fourPercentTarget - totalAllowance);
+        const ownContributionMonth = ownContributionYear / 12;
 
-      // Optional-Box schließen
-      optBox.classList.remove("open");
-      optToggle.setAttribute("aria-expanded", "false");
-      const chev = optToggle.querySelector("span:last-child");
-      if (chev) chev.textContent = "▾";
-    });
+        const allowanceRateOnOwn = ownContributionYear > 0 ? (totalAllowance / ownContributionYear) * 100 : 0;
+
+        resultAllowance.textContent = euro(totalAllowance);
+        resultOwnYear.textContent = euro(ownContributionYear);
+        resultOwnMonth.textContent = euro(ownContributionMonth);
+        resultAllowanceRate.textContent = percent(allowanceRateOnOwn);
+      }
+
+      [grossInput, childrenAfter2008, childrenBefore2008].forEach(function (el) {
+        el.addEventListener("input", calculate);
+      });
+
+      document.querySelectorAll(".step-btn").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          const targetId = btn.getAttribute("data-target");
+          const step = Number(btn.getAttribute("data-step")) || 0;
+          const target = document.getElementById(targetId);
+          if (!target) return;
+
+          const current = Math.max(0, Math.floor(Number(target.value) || 0));
+          const next = Math.max(0, current + step);
+          target.value = String(next);
+          calculate();
+        });
+      });
+
+      calculate();
+    })();
   </script>
 </body>
 </html>
