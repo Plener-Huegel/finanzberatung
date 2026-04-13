@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Karriere bei der DVAG - Jonas Plener &amp; Timo Hügel</title>
+  <title>Ausbildung und Berufsstart - Jonas Plener &amp; Timo Hügel</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500&family=Raleway:wght@500;600;700;800&display=swap" rel="stylesheet" />
@@ -689,6 +689,60 @@
 
     .contact-links a:hover { color: var(--primary); text-decoration: underline; }
 
+    .kontakt-box {
+      background: linear-gradient(135deg, #e0f2fe, #fef3c7);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 1.5rem 1.4rem 1.7rem;
+      text-align: center;
+      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
+      margin-top: 1.1rem;
+    }
+
+    .kontakt-box h2 {
+      color: var(--primary);
+      margin-bottom: 0.35rem;
+      font-size: 1.3rem;
+      font-family: "Raleway", system-ui, sans-serif;
+      font-weight: 800;
+    }
+
+    .kontakt-box p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.1rem;
+      max-width: 540px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .kontakt-btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: center;
+      margin-bottom: 0.8rem;
+    }
+
+    .kontakt-mini-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+    }
+
+    .kontakt-mini-link {
+      font-size: 0.82rem;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .kontakt-mini-link:hover {
+      text-decoration: underline;
+    }
+
     footer {
       padding: 1rem 1.6rem 1.4rem;
       font-size: 0.78rem;
@@ -723,6 +777,8 @@
       .contact-strip { grid-template-columns: 1fr; }
       .cta-row { flex-direction: column; align-items: stretch; }
       .cta-row a { width: 100%; }
+      .kontakt-btn-row { flex-direction: column; align-items: stretch; }
+      .kontakt-btn-row a { width: 100%; }
     }
   </style>
 </head>
@@ -782,7 +838,7 @@
             <h2 class="menu-section-title">Unternehmer &amp; Selbstständig</h2>
             <ul class="menu-section-links">
               <li><a href="liquiditaet.html">Liquidität</a></li>
-              <li><a href="mitarbeiter-benefits.html">Betriebliche Krankenversicherung</a></li>
+              <li><a href="betriebliche-krankenversicherung.html">Betriebliche Krankenversicherung</a></li>
               <li><a href="energie.html">Energie</a></li>
               <li><a href="betriebliche-sachversicherung.html">Betriebliche Sachversicherungen</a></li>
               <li><a href="ruerup.html">Rürup</a></li>
@@ -791,8 +847,8 @@
           <section class="menu-section">
             <h2 class="menu-section-title">Karriere &amp; Ausbildung</h2>
             <ul class="menu-section-links">
-              <li><a href="ausbildung-und-zukunft.html">Ausbildung &amp; Zukunft</a></li>
-              <li><a href="karriere-im-finanzbereich.html" class="active">Karriere im Finanzbereich</a></li>
+              <li><a href="ausbildung-und-zukunft.html" class="active">Ausbildung &amp; Zukunft</a></li>
+              <li><a href="karriere-im-finanzbereich.html">Karriere im Finanzbereich</a></li>
             </ul>
           </section>
         </div>
@@ -802,28 +858,28 @@
     <header class="hero">
       <div class="hero-inner">
         <div class="hero-text">
-          <div class="hero-label"><span class="dot"></span>DVAG · Einstieg · Karrierechance</div>
-          <h1>Karriere bei der DVAG heißt: <strong>selbstständig arbeiten und trotzdem starke Unterstützung im Rücken haben</strong></h1>
+          <div class="hero-label"><span class="dot"></span>Azubi · Berufsstart · Zukunft aufbauen</div>
+          <h1>Beim Berufsstart zählt nicht Perfektion, sondern <strong>früh die richtigen Grundlagen legen</strong></h1>
           <p class="hero-lead">
-            Wer bei der DVAG einsteigt, startet laut Karriereauftritt als selbstständiger Finanzcoach beziehungsweise Vermögensberater mit
-            <strong>Karrierecoach, Ausbildung, Tools, Team und klaren Entwicklungsmöglichkeiten</strong>. Dabei gibt es nicht nur einen Weg,
-            sondern mehrere Einstiegsformen: direkt nach der Schule, über eine IHK-Ausbildung, duales Studium, Quereinstieg, Nebenberuf oder als Branchenkenner.
+            Ausbildung, erster Job und das erste eigene Geld sind genau die Phase, in der viele Weichen gestellt werden. Wer früh anfängt,
+            <strong>Rücklagen aufzubauen, Arbeitskraft zu sichern, Gesundheitsfragen sauber zu ordnen und mit kleinen Beträgen zu investieren</strong>,
+            hat später meist deutlich bessere Möglichkeiten als jemand, der erst Jahre später startet.
           </p>
 
           <div class="highlight-box">
-            Der Kern des Modells ist: <strong>Selbstständigkeit mit Unterstützung eines großen Unternehmens</strong>. Das bedeutet viel Eigenverantwortung,
-            aber auch strukturierte Ausbildung, digitale Hilfsmittel, Marketing-Unterstützung und einen persönlichen Karrierecoach an der Seite.
+            Gerade am Anfang geht es nicht darum, alles sofort perfekt zu machen. Wichtig ist, <strong>früh überhaupt anzufangen</strong> und
+            Themen wie Haftpflicht, Berufsunfähigkeit, Krankenversicherung und Vermögensaufbau nicht erst dann zu prüfen, wenn es teuer oder zu spät wird.
           </div>
 
           <div class="hero-badges">
-            <a href="#beruf" class="badge"><span>Der Beruf</span><span class="arrow">↓</span></a>
-            <a href="#einstieg" class="badge"><span>Einstiegswege</span><span class="arrow">↓</span></a>
-            <a href="#ausbildung" class="badge"><span>Ausbildung</span><span class="arrow">↓</span></a>
-            <a href="#karriere" class="badge"><span>Karrierechancen</span><span class="arrow">↓</span></a>
+            <a href="#start" class="badge"><span>Was jetzt zählt</span><span class="arrow">↓</span></a>
+            <a href="#schutz" class="badge"><span>Schutz am Anfang</span><span class="arrow">↓</span></a>
+            <a href="#investieren" class="badge"><span>Früh investieren</span><span class="arrow">↓</span></a>
+            <a href="#gesundheit" class="badge"><span>Gesundheitsfragen</span><span class="arrow">↓</span></a>
           </div>
 
           <div class="cta-row">
-            <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-primary">Karriere bei der DVAG gemeinsam einordnen</a>
+            <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-primary">Berufsstart gemeinsam sortieren</a>
             <a href="https://wa.me/4915141678134" target="_blank" rel="noopener" class="btn-wa">Jonas kontaktieren</a>
             <a href="https://wa.me/4917663796605" target="_blank" rel="noopener" class="btn-secondary">Timo kontaktieren</a>
           </div>
@@ -837,9 +893,9 @@
           <div class="hero-card">
             <h3>Im Kern wichtig</h3>
             <ul>
-              <li>mehrere Einstiegswege statt nur ein Standardmodell</li>
-              <li>persönlicher Karrierecoach und strukturierte Ausbildung</li>
-              <li>zwei Karrierepfade: Kundenbetreuung und Teamaufbau</li>
+              <li>früh kleine Sparroutinen statt später großer Druck</li>
+              <li>Gesundheitsfragen möglichst früh sichern und dokumentieren</li>
+              <li>Arbeitskraft und Haftung nicht auf später verschieben</li>
             </ul>
           </div>
         </div>
@@ -850,214 +906,230 @@
           <div class="contact-name">Jonas Plener</div>
           <div class="contact-role">Vermögensberater bei der Deutschen Vermögensberatung</div>
           <div class="contact-links">
-            <a href="tel:+4915141678134">0151 41678134</a>
-            <a href="mailto:Jonas.Plener@dvag.de">Jonas.Plener@dvag.de</a>
+            <a href="tel:+4915141678134">📞 0151 41678134</a>
+            <a href="mailto:Jonas.Plener@dvag.de">✉️ Jonas.Plener@dvag.de</a>
           </div>
         </div>
         <div class="contact-card">
           <div class="contact-name">Timo Hügel</div>
           <div class="contact-role">Vermögensberater bei der Deutschen Vermögensberatung</div>
           <div class="contact-links">
-            <a href="tel:+4917663796605">0176 63796605</a>
-            <a href="mailto:Timo.Huegel@dvag.de">Timo.Huegel@dvag.de</a>
+            <a href="tel:+4917663796605">📞 0176 63796605</a>
+            <a href="mailto:Timo.Huegel@dvag.de">✉️ Timo.Huegel@dvag.de</a>
           </div>
         </div>
       </div>
 
       <div class="stats-grid">
         <article class="stat-card blue">
-          <div class="stat-label">Einstieg</div>
-          <div class="stat-number">mehrere Wege</div>
-          <p class="stat-copy">Berufseinsteiger, IHK-Ausbildung, duales Studium, Nebenberuf, Quereinstieg oder Branchenkenner.</p>
+          <div class="stat-label">Früher Start</div>
+          <div class="stat-number">klein anfangen reicht</div>
+          <p class="stat-copy">Schon kleine monatliche Beträge können über Jahre einen spürbaren Unterschied machen.</p>
         </article>
         <article class="stat-card orange">
-          <div class="stat-label">Begleitung</div>
-          <div class="stat-number">Karrierecoach</div>
-          <p class="stat-copy">Laut DVAG startet niemand allein, sondern mit persönlicher Begleitung im Aufbau.</p>
+          <div class="stat-label">Gesundheit</div>
+          <div class="stat-number">früh oft einfacher</div>
+          <p class="stat-copy">Gesundheitsfragen sind in jungen Jahren oft noch überschaubarer als später nach Diagnosen oder Behandlungen.</p>
         </article>
         <article class="stat-card blue">
-          <div class="stat-label">Weiterbildung</div>
-          <div class="stat-number">über 80 Mio. EUR</div>
-          <p class="stat-copy">Die DVAG kommuniziert jährliche Investitionen von über 80 Mio. EUR in Aus- und Weiterbildung.</p>
+          <div class="stat-label">Absicherung</div>
+          <div class="stat-number">Arbeitskraft zuerst</div>
+          <p class="stat-copy">Die Fähigkeit, Geld zu verdienen, ist für Azubis und Berufsanfänger meist der wichtigste Vermögenswert.</p>
         </article>
         <article class="stat-card green">
-          <div class="stat-label">Karriere</div>
-          <div class="stat-number">Beratung oder Teamaufbau</div>
-          <p class="stat-copy">Kundenberatung und Führungsweg werden als zwei kombinierbare Karrierepfade beschrieben.</p>
+          <div class="stat-label">Ziel</div>
+          <div class="stat-number">sauber statt kompliziert</div>
+          <p class="stat-copy">Am Anfang braucht es keine Produktflut, sondern eine klare Reihenfolge und gute Grundlagen.</p>
         </article>
       </div>
     </header>
 
     <main>
-      <section id="beruf">
-        <h2>1) Wie der Beruf bei der DVAG beschrieben wird</h2>
-        <p class="section-subtitle">Auf der Karriereseite wird der Einstieg als Beruf des Finanzcoachs beziehungsweise Vermögensberaters beschrieben: Menschen in finanziellen Fragen langfristig begleiten und individuelle Konzepte entwickeln.</p>
+      <section id="start">
+        <h2>1) Was beim Berufsstart wirklich wichtig ist</h2>
+        <p class="section-subtitle">Die ersten Berufsjahre wirken klein, sind aber oft die Phase, in der Gewohnheiten und Entscheidungen für viele Jahre geprägt werden.</p>
         <div class="grid-2">
           <article class="card blue-card">
-            <div class="card-title">Die Aufgabe im Kern</div>
-            <div class="number-pill">ganzheitliche Beratung</div>
-            <p>Im Mittelpunkt steht nicht nur ein einzelnes Produkt, sondern laut DVAG ein Allfinanzkonzept rund um Absicherung, Altersvorsorge, Vermögensaufbau, Finanzierung und weitere Finanzfragen.</p>
+            <div class="card-title">Typische Ausgangslage</div>
+            <div class="number-pill">viel Neues auf einmal</div>
+            <p>Ausbildung oder erster Job bringen zum ersten Mal eigenes Einkommen, eigene Verträge und eigene Verantwortung. Genau dadurch werden Finanzthemen plötzlich konkret.</p>
             <ul>
-              <li>finanzielle Situation und Ziele der Kunden analysieren</li>
-              <li>individuelle Konzepte entwickeln statt nur Produkte zeigen</li>
-              <li>Kunden langfristig als Finanzcoach begleiten</li>
+              <li>erstes regelmäßiges Gehalt oder Azubi-Einkommen</li>
+              <li>eigene Krankenversicherung und erste Verträge</li>
+              <li>wenig Erfahrung, aber viele wichtige Entscheidungen</li>
             </ul>
           </article>
           <article class="card amber-card">
-            <div class="card-title">Was das Berufsbild ausmacht</div>
-            <div class="number-pill">selbstständig mit Rückhalt</div>
-            <p>Die DVAG betont die Verbindung aus unternehmerischer Freiheit und Unterstützung durch ein großes Unternehmen im Hintergrund.</p>
+            <div class="card-title">Worauf es ankommt</div>
+            <div class="number-pill">Reihenfolge statt Chaos</div>
+            <p>Entscheidend ist nicht, sofort alles zu lösen, sondern die wichtigen Themen in der richtigen Reihenfolge anzugehen.</p>
             <ul>
-              <li>eigene Zeitgestaltung und hohe Eigenverantwortung</li>
-              <li>digitale Hilfsmittel, Marketing und Beratungskonzept vorhanden</li>
-              <li>Teamspirit statt völligem Alleingang</li>
+              <li>erst Risiken absichern, die wirklich existenziell sind</li>
+              <li>dann mit kleinen Sparraten Vermögensaufbau starten</li>
+              <li>früh günstige und saubere Gesundheitsangaben sichern</li>
             </ul>
           </article>
         </div>
       </section>
 
-      <section id="einstieg">
-        <h2>2) Welche Einstiegswege die DVAG bietet</h2>
-        <p class="section-subtitle">Die Karrierekommunikation unterscheidet mehrere Wege, je nachdem, ob man direkt von der Schule kommt, studiert, aus einem anderen Beruf wechselt oder bereits Erfahrung aus der Finanzbranche mitbringt.</p>
+      <section id="schutz">
+        <h2>2) Welche Absicherungen zu Beginn oft besonders wichtig sind</h2>
+        <p class="section-subtitle">Nicht alles muss sofort abgeschlossen werden. Einige Themen sind aber so grundlegend, dass man sie beim Berufsstart nicht liegen lassen sollte.</p>
         <div class="grid-2">
           <article class="service-card blue-card">
-            <div class="service-title">Berufseinsteiger nach Schule oder Studium</div>
-            <p>Für junge Menschen werden verschiedene Wege genannt, darunter Direkteinstieg, IHK-Ausbildung, duales Studium und weitere akademische Optionen.</p>
+            <div class="service-title">Private Haftpflicht</div>
+            <p>Sie gehört fast immer zu den ersten sinnvollen Absicherungen, weil schon kleine Fehler schnell teuer werden können.</p>
             <ul>
-              <li>für Schulabgänger und erste Berufseinsteiger gedacht</li>
-              <li>mehrere Modelle statt nur eines festen Starts</li>
-              <li>früher Aufbau mit Begleitung und Praxisbezug</li>
+              <li>oft sehr günstig im Verhältnis zum Nutzen</li>
+              <li>wichtig, sobald keine Familienlösung mehr greift</li>
+              <li>klärt existenzielle Schäden gegen Dritte</li>
             </ul>
           </article>
           <article class="service-card green-card">
-            <div class="service-title">IHK-Ausbildung</div>
-            <p>Beworben wird eine Ausbildung zum Kaufmann oder zur Kauffrau für Versicherungen und Finanzanlagen mit Praxis in Direktion oder Geschäftsstelle plus Berufsschule.</p>
+            <div class="service-title">Krankenversicherung sauber prüfen</div>
+            <p>Gerade beim Wechsel in Ausbildung, Studium oder ersten Job ändern sich Zuständigkeiten häufig. Das sollte früh sauber geordnet sein.</p>
             <ul>
-              <li>Dauer laut DVAG: 3 Jahre</li>
-              <li>zusätzliche Qualifikationen wie Vermögensberater DBBV und Finanzanlagenfachmann IHK</li>
-              <li>persönliches Coaching, Prüfungsvorbereitung und Theorie-Praxis-Verzahnung</li>
+              <li>Familienversicherung, Ausbildung oder Anstellung richtig einordnen</li>
+              <li>Leistungslücken und Zusatzbausteine bewusst prüfen</li>
+              <li>nicht einfach nebenbei laufen lassen</li>
             </ul>
           </article>
           <article class="service-card amber-card">
-            <div class="service-title">Duales Studium</div>
-            <p>Das duale Studium mit der FHDW Marburg verbindet Theorie und Praxis und wird als Bachelor-Studium BWL mit Schwerpunkt Finanzvertrieb beschrieben.</p>
+            <div class="service-title">Berufsunfähigkeit oder Arbeitskraftschutz</div>
+            <p>Viele unterschätzen, wie wichtig das Thema schon in jungen Jahren ist. Dabei ist gerade der frühe Einstieg oft entscheidend.</p>
             <ul>
-              <li>vier Abschlüsse in drei Jahren laut DVAG-Kommunikation</li>
-              <li>Praxis im Vertrieb, Theorie an der Hochschule</li>
-              <li>begleiteter Einstieg mit Coach und früher Verantwortung</li>
+              <li>junges Eintrittsalter kann Beiträge deutlich günstiger halten</li>
+              <li>Gesundheitszustand ist oft noch günstiger als später</li>
+              <li>Arbeitskraft ist am Anfang das Fundament für alles Weitere</li>
             </ul>
           </article>
           <article class="service-card signal-card">
-            <div class="service-title">Quereinstieg, Nebenberuf und Branchenkenner</div>
-            <p>Für Wechselwillige gibt es laut DVAG den Quereinstieg, einen Test im Nebenberuf und einen gesonderten Weg für Menschen mit Branchenerfahrung.</p>
+            <div class="service-title">Erste Rücklage statt nur Konto auf null</div>
+            <p>Neben Versicherungen ist ein kleiner Notgroschen oft der erste vernünftige Vermögensbaustein.</p>
             <ul>
-              <li>Quereinstieg ausdrücklich auch ohne Vorkenntnisse möglich</li>
-              <li>Nebenberuf zum Reinschnuppern und risikoreduzierten Testen</li>
-              <li>Branchenerfahrene können individuell und angepasst starten</li>
+              <li>verhindert, dass jede Rechnung zum Problem wird</li>
+              <li>schafft Ruhe für Ausbildung und Jobstart</li>
+              <li>ist die Basis vor langfristigem Investieren</li>
             </ul>
           </article>
         </div>
       </section>
 
-      <section id="ausbildung">
-        <h2>3) Wie Ausbildung und Entwicklung laut DVAG aufgebaut sind</h2>
-        <p class="section-subtitle">Ein zentrales Element ist der schrittweise Aufbau. Die Website betont, dass Know-how, Beratungskompetenz, unternehmerische Kompetenz und Persönlichkeitsentwicklung parallel wachsen.</p>
-        <div class="flow-diagram">
-          <article class="flow-step">
-            <div class="flow-kicker">Schritt 1</div>
-            <h3 class="flow-title">Begleiteter Einstieg</h3>
-            <p>Zu Beginn steht laut DVAG ein persönlicher Karrierecoach an der Seite, der fachlich und praktisch unterstützt.</p>
+      <section id="investieren">
+        <h2>3) Warum frühes Investieren so wichtig sein kann</h2>
+        <p class="section-subtitle">Der große Vorteil am Berufsstart ist nicht ein hohes Einkommen, sondern Zeit. Genau diese Zeit kann beim Investieren mehr ausmachen als spätere große Einzahlungen.</p>
+        <div class="grid-2">
+          <article class="card blue-card">
+            <div class="card-title">Der Zeitvorteil</div>
+            <div class="number-pill">früher Start wirkt lange</div>
+            <p>Wer mit 25 oder 50 EUR im Monat startet, baut erst einmal keine Riesensumme auf. Aber die Gewohnheit und der lange Zeitraum sind genau der Hebel.</p>
+            <ul>
+              <li>Zinseszins braucht vor allem Zeit</li>
+              <li>kleine Raten sind am Anfang oft realistischer als hohe Ziele</li>
+              <li>früher Start kann später viel Druck aus der Sparphase nehmen</li>
+            </ul>
           </article>
-          <article class="flow-step">
-            <div class="flow-kicker">Schritt 2</div>
-            <h3 class="flow-title">Fachliche Qualifikation</h3>
-            <p>Je nach Modell folgen IHK-Qualifikationen, Studium, interne Ausbildungsmodule und Prüfungsvorbereitung.</p>
-          </article>
-          <article class="flow-step">
-            <div class="flow-kicker">Schritt 3</div>
-            <h3 class="flow-title">Praxis im Kundenkontakt</h3>
-            <p>Frühzeitig wird praktische Arbeit mit Kunden, Betreuung und Konzeptentwicklung mit dem erlernten Fachwissen verknüpft.</p>
-          </article>
-          <article class="flow-step">
-            <div class="flow-kicker">Schritt 4</div>
-            <h3 class="flow-title">Persönlich und unternehmerisch wachsen</h3>
-            <p>Neben Fachthemen werden laut DVAG auch Führung, Organisation, Auftreten und unternehmerisches Denken aufgebaut.</p>
+          <article class="card green-card">
+            <div class="card-title">Worauf man achten sollte</div>
+            <div class="number-pill">einfach und durchhaltbar</div>
+            <p>Beim Berufsstart ist nicht die komplizierteste Strategie entscheidend, sondern eine Lösung, die man durchhält und versteht.</p>
+            <ul>
+              <li>kleine feste Sparrate statt unrealistischem Perfektionsplan</li>
+              <li>zuerst Puffer, dann langfristiger Vermögensaufbau</li>
+              <li>nicht aus Aktionismus, sondern mit klarer Logik starten</li>
+            </ul>
           </article>
         </div>
 
         <div class="highlight-box">
-          Wichtig an dem Modell ist: Die DVAG beschreibt den Aufbau nicht nur als Produktschulung, sondern als Kombination aus <strong>fachlicher Ausbildung,
-          Beratungskompetenz, Persönlichkeitsentwicklung und unternehmerischem Denken</strong>. Genau das unterscheidet die Seite von einer reinen Vertriebsanzeige.
+          Der eigentliche Unterschied entsteht oft nicht dadurch, ob jemand mit 19 schon große Summen investiert, sondern dadurch, ob <strong>früh eine Routine entsteht</strong>.
+          Wer klein anfängt und dranbleibt, hat später oft deutlich bessere Karten als jemand, der das Thema zehn Jahre aufschiebt.
         </div>
       </section>
 
-      <section id="karriere">
-        <h2>4) Welche Karrierechancen hervorgehoben werden</h2>
-        <p class="section-subtitle">Die DVAG stellt Leistung, Transparenz und Chancengleichheit stark in den Vordergrund. Karriere soll nicht von Planstellen oder Sympathien abhängen, sondern vom eigenen Einsatz.</p>
-        <div class="grid-2">
-          <article class="card blue-card">
-            <div class="card-title">Karriereweg über Kundenberatung</div>
-            <div class="number-pill">Beratung und Bestand</div>
-            <p>Ein Weg liegt im Aufbau und in der langfristigen Betreuung eines eigenen Kundenbestands mit wiederkehrender Beziehung und Verantwortung.</p>
-            <ul>
-              <li>eigene Kunden langfristig begleiten</li>
-              <li>Finanzkonzepte über Jahre weiterentwickeln</li>
-              <li>Beratung als zentrale Stärke ausbauen</li>
-            </ul>
+      <section id="gesundheit">
+        <h2>4) Warum Gesundheitsfragen möglichst früh gesichert werden sollten</h2>
+        <p class="section-subtitle">Gerade bei Absicherungen rund um Arbeitskraft oder Gesundheit sind frühere Zeitpunkte oft einfacher als spätere.</p>
+        <div class="flow-diagram">
+          <article class="flow-step">
+            <div class="flow-kicker">Punkt 1</div>
+            <h3 class="flow-title">Heute oft weniger Einträge</h3>
+            <p>In jungen Jahren sind Arztakten und Diagnosen häufig noch überschaubarer als nach einigen Jahren mit Beschwerden, Behandlungen oder Operationen.</p>
           </article>
-          <article class="card green-card">
-            <div class="card-title">Karriereweg über Teamaufbau</div>
-            <div class="number-pill">Führung und Wachstum</div>
-            <p>Zusätzlich wird ein zweiter Karrierepfad beschrieben: ein eigenes Team aufbauen, Menschen entwickeln und Führungsverantwortung übernehmen.</p>
-            <ul>
-              <li>Team aufbauen und begleiten</li>
-              <li>Führungsaufgaben mit Beratung kombinieren</li>
-              <li>beide Karrierewege sind laut DVAG vereinbar</li>
-            </ul>
+          <article class="flow-step">
+            <div class="flow-kicker">Punkt 2</div>
+            <h3 class="flow-title">Später kann es teurer oder schwieriger werden</h3>
+            <p>Mehr Vorerkrankungen oder laufende Themen können Beiträge verändern, Ausschlüsse auslösen oder Anträge erschweren.</p>
+          </article>
+          <article class="flow-step">
+            <div class="flow-kicker">Punkt 3</div>
+            <h3 class="flow-title">Gesundheitsangaben sauber vorbereiten</h3>
+            <p>Nicht schätzen, sondern Unterlagen und Zeiträume ordentlich zusammentragen. Genau hier passieren sonst später unnötige Probleme.</p>
+          </article>
+          <article class="flow-step">
+            <div class="flow-kicker">Punkt 4</div>
+            <h3 class="flow-title">Früh prüfen heißt nicht blind abschließen</h3>
+            <p>Es geht nicht um Hektik, sondern darum, Chancen zu erkennen, solange die Ausgangslage meist noch günstiger ist.</p>
           </article>
         </div>
       </section>
 
-      <section id="fuerwen">
-        <h2>5) Für wen diese Karriere eher passen kann</h2>
-        <p class="section-subtitle">Nicht jeder sucht dieselbe Art von Beruf. Die DVAG-Seiten sprechen vor allem Menschen an, die Freiheit, Eigenverantwortung, Entwicklung und Arbeit mit Menschen kombinieren möchten.</p>
+      <section id="fahrplan">
+        <h2>5) Ein sinnvoller Fahrplan für Azubis und Berufsanfänger</h2>
+        <p class="section-subtitle">Nicht alles auf einmal, sondern Schritt für Schritt. So bleibt der Einstieg überschaubar und trotzdem sinnvoll.</p>
         <div class="grid-3">
           <article class="priority-card">
             <div class="priority-number">1</div>
-            <h3 class="priority-title">Berufseinsteiger</h3>
+            <h3 class="priority-title">Grundschutz ordnen</h3>
             <ul>
-              <li>du suchst keinen starren Standardjob</li>
-              <li>du willst früh Verantwortung übernehmen</li>
-              <li>du willst Praxis und Entwicklung kombinieren</li>
+              <li>Krankenversicherung und Haftpflicht sauber klären</li>
+              <li>Arbeitskraftschutz früh prüfen</li>
+              <li>offene Gesundheitsfragen ordentlich sammeln</li>
             </ul>
           </article>
           <article class="priority-card">
             <div class="priority-number">2</div>
-            <h3 class="priority-title">Quereinsteiger</h3>
+            <h3 class="priority-title">Puffer aufbauen</h3>
             <ul>
-              <li>du willst dich neu orientieren</li>
-              <li>du arbeitest gern mit Menschen</li>
-              <li>du suchst mehr Gestaltungsfreiheit als im bisherigen Job</li>
+              <li>kleine Reserve für unerwartete Ausgaben schaffen</li>
+              <li>Kontobewegungen und feste Kosten kennen</li>
+              <li>nicht jeden Monat komplett auf null enden</li>
             </ul>
           </article>
           <article class="priority-card">
             <div class="priority-number">3</div>
-            <h3 class="priority-title">Branchenkenner</h3>
+            <h3 class="priority-title">Investieren anfangen</h3>
             <ul>
-              <li>du kommst aus Bank, Versicherung oder Finanzdienstleistung</li>
-              <li>du willst dein Know-how unternehmerischer einsetzen</li>
-              <li>du suchst mehr Freiheit bei Karriere und Arbeitsweise</li>
+              <li>kleine Sparrate fest etablieren</li>
+              <li>langfristig denken statt kurzfristig springen</li>
+              <li>Routine wichtiger als Perfektion</li>
             </ul>
           </article>
         </div>
 
-        <div class="cta-row" style="margin-top:1rem;">
-          <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-primary">Einstiegsweg bei der DVAG konkret besprechen</a>
+        <div class="kontakt-box">
+          <h2>Jetzt Ausbildung und Berufsstart sauber ordnen</h2>
+          <p>Wir zeigen dir, welche Schritte jetzt sinnvoll sind: Schutz, Rücklagen und ein klarer Start in den Vermögensaufbau.</p>
+          <div class="kontakt-btn-row">
+            <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-primary">Berufsstart konkret sortieren</a>
+            <a href="https://wa.me/4915141678134" target="_blank" rel="noopener" class="btn-wa">Jonas via WhatsApp</a>
+            <a href="https://wa.me/4917663796605" target="_blank" rel="noopener" class="btn-secondary">Timo via WhatsApp</a>
+          </div>
+          <div class="kontakt-mini-row">
+            <a href="tel:+4915141678134" class="kontakt-mini-link">Jonas: 0151 41678134</a>
+            <span style="color:var(--border);">|</span>
+            <a href="tel:+4917663796605" class="kontakt-mini-link">Timo: 0176 63796605</a>
+            <span style="color:var(--border);">|</span>
+            <a href="leistung.html" class="kontakt-mini-link">Alle Leistungen →</a>
+          </div>
         </div>
       </section>
     </main>
 
-    <footer>Diese Seite ersetzt keine individuelle Rechts-, Steuer- oder Versicherungsberatung. Alle Angaben ohne Gewähr.</footer>
+    <footer>
+      Diese Seite ersetzt keine individuelle Rechts-, Steuer- oder Sozialversicherungsberatung.
+      Alle Angaben ohne Gewähr. Maßgeblich sind die gesetzlichen Regelungen und die Informationen der jeweiligen Anbieter.
+    </footer>
   </div>
 
   <script>
