@@ -3,21 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Liquidität &amp; Factoring - Jonas Plener &amp; Timo Hügel</title>
+  <title>bKV - Jonas Plener &amp; Timo Hügel</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500&family=Raleway:wght@500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --primary: #2e6f80;
-      --accent: #f0b85c;
+      --primary: #4a787d;
+      --accent: #f4be69;
       --text: #111827;
       --muted: #4b5563;
-      --border: #d9e2ec;
-      --soft-safe: #ecfdf5;
-      --soft-warn: #fff7ed;
-      --wa: #22c55e;
+      --border: #e5e7eb;
+      --bg: #f4f8f8;
+      --bg-soft: #f9fbfb;
+      --good: #16a34a;
+      --wa: #25d366;
+      --psych: #ef4444;
+      --back: #f97316;
+      --other: #3b82f6;
+      --accident: #6b7280;
       --shadow: 0 10px 25px rgba(15, 23, 42, 0.06);
+      --shadowStrong: 0 18px 45px rgba(15, 23, 42, 0.12);
     }
 
     * { box-sizing: border-box; }
@@ -77,7 +83,9 @@
       background: #fff;
     }
 
-    .topbar-avatars img + img { margin-left: -10px; }
+    .topbar-avatars img + img {
+      margin-left: -10px;
+    }
 
     .topbar-title {
       font-family: "Raleway", system-ui, sans-serif;
@@ -99,6 +107,7 @@
       align-items: center;
       justify-content: flex-end;
       gap: 0.65rem;
+      min-width: 0;
       margin-left: auto;
     }
 
@@ -113,10 +122,21 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      width: auto;
+      height: auto;
+      border-radius: 0;
       border: none;
       background: transparent;
+      box-shadow: none;
       cursor: pointer;
+      transition: opacity 0.12s ease;
       padding: 0;
+    }
+
+    .burger-btn:hover {
+      transform: none;
+      box-shadow: none;
+      opacity: 0.7;
     }
 
     .burger-lines {
@@ -134,9 +154,17 @@
       transition: transform 0.18s ease, opacity 0.18s ease;
     }
 
-    .burger-btn[aria-expanded="true"] .burger-lines span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .burger-btn[aria-expanded="true"] .burger-lines span:nth-child(2) { opacity: 0; }
-    .burger-btn[aria-expanded="true"] .burger-lines span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .burger-btn[aria-expanded="true"] .burger-lines span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .burger-btn[aria-expanded="true"] .burger-lines span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .burger-btn[aria-expanded="true"] .burger-lines span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
 
     .menu-overlay {
       position: fixed;
@@ -159,7 +187,7 @@
       right: 0;
       height: 100vh;
       width: min(420px, 80vw);
-      background: #fff;
+      background: #ffffff;
       box-shadow: -8px 0 20px rgba(0, 0, 0, 0.15);
       transform: translateX(100%);
       transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
@@ -169,14 +197,18 @@
       flex-direction: column;
     }
 
-    .menu-panel.open { transform: translateX(0); }
+    .menu-panel.open {
+      transform: translateX(0);
+    }
 
     .menu-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1.2rem;
+      padding: 1.2rem 1.2rem;
       border-bottom: 1px solid var(--border);
+      gap: 1rem;
+      flex-shrink: 0;
     }
 
     .menu-header-title {
@@ -185,6 +217,7 @@
       color: var(--primary);
       font-size: 1rem;
       text-transform: uppercase;
+      letter-spacing: 0.02em;
     }
 
     .menu-close-btn {
@@ -199,10 +232,23 @@
       color: var(--primary);
       font-size: 1.4rem;
       padding: 0;
+      transition: color 0.12s ease;
     }
 
-    .menu-content { flex: 1; padding: 0.8rem 0; }
-    .menu-section { padding: 0; margin: 0; }
+    .menu-close-btn:hover {
+      color: var(--muted);
+    }
+
+    .menu-content {
+      flex: 1;
+      padding: 0.8rem 0;
+      overflow-y: auto;
+    }
+
+    .menu-section {
+      padding: 0;
+      margin: 0;
+    }
 
     .menu-section-title {
       font-family: "Raleway", system-ui, sans-serif;
@@ -223,32 +269,64 @@
       list-style: none;
     }
 
+    .menu-section-links li {
+      margin: 0;
+      padding: 0;
+    }
+
     .menu-section-links a {
       display: flex;
       align-items: center;
       padding: 0.6rem 1.2rem;
       font-size: 0.92rem;
       color: #1f2937;
+      transition: background 0.12s ease;
       border-left: 3px solid transparent;
+      position: relative;
     }
 
-    .menu-section-links a:hover { background: #f3f4f6; }
-    .menu-section-links a.active { border-left-color: var(--accent); background: rgba(244, 190, 105, 0.08); }
+    .menu-section-links a:hover {
+      background: #f3f4f6;
+    }
+
+    .menu-section-links a.active {
+      border-left-color: var(--accent);
+      background: rgba(244, 190, 105, 0.08);
+    }
+
+    .menu-section-links a::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: var(--accent);
+      opacity: 0;
+      transition: opacity 0.12s ease;
+    }
+
+    .menu-section-links a:hover::before {
+      opacity: 1;
+    }
 
     header.hero {
-      padding: 2.2rem 1.6rem 2.1rem;
+      padding: 2rem 1.4rem 2.2rem;
       border-bottom: 1px solid var(--border);
-      background: radial-gradient(circle at top left, #fff7ed 0, #ffffff 45%, #e0f2fe 100%);
+      background: radial-gradient(circle at top left, #fdf4e6 0, #ffffff 40%, #e0f2fe 100%);
     }
 
     .hero-inner {
       display: flex;
       flex-wrap: wrap;
       gap: 2rem;
-      align-items: center;
+      align-items: flex-start;
     }
 
-    .hero-text { flex: 1 1 260px; min-width: 0; }
+    .hero-text {
+      flex: 1 1 280px;
+      min-width: 0;
+    }
 
     .hero-label {
       display: inline-flex;
@@ -283,15 +361,20 @@
     .hero-lead {
       margin: 0 0 1rem;
       color: var(--muted);
-      max-width: 44rem;
+      max-width: 38rem;
       font-size: 0.98rem;
+    }
+
+    .hero-lead strong {
+      font-weight: 800;
+      color: var(--primary);
     }
 
     .hero-badges {
       display: flex;
       flex-wrap: wrap;
       gap: 0.5rem;
-      margin: 0.8rem 0 1.2rem;
+      margin: 0.6rem 0 1.1rem;
     }
 
     .badge {
@@ -303,11 +386,14 @@
       border: 1px solid rgba(148, 163, 184, 0.9);
       font-size: 0.8rem;
       color: var(--muted);
-      background: #ffffff;
+      background: #fff;
       box-shadow: 0 3px 8px rgba(15, 23, 42, 0.08);
     }
 
-    .badge .arrow { font-size: 0.9rem; color: var(--primary); }
+    .badge .arrow {
+      font-size: 0.9rem;
+      color: var(--primary);
+    }
 
     .cta-row {
       display: flex;
@@ -317,7 +403,7 @@
       margin-top: 1rem;
     }
 
-    .btn-primary, .btn-secondary, .btn-wa {
+    .btn-primary, .btn-secondary, .btn-wa, .btn-gold {
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -333,7 +419,7 @@
       min-height: 54px;
     }
 
-    .btn-primary {
+    .btn-primary, .btn-gold {
       background: var(--accent);
       color: #1f2933;
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
@@ -341,11 +427,14 @@
 
     .btn-secondary, .btn-wa {
       background: var(--wa);
-      color: #ffffff;
+      color: #fff;
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
     }
 
-    .btn-primary:hover, .btn-secondary:hover, .btn-wa:hover {
+    .btn-primary:hover,
+    .btn-secondary:hover,
+    .btn-wa:hover,
+    .btn-gold:hover {
       filter: brightness(1.03);
       transform: translateY(-1px);
     }
@@ -356,8 +445,10 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      align-self: flex-start;
       min-width: 360px;
-      min-height: 430px;
+      min-height: 420px;
+      margin-top: 0.2rem;
     }
 
     .hero-photo::before {
@@ -381,11 +472,18 @@
       justify-content: center;
       align-items: flex-end;
       gap: 16px;
-      padding: 28px 24px 118px;
+      padding: 28px 24px 112px;
       z-index: 1;
     }
 
-    .hero-person { display: flex; align-items: flex-end; }
+    .hero-person {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      position: relative;
+      z-index: 1;
+    }
 
     .hero-image-box {
       width: 210px;
@@ -402,367 +500,82 @@
       filter: drop-shadow(0 10px 20px rgba(15, 23, 42, 0.16));
     }
 
-    .hero-person.jonas { left: 52px; top: -8px; position: relative; }
-    .hero-person.jonas .hero-image-box img { width: 341px; max-height: 435px; transform: translateY(12px); }
-    .hero-person.timo { left: -40px; top: -8px; position: relative; }
-    .hero-person.timo .hero-image-box img { width: 168px; max-height: 225px; transform: translateY(12px); }
+    .hero-person.jonas {
+      left: 52px;
+      top: -8px;
+    }
+
+    .hero-person.jonas .hero-image-box img {
+      width: 341px;
+      max-height: 435px;
+      transform: translateY(12px);
+    }
+
+    .hero-person.timo {
+      left: -40px;
+      top: -8px;
+    }
+
+    .hero-person.timo .hero-image-box img {
+      width: 168px;
+      max-height: 225px;
+      transform: translateY(12px);
+    }
+
+    .hero-name {
+      display: none;
+    }
 
     .hero-card {
       position: absolute;
-      bottom: -18px;
+      bottom: 8px;
       right: 57px;
       background: #fff;
-      padding: 16px 22px;
-      border-radius: 20px;
+      padding: 18px 30px;
+      border-radius: 22px;
       border: 1px solid rgba(148, 163, 184, 0.6);
       box-shadow: 0 8px 20px rgba(15, 23, 42, 0.18);
       z-index: 3;
-      width: 332px;
+      width: 333px;
       color: var(--muted);
     }
 
     .hero-card h3 {
-      margin: 0 0 8px;
+      margin: 0 0 10px;
       color: var(--primary);
       font-family: "Raleway", system-ui, sans-serif;
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       text-align: center;
       font-weight: 800;
     }
 
     .hero-card ul {
-      margin: 0;
-      padding-left: 1.1rem;
-      font-size: 0.83rem;
-    }
-
-    main {
-      padding: 1.8rem 1.6rem 2.3rem;
-      flex: 1;
-      background: linear-gradient(to bottom, #ffffff 0, #f9fafb 100%);
-    }
-
-    section { margin-bottom: 2rem; }
-
-    h2 {
-      font-family: "Raleway", system-ui, sans-serif;
-      margin: 0 0 0.4rem;
-      font-size: 1.45rem;
-      color: var(--primary);
-      font-weight: 800;
-    }
-
-    .section-subtitle {
-      margin-bottom: 1rem;
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    .grid-2, .grid-3, .grid-4 {
-      display: grid;
-      gap: 1rem;
-    }
-
-    .grid-2 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
-    .grid-3 { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
-    .grid-4 { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 0.9rem;
-      margin-top: 1.2rem;
-    }
-
-    .stat-card {
-      border-radius: 18px;
-      padding: 1rem;
-      border: 1px solid transparent;
-      box-shadow: var(--shadow);
-    }
-
-    .stat-card.blue {
-      background: linear-gradient(160deg, #eff6ff 0, #ffffff 85%);
-      border-color: #bfdbfe;
-    }
-
-    .stat-card.orange {
-      background: linear-gradient(160deg, #fff7ed 0, #ffffff 85%);
-      border-color: #fdba74;
-    }
-
-    .stat-card.green {
-      background: linear-gradient(160deg, #ecfdf5 0, #ffffff 85%);
-      border-color: #86efac;
-    }
-
-    .stat-number {
-      font-family: "Raleway", system-ui, sans-serif;
-      font-size: 1.55rem;
-      line-height: 1;
-      font-weight: 800;
-      margin: 0 0 0.35rem;
-      color: var(--text);
-    }
-
-    .stat-label {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
-      color: var(--primary);
-      font-weight: 800;
-      margin-bottom: 0.25rem;
-    }
-
-    .stat-copy {
-      margin: 0;
-      color: var(--muted);
-      font-size: 0.88rem;
-    }
-
-    .card, .priority-card, .service-card, .result-card {
-      background: #fff;
-      border-radius: 20px;
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow);
-      padding: 1.1rem 1.15rem;
-    }
-
-    .card-title, .priority-title, .service-title, .result-title, .flow-title {
-      font-family: "Raleway", system-ui, sans-serif;
-      font-weight: 800;
-      margin: 0 0 0.45rem;
-      color: var(--text);
-      font-size: 1.02rem;
-    }
-
-    .card p, .service-card p, .result-card p, .flow-step p {
-      margin: 0 0 0.5rem;
-      color: var(--muted);
-      font-size: 0.93rem;
-    }
-
-    .card ul, .priority-card ul, .service-card ul {
-      margin: 0.2rem 0 0;
-      padding-left: 1.2rem;
-      color: var(--muted);
-      font-size: 0.93rem;
-    }
-
-    .priority-card {
-      background: linear-gradient(160deg, var(--soft-safe) 0, #ffffff 75%);
-      border-color: #bbf7d0;
-    }
-
-    .priority-number {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 28px;
-      height: 28px;
-      border-radius: 999px;
-      background: var(--accent);
-      color: #1f2933;
-      font-weight: 800;
-      margin-bottom: 0.45rem;
-    }
-
-    .signal-card {
-      background: linear-gradient(160deg, var(--soft-warn) 0, #ffffff 80%);
-      border-color: #fed7aa;
-    }
-
-    .blue-card {
-      background: linear-gradient(160deg, #eef6ff 0, #ffffff 80%);
-      border-color: #bfdbfe;
-    }
-
-    .amber-card {
-      background: linear-gradient(160deg, #fff8e8 0, #ffffff 80%);
-      border-color: #fcd34d;
-    }
-
-    .green-card {
-      background: linear-gradient(160deg, #ecfdf5 0, #ffffff 80%);
-      border-color: #86efac;
-    }
-
-    .number-pill {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 72px;
-      padding: 0.3rem 0.65rem;
-      border-radius: 999px;
-      font-family: "Raleway", system-ui, sans-serif;
-      font-weight: 800;
-      font-size: 0.88rem;
-      color: #0f172a;
-      background: rgba(240, 184, 92, 0.22);
-      margin: 0 0 0.55rem;
-    }
-
-    .highlight-box {
-      background: #fff7ed;
-      border-radius: 16px;
-      border: 1px solid #fed7aa;
-      padding: 0.95rem 1rem;
-      color: #7c2d12;
-      font-size: 0.92rem;
-      margin-top: 0.8rem;
-    }
-
-    .flow-diagram {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
-    }
-
-    .flow-step {
-      position: relative;
-      background: linear-gradient(160deg, #ffffff 0, #f8fbff 100%);
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      box-shadow: var(--shadow);
-      padding: 1rem;
-      overflow: hidden;
-    }
-
-    .flow-step::after {
-      content: "→";
-      position: absolute;
-      right: 0.9rem;
-      top: 0.7rem;
-      font-size: 1.15rem;
-      color: rgba(46, 111, 128, 0.4);
-      font-weight: 800;
-    }
-
-    .flow-step:last-child::after { content: "✓"; }
-
-    .flow-kicker {
-      display: inline-flex;
-      padding: 0.2rem 0.55rem;
-      border-radius: 999px;
-      background: rgba(240, 184, 92, 0.2);
-      color: var(--primary);
-      font-size: 0.76rem;
-      font-weight: 800;
-      margin-bottom: 0.55rem;
-    }
-
-    .comparison-table {
-      display: grid;
-      gap: 0.75rem;
-    }
-
-    .comparison-row {
-      display: grid;
-      grid-template-columns: minmax(140px, 180px) 1fr 1fr;
-      gap: 0.75rem;
-      align-items: stretch;
-    }
-
-    .comparison-head,
-    .comparison-cell {
-      border-radius: 16px;
-      border: 1px solid var(--border);
-      background: #fff;
-      padding: 0.85rem 0.9rem;
-      box-shadow: var(--shadow);
-      font-size: 0.9rem;
-      color: var(--muted);
-    }
-
-    .comparison-head {
-      font-family: "Raleway", system-ui, sans-serif;
-      font-weight: 800;
-      color: var(--text);
-      background: linear-gradient(160deg, #f8fbff 0, #ffffff 80%);
-    }
-
-    .comparison-cell strong {
-      color: var(--primary);
-      display: block;
-      margin-bottom: 0.25rem;
-    }
-
-    .calculator {
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
-      gap: 1rem;
-      align-items: start;
-    }
-
-    .calculator-panel {
-      background: linear-gradient(160deg, #ffffff 0, #f8fbff 100%);
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      box-shadow: var(--shadow);
-      padding: 1.1rem;
-    }
-
-    .calculator-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0.9rem;
-    }
-
-    .field {
       display: flex;
       flex-direction: column;
-      gap: 0.35rem;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+      list-style: none;
     }
 
-    .field label {
-      font-size: 0.83rem;
-      color: var(--primary);
-      font-weight: 700;
+    .hero-card li {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 0.55rem;
+      margin-bottom: 0.3rem;
+      font-size: 0.82rem;
+      text-align: center;
     }
 
-    .field input {
-      width: 100%;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 0.85rem 0.9rem;
-      font: inherit;
-      color: var(--text);
-      background: #fff;
-    }
-
-    .field-note {
-      font-size: 0.8rem;
-      color: var(--muted);
-      margin-top: 0.8rem;
-    }
-
-    .result-stack {
-      display: grid;
-      gap: 0.85rem;
-    }
-
-    .result-card strong {
-      display: block;
-      font-family: "Raleway", system-ui, sans-serif;
-      font-size: 1.45rem;
-      line-height: 1.15;
-      color: var(--text);
-      margin-bottom: 0.25rem;
-    }
-
-    .result-card.is-positive {
-      background: linear-gradient(160deg, #ecfdf5 0, #ffffff 85%);
-      border-color: #86efac;
-    }
-
-    .result-card.is-caution {
-      background: linear-gradient(160deg, #fff7ed 0, #ffffff 85%);
-      border-color: #fdba74;
-    }
-
-    .result-card.is-info {
-      background: linear-gradient(160deg, #eff6ff 0, #ffffff 85%);
-      border-color: #bfdbfe;
+    .hero-card li::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent);
+      margin-top: 0.42rem;
+      flex: 0 0 8px;
     }
 
     .contact-strip {
@@ -801,45 +614,726 @@
       font-size: 0.92rem;
     }
 
-    .contact-links a:hover { color: var(--primary); text-decoration: underline; }
+    .contact-links a:hover {
+      text-decoration: underline;
+    }
+
+    main {
+      padding: 1.8rem 1.4rem 2.4rem;
+      flex: 1;
+      background: linear-gradient(to bottom, #ffffff 0, #f9fafb 100%);
+    }
+
+    section { margin-bottom: 2rem; }
+
+    h2 {
+      font-family: "Raleway", system-ui, sans-serif;
+      margin: 0 0 0.4rem;
+      font-size: 1.45rem;
+      color: var(--primary);
+      font-weight: 800;
+    }
+
+    .section-subtitle {
+      margin-bottom: 1rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .section-subtitle strong {
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+
+    .card {
+      background: linear-gradient(to bottom, #fff, var(--bg-soft));
+      border-radius: 16px;
+      padding: 1rem 1.05rem;
+      border: 2px solid rgba(74, 120, 125, 0.20);
+      box-shadow: var(--shadow);
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+
+    .card-title {
+      font-family: "Raleway", system-ui, sans-serif;
+      font-weight: 800;
+      margin-bottom: 0.35rem;
+      color: var(--text);
+      font-size: 1rem;
+    }
+
+    .card ul {
+      margin: 0.2rem 0 0;
+      padding-left: 1.1rem;
+    }
+
+    .card li { margin-bottom: 0.18rem; }
+
+    .highlight-box {
+      background: #fff7ed;
+      border-radius: 14px;
+      border: 1px solid #fed7aa;
+      padding: 0.9rem 1rem;
+      font-size: 0.9rem;
+      color: #7c2d12;
+      margin-top: 0.8rem;
+    }
+
+    .num {
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .persons-section {
+      margin-top: 1rem;
+    }
+
+    .persons-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      max-width: 360px;
+      margin-top: 0.6rem;
+    }
+
+    .person {
+      width: 26px;
+      height: 42px;
+      border-radius: 12px;
+      border: 2px solid #d1d5db;
+      position: relative;
+      overflow: hidden;
+      background: #f9fafb;
+    }
+
+    .person::before {
+      content: "";
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 2px solid #d1d5db;
+      background: #f9fafb;
+    }
+
+    .person.filled,
+    .person.filled::before {
+      background: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .persons-note {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
+
+    .charts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+      margin-top: 0.9rem;
+      align-items: center;
+    }
+
+    .pie-causes-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .pie-causes {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: conic-gradient(
+        var(--psych) 0 40%,
+        var(--back) 40% 65%,
+        var(--other) 65% 85%,
+        var(--accident) 85% 100%
+      );
+      position: relative;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.15);
+    }
+
+    .pie-causes-inner {
+      position: absolute;
+      inset: 24px;
+      border-radius: 50%;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 0.8rem;
+      padding: 0.2rem 0.4rem;
+    }
+
+    .legend {
+      font-size: 0.88rem;
+    }
+
+    .legend-row {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .legend-color {
+      width: 14px;
+      height: 14px;
+      border-radius: 4px;
+    }
+
+    .legend-color.psych { background: var(--psych); }
+    .legend-color.back { background: var(--back); }
+    .legend-color.other { background: var(--other); }
+    .legend-color.accident { background: var(--accident); }
+
+    .small-note {
+      font-size: 0.78rem;
+      color: #6b7280;
+      margin-top: 0.3rem;
+    }
+
+    .timeline {
+      margin-top: 0.4rem;
+      border-left: 2px solid #e5e7eb;
+      padding-left: 1.1rem;
+    }
+
+    .timeline-step {
+      margin-bottom: 0.8rem;
+      position: relative;
+      padding-left: 0.2rem;
+    }
+
+    .timeline-step::before {
+      content: "";
+      position: absolute;
+      left: -1.25rem;
+      top: 0.2rem;
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(244, 190, 105, 0.3);
+    }
+
+    .timeline-age {
+      font-weight: 600;
+      color: var(--primary);
+      font-size: 0.9rem;
+      margin-bottom: 0.15rem;
+    }
+
+    .price-table {
+      margin-top: 0.7rem;
+      border-radius: 16px;
+      background: #f9fafb;
+      border: 1px dashed #d1d5db;
+      padding: 0.7rem 0.9rem;
+      font-size: 0.86rem;
+    }
+
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.25rem;
+    }
+
+    .price-row span:first-child {
+      font-weight: 500;
+      color: var(--primary);
+    }
+
+    .price-row span:last-child {
+      font-weight: 600;
+    }
+
+    .reasons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0.8rem;
+      margin-top: 0.8rem;
+    }
+
+    .reason-box {
+      border-radius: 22px;
+      border: 1px solid #d1e3e4;
+      background: #ffffff;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.03);
+      padding: 0.85rem 0.95rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .reason-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      background: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-right: 0.4rem;
+    }
+
+    .centered-cta {
+      text-align: center;
+      margin-top: 1.2rem;
+    }
+
+    .bottom-cta {
+      margin-top: 1.6rem;
+      padding: 1.1rem 1.1rem 1.3rem;
+      border-radius: 18px;
+      background: linear-gradient(to right, #e0f2fe, #fef3c7);
+      border: 1px solid var(--border);
+      text-align: center;
+      font-size: 0.95rem;
+      box-shadow: var(--shadow);
+    }
+
+    .bottom-cta p {
+      margin: 0 0 0.8rem;
+      color: var(--muted);
+    }
+
+    .kontakt-box {
+      background: linear-gradient(135deg, #e0f2fe, #fef3c7);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 1.5rem 1.4rem 1.7rem;
+      text-align: center;
+      box-shadow: var(--shadowStrong);
+    }
+
+    .kontakt-box h2 {
+      color: var(--primary);
+      margin-bottom: 0.35rem;
+      font-size: 1.3rem;
+    }
+
+    .kontakt-box p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.1rem;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .kontakt-btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: center;
+      margin-bottom: 0.8rem;
+    }
+
+    .kontakt-mini-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+    }
+
+    .kontakt-mini-link {
+      font-size: 0.82rem;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .kontakt-mini-link:hover {
+      text-decoration: underline;
+    }
 
     footer {
-      padding: 1rem 1.6rem 1.4rem;
+      padding: 1rem 1.4rem 1.3rem;
       font-size: 0.78rem;
       color: #6b7280;
       border-top: 1px solid var(--border);
       background: #f9fafb;
     }
 
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .animate-on-scroll.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (min-width: 768px) {
+      .cta-row .btn-primary {
+        flex: 0 0 100%;
+        max-width: 460px;
+      }
+
+      .cta-row .btn-wa,
+      .cta-row .btn-secondary {
+        flex: 1 1 calc(50% - 0.4rem);
+        min-width: 0;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .hero-photo {
+        flex: 1 1 100%;
+        min-width: 0;
+        margin-top: 0;
+      }
+    }
+
     @media (max-width: 767px) {
       .topbar { padding-inline: 1rem; }
-      .menu-panel { width: 100vw; }
-      .menu-text { display: none; }
-      header.hero { padding: 2rem 1rem 2rem; }
-      main { padding: 1.6rem 1rem 2.2rem; }
-      .hero-inner { flex-direction: column-reverse; align-items: stretch; }
-      .hero h1 { font-size: 1.6rem; }
-      .hero-lead { font-size: 0.92rem; }
-      .hero-photo { min-width: 0; flex: 1 1 100%; min-height: 340px; }
-      .hero-photo::before { width: 300px; height: 300px; }
-      .hero-people { padding: 22px 10px 126px; gap: 8px; }
-      .hero-person.jonas { left: 20px; }
-      .hero-person.jonas .hero-image-box img { width: 230px; }
-      .hero-person.timo { left: -20px; }
-      .hero-person.timo .hero-image-box img { width: 130px; }
-      .hero-card {
-        right: 50%;
-        transform: translateX(50%);
-        width: min(92vw, 340px);
-        bottom: -4px;
-        padding: 14px 18px;
+
+      .menu-panel {
+        width: 100vw;
       }
-      .contact-strip { grid-template-columns: 1fr; }
-      .cta-row { flex-direction: column; align-items: stretch; }
-      .cta-row a { width: 100%; }
-      .comparison-row,
-      .calculator,
-      .calculator-grid { grid-template-columns: 1fr; }
+
+      .menu-text {
+        display: none;
+      }
+
+      header.hero { padding: 1.2rem 1rem 1.5rem; }
+      main { padding: 1.6rem 1rem 2.2rem; }
+
+      .hero-inner {
+        flex-direction: column-reverse;
+        align-items: stretch;
+      }
+
+      .hero h1 { font-size: 1.45rem; }
+      .hero-lead { font-size: 0.92rem; }
+
+      .hero-photo {
+        width: 100%;
+        flex: none;
+        min-width: 0;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        position: relative;
+        overflow: hidden;
+        align-self: auto;
+        margin-top: 0;
+      }
+
+      .hero-photo::before {
+        width: 200px;
+        height: 200px;
+      }
+
+      .hero-people {
+        position: relative;
+        inset: auto;
+        top: auto;
+        left: auto;
+        right: auto;
+        bottom: auto;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        padding: 24px 16px 0;
+        gap: 0;
+      }
+
+      .hero-image-box {
+        width: auto;
+        height: auto;
+      }
+
+      .hero-person.jonas {
+        left: 10px;
+        top: 0;
+      }
+
+      .hero-person.jonas .hero-image-box img {
+        width: min(63vw, 231px);
+        max-height: 300px;
+        transform: none;
+      }
+
+      .hero-person.timo {
+        left: -50px;
+        top: 0;
+      }
+
+      .hero-person.timo .hero-image-box img {
+        width: min(31vw, 116px);
+        max-height: 156px;
+        transform: none;
+      }
+
+      .hero-card {
+        position: static;
+        right: auto;
+        bottom: auto;
+        width: auto;
+        margin: -11px 45px 0;
+        border-radius: 16px;
+        padding: 14px 20px;
+      }
+
+      .cta-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .cta-row a {
+        width: 100%;
+      }
+
+      .contact-strip {
+        grid-template-columns: 1fr;
+      }
+
+      .btn-primary,
+      .btn-secondary,
+      .btn-wa,
+      .btn-gold {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    /* ── ROI-Rechner ─────────────────────────────────────────── */
+    .roi-rechner {
+      background: linear-gradient(135deg, #f0faf8 0%, #e8f4f8 100%);
+      border: 2px solid var(--primary);
+      border-radius: 16px;
+      padding: 2rem 2.2rem;
+      margin-top: 2rem;
+    }
+
+    .roi-rechner h3 {
+      font-family: "Raleway", sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 0 0 0.3rem;
+    }
+
+    .roi-rechner .roi-subtitle {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin: 0 0 1.5rem;
+    }
+
+    .roi-inputs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.4rem;
+      align-items: start;
+    }
+
+    .roi-annahmen {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 0.8rem;
+      margin-bottom: 1.1rem;
+    }
+
+    .roi-annahme {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.75rem 0.9rem;
+      box-shadow: var(--shadow);
+    }
+
+    .roi-annahme .label {
+      display: block;
+      font-size: 0.74rem;
+      color: var(--muted);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin-bottom: 0.2rem;
+    }
+
+    .roi-annahme .value {
+      font-family: "Raleway", sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .roi-field {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .roi-field label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 0.35rem;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      min-height: 2.7em;
+    }
+
+    .roi-field input[type="number"],
+    .roi-field select {
+      width: 100%;
+      padding: 0.6rem 0.85rem;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: inherit;
+      background: #fff;
+      color: var(--text);
+      min-height: 52px;
+      outline: none;
+      transition: border-color 0.15s;
+      -moz-appearance: textfield;
+    }
+
+    .roi-field input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
+
+    .roi-field input:focus,
+    .roi-field select:focus {
+      border-color: var(--primary);
+    }
+
+    .roi-stepper {
+      display: grid;
+      grid-template-columns: 48px 1fr 48px;
+      align-items: stretch;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      background: #fff;
+      min-height: 52px;
+    }
+
+    .roi-stepper input[type="number"] {
+      border: none;
+      border-left: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      border-radius: 0;
+      text-align: center;
+      min-height: 50px;
+    }
+
+    .roi-stepper-btn {
+      border: none;
+      background: #f8fafc;
+      color: var(--primary);
+      font-size: 1.4rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    .roi-stepper-btn:hover {
+      background: #eef6f7;
+    }
+
+    .roi-ergebnis {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+      margin-top: 0.5rem;
+      align-items: stretch;
+    }
+
+    .roi-kachel {
+      background: #fff;
+      border-radius: 12px;
+      padding: 1rem 1.2rem;
+      box-shadow: var(--shadow);
+      border-left: 4px solid var(--primary);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .roi-kachel.highlight {
+      border-left-color: var(--accent);
+      background: linear-gradient(135deg, #fffbeb, #fff8e1);
+    }
+
+    .roi-kachel .roi-label {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin-bottom: 0.3rem;
+    }
+
+    .roi-kachel .roi-value {
+      font-family: "Raleway", sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1.1;
+    }
+
+    .roi-kachel.highlight .roi-value {
+      color: #92620a;
+    }
+
+    .roi-kachel .roi-sub {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: auto;
+      padding-top: 0.45rem;
+    }
+
+    .roi-vorteile {
+      margin: 1rem 0 0;
+      padding: 0.85rem 1rem 0.85rem 1.2rem;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .roi-vorteile li {
+      margin: 0.2rem 0;
+      color: var(--text);
+    }
+
+    .roi-hinweis {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 1.2rem;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 767px) {
+      .roi-rechner {
+        padding: 1.4rem 1.2rem;
+      }
+      .roi-inputs {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -853,28 +1347,44 @@
         </div>
         <div>
           <div class="topbar-title">Jonas Plener &amp; Timo Hügel</div>
-          <div class="topbar-tagline">Agentur für Deutsche Vermögensberatung<br />Region Kinzigtal / Ortenau</div>
+          <div class="topbar-tagline">
+            Agentur für Deutsche Vermögensberatung<br />
+            Region Kinzigtal / Ortenau
+          </div>
         </div>
       </div>
 
       <div class="menu-wrap">
-        <div class="menu-text">Für Eltern, Selbstständige und Angestellte<br />im Kinzigtal &amp; der Ortenau</div>
+        <div class="menu-text">
+          Für Eltern, Selbstständige und Angestellte<br />
+          im Kinzigtal &amp; der Ortenau
+        </div>
+
         <button type="button" class="burger-btn" id="burgerBtn" aria-label="Menü öffnen" aria-expanded="false" aria-controls="menuPanel">
-          <span class="burger-lines" aria-hidden="true"><span></span><span></span><span></span></span>
+          <span class="burger-lines" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
         </button>
       </div>
 
       <div class="menu-overlay" id="menuOverlay"></div>
+
       <nav class="menu-panel" id="menuPanel" aria-label="Navigation">
         <div class="menu-header">
           <span class="menu-header-title">Menü</span>
           <button type="button" class="menu-close-btn" aria-label="Menü schließen">✕</button>
         </div>
+
         <div class="menu-content">
           <section class="menu-section">
             <h2 class="menu-section-title">Startseite</h2>
-            <ul class="menu-section-links"><li><a href="index.html">Themenauswahl</a></li></ul>
+            <ul class="menu-section-links">
+              <li><a href="index.html">Themenauswahl</a></li>
+            </ul>
           </section>
+
           <section class="menu-section">
             <h2 class="menu-section-title">Angestellt</h2>
             <ul class="menu-section-links">
@@ -886,6 +1396,7 @@
               <li><a href="immobilien-finanzierung.html">Immobilien &amp; Finanzierung</a></li>
             </ul>
           </section>
+
           <section class="menu-section">
             <h2 class="menu-section-title">Eltern &amp; Familie</h2>
             <ul class="menu-section-links">
@@ -895,18 +1406,18 @@
               <li><a href="risikoleben.html">Familie absichern</a></li>
             </ul>
           </section>
+
           <section class="menu-section">
             <h2 class="menu-section-title">Unternehmer &amp; Selbstständig</h2>
             <ul class="menu-section-links">
-              <li><a href="liquiditaet.html" class="active">Liquidität</a></li>
-              <li><a href="mitarbeiter-benefits.html">Mitarbeiter Benefits</a></li>
+              <li><a href="liquiditaet.html">Liquidität</a></li>
+              <li><a href="betriebliche-krankenversicherung.html" class="active">Betriebliche Krankenversicherung</a></li>
               <li><a href="energie.html">Energie</a></li>
-              <li><a href="unternehmer-absicherung.html">Unternehmer absichern</a></li>
-              <li><a href="vertraege-optimieren.html">Verträge optimieren</a></li>
+              <li><a href="betriebliche-sachversicherung.html">Betriebliche Sachversicherungen</a></li>
               <li><a href="ruerup.html">Rürup</a></li>
-              <li><a href="immobilien-finanzierung.html">Immobilien &amp; Finanzierung</a></li>
             </ul>
           </section>
+
           <section class="menu-section">
             <h2 class="menu-section-title">Karriere &amp; Ausbildung</h2>
             <ul class="menu-section-links">
@@ -920,47 +1431,67 @@
 
     <header class="hero">
       <div class="hero-inner">
-        <div class="hero-text">
-          <div class="hero-label"><span class="dot"></span>Liquidität · Factoring · Rechnungsfinanzierung</div>
-          <h1>Liquidität sichern heißt: <strong>offene Rechnungen in 2 Bankarbeitstagen zu Geld machen</strong></h1>
+        <div class="hero-text animate-on-scroll">
+          <div class="hero-label"><span class="dot"></span>bKV · Arbeitgebervorteile · Mitarbeiterbindung</div>
+
+          <h1>bKV heißt: <strong>mehr Nutzen als reine Gehaltserhöhung</strong></h1>
+
           <p class="hero-lead">
-            Viele Unternehmen haben kein Auftragsproblem, sondern ein Timing-Problem: Material, Löhne, Steuern
-            und Einkauf müssen früher bezahlt werden, als der Kunde überweist. Genau hier wird <strong>Factoring</strong>
-            spannend, weil aus offenen Forderungen je nach Modell oft innerhalb von <strong>2 Bankarbeitstagen</strong>
-            nutzbare Liquidität werden kann.
+            Viele Arbeitgeber stehen vor derselben Frage: Wie erhöhe ich den wahrgenommenen Mehrwert für mein Team,
+            ohne jeden zusätzlichen Euro einfach als Lohnnebenkosten zu verbrennen? <strong>Genau hier wird die
+            betriebliche Krankenversicherung spannend</strong>, weil sie Versorgung, Bindung und Arbeitgeberattraktivität
+            oft effizienter verbindet als klassischer Mehrlohn.
           </p>
 
           <div class="highlight-box">
-            Factoring ist heute oft mehr als Rechnungsverkauf: <strong>Auszahlung, Abrechnungsservice,
-            Debitorenmanagement, Ausfallschutz</strong> und je nach Bedarf ergänzende Bausteine wie
-            <strong>Mietkauf oder Leasing</strong> können miteinander kombiniert werden.
+            Viele denken: <strong>"bKV ist nur ein nettes Extra."</strong>
+            In der Praxis ist sie ein klarer Arbeitgebervorteil: bessere Versorgung, schnellerer Zugang
+            zu Leistungen und oft weniger Ausfalltage im Team.
           </div>
 
           <div class="hero-badges">
-            <a href="#warum" class="badge"><span>Warum Factoring</span><span class="arrow">↓</span></a>
-            <a href="#leistungen" class="badge"><span>Leistungen</span><span class="arrow">↓</span></a>
-            <a href="#rechner" class="badge"><span>Rechner</span><span class="arrow">↓</span></a>
-            <a href="#ablauf" class="badge"><span>Ablauf</span><span class="arrow">↓</span></a>
+            <a href="#warum" class="badge"><span>Warum bKV</span><span class="arrow">↓</span></a>
+            <a href="#vorteile" class="badge"><span>Vorteile</span><span class="arrow">↓</span></a>
+            <a href="#roi" class="badge"><span>ROI-Rechner</span><span class="arrow">↓</span></a>
+            <a href="#bindung" class="badge"><span>Bindung</span><span class="arrow">↓</span></a>
+            <a href="#kontakt" class="badge"><span>Kontakt</span><span class="arrow">↓</span></a>
           </div>
 
           <div class="cta-row">
-            <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-primary">Liquidität &amp; Factoring gemeinsam prüfen</a>
-            <a href="https://wa.me/4915141678134" target="_blank" rel="noopener" class="btn-wa">Jonas kontaktieren</a>
-            <a href="https://wa.me/4917663796605" target="_blank" rel="noopener" class="btn-secondary">Timo kontaktieren</a>
+            <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-primary">
+              bKV für deinen Betrieb prüfen
+            </a>
+            <a href="https://wa.me/4915141678134" target="_blank" rel="noopener" class="btn-wa">
+              Jonas kontaktieren
+            </a>
+            <a href="https://wa.me/4917663796605" target="_blank" rel="noopener" class="btn-secondary">
+              Timo kontaktieren
+            </a>
           </div>
         </div>
 
-        <div class="hero-photo">
+        <div class="hero-photo animate-on-scroll">
           <div class="hero-people">
-            <div class="hero-person jonas"><div class="hero-image-box"><img src="jonas-halbkoerper.png" alt="Jonas Plener" /></div></div>
-            <div class="hero-person timo"><div class="hero-image-box"><img src="timo-halbkoerper.png" alt="Timo Hügel" /></div></div>
+            <div class="hero-person jonas">
+              <div class="hero-image-box">
+                <img src="jonas-halbkoerper.png" alt="Jonas Plener" />
+              </div>
+            </div>
+
+            <div class="hero-person timo">
+              <div class="hero-image-box">
+                <img src="timo-halbkoerper.png" alt="Timo Hügel" />
+              </div>
+            </div>
           </div>
+
           <div class="hero-card">
-            <h3>Factoring im Kern</h3>
+            <h3>bKV im Kern</h3>
             <ul>
-              <li>offene Rechnungen in 2 Bankarbeitstagen vorfinanzieren</li>
-              <li>je nach Modell mit Abrechnungsservice, Mahnwesen und Delkredere</li>
-              <li>Liquidität für Einkauf, Wachstum, Skonto und Entspannung im Alltag</li>
+              <li>keine Gesundheitsfragen</li>
+              <li>stärker als Mehrlohn</li>
+              <li>Bindung &amp; Recruiting</li>
+              <li>echter Arbeitgebervorteil</li>
             </ul>
           </div>
         </div>
@@ -971,302 +1502,243 @@
           <div class="contact-name">Jonas Plener</div>
           <div class="contact-role">Vermögensberater bei der Deutschen Vermögensberatung</div>
           <div class="contact-links">
-            <a href="tel:+4915141678134">0151 41678134</a>
-            <a href="mailto:Jonas.Plener@dvag.de">Jonas.Plener@dvag.de</a>
+            <a href="tel:+4915141678134">📞 0151 41678134</a>
+            <a href="mailto:Jonas.Plener@dvag.de">✉️ Jonas.Plener@dvag.de</a>
           </div>
         </div>
+
         <div class="contact-card">
           <div class="contact-name">Timo Hügel</div>
           <div class="contact-role">Vermögensberater bei der Deutschen Vermögensberatung</div>
           <div class="contact-links">
-            <a href="tel:+4917663796605">0176 63796605</a>
-            <a href="mailto:Timo.Huegel@dvag.de">Timo.Huegel@dvag.de</a>
+            <a href="tel:+4917663796605">📞 0176 63796605</a>
+            <a href="mailto:Timo.Huegel@dvag.de">✉️ Timo.Huegel@dvag.de</a>
           </div>
         </div>
       </div>
-
-      <div class="stats-grid">
-        <article class="stat-card blue">
-          <div class="stat-label">Auszahlung</div>
-          <div class="stat-number">2 Bankarbeitstage</div>
-          <p class="stat-copy">Je nach Anbieter und Prüfung kann ein Großteil der Rechnung sehr schnell auf deinem Konto sein.</p>
-        </article>
-        <article class="stat-card orange">
-          <div class="stat-label">Liquidität</div>
-          <div class="stat-number">häufig 80 bis 90 % sofort</div>
-          <p class="stat-copy">Der vorfinanzierte Anteil entlastet Betriebsmittel, Löhne, Materialkauf und Steuertermine.</p>
-        </article>
-        <article class="stat-card blue">
-          <div class="stat-label">Service</div>
-          <div class="stat-number">Abrechnung &amp; Debitoren</div>
-          <p class="stat-copy">Je nach Modell lassen sich Rechnungsprüfung, Abrechnungsservice und Mahnwesen mit auslagern.</p>
-        </article>
-        <article class="stat-card green">
-          <div class="stat-label">Erweiterung</div>
-          <div class="stat-number">Mietkauf &amp; Leasing</div>
-          <p class="stat-copy">Für Maschinen, Fahrzeuge oder Ausstattung kann Factoring mit weiteren Finanzierungsbausteinen sinnvoll ergänzt werden.</p>
-        </article>
-      </div>
-
     </header>
 
     <main>
       <section id="warum">
-        <h2>1) Warum Factoring für viele Betriebe sofort Druck rausnimmt</h2>
-        <p class="section-subtitle">Wenn du Leistung heute erbringst, aber dein Geld erst Wochen später bekommst, finanzierst du deinen Kunden mit. Factoring verschiebt diesen Hebel.</p>
+        <h2>Warum bKV f&#252;r Arbeitgeber strategisch interessant ist</h2>
+        <p class="section-subtitle">
+          Kurz gesagt: Mit bKV gibst du deinem Team einen echten Gesundheitsvorteil,
+          der oft st&#228;rker wirkt als eine kleine Gehaltserh&#246;hung.
+          <strong>Mehr Nutzen f&#252;r Mitarbeiter, oft planbarer f&#252;r den Betrieb.</strong>
+        </p>
+
         <div class="grid-2">
-          <article class="card blue-card">
-            <div class="card-title">Das eigentliche Liquiditätsproblem</div>
-            <div class="number-pill">Cashflow-Lücke</div>
-            <p>Löhne, Material, Sozialabgaben und Steuern laufen weiter, während deine Forderung noch offen ist. Gerade bei Wachstum wird das schnell zum Bremsklotz.</p>
+          <div class="card animate-on-scroll">
+            <div class="card-title">Einfaches Beispiel: Gehalt vs. bKV</div>
             <ul>
-              <li>mehr Umsatz bedeutet oft zuerst mehr Vorfinanzierung</li>
-              <li>lange Zahlungsziele blockieren Handlungsspielraum</li>
-              <li>ein einzelner großer Spätzahler kann Kettenreaktionen auslösen</li>
+              <li>Du gibst 100 EUR extra Budget pro Mitarbeiter aus.</li>
+              <li>Bei Gehalt kommt davon h&#228;ufig deutlich weniger netto an.</li>
+              <li>Bei bKV wird der Vorteil direkt als Gesundheitsleistung erlebt.</li>
             </ul>
-          </article>
-          <article class="card amber-card">
-            <div class="card-title">Was Factoring daran verändert</div>
-            <div class="number-pill">Forderung wird Cash</div>
-            <p>Du veräußerst offene Forderungen an einen Factor und bekommst einen Großteil frühzeitig ausgezahlt. Der Rest folgt nach Zahlung abzüglich Gebühren.</p>
+          </div>
+
+          <div class="card animate-on-scroll">
+            <div class="card-title">Die bKV-Alternative: Versorgung statt Lohnkosten</div>
             <ul>
-              <li>Liquidität wird planbarer statt zufällig</li>
-              <li>Abhängigkeit vom Kontokorrent sinkt</li>
-              <li>Investitionen und Einkauf lassen sich ruhiger steuern</li>
+              <li>Bei 45&nbsp;&euro; pro Monat liegt die bKV h&#228;ufig innerhalb der <strong>50-&euro;-Sachbezugsfreigrenze</strong> (unter Voraussetzungen lohnsteuer- und sozialabgabenfrei).</li>
+              <li>Der Mitarbeiter nimmt es als echten Vorteil wahr &#8211; es ist konkrete Versorgung, nicht abstrakt Netto.</li>
+              <li>Return on Invest: Oft g&#252;nstiger als der Brutto-Aufwand einer reinen Gehaltserh&#246;hung.</li>
             </ul>
-          </article>
+          </div>
         </div>
       </section>
 
-      <section id="leistungen">
-        <h2>2) Welche Bausteine rund um Factoring interessant sein können</h2>
-        <p class="section-subtitle">Für viele Unternehmer ist nicht nur die schnelle Auszahlung entscheidend, sondern das Gesamtpaket aus Service, Struktur und ergänzender Finanzierung.</p>
-        <div class="grid-2">
-          <article class="service-card blue-card">
-            <div class="service-title">Factoring mit schneller Auszahlung</div>
-            <p>Der klassische Hebel: Rechnungen einreichen und je nach Modell oft innerhalb von 2 Bankarbeitstagen einen Großteil der Summe erhalten.</p>
-            <ul>
-              <li>mehr Liquidität für Löhne, Material und Steuertermine</li>
-              <li>bessere Planbarkeit bei starkem Wachstum</li>
-              <li>weniger Druck auf die Banklinie</li>
-            </ul>
-          </article>
-          <article class="service-card green-card">
-            <div class="service-title">Abrechnungsservice &amp; Debitorenmanagement</div>
-            <p>Je nach Lösung können Rechnungsprüfung, Debitorenüberwachung, Mahnwesen und Teile der Abwicklung sauber ausgelagert werden.</p>
-            <ul>
-              <li>weniger interner Verwaltungsaufwand</li>
-              <li>klarere Prozesse bei vielen Rechnungen</li>
-              <li>entlastet Vertrieb, Backoffice und Buchhaltung</li>
-            </ul>
-          </article>
-          <article class="service-card amber-card">
-            <div class="service-title">Mietkauf für größere Anschaffungen</div>
-            <p>Wenn Maschinen oder Ausstattung gebraucht werden, aber Liquidität geschont werden soll, kann Mietkauf ein passender ergänzender Baustein sein.</p>
-            <ul>
-              <li>Nutzung sofort möglich, Zahlung verteilt sich über die Laufzeit</li>
-              <li>Eigentumsübergang häufig am Ende der Vertragsdauer</li>
-              <li>sinnvoll bei planbarer langfristiger Nutzung</li>
-            </ul>
-          </article>
-          <article class="service-card signal-card">
-            <div class="service-title">Leasing als Flexibilitätsbaustein</div>
-            <p>Für Fahrzeuge, Technik oder Ausstattung kann Leasing sinnvoll sein, wenn Modernität, Liquiditätsschonung und kalkulierbare Raten im Vordergrund stehen.</p>
-            <ul>
-              <li>geringere Anfangsbelastung als Direktkauf</li>
-              <li>regelmäßige Raten schaffen Kalkulierbarkeit</li>
-              <li>oft stark abhängig von Nutzungsdauer und Restwertlogik</li>
-            </ul>
-          </article>
+      <section id="vorteile">
+        <h2>Die Vorteile der betrieblichen Krankenversicherung</h2>
+        <p class="section-subtitle">
+          F&#252;r Arbeitgeber und Mitarbeiter schafft bKV eine Situation, in der alle gewinnen &#8211;
+          ohne dass Flexibilit&#228;t und Leistung auf der Strecke bleiben.
+        </p>
+
+        <div class="reasons-grid">
+          <div class="reason-box animate-on-scroll">
+            <div><span class="reason-number">1</span><strong>Echte Wertsch&#228;tzung zeigen</strong></div>
+            <p style="margin:0.4rem 0 0;">
+              Mitarbeiter sp&#252;ren: Der Arbeitgeber k&#252;mmert sich nicht nur um Gewinn, sondern auch um ihre Gesundheit.
+              Das st&#228;rkt die emotionale Bindung deutlich mehr als eine blo&#223;e Lohnerh&#246;hung.
+            </p>
+          </div>
+
+          <div class="reason-box animate-on-scroll">
+            <div><span class="reason-number">2</span><strong>Steuerliche Effizienz nutzen</strong></div>
+            <p style="margin:0.4rem 0 0;">
+              Bei passenden Rahmenbedingungen wird die bKV als Sachbezug behandelt.
+              <strong>Bis 50&nbsp;&euro; monatlich je Mitarbeiter</strong> ist sie h&#228;ufig steuer- und SV-g&#252;nstig.
+              Das macht den Mitteleinsatz oft effizienter als reiner Mehrlohn.
+            </p>
+          </div>
+
+          <div class="reason-box animate-on-scroll">
+            <div><span class="reason-number">3</span><strong>Gesundheitskosten senken</strong></div>
+            <p style="margin:0.4rem 0 0;">
+              Mit pr&#228;ventivem Fokus und besserer Versorgung sinken oft Ausfallzeiten. Sind Mitarbeiter gesunder,
+              sind sie produktiver &#8211; ein direkter Return on Invest f&#252;r deinen Betrieb.
+            </p>
+          </div>
+
+          <div class="reason-box animate-on-scroll">
+            <div><span class="reason-number">4</span><strong>Im Recruiting punkten</strong></div>
+            <p style="margin:0.4rem 0 0;">
+              Fachkr&#228;fte vergleichen heute die Gesamtpakete. Ein attraktives bKV-Angebot ist ein echtes
+              Differenzierungsmerkmal gegen gr&#246;&#223;ere Konkurrenten mit h&#246;heren Geh&#228;ltern.
+            </p>
+          </div>
         </div>
       </section>
 
-      <section id="ablauf">
-        <h2>3) Ablauf bildlich: So läuft Factoring typischerweise</h2>
-        <p class="section-subtitle">Factoring ist kein Notnagel für Chaos, sondern ein klar strukturierter Prozess innerhalb eines sauberen Forderungsmanagements.</p>
-        <div class="flow-diagram">
-          <article class="flow-step">
-            <div class="flow-kicker">Schritt 1</div>
-            <h3 class="flow-title">Leistung oder Lieferung</h3>
-            <p>Du erfüllst deinen Auftrag wie bisher und stellst deinem Kunden eine Rechnung.</p>
-          </article>
-          <article class="flow-step">
-            <div class="flow-kicker">Schritt 2</div>
-            <h3 class="flow-title">Rechnung einreichen</h3>
-            <p>Die Forderung geht an den Factor und wird formal sowie bonitätsseitig geprüft.</p>
-          </article>
-          <article class="flow-step">
-            <div class="flow-kicker">Schritt 3</div>
-            <h3 class="flow-title">Auszahlung erhalten</h3>
-            <p>Je nach Modell fließt häufig innerhalb von 2 Bankarbeitstagen der vereinbarte Vorfinanzierungsanteil.</p>
-          </article>
-          <article class="flow-step">
-            <div class="flow-kicker">Schritt 4</div>
-            <h3 class="flow-title">Restabrechnung &amp; Service</h3>
-            <p>Nach Zahlung des Debitors folgt die Restabrechnung. Optional greifen Mahnwesen, Delkredere oder Abrechnungsservice.</p>
-          </article>
-        </div>
-      </section>
+      <section id="roi">
+        <h2>bKV-Rentabilit&auml;tsrechner: Was bringt es deinem Betrieb wirklich?</h2>
+        <p class="section-subtitle">
+          Gib die Eckdaten deines Betriebs ein – der Rechner zeigt dir auf Basis reduzierter AU-Tage,
+          welche Einsparung durch weniger Fehlzeiten entsteht und was nach bKV-Kosten als Rentabilit&auml;t bleibt.
+        </p>
 
-      <section id="rechner">
-        <h2>4) Rentabilitätsrechner: Lohnt sich Factoring bei dir eher operativ oder finanziell?</h2>
-        <p class="section-subtitle">Der Rechner liefert eine schnelle Orientierung. Er ersetzt keine individuelle Kalkulation, zeigt aber, wie Liquiditätsgewinn, Zinsersparnis und Servicekosten zusammenspielen können.</p>
-        <div class="calculator">
-          <div class="calculator-panel">
-            <div class="calculator-grid">
-              <div class="field">
-                <label for="invoiceVolume">Monatliches Rechnungsvolumen in EUR</label>
-                <input id="invoiceVolume" type="number" min="0" step="1000" value="50000" />
+        <div class="card animate-on-scroll">
+          <div class="roi-rechner">
+            <h3>Rentabilit&auml;tsrechner</h3>
+            <p class="roi-subtitle">Einfaches Modell: Einsparung durch weniger AU-Tage minus bKV-Kosten.</p>
+
+            <div class="roi-annahmen">
+              <div class="roi-annahme">
+                <span class="label">Fixer bKV-Beitrag</span>
+                <span class="value">45 € pro MA / Monat</span>
               </div>
-              <div class="field">
-                <label for="paymentTerm">Durchschnittliches Zahlungsziel in Tagen</label>
-                <input id="paymentTerm" type="number" min="0" step="1" value="45" />
-              </div>
-              <div class="field">
-                <label for="advanceRate">Vorfinanzierungsquote in %</label>
-                <input id="advanceRate" type="number" min="0" max="100" step="1" value="85" />
-              </div>
-              <div class="field">
-                <label for="feeRate">Factoring-Kosten in % vom Rechnungsvolumen</label>
-                <input id="feeRate" type="number" min="0" step="0.1" value="2.5" />
-              </div>
-              <div class="field">
-                <label for="interestRate">Alternativer Kontokorrentzins p.a. in %</label>
-                <input id="interestRate" type="number" min="0" step="0.1" value="10.5" />
-              </div>
-              <div class="field">
-                <label for="adminSavings">Geschätzte Prozessersparnis pro Monat in EUR</label>
-                <input id="adminSavings" type="number" min="0" step="50" value="450" />
-              </div>
-              <div class="field">
-                <label for="skontoRate">Möglicher Skonto- oder Einkaufsvorteil in %</label>
-                <input id="skontoRate" type="number" min="0" step="0.1" value="1" />
-              </div>
-              <div class="field">
-                <label for="payoutDays">Auszahlung nach wie vielen Bankarbeitstagen?</label>
-                <input id="payoutDays" type="number" min="0" step="1" value="2" />
+              <div class="roi-annahme">
+                <span class="label">Fixe Kosten pro Krankheitstag</span>
+                <span class="value">400 € pro AU-Tag</span>
               </div>
             </div>
-            <p class="field-note">Orientierungslogik: Zinsersparnis + Prozesseffekt + möglicher Skontohebel minus Factoring-Kosten. Nicht berücksichtigt sind individuelle Vertragsdetails, Ausfallrisiken und steuerliche Effekte.</p>
-          </div>
 
-          <div class="result-stack">
-            <article class="result-card is-info">
-              <div class="result-title">Sofort verfügbare Liquidität</div>
-              <strong id="advanceAmount">0 EUR</strong>
-              <p id="advanceCopy">Der rechnerische Vorfinanzierungsbetrag aus deinem Monatsvolumen.</p>
-            </article>
-            <article class="result-card is-positive">
-              <div class="result-title">Geschätzter Netto-Effekt pro Monat</div>
-              <strong id="netBenefit">0 EUR</strong>
-              <p id="netCopy">Hier siehst du, ob Factoring rechnerisch eher positiv oder eher als Steuerungsinstrument zu betrachten ist.</p>
-            </article>
-            <article class="result-card is-caution">
-              <div class="result-title">Gewonnene Zeit bis zum Geld</div>
-              <strong id="daysSaved">0 Tage</strong>
-              <p id="daysCopy">Die Zeit zwischen üblichem Zahlungseingang und angenommener Vorfinanzierung.</p>
-            </article>
+            <div class="roi-inputs">
+              <div class="roi-field">
+                <label>Anzahl Mitarbeiter</label>
+                <div class="roi-stepper">
+                  <button type="button" class="roi-stepper-btn" data-target="roi-ma" data-delta="-1" aria-label="Mitarbeiter verringern">−</button>
+                  <input type="number" id="roi-ma" value="30" min="1" max="500" />
+                  <button type="button" class="roi-stepper-btn" data-target="roi-ma" data-delta="1" aria-label="Mitarbeiter erhöhen">+</button>
+                </div>
+              </div>
+              <div class="roi-field">
+                <label>Aktuelle AU-Tage pro MA / Jahr</label>
+                <div class="roi-stepper">
+                  <button type="button" class="roi-stepper-btn" data-target="roi-au" data-delta="-0.5" aria-label="AU-Tage verringern">−</button>
+                  <input type="number" id="roi-au" value="20" min="1" max="80" step="0.5" />
+                  <button type="button" class="roi-stepper-btn" data-target="roi-au" data-delta="0.5" aria-label="AU-Tage erhöhen">+</button>
+                </div>
+              </div>
+              <div class="roi-field">
+                <label>Geplante Reduktion AU-Tage pro MA</label>
+                <div class="roi-stepper">
+                  <button type="button" class="roi-stepper-btn" data-target="roi-redtage" data-delta="-0.5" aria-label="Reduktion verringern">−</button>
+                  <input type="number" id="roi-redtage" value="2" min="0" max="20" step="0.5" />
+                  <button type="button" class="roi-stepper-btn" data-target="roi-redtage" data-delta="0.5" aria-label="Reduktion erhöhen">+</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="roi-ergebnis" id="roi-ergebnis"></div>
+
+            <ul class="roi-vorteile">
+              <li>Weitere Vorteile: bessere Arbeitgeberattraktivit&auml;t, schnellere Stellenbesetzung und stabilere Teams.</li>
+              <li>Im Rechner bewertet wird nur der direkte Effekt auf AU-Tage und Ausfallkosten.</li>
+            </ul>
+
+            <p class="roi-hinweis">
+              * Die Reduktion der AU-Tage ist eine Annahme auf Basis von Vorsorge, besserer Versorgung und schnellerer Terminfindung.
+              Die tatsächlichen Effekte variieren je Branche und Mitarbeiterstruktur.
+            </p>
           </div>
         </div>
       </section>
 
-      <section id="vergleich">
-        <h2>5) Ohne Factoring vs. mit Factoring</h2>
-        <p class="section-subtitle">Hier wird sichtbar, warum Factoring in wachsenden oder margensensiblen Betrieben oft eher ein Steuerungsinstrument als ein teures Extra ist.</p>
-        <div class="comparison-table">
-          <div class="comparison-row">
-            <div class="comparison-head">Thema</div>
-            <div class="comparison-head">Ohne Factoring</div>
-            <div class="comparison-head">Mit Factoring</div>
-          </div>
-          <div class="comparison-row">
-            <div class="comparison-head">Zahlungseingang</div>
-            <div class="comparison-cell"><strong>Warten auf Debitor</strong>Dein Betrieb trägt die Zeitspanne bis zur Zahlung allein.</div>
-            <div class="comparison-cell"><strong>früherer Mittelzufluss</strong>Ein großer Teil der Forderung wird oft binnen weniger Bankarbeitstage liquiditätswirksam.</div>
-          </div>
-          <div class="comparison-row">
-            <div class="comparison-head">Kontokorrent</div>
-            <div class="comparison-cell"><strong>oft Dauerlösung</strong>Die Linie wird schnell zum permanenten Puffer für offene Forderungen.</div>
-            <div class="comparison-cell"><strong>gezieltere Nutzung</strong>Der Kontorahmen bleibt eher Reserve statt Standardfinanzierung.</div>
-          </div>
-          <div class="comparison-row">
-            <div class="comparison-head">Service</div>
-            <div class="comparison-cell"><strong>intern gebunden</strong>Buchhaltung und Mahnwesen kosten Zeit, Nerven und oft Personalstunden.</div>
-            <div class="comparison-cell"><strong>auslagerbar</strong>Abrechnungsservice, Überwachung und Mahnwesen können Prozesse spürbar entlasten.</div>
-          </div>
-          <div class="comparison-row">
-            <div class="comparison-head">Ausfallrisiko</div>
-            <div class="comparison-cell"><strong>bleibt im Betrieb</strong>Wenn der Debitor nicht zahlt, trifft es deine Liquidität direkt.</div>
-            <div class="comparison-cell"><strong>je nach Modell reduzierbar</strong>Beim echten Factoring kann der Factor das Risiko mit übernehmen.</div>
-          </div>
-        </div>
-      </section>
+      <section id="wegfall-kosten">
+        <h2>Kosten bei Mitarbeiter-Wegfall und Neubesetzung</h2>
 
-      <section id="modelle">
-        <h2>6) Worauf du bei Factoring, Mietkauf und Leasing achten musst</h2>
-        <p class="section-subtitle">Nicht jedes Modell passt zu jeder Branche. Entscheidend sind Kundenstruktur, Rechnungsvolumen, Marge und die Frage, welcher Finanzierungsmix operativ wirklich hilft.</p>
         <div class="grid-2">
-          <article class="card blue-card">
-            <div class="card-title">Prüfpunkte vor der Entscheidung</div>
+          <div class="card animate-on-scroll">
+            <div class="card-title">Typische Kosten pro Wegfall (Praxiswerte)</div>
             <ul>
-              <li>Wie hoch sind Gesamtkosten aus Gebühr, Zins und Nebenleistungen?</li>
-              <li>Welche Debitoren und Rechnungsarten sind überhaupt factoringfähig?</li>
-              <li>Wie schnell erfolgt die Auszahlung realistisch im Alltag?</li>
-              <li>Passt für Anlagen eher Factoring, Mietkauf, Leasing oder eine Kombination?</li>
+              <li>Recruiting &amp; Auswahl: oft 2.000 bis 5.000&nbsp;&euro; je Stelle.</li>
+              <li>Onboarding &amp; Einarbeitung: h&auml;ufig 3.000 bis 8.000&nbsp;&euro;.</li>
+              <li>Produktivit&auml;tsl&uuml;cke in den ersten Monaten: oft 2.000 bis 10.000&nbsp;&euro;.</li>
+              <li><strong>Gesamt pro Neubesetzung:</strong> je nach Rolle schnell 7.000 bis 20.000&nbsp;&euro;.</li>
             </ul>
-          </article>
-          <article class="card signal-card">
-            <div class="card-title">Typische Stolperstellen</div>
+          </div>
+
+          <div class="card animate-on-scroll">
+            <div class="card-title">Einfaches Rechenbeispiel</div>
             <ul>
-              <li>Factoring für Forderungen mit vielen Reklamationen oder Teilabrechnungen ist oft schwieriger.</li>
-              <li>Sehr kleine Rechnungen oder stark streuende Debitoren passen nicht immer gut ins Modell.</li>
-              <li>Wer nur auf die Gebühr schaut, übersieht oft Prozessqualität und Vertragsdetails.</li>
-              <li>Leasing oder Mietkauf lösen keine schwache Marge, wenn die laufenden Raten nicht sauber kalkuliert sind.</li>
+              <li>Jede vermiedene Neubesetzung spart direkte Such- und Einarbeitungskosten.</li>
+              <li>Zus&auml;tzlich sinken oft Fehlzeiten durch schnellere Versorgung und Vorsorge.</li>
+              <li>bKV ist damit nicht nur ein Benefit, sondern auch ein Stabilit&auml;tsfaktor f&uuml;r das Team.</li>
             </ul>
-          </article>
+          </div>
         </div>
       </section>
 
-      <section id="fuer-wen">
-        <h2>7) Für wen Factoring besonders sinnvoll ist</h2>
-        <p class="section-subtitle">Vor allem dort, wo Umsatz wächst, Zahlungsziele lang sind oder einzelne Forderungsausfälle richtig weh tun können, wird Factoring strategisch interessant.</p>
-        <div class="grid-3">
-          <article class="priority-card">
-            <div class="priority-number">1</div>
-            <h3 class="priority-title">Wachstumsbetriebe</h3>
+      <section id="bindung">
+        <h2>Warum bKV besonders stark bei Mitarbeiterbindung wirkt</h2>
+        <p class="section-subtitle">
+          Mitarbeiterbindung funktioniert nicht &#252;ber Angst oder Druck &#8211;
+          sie entsteht durch das Gef&#252;hl, dass der Arbeitgeber <strong>echte F&#252;rsorge</strong> zeigt.
+          Genau das schafft bKV.
+        </p>
+
+        <div class="grid-2">
+          <div class="card animate-on-scroll">
+            <div class="card-title">Psychologische Wirkung von Gesundheitsversorgung</div>
             <ul>
-              <li>mehr Umsatz bindet mehr Vorfinanzierung</li>
-              <li>Liquidität darf Wachstum nicht ausbremsen</li>
-              <li>Material- und Personalkosten laufen früh</li>
+              <li>Gesundheit ist ein prim&#228;res Grundbed&#252;rfnis &#8211; wenn der Arbeitgeber hier zur Seite steht, wirkt das unterschwellig.</li>
+              <li>Es signalisiert: Wir denken an dich, auch wenn es um Wichtiges geht.</li>
+              <li>Das f&#246;rdert langfristige Loyalit&#228;t deutlich mehr als kurzfristige Bonuszahlungen.</li>
             </ul>
-          </article>
-          <article class="priority-card">
-            <div class="priority-number">2</div>
-            <h3 class="priority-title">Branchen mit langen Zahlungszielen</h3>
+          </div>
+
+          <div class="card animate-on-scroll">
+            <div class="card-title">Besonderheit unter Konkurrenten</div>
             <ul>
-              <li>B2B-Vertrieb mit 30, 60 oder 90 Tagen Ziel</li>
-              <li>Projektgeschäft und Zwischenfinanzierung</li>
-              <li>Abhängigkeit von wenigen größeren Debitoren</li>
+              <li>Viele Betriebe bieten h&#246;here Geh&#228;lter, aber wenige bieten strukturierte Gesundheitsversorgung.</li>
+              <li>Das macht bKV zu einem <strong>Alleinstellungsmerkmal im Recruiting und Retention</strong>.</li>
+              <li>Ergebnis: Geringere Fluktuation und weniger Aufwand bei der Personalsuche.</li>
             </ul>
-          </article>
-          <article class="priority-card">
-            <div class="priority-number">3</div>
-            <h3 class="priority-title">Betriebe mit Strukturbedarf</h3>
-            <ul>
-              <li>Ausfälle sollen planbar abgefedert werden</li>
-              <li>Mahnwesen bindet intern zu viele Ressourcen</li>
-              <li>Banklinie soll geschont oder ergänzt werden</li>
-            </ul>
-          </article>
+          </div>
         </div>
 
-        <div class="cta-row" style="margin-top:1rem;">
-          <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-primary">Factoring für deinen Betrieb konkret einordnen</a>
+        <p class="section-subtitle" style="margin-top:2rem;">
+          <strong>Konkrete Effekte:</strong> Betriebe mit strukturierter bKV berichten von 15&#8211;25&#160;% geringerer Fluktuation
+          und einem besseren Arbeitgeberimage &#8211; vor allem bei den Mitarbeitern, die euch am meisten bedeuten.
+        </p>
+      </section>
+
+      <section id="kontakt">
+        <div class="kontakt-box animate-on-scroll">
+          <h2>Jetzt bKV für deinen Betrieb prüfen</h2>
+          <p>Wir zeigen dir, welche Lösung zu deiner Betriebsgröße passt, wie viel du gegenüber einer Gehaltserhöhung sparst und wie die Einführung unkompliziert läuft.</p>
+          <div class="kontakt-btn-row">
+            <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-primary">bKV für deinen Betrieb anfragen</a>
+            <a href="https://wa.me/4915141678134" target="_blank" rel="noopener" class="btn-wa">Jonas via WhatsApp</a>
+            <a href="https://wa.me/4917663796605" target="_blank" rel="noopener" class="btn-secondary">Timo via WhatsApp</a>
+          </div>
+          <div class="kontakt-mini-row">
+            <a href="tel:+4915141678134" class="kontakt-mini-link">Jonas: 0151 41678134</a>
+            <span style="color:var(--border);">|</span>
+            <a href="tel:+4917663796605" class="kontakt-mini-link">Timo: 0176 63796605</a>
+            <span style="color:var(--border);">|</span>
+            <a href="leistung.html" class="kontakt-mini-link">Alle Leistungen →</a>
+          </div>
         </div>
       </section>
     </main>
 
-    <footer>Diese Seite ersetzt keine individuelle Rechts-, Steuer- oder Sozialversicherungsberatung. Alle Angaben ohne Gewähr.</footer>
+    <footer>
+      Diese Seite ersetzt keine individuelle Rechts-, Steuer- oder Sozialversicherungsberatung.
+      Alle Angaben ohne Gewähr. Maßgeblich sind die gesetzlichen Regelungen und die Informationen der jeweiligen Anbieter.
+    </footer>
   </div>
 
   <script>
@@ -1293,81 +1765,157 @@
 
       burgerBtn.addEventListener("click", function () {
         const isOpen = burgerBtn.getAttribute("aria-expanded") === "true";
-        if (isOpen) closeMenu(); else openMenu();
+        if (isOpen) {
+          closeMenu();
+        } else {
+          openMenu();
+        }
       });
 
       menuCloseBtn.addEventListener("click", closeMenu);
       menuOverlay.addEventListener("click", closeMenu);
 
+      menuPanel.querySelectorAll("a").forEach(function (link) {
+        link.addEventListener("click", function () {
+          const href = this.getAttribute("href");
+          if (href && !href.startsWith("#")) {
+            closeMenu();
+          }
+        });
+      });
+
       document.addEventListener("keydown", function (event) {
-        if (event.key === "Escape") closeMenu();
+        if (event.key === "Escape" && menuPanel.classList.contains("open")) {
+          closeMenu();
+        }
       });
     })();
 
-    (function () {
-      const fields = {
-        invoiceVolume: document.getElementById("invoiceVolume"),
-        paymentTerm: document.getElementById("paymentTerm"),
-        advanceRate: document.getElementById("advanceRate"),
-        feeRate: document.getElementById("feeRate"),
-        interestRate: document.getElementById("interestRate"),
-        adminSavings: document.getElementById("adminSavings"),
-        skontoRate: document.getElementById("skontoRate"),
-        payoutDays: document.getElementById("payoutDays")
-      };
+    document.addEventListener("DOMContentLoaded", function () {
+      const elements = document.querySelectorAll(".animate-on-scroll");
+      const observer = new IntersectionObserver(function (entries, obs) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("in-view");
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
 
-      const outputs = {
-        advanceAmount: document.getElementById("advanceAmount"),
-        advanceCopy: document.getElementById("advanceCopy"),
-        netBenefit: document.getElementById("netBenefit"),
-        netCopy: document.getElementById("netCopy"),
-        daysSaved: document.getElementById("daysSaved"),
-        daysCopy: document.getElementById("daysCopy")
-      };
-
-      if (!fields.invoiceVolume || !outputs.advanceAmount) return;
-
-      function readNumber(element) {
-        return Number(element.value) || 0;
-      }
-
-      function formatCurrency(value) {
-        return new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(value);
-      }
-
-      function render() {
-        const invoiceVolume = readNumber(fields.invoiceVolume);
-        const paymentTerm = readNumber(fields.paymentTerm);
-        const advanceRate = readNumber(fields.advanceRate) / 100;
-        const feeRate = readNumber(fields.feeRate) / 100;
-        const interestRate = readNumber(fields.interestRate) / 100;
-        const adminSavings = readNumber(fields.adminSavings);
-        const skontoRate = readNumber(fields.skontoRate) / 100;
-        const payoutDays = readNumber(fields.payoutDays);
-
-        const advanceAmount = invoiceVolume * advanceRate;
-        const daysSaved = Math.max(paymentTerm - payoutDays, 0);
-        const factoringCost = invoiceVolume * feeRate;
-        const interestSaving = advanceAmount * interestRate * (daysSaved / 360);
-        const skontoBenefit = advanceAmount * skontoRate;
-        const netBenefit = interestSaving + adminSavings + skontoBenefit - factoringCost;
-
-        outputs.advanceAmount.textContent = formatCurrency(advanceAmount);
-        outputs.advanceCopy.textContent = "Das ist der mögliche Vorfinanzierungsbetrag, der deinem Betrieb deutlich früher zur Verfügung stehen kann.";
-        outputs.daysSaved.textContent = daysSaved.toLocaleString("de-DE") + " Tage";
-        outputs.daysCopy.textContent = "So viel Zeit gewinnst du rechnerisch gegenüber dem üblichen Zahlungseingang deines Kunden.";
-        outputs.netBenefit.textContent = formatCurrency(netBenefit);
-        outputs.netCopy.textContent = netBenefit >= 0
-          ? "In dieser groben Rechnung spricht Factoring nicht nur für Stabilität, sondern auch für einen messbaren monatlichen Entlastungseffekt."
-          : "Hier wirkt Factoring rechnerisch eher als Steuerungs- und Liquiditätsinstrument. Gerade bei Wachstum kann das trotzdem strategisch sinnvoll sein.";
-      }
-
-      Object.values(fields).forEach(function (field) {
-        field.addEventListener("input", render);
+      elements.forEach(function (el) {
+        observer.observe(el);
       });
 
-      render();
+      const personsContainer = document.getElementById("persons-container");
+      if (!personsContainer) return;
+
+      const persons = Array.from(personsContainer.querySelectorAll(".person"));
+      const toFill = 5;
+      let animated = false;
+
+      const personsObserver = new IntersectionObserver(function (entries, obs) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting && !animated) {
+            animated = true;
+            let index = 0;
+            const interval = window.setInterval(function () {
+              if (index >= toFill) {
+                window.clearInterval(interval);
+                return;
+              }
+              persons[index].classList.add("filled");
+              index += 1;
+            }, 200);
+            obs.unobserve(personsContainer);
+          }
+        });
+      }, { threshold: 0.4 });
+
+      personsObserver.observe(personsContainer);
+    });
+
+    // ── ROI-Rechner ──────────────────────────────────────────────
+    (function () {
+      const fmt = function (n) {
+        return n.toLocaleString("de-DE", { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + " €";
+      };
+
+      const fmtDays = function (n) {
+        return n.toLocaleString("de-DE", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+      };
+
+      function berechne() {
+        const bkvProMA = 45;
+        const kostenProTag = 400;
+        const ma = Math.max(1, parseInt(document.getElementById("roi-ma").value, 10) || 1);
+        const auTageProMA = Math.max(0, parseFloat(document.getElementById("roi-au").value) || 0);
+        const reduzierteTageProMA = Math.max(0, parseFloat(document.getElementById("roi-redtage").value) || 0);
+
+        const auTageGesamt = ma * auTageProMA;
+        const wegfallendeTage = Math.min(auTageGesamt, ma * reduzierteTageProMA);
+
+        const einsparungDurchWegfall = wegfallendeTage * kostenProTag;
+
+        const bkvJahrGes = ma * bkvProMA * 12;
+        const gesamtNutzen = einsparungDurchWegfall;
+        const nettoEffekt = gesamtNutzen - bkvJahrGes;
+        const roiPct = bkvJahrGes > 0 ? Math.round((gesamtNutzen / bkvJahrGes) * 100) : 0;
+
+        const el = document.getElementById("roi-ergebnis");
+        if (!el) return;
+
+        el.innerHTML =
+          '<div class="roi-kachel">' +
+            '<div class="roi-label">Einsparung durch weniger AU-Tage</div>' +
+            '<div class="roi-value">' + fmt(einsparungDurchWegfall) + '</div>' +
+            '<div class="roi-sub">' + fmtDays(wegfallendeTage) + ' weniger AU-Tage pro Jahr</div>' +
+          '</div>' +
+          '<div class="roi-kachel">' +
+            '<div class="roi-label">bKV-Kosten pro Jahr</div>' +
+            '<div class="roi-value">' + fmt(bkvJahrGes) + '</div>' +
+            '<div class="roi-sub">45 € × 12 × ' + ma + ' Mitarbeiter</div>' +
+          '</div>' +
+          '<div class="roi-kachel highlight">' +
+            '<div class="roi-label">Netto-Rentabilit&auml;t pro Jahr</div>' +
+            '<div class="roi-value">' + fmt(nettoEffekt) + '</div>' +
+            '<div class="roi-sub">Gesamtnutzen: ' + fmt(gesamtNutzen) + ' · bKV-Jahreskosten: ' + fmt(bkvJahrGes) + ' · ROI: ' + roiPct + ' %</div>' +
+          '</div>';
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        ["roi-ma", "roi-au", "roi-redtage"].forEach(function (id) {
+          const el = document.getElementById(id);
+          if (el) el.addEventListener("input", berechne);
+        });
+
+        function stepInput(targetId, delta) {
+          const input = document.getElementById(targetId);
+          if (!input) return;
+
+          const min = input.min !== "" ? parseFloat(input.min) : Number.NEGATIVE_INFINITY;
+          const max = input.max !== "" ? parseFloat(input.max) : Number.POSITIVE_INFINITY;
+          const step = input.step !== "" ? parseFloat(input.step) : 1;
+          const current = parseFloat(input.value) || 0;
+          const nextRaw = current + delta;
+          const bounded = Math.min(max, Math.max(min, nextRaw));
+          const decimals = step.toString().includes(".") ? step.toString().split(".")[1].length : 0;
+          const rounded = Number(bounded.toFixed(decimals));
+          input.value = String(rounded);
+          berechne();
+        }
+
+        document.querySelectorAll(".roi-stepper-btn[data-target]").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            const targetId = btn.getAttribute("data-target");
+            const delta = parseFloat(btn.getAttribute("data-delta") || "0");
+            stepInput(targetId, delta);
+          });
+        });
+
+        berechne();
+      });
     })();
   </script>
 </body>
 </html>
+
