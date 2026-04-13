@@ -124,7 +124,7 @@
       line-height: 1.5;
     }
 
-    /* CATEGORY CARDS (2×2) */
+    /* CATEGORY CARDS (2x2) */
     .cards-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -406,12 +406,10 @@ const DATA = {
     headline:   "Wo siehst du gerade Potenzial?",
     items: [
       { icon:"💧", title:"Liquidität",                      desc:"Geld schneller verfügbar, Cash-Flow optimiert",  href:"liquiditaet.html" },
-      { icon:"👥", title:"Mitarbeiter Benefits",            desc:"Mehr Netto vom Brutto für dein Team",            href:"mitarbeiter-benefits.html" },
+      { icon:"👥", title:"Betriebliche Krankenversicherung", desc:"Mitarbeiterbindung mit echtem Mehrwert",         href:"betriebliche-krankenversicherung.html" },
       { icon:"⚡", title:"Energie",                         desc:"Kosten senken ohne großen Aufwand",              href:"energie.html" },
-      { icon:"🔒", title:"Unternehmer absichern",           desc:"Risiken im Griff – Betrieb & Existenz",         href:"unternehmer-absicherung.html" },
-      { icon:"📋", title:"Verträge optimieren",             desc:"Einsparpotenziale systematisch nutzen",          href:"vertraege-optimieren.html" },
-      { icon:"📊", title:"Rürup-Vorsorge",                  desc:"Steuern sparen & Altersvorsorge aufbauen",       href:"ruerup.html" },
-      { icon:"🏡", title:"Immobilien & Finanzierung",       desc:"Wachstum & Investitionen richtig finanzieren",   href:"immobilien-finanzierung.html" },
+      { icon:"🔒", title:"Betriebliche Sachversicherungen", desc:"Risiken im Betrieb gezielt absichern",          href:"betriebliche-sachversicherung.html" },
+      { icon:"📊", title:"Rürup",                           desc:"Steuern sparen & Altersvorsorge aufbauen",       href:"ruerup.html" },
     ]
   },
   eltern: {
@@ -509,8 +507,8 @@ function trackSub(cat, sub) {
   window.addEventListener('resize', resize);
 
   /* Card-matching colour palette:
-     Angestellt → teal       Unternehmer → dark teal
-     Eltern     → amber      Start       → indigo     */
+     Angestellt -> teal       Unternehmer -> dark teal
+     Eltern     -> amber      Start       -> indigo     */
   const palette = [
     [61,  101, 105],   // teal         (Angestellt)
     [10,  77,  72 ],   // dark teal    (Unternehmer)
