@@ -776,6 +776,60 @@
 
     .contact-links a:hover { color: var(--primary); text-decoration: underline; }
 
+    .kontakt-box {
+      background: linear-gradient(135deg, #e0f2fe, #fef3c7);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 1.5rem 1.4rem 1.7rem;
+      text-align: center;
+      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
+      margin-top: 1.1rem;
+    }
+
+    .kontakt-box h2 {
+      color: var(--primary);
+      margin-bottom: 0.35rem;
+      font-size: 1.3rem;
+      font-family: "Raleway", system-ui, sans-serif;
+      font-weight: 800;
+    }
+
+    .kontakt-box p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.1rem;
+      max-width: 540px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .kontakt-btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: center;
+      margin-bottom: 0.8rem;
+    }
+
+    .kontakt-mini-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+    }
+
+    .kontakt-mini-link {
+      font-size: 0.82rem;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .kontakt-mini-link:hover {
+      text-decoration: underline;
+    }
+
     footer {
       padding: 1rem 1.6rem 1.4rem;
       font-size: 0.78rem;
@@ -810,6 +864,8 @@
       .contact-strip { grid-template-columns: 1fr; }
       .cta-row { flex-direction: column; align-items: stretch; }
       .cta-row a { width: 100%; }
+      .kontakt-btn-row { flex-direction: column; align-items: stretch; }
+      .kontakt-btn-row a { width: 100%; }
       .calculator,
       .calculator-grid { grid-template-columns: 1fr; }
       .field label { min-height: 0; }
@@ -873,7 +929,7 @@
             <h2 class="menu-section-title">Unternehmer &amp; Selbstständig</h2>
             <ul class="menu-section-links">
               <li><a href="liquiditaet.html">Liquidität</a></li>
-              <li><a href="mitarbeiter-benefits.html">Betriebliche Krankenversicherung</a></li>
+              <li><a href="betriebliche-krankenversicherung.html">Betriebliche Krankenversicherung</a></li>
               <li><a href="energie.html">Energie</a></li>
               <li><a href="betriebliche-sachversicherung.html">Betriebliche Sachversicherungen</a></li>
               <li><a href="ruerup.html" class="active">Rürup</a></li>
@@ -941,16 +997,16 @@
           <div class="contact-name">Jonas Plener</div>
           <div class="contact-role">Vermögensberater bei der Deutschen Vermögensberatung</div>
           <div class="contact-links">
-            <a href="tel:+4915141678134">0151 41678134</a>
-            <a href="mailto:Jonas.Plener@dvag.de">Jonas.Plener@dvag.de</a>
+            <a href="tel:+4915141678134">📞 0151 41678134</a>
+            <a href="mailto:Jonas.Plener@dvag.de">✉️ Jonas.Plener@dvag.de</a>
           </div>
         </div>
         <div class="contact-card">
           <div class="contact-name">Timo Hügel</div>
           <div class="contact-role">Vermögensberater bei der Deutschen Vermögensberatung</div>
           <div class="contact-links">
-            <a href="tel:+4917663796605">0176 63796605</a>
-            <a href="mailto:Timo.Huegel@dvag.de">Timo.Huegel@dvag.de</a>
+            <a href="tel:+4917663796605">📞 0176 63796605</a>
+            <a href="mailto:Timo.Huegel@dvag.de">✉️ Timo.Huegel@dvag.de</a>
           </div>
         </div>
       </div>
@@ -1173,13 +1229,29 @@
           welcher Tarif und welche Gesamtkombination wirklich sinnvoll sind</strong>.
         </div>
 
-        <div class="cta-row" style="margin-top:1rem;">
-          <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-primary">Rürup konkret durchrechnen lassen</a>
+        <div class="kontakt-box">
+          <h2>Jetzt Rürup für deine Situation prüfen</h2>
+          <p>Wir zeigen dir, wie stark der Steuereffekt ausfällt und welcher Rürup-Baustein zu Einkommen, Risiko und Planung passt.</p>
+          <div class="kontakt-btn-row">
+            <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-primary">Rürup konkret durchrechnen lassen</a>
+            <a href="https://wa.me/4915141678134" target="_blank" rel="noopener" class="btn-wa">Jonas via WhatsApp</a>
+            <a href="https://wa.me/4917663796605" target="_blank" rel="noopener" class="btn-secondary">Timo via WhatsApp</a>
+          </div>
+          <div class="kontakt-mini-row">
+            <a href="tel:+4915141678134" class="kontakt-mini-link">Jonas: 0151 41678134</a>
+            <span style="color:var(--border);">|</span>
+            <a href="tel:+4917663796605" class="kontakt-mini-link">Timo: 0176 63796605</a>
+            <span style="color:var(--border);">|</span>
+            <a href="leistung.html" class="kontakt-mini-link">Alle Leistungen →</a>
+          </div>
         </div>
       </section>
     </main>
 
-    <footer>Diese Seite ersetzt keine individuelle Rechts-, Steuer- oder Versicherungsberatung. Alle Angaben ohne Gewähr.</footer>
+    <footer>
+      Diese Seite ersetzt keine individuelle Rechts-, Steuer- oder Sozialversicherungsberatung.
+      Alle Angaben ohne Gewähr. Maßgeblich sind die gesetzlichen Regelungen und die Informationen der jeweiligen Anbieter.
+    </footer>
   </div>
 
   <script>
