@@ -103,6 +103,199 @@
       line-height: 1.3;
     }
 
+    .menu-wrap{
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:flex-end;
+      gap:.65rem;
+      min-width:0;
+      margin-left:auto;
+    }
+
+    .menu-text{
+      font-size:.8rem;
+      color:var(--muted);
+      text-align:right;
+      white-space:nowrap;
+    }
+
+    .burger-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:auto;
+      height:auto;
+      border-radius:0;
+      border:none;
+      background:transparent;
+      box-shadow:none;
+      cursor:pointer;
+      transition:opacity .12s ease;
+      padding:0;
+    }
+
+    .burger-btn:hover{
+      transform:none;
+      box-shadow:none;
+      opacity:.7;
+    }
+
+    .burger-lines{
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+    }
+
+    .burger-lines span{
+      display:block;
+      width:22px;
+      height:2.5px;
+      background:#4a787d;
+      border-radius:999px;
+      transition:transform .18s ease, opacity .18s ease;
+    }
+
+    .burger-btn[aria-expanded="true"] .burger-lines span:nth-child(1){
+      transform:translateY(7px) rotate(45deg);
+    }
+
+    .burger-btn[aria-expanded="true"] .burger-lines span:nth-child(2){
+      opacity:0;
+    }
+
+    .burger-btn[aria-expanded="true"] .burger-lines span:nth-child(3){
+      transform:translateY(-7px) rotate(-45deg);
+    }
+
+    .menu-overlay{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.3);
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .15s ease;
+      z-index:40;
+    }
+
+    .menu-overlay.open{
+      opacity:1;
+      pointer-events:auto;
+    }
+
+    .menu-panel{
+      position:fixed;
+      top:0;
+      right:0;
+      height:100vh;
+      width:min(420px, 80vw);
+      background:#ffffff;
+      box-shadow:-8px 0 20px rgba(0,0,0,.15);
+      transform:translateX(100%);
+      transition:transform .25s cubic-bezier(.4,0,.2,1);
+      z-index:50;
+      overflow-y:auto;
+      display:flex;
+      flex-direction:column;
+    }
+
+    .menu-panel.open{
+      transform:translateX(0);
+    }
+
+    .menu-header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:1.2rem 1.2rem;
+      border-bottom:1px solid var(--border);
+      gap:1rem;
+      flex-shrink:0;
+    }
+
+    .menu-header-title{
+      font-family:"Raleway",system-ui,sans-serif;
+      font-weight:700;
+      color:var(--primary);
+      font-size:1rem;
+      text-transform:uppercase;
+      letter-spacing:.02em;
+    }
+
+    .menu-close-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:36px;
+      height:36px;
+      border:none;
+      background:transparent;
+      cursor:pointer;
+      color:var(--primary);
+      font-size:1.4rem;
+      padding:0;
+      transition:color .12s ease;
+    }
+
+    .menu-close-btn:hover{
+      color:var(--muted);
+    }
+
+    .menu-content{
+      flex:1;
+      padding:0.8rem 0;
+      overflow-y:auto;
+    }
+
+    .menu-section{
+      padding:0;
+      margin:0;
+    }
+
+    .menu-section-title{
+      font-family:"Raleway",system-ui,sans-serif;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:.03em;
+      font-size:.75rem;
+      color:var(--primary);
+      padding:0.8rem 1.2rem 0.4rem;
+      margin:0;
+    }
+
+    .menu-section-links{
+      display:flex;
+      flex-direction:column;
+      margin:0;
+      padding:0;
+      list-style:none;
+    }
+
+    .menu-section-links li{
+      margin:0;
+      padding:0;
+    }
+
+    .menu-section-links a{
+      display:flex;
+      align-items:center;
+      padding:.6rem 1.2rem;
+      font-size:.92rem;
+      color:#1f2937;
+      transition:background .12s ease;
+      border-left:3px solid transparent;
+      position:relative;
+    }
+
+    .menu-section-links a:hover{
+      background:#f3f4f6;
+    }
+
+    .menu-section-links a.active{
+      border-left-color:var(--accent);
+      background:rgba(244,190,105,.08);
+    }
+
     /* Hero */
 
     header.hero {
@@ -636,17 +829,87 @@
       <div>
         <div class="topbar-title">Jonas Plener &amp; Timo Hügel</div>
         <div class="topbar-tagline">
-          Agentur für Deutsche Vermögensberatung<br />
-          (Region Kinzigtal / Ortenau)
+
+          Region Kinzigtal / Ortenau
         </div>
       </div>
     </div>
-    <div class="topbar-right">
-      <div class="topbar-right-text">
-        Eltern, Selbstständige und Angestellte<br />
-        im Kinzigtal & der Ortenau
+
+    <div class="menu-wrap">
+      <div class="menu-text">
+        Für Eltern, Selbstständige und Angestellte<br />
+        im Kinzigtal &amp; der Ortenau
       </div>
+
+      <button type="button" class="burger-btn" id="burgerBtn" aria-label="Menü öffnen" aria-expanded="false" aria-controls="menuPanel">
+        <span class="burger-lines" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
     </div>
+
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <nav class="menu-panel" id="menuPanel" aria-label="Navigation">
+      <div class="menu-header">
+        <span class="menu-header-title">Menü</span>
+        <button type="button" class="menu-close-btn" aria-label="Menü schließen">✕</button>
+      </div>
+
+      <div class="menu-content">
+        <section class="menu-section">
+          <h2 class="menu-section-title">Startseite</h2>
+          <ul class="menu-section-links">
+            <li><a href="leistung.html">Leistungen</a></li>
+          </ul>
+        </section>
+
+        <section class="menu-section">
+          <h2 class="menu-section-title">Angestellt</h2>
+          <ul class="menu-section-links">
+            <li><a href="vermoegen-aufbauen-investieren.html">Vermögen aufbauen</a></li>
+            <li><a href="bav.html">bAV</a></li>
+            <li><a href="arbeitskraftabsicherung.html">Arbeitskraft absichern</a></li>
+            <li><a href="risikoleben.html">Familie absichern</a></li>
+            <li><a href="sachversicherungen.html">Sachversicherungen</a></li>
+            <li><a href="immobilien-finanzierung.html">Immobilien &amp; Finanzierung</a></li>
+          </ul>
+        </section>
+
+        <section class="menu-section">
+          <h2 class="menu-section-title">Eltern &amp; Familie</h2>
+          <ul class="menu-section-links">
+            <li><a href="kinder-absichern.html">Kinder absichern</a></li>
+            <li><a href="eltern-retter-kindererziehungszeiten.html">Kindererziehungszeiten</a></li>
+            <li><a href="riester.html">Riester</a></li>
+            <li><a href="risikoleben.html">Familie absichern</a></li>
+          </ul>
+        </section>
+
+        <section class="menu-section">
+          <h2 class="menu-section-title">Unternehmer &amp; Selbstständig</h2>
+          <ul class="menu-section-links">
+            <li><a href="liquiditaet.html">Liquidität</a></li>
+            <li><a href="mitarbeiter-benefits.html">Mitarbeiter Benefits</a></li>
+            <li><a href="energie.html">Energie</a></li>
+            <li><a href="betriebliche-sachversicherung.html">Unternehmer absichern</a></li>
+            <li><a href="vertraege-optimieren.html">Verträge optimieren</a></li>
+            <li><a href="ruerup.html">Ruerup</a></li>
+            <li><a href="immobilien-finanzierung.html">Immobilien &amp; Finanzierung</a></li>
+          </ul>
+        </section>
+
+        <section class="menu-section">
+          <h2 class="menu-section-title">Karriere &amp; Ausbildung</h2>
+          <ul class="menu-section-links">
+            <li><a href="ausbildung-und-zukunft.html">Ausbildung &amp; Zukunft</a></li>
+            <li><a href="karriere-im-finanzbereich.html">Karriere im Finanzbereich</a></li>
+          </ul>
+        </section>
+      </div>
+    </nav>
   </div>
 
   <!-- HERO -->
@@ -999,6 +1262,52 @@
 </div>
 
 <script>
+  (function () {
+    const burgerBtn = document.getElementById("burgerBtn");
+    const menuPanel = document.getElementById("menuPanel");
+    const menuOverlay = document.getElementById("menuOverlay");
+    const menuCloseBtn = menuPanel.querySelector(".menu-close-btn");
+    if (!burgerBtn || !menuPanel || !menuOverlay) return;
+
+    function closeMenu() {
+      menuPanel.classList.remove("open");
+      menuOverlay.classList.remove("open");
+      burgerBtn.setAttribute("aria-expanded", "false");
+      document.body.style.overflow = "";
+    }
+
+    function openMenu() {
+      menuPanel.classList.add("open");
+      menuOverlay.classList.add("open");
+      burgerBtn.setAttribute("aria-expanded", "true");
+      document.body.style.overflow = "hidden";
+    }
+
+    burgerBtn.addEventListener("click", function () {
+      const isOpen = burgerBtn.getAttribute("aria-expanded") === "true";
+      if (isOpen) closeMenu();
+      else openMenu();
+    });
+
+    menuCloseBtn.addEventListener("click", closeMenu);
+    menuOverlay.addEventListener("click", closeMenu);
+
+    menuPanel.querySelectorAll("a").forEach(function (link) {
+      link.addEventListener("click", function () {
+        const href = this.getAttribute("href");
+        if (href && !href.startsWith("#")) {
+          closeMenu();
+        }
+      });
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && menuPanel.classList.contains("open")) {
+        closeMenu();
+      }
+    });
+  })();
+
   document.addEventListener("DOMContentLoaded", function () {
     // Animation on scroll
     const elements = document.querySelectorAll(".animate-on-scroll");
