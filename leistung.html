@@ -2,108 +2,105 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
+  <title>Leistungen – Jonas Plener</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Themenauswahl – Jonas Plener &amp; Timo Hügel</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500&family=Raleway:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500&family=Raleway:wght@500;600;700&display=swap" rel="stylesheet" />
 
   <style>
-    :root{
-      --primary:#4a787d;
-      --accent:#f4be69;
-      --text:#111111;
-      --muted:#4b5563;
-      --bg:#f4f8f8;
-      --bg-soft:#f9fbfb;
-      --border:#e5e7eb;
-      --good:#16a34a;
-      --bad:#dc2626;
-      --wa:#25d366;
-
-      --shadow:0 10px 25px rgba(15,23,42,.06);
-      --shadowStrong:0 18px 45px rgba(15,23,42,.12);
+    :root {
+      --primary: #4a787d;
+      --accent: #f4be69;
+      --text: #111111;
+      --muted: #4b5563;
+      --bg: #f4f8f8;
+      --bg-soft: #f9fbfb;
+      --border: #e5e7eb;
     }
 
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
+    * { box-sizing: border-box; }
 
-    body{
-      margin:0;
-      font-family:"Arimo", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background:radial-gradient(circle at top, #fef3c7 0, #f4f8f8 35%, #dbeafe 100%);
-      color:var(--text);
-      line-height:1.6;
+    body {
+      margin: 0;
+      font-family: "Arimo", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #fef3c7 0, #f4f8f8 35%, #dbeafe 100%);
+      color: var(--text);
+      line-height: 1.6;
     }
 
-    a{color:inherit;text-decoration:none}
+    a { color: inherit; text-decoration: none; }
 
-    .page{
-      max-width:1100px;
-      margin:0 auto;
-      min-height:100vh;
-      background:#fff;
-      box-shadow:0 12px 35px rgba(15,23,42,.12);
-      display:flex;
-      flex-direction:column;
-      overflow:hidden;
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      min-height: 100vh;
+      background: #ffffff;
+      box-shadow: 0 12px 35px rgba(15, 23, 42, 0.12);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
     }
 
-    .topbar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:.8rem 1.8rem;
-      border-bottom:1px solid var(--border);
-      background:linear-gradient(to right, #ffffff, #fef3c7);
-      gap:1rem;
+    /* Topbar */
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.8rem 1.8rem;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(to right, #ffffff, #fef3c7);
     }
 
-    .topbar-left{
-      display:flex;
-      align-items:center;
-      gap:.85rem;
-      min-width:0;
+    .topbar-left { display: flex; align-items: center; gap: 0.85rem; }
+
+    .topbar-avatars {
+      display: flex;
+      align-items: center;
     }
 
-    .topbar-avatars{
-      display:flex;
-      align-items:center;
+    .topbar-avatars img {
+      height: 54px;
+      width: 54px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.25);
+      border: 2px solid #ffffff;
+      background: #ffffff;
     }
 
-    .topbar-avatars img{
-      width:54px;
-      height:54px;
-      border-radius:50%;
-      object-fit:cover;
-      display:block;
-      box-shadow:0 4px 10px rgba(15,23,42,.25);
-      border:2px solid #fff;
-      background:#fff;
+    .topbar-avatars img + img {
+      margin-left: -10px;
     }
 
-    .topbar-avatars img + img{
-      margin-left:-10px;
+    .topbar-title {
+      font-family: "Raleway", system-ui, sans-serif;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      color: var(--primary);
     }
 
-    .topbar-title{
-      font-family:"Raleway",system-ui,sans-serif;
-      font-weight:700;
-      letter-spacing:.03em;
-      font-size:.95rem;
-      text-transform:uppercase;
-      color:var(--primary);
+    .topbar-tagline {
+      font-size: 0.8rem;
+      color: var(--muted);
     }
 
-    .topbar-tagline{
-      font-size:.8rem;
-      color:var(--muted);
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
     }
 
-    .topbar-right{
-      font-size:.8rem;
-      color:var(--muted);
-      text-align:right;
-      white-space:nowrap;
+    .topbar-right-text {
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-align: right;
+      line-height: 1.3;
     }
 
     .menu-wrap{
@@ -299,150 +296,81 @@
       background:rgba(244,190,105,.08);
     }
 
-    .menu-section-links a::before{
-      content:"";
-      position:absolute;
-      left:0;
-      top:0;
-      bottom:0;
-      width:3px;
-      background:var(--accent);
-      opacity:0;
-      transition:opacity .12s ease;
+    /* Hero */
+
+    header.hero {
+      padding: 2rem 1.4rem 2.2rem;
+      border-bottom: 1px solid var(--border);
+      background: radial-gradient(circle at top left, #fdf4e6 0, #ffffff 40%, #e0f2fe 100%);
     }
 
-    .menu-section-links a:hover::before{
-      opacity:1;
+    .hero-inner {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: center;
     }
 
-    header.hero{
-      padding:2rem 1.4rem 2.2rem;
-      border-bottom:1px solid var(--border);
-      background:radial-gradient(circle at top left, #fdf4e6 0, #ffffff 40%, #e0f2fe 100%);
+    .hero-text { flex: 1 1 260px; min-width: 0; }
+
+    .hero-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.15rem 0.65rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+      background: rgba(255, 255, 255, 0.9);
     }
 
-    .hero-inner{
-      display:flex;
-      flex-wrap:wrap;
-      gap:2rem;
-      align-items:center;
+    .hero-label span.dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
     }
 
-    .hero-text{
-      flex:1 1 280px;
-      min-width:0;
+    .hero h1 {
+      font-family: "Raleway", system-ui, sans-serif;
+      font-weight: 700;
+      font-size: 2rem;
+      margin: 0 0 0.7rem;
+      letter-spacing: 0.02em;
     }
 
-    .hero-label{
-      display:inline-flex;
-      align-items:center;
-      gap:.4rem;
-      padding:.15rem .65rem;
-      border-radius:999px;
-      border:1px solid rgba(148,163,184,.8);
-      font-size:.8rem;
-      color:var(--muted);
-      margin-bottom:.6rem;
-      background:rgba(255,255,255,.9);
+    .hero-lead {
+      margin: 0 0 1rem;
+      color: var(--muted);
+      max-width: 36rem;
+      font-size: 0.98rem;
     }
 
-    .hero-label .dot{
-      width:6px;
-      height:6px;
-      border-radius:999px;
-      background:var(--accent);
+    .hero-lead strong { color: var(--primary); }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 0.6rem 0 1.1rem;
     }
 
-    .hero h1{
-      font-family:"Raleway",system-ui,sans-serif;
-      font-weight:800;
-      font-size:2rem;
-      margin:0 0 .7rem;
-      letter-spacing:.02em;
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.32rem;
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.9);
+      font-size: 0.8rem;
+      color: var(--muted);
+      background: #ffffff;
+      box-shadow: 0 3px 8px rgba(15, 23, 42, 0.08);
     }
 
-    .hero h1 strong{color:var(--primary)}
-
-    .hero-lead{
-      margin:0 0 1rem;
-      color:var(--muted);
-      max-width:38rem;
-      font-size:.98rem;
-    }
-
-    .hero-lead strong{
-      font-weight:800;
-      color:var(--primary);
-    }
-
-    .hero-badges{
-      display:flex;
-      flex-wrap:wrap;
-      gap:.5rem;
-      margin:.6rem 0 1.1rem;
-    }
-
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      gap:.32rem;
-      padding:.3rem .7rem;
-      border-radius:999px;
-      border:1px solid rgba(148,163,184,.9);
-      font-size:.8rem;
-      color:var(--muted);
-      background:#fff;
-      box-shadow:0 3px 8px rgba(15,23,42,.08);
-    }
-
-    .badge .arrow{
-      font-size:.9rem;
-      color:var(--primary);
-    }
-
-    .cta-row{
-      display:flex;
-      flex-wrap:wrap;
-      gap:.8rem;
-      align-items:center;
-      margin-top:1rem;
-    }
-
-    .btn-primary, .btn-secondary, .btn-wa, .btn-gold{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding:.9rem 1.7rem;
-      border-radius:999px;
-      font-weight:700;
-      font-size:.95rem;
-      cursor:pointer;
-      border:none;
-      text-align:center;
-      white-space:nowrap;
-      transition:transform .12s ease, filter .12s ease;
-      min-height:54px;
-    }
-
-    .btn-primary, .btn-gold{
-      background:var(--accent);
-      color:#1f2933;
-      box-shadow:0 6px 18px rgba(0,0,0,.12);
-    }
-
-    .btn-secondary, .btn-wa{
-      background:var(--wa);
-      color:#fff;
-      box-shadow:0 6px 18px rgba(0,0,0,.12);
-    }
-
-    .btn-primary:hover,
-    .btn-secondary:hover,
-    .btn-wa:hover,
-    .btn-gold:hover{
-      filter:brightness(1.03);
-      transform:translateY(-1px);
-    }
+    .badge .arrow { font-size: 0.9rem; color: var(--primary); }
 
     .hero-photo{
       flex:0 0 450px;
@@ -581,370 +509,227 @@
       flex:0 0 8px;
     }
 
-    .contact-strip{
-      margin-top:1rem;
-      display:grid;
-      grid-template-columns:repeat(2, minmax(0,1fr));
-      gap:.8rem;
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      align-items: center;
+      margin-top: 1rem;
     }
 
-    .contact-card{
-      background:rgba(255,255,255,.92);
-      border:1px solid var(--border);
-      border-radius:16px;
-      padding:.9rem 1rem;
-      box-shadow:var(--shadow);
+    main {
+      padding: 1.8rem 1.4rem 2.4rem;
+      flex: 1;
+      background: linear-gradient(to bottom, #ffffff 0, #f9fafb 100%);
     }
 
-    .contact-name{
-      font-family:"Raleway",system-ui,sans-serif;
-      font-weight:800;
-      color:var(--primary);
-      margin-bottom:.25rem;
-      font-size:1rem;
+    section { margin-bottom: 2rem; }
+
+    h2 {
+      font-family: "Raleway", system-ui, sans-serif;
+      margin: 0 0 0.4rem;
+      font-size: 1.45rem;
+      color: var(--primary);
     }
 
-    .contact-role{
-      font-size:.84rem;
-      color:var(--muted);
-      margin-bottom:.45rem;
+    .section-subtitle {
+      margin-bottom: 1rem;
+      color: var(--muted);
+      font-size: 0.9rem;
     }
 
-    .contact-links{
-      display:flex;
-      flex-direction:column;
-      gap:.28rem;
-      font-size:.92rem;
+    .section-subtitle strong {
+      font-weight: 700;
+      color: var(--primary);
     }
 
-    .contact-links a:hover{
-      text-decoration:underline;
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
     }
 
-    main{
-      padding:1.8rem 1.4rem 2.4rem;
-      flex:1;
-      background:linear-gradient(to bottom, #ffffff 0, #f9fafb 100%);
+    .card {
+      position: relative;
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 1rem 1.1rem;
+      border: 1.5px solid rgba(74, 120, 125, 0.3);
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+      font-size: 0.9rem;
+      color: var(--muted);
+      display: flex;
+      flex-direction: column;
     }
 
-    section{margin-bottom:2rem}
-
-    h2{
-      font-family:"Raleway",system-ui,sans-serif;
-      margin:0 0 .4rem;
-      font-size:1.45rem;
-      color:var(--primary);
-      font-weight:800;
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      border-top: 3px solid var(--primary);
+      opacity: 0.9;
+      pointer-events: none;
     }
 
-    .section-subtitle{
-      margin-bottom:1rem;
-      color:var(--muted);
-      font-size:.9rem;
+    .card-title {
+      font-family: "Raleway", system-ui, sans-serif;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+      color: var(--text);
+      font-size: 1rem;
     }
 
-    .section-subtitle strong{
-      font-weight:800;
-      color:var(--primary);
+    .card ul { margin: 0.2rem 0 0; padding-left: 1.1rem; flex: 1; }
+    .card li { margin-bottom: 0.18rem; }
+
+    .tagline {
+      font-size: 0.8rem;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.25rem;
     }
 
-    .grid-2{
-      display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
-      gap:1rem;
+    .btn-primary,
+    .btn-secondary,
+    .btn-wa,
+    .btn-gold {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.9rem 1.7rem;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      border: none;
+      text-align: center;
+      white-space: nowrap;
+      transition: transform 0.12s ease, filter 0.12s ease;
+      min-height: 54px;
     }
 
-    .card{
-      background:linear-gradient(to bottom,#fff,var(--bg-soft));
-      border-radius:16px;
-      padding:1rem 1.05rem;
-      border:2px solid rgba(74,120,125,.20);
-      box-shadow:var(--shadow);
-      font-size:.92rem;
-      color:var(--muted);
-      display:flex;
-      flex-direction:column;
+    .btn-primary,
+    .btn-gold {
+      background: var(--accent);
+      color: #1f2933;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
     }
 
-    .card-title{
-      font-family:"Raleway",system-ui,sans-serif;
-      font-weight:800;
-      margin-bottom:.35rem;
-      color:var(--text);
-      font-size:1rem;
+    .btn-secondary {
+      background: #ffffff;
+      color: var(--primary);
+      border: 1px solid rgba(148, 163, 184, 0.85);
     }
 
-    .card ul{
-      margin:.2rem 0 0;
-      padding-left:1.1rem;
-      flex:1;
+    .btn-wa {
+      background: #25d366;
+      color: #fff;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
     }
 
-    .card li{margin-bottom:.18rem}
-    .num{font-weight:800;color:var(--primary)}
-
-    .calc-wrapper{
-      border-radius:18px;
-      padding:1.2rem 1.1rem 1.4rem;
-      background:linear-gradient(to right, #fef3c7 0, #ffffff 45%, #e0f2fe 100%);
-      border:1px solid var(--border);
-      box-shadow:0 10px 25px rgba(15,23,42,.08);
-      margin-top:.6rem;
+    .btn-primary:hover,
+    .btn-secondary:hover,
+    .btn-wa:hover,
+    .btn-gold:hover {
+      filter: brightness(1.03);
+      transform: translateY(-1px);
     }
 
-    .calc-grid{
-      display:grid;
-      grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);
-      gap:1.2rem;
+    .centered-cta {
+      text-align: center;
+      margin-top: 1.4rem;
     }
 
-    .calc-inputs label{
-      display:block;
-      font-size:.85rem;
-      font-weight:700;
-      margin-bottom:.25rem;
+    footer {
+      padding: 1rem 1.4rem 1.3rem;
+      font-size: 0.78rem;
+      color: #6b7280;
+      border-top: 1px solid var(--border);
+      background: #f9fafb;
     }
 
-    .calc-inputs input{
-      width:100%;
-      padding:.55rem .6rem;
-      border-radius:10px;
-      border:1px solid var(--border);
-      font-size:.9rem;
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
     }
 
-    .calc-inputs .field{margin-bottom:.7rem}
-    .calc-btn-row{margin-top:.3rem}
-    .calc-btn-row button{width:100%}
-
-    .calc-result{
-      background:rgba(255,255,255,.9);
-      border-radius:14px;
-      padding:.9rem 1rem;
-      border:1px solid var(--border);
-      font-size:.9rem;
-      color:var(--muted);
+    .animate-on-scroll.in-view {
+      opacity: 1;
+      transform: translateY(0);
     }
 
-    .calc-expl{
-      font-size:.9rem;
-      margin-bottom:.6rem;
-      color:var(--muted);
+    /* Modals */
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
     }
 
-    .calc-expl strong{font-weight:800}
-
-    .calc-values{
-      display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));
-      gap:.6rem;
-      margin-top:.4rem;
+    .modal-backdrop.open {
+      display: flex;
     }
 
-    .calc-value-box{
-      padding:.55rem .7rem;
-      border-radius:12px;
-      background:#fff;
-      border:2px solid var(--border);
-      box-shadow:0 8px 18px rgba(15,23,42,.06);
+    .modal {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 1.3rem 1.4rem 1.2rem;
+      max-width: 420px;
+      width: calc(100% - 2.4rem);
+      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.25);
+      border: 1px solid var(--border);
+      font-size: 0.9rem;
+      color: var(--muted);
     }
 
-    .calc-value-box.today{
-      border-color:rgba(220,38,38,.55);
-      background:#fee2e2;
+    .modal h3 {
+      margin: 0 0 0.4rem;
+      font-family: "Raleway", system-ui, sans-serif;
+      font-size: 1.2rem;
+      color: var(--primary);
     }
 
-    .calc-value-box.boosted{
-      border-color:#111827;
-      background:#f3f4f6;
+    .modal p {
+      margin: 0 0 0.6rem;
     }
 
-    .calc-value-box.diff{
-      border-color:rgba(22,163,74,.55);
-      background:#dcfce7;
+    .modal ul {
+      margin: 0.2rem 0 0.8rem;
+      padding-left: 1.1rem;
     }
 
-    .calc-value-box.total{
-      border-color:rgba(148,163,184,.7);
-      background:#eff6ff;
+    .modal li + li {
+      margin-top: 0.18rem;
     }
 
-    .calc-value-label{
-      font-size:.8rem;
-      color:var(--muted);
-      margin-bottom:.1rem;
+    .modal-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: flex-end;
     }
 
-    .calc-value-number{
-      display:block;
-      font-weight:800;
-      font-size:1.05rem;
-      margin-top:2px;
+    .modal-main-link {
+      text-decoration: none;
     }
 
-    .calc-value-number.red{color:#dc2626}
-    .calc-value-number.green{color:#16a34a}
-    .calc-value-number.black{color:#111827}
+    @media (max-width: 768px) {
+      .topbar { padding-inline: 1rem; }
+      .topbar-right-text { display: none; }
 
-    .calc-note{
-      margin-top:.6rem;
-      font-size:.78rem;
-      color:#6b7280;
-    }
+      header.hero { padding: 1.6rem 1rem 1.8rem; }
+      main { padding: 1.6rem 1rem 2.2rem; }
 
-    .calc-cta-row{
-      margin-top:.8rem;
-      display:flex;
-      flex-wrap:wrap;
-      gap:.6rem;
-    }
-
-    .calc-examples-link{
-      margin-top:.6rem;
-      font-size:.85rem;
-      color:var(--primary);
-      text-decoration:underline;
-      cursor:pointer;
-    }
-
-    .example-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
-      gap:1rem;
-      margin-top:.8rem;
-    }
-
-    .example-card{
-      background:#fff;
-      border-radius:18px;
-      border:1px solid var(--border);
-      padding:1rem 1.1rem 1.1rem;
-      box-shadow:var(--shadow);
-      font-size:.9rem;
-      color:var(--muted);
-    }
-
-    .example-title{
-      font-family:"Raleway",system-ui,sans-serif;
-      font-weight:800;
-      margin-bottom:.4rem;
-      color:var(--text);
-      font-size:1.05rem;
-    }
-
-    .example-row{
-      display:flex;
-      justify-content:space-between;
-      align-items:baseline;
-      margin-bottom:.2rem;
-      gap:.75rem;
-    }
-
-    .example-row strong{font-weight:800}
-
-    .example-highlight{
-      margin-top:.6rem;
-      font-weight:800;
-      color:var(--good);
-    }
-
-    .bar-track{
-      width:100%;
-      height:16px;
-      border-radius:999px;
-      background:#d1d5db;
-      overflow:hidden;
-      margin-top:.25rem;
-      margin-bottom:.4rem;
-    }
-
-    .bar-fill-before{
-      height:100%;
-      background:var(--primary);
-    }
-
-    .bar-fill-after{
-      height:100%;
-      background:var(--accent);
-      width:100%;
-    }
-
-    .example-footnote{
-      font-size:.8rem;
-      color:#6b7280;
-      margin-top:.4rem;
-    }
-
-    .bottom-cta{
-      margin-top:1.6rem;
-      padding:1.1rem 1.1rem 1.3rem;
-      border-radius:18px;
-      background:linear-gradient(to right, #e0f2fe, #fef3c7);
-      border:1px solid var(--border);
-      text-align:center;
-      font-size:.95rem;
-      box-shadow:var(--shadow);
-    }
-
-    .bottom-cta p{
-      margin:0 0 .8rem;
-      color:var(--muted);
-    }
-
-    footer{
-      padding:1rem 1.4rem 1.3rem;
-      font-size:.78rem;
-      color:#6b7280;
-      border-top:1px solid var(--border);
-      background:#f9fafb;
-    }
-
-    .animate-on-scroll{
-      opacity:0;
-      transform:translateY(18px);
-      transition:opacity .7s ease, transform .7s ease;
-    }
-
-    .animate-on-scroll.in-view{
-      opacity:1;
-      transform:translateY(0);
-    }
-
-    @media (min-width:768px){
-      .cta-row .btn-primary{
-        flex:0 0 auto;
-      }
-      .cta-row .btn-wa,
-      .cta-row .btn-secondary{
-        flex:0 0 315px;
-      }
-    }
-
-    @media (max-width:900px){
-      .hero-photo{
-        flex:1 1 100%;
-        min-width:0;
-      }
-    }
-
-    @media (max-width:767px){
-      .topbar{padding-inline:1rem}
-      .topbar-right{display:none}
-
-      .menu-panel{
-        width:100vw;
-      }
-
-      header.hero{padding:1.2rem 1rem 1.5rem}
-      main{padding:1.6rem 1rem 2.2rem}
-
-      .hero-inner{
-        flex-direction:column-reverse;
-        align-items:stretch;
-      }
-
-      .hero h1{font-size:1.45rem}
-      .hero-lead{font-size:.92rem}
+      .hero-inner { flex-direction: column-reverse; align-items: flex-start; }
+      .hero h1 { font-size: 1.5rem; }
+      .hero-lead { font-size: 0.9rem; }
 
       /* ── Foto-Bereich: normaler Flex-Block statt absolute Kinder ── */
       .hero-photo{
@@ -1019,474 +804,626 @@
         padding:14px 20px;
       }
 
-      .cta-row{
-        flex-direction:column;
-        align-items:stretch;
-      }
+      section { margin-bottom: 1.7rem; }
+      .card { padding: 0.85rem 0.9rem; }
 
-      .cta-row a{
-        width:100%;
-      }
+      .btn-primary,
+      .btn-secondary,
+      .btn-wa,
+      .btn-gold { width: 100%; justify-content: center; }
 
-      .contact-strip{
-        grid-template-columns:1fr;
+      .modal {
+        padding: 1.1rem 1.1rem 1rem;
       }
+    }
+  
+    /* Responsive: iPhone Mini & kleine Android Phones (375px - 414px) */
+    @media (max-width: 414px) {
+      body { font-size: 14px; }
+      .topbar { padding: 0.6rem 0.8rem; }
+      .topbar-avatars img { width: 40px; height: 40px; }
+      .topbar-title { font-size: 0.75rem; }
+      .topbar-tagline { font-size: 0.7rem; }
+      .menu-text { font-size: 0.7rem; }
+      header.hero { padding: 1.2rem 0.8rem 1.4rem; }
+      .hero h1 { font-size: 1.3rem; line-height: 1.2; }
+      .hero-lead { font-size: 0.8rem; line-height: 1.4; }
+      .badge { font-size: 0.7rem; padding: 0.2rem 0.5rem; }
+      .cta-row { gap: 0.4rem; flex-direction: column; }
+      .btn-primary, .btn-secondary, .btn-wa, .btn-gold { padding: 0.7rem 1rem; font-size: 0.85rem; width: 100%; }
+      .hero-photo { min-height: 280px; }
+      main { padding: 1.2rem 0.8rem 1.8rem; }
+      h2 { font-size: 1.2rem; }
+      .grid-3, .grid-2 { grid-template-columns: 1fr; }
+      .card { padding: 0.8rem; }
+      .card-title { font-size: 0.9rem; }
+      .card ul { font-size: 0.8rem; }
+      .contact-strip { grid-template-columns: 1fr; }
+      .contact-name { font-size: 0.85rem; }
+      footer { font-size: 0.7rem; padding: 0.8rem; }
+    }
 
-      .calc-grid{
-        grid-template-columns:minmax(0,1fr);
-      }
-
-      .btn-primary,.btn-secondary,.btn-wa,.btn-gold{
-        width:100%;
-        justify-content:center;
-      }
+    @media (max-width: 375px) {
+      .topbar { padding: 0.5rem 0.6rem; }
+      .hero h1 { font-size: 1.1rem; }
+      .hero-lead { font-size: 0.75rem; }
+      h2 { font-size: 1.1rem; }
+      main { padding: 1rem 0.6rem 1.5rem; }
     }
   </style>
 </head>
-
 <body>
-  <div class="page">
+<div class="page">
 
-    <div class="topbar">
-      <div class="topbar-left">
-        <div class="topbar-avatars">
-          <img src="jonas-halbkoerper.png" alt="Jonas Plener" />
-          <img src="timo-halbkoerper.png" alt="Timo Hügel" />
-        </div>
-        <div>
-          <div class="topbar-title">Jonas Plener &amp; Timo Hügel</div>
-          <div class="topbar-tagline">
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <div class="topbar-avatars">
+        <img src="jonas-halbkoerper.png" alt="Jonas Plener" />
+        <img src="timo-halbkoerper.png" alt="Timo Hügel" />
+      </div>
+      <div>
+        <div class="topbar-title">Jonas Plener &amp; Timo Hügel</div>
+        <div class="topbar-tagline">
 
-            Region Kinzigtal / Ortenau
-          </div>
+          Region Kinzigtal / Ortenau
         </div>
       </div>
-
-      <div class="menu-wrap">
-        <div class="menu-text">
-          Für Eltern, Selbstständige und Angestellte<br />
-          im Kinzigtal &amp; der Ortenau
-        </div>
-
-        <button type="button" class="burger-btn" id="burgerBtn" aria-label="Menü öffnen" aria-expanded="false" aria-controls="menuPanel">
-          <span class="burger-lines" aria-hidden="true">
-            <span></span>
-            <span></span>
-            <span></span>
-          </span>
-        </button>
-      </div>
-
-      <div class="menu-overlay" id="menuOverlay"></div>
-
-      <nav class="menu-panel" id="menuPanel" aria-label="Navigation">
-        <div class="menu-header">
-          <span class="menu-header-title">Menü</span>
-          <button type="button" class="menu-close-btn" aria-label="Menü schließen">✕</button>
-        </div>
-
-        <div class="menu-content">
-          <section class="menu-section">
-            <h2 class="menu-section-title">Startseite</h2>
-            <ul class="menu-section-links">
-              <li><a href="leistung.html">Leistungen</a></li>
-            </ul>
-          </section>
-
-          <section class="menu-section">
-            <h2 class="menu-section-title">Angestellt</h2>
-            <ul class="menu-section-links">
-              <li><a href="vermoegen-aufbauen-investieren.html">Vermögen aufbauen</a></li>
-              <li><a href="bav.html">bAV</a></li>
-              <li><a href="arbeitskraftabsicherung.html">Arbeitskraft absichern</a></li>
-              <li><a href="risikoleben.html">Familie absichern</a></li>
-              <li><a href="sachversicherungen.html">Sachversicherungen</a></li>
-              <li><a href="immobilien-finanzierung.html">Immobilien &amp; Finanzierung</a></li>
-            </ul>
-          </section>
-
-          <section class="menu-section">
-            <h2 class="menu-section-title">Eltern &amp; Familie</h2>
-            <ul class="menu-section-links">
-              <li><a href="kinder-absichern.html">Kinder absichern</a></li>
-              <li><a href="eltern-retter-kindererziehungszeiten.html">Kindererziehungszeiten</a></li>
-              <li><a href="riester.html">Riester</a></li>
-              <li><a href="risikoleben.html">Familie absichern</a></li>
-            </ul>
-          </section>
-
-          <section class="menu-section">
-            <h2 class="menu-section-title">Unternehmer &amp; Selbstständig</h2>
-            <ul class="menu-section-links">
-              <li><a href="liquiditaet.html">Liquidität</a></li>
-              <li><a href="mitarbeiter-benefits.html">Betriebliche Krankenversicherung</a></li>
-              <li><a href="energie.html">Energie</a></li>
-              <li><a href="betriebliche-sachversicherung.html">Betriebliche Sachversicherungen</a></li>
-              <li><a href="ruerup.html">Rürup</a></li>
-            </ul>
-          </section>
-
-          <section class="menu-section">
-            <h2 class="menu-section-title">Karriere &amp; Ausbildung</h2>
-            <ul class="menu-section-links">
-              <li><a href="ausbildung-und-zukunft.html">Ausbildung &amp; Zukunft</a></li>
-              <li><a href="karriere-im-finanzbereich.html">Karriere im Finanzbereich</a></li>
-            </ul>
-          </section>
-        </div>
-      </nav>
     </div>
 
-    <header class="hero">
-      <div class="hero-inner">
-
-        <div class="hero-text animate-on-scroll">
-          <div class="hero-label"><span class="dot"></span>Themenauswahl · Beratung · Überblick</div>
-
-          <h1>Finde schnell das Thema, das für Deine <strong>aktuelle Lebenssituation</strong> wirklich relevant ist</h1>
-
-          <p class="hero-lead">
-            Wir sind Jonas Plener und Timo Hügel. Auf dieser Seite findest Du unsere wichtigsten Themen für <strong>Angestellte, Familien, Selbstständige,
-            Unternehmer sowie Berufseinsteiger</strong>. So kannst Du direkt dort einsteigen, wo gerade bei Dir der größte Handlungsbedarf oder das meiste Potenzial liegt.
-          </p>
-
-          <div class="hero-badges">
-            <a href="#angestellt" class="badge"><span>Angestellte</span><span class="arrow">↓</span></a>
-            <a href="#eltern-familie" class="badge"><span>Familie</span><span class="arrow">↓</span></a>
-            <a href="#unternehmer-selbststaendig" class="badge"><span>Selbstständig</span><span class="arrow">↓</span></a>
-            <a href="#karriere-ausbildung" class="badge"><span>Karriere &amp; Ausbildung</span><span class="arrow">↓</span></a>
-          </div>
-
-          <div class="cta-row">
-            <a href="leistung.html" class="btn-primary">
-              Zu unseren Leistungen und Themen
-            </a>
-            <a href="https://wa.me/4915141678134" target="_blank" rel="noopener" class="btn-wa">
-              Jonas kontaktieren
-            </a>
-            <a href="https://wa.me/4917663796605" target="_blank" rel="noopener" class="btn-secondary">
-              Timo kontaktieren
-            </a>
-          </div>
-        </div>
-
-        <div class="hero-photo animate-on-scroll">
-          <div class="hero-people">
-            <div class="hero-person jonas">
-              <div class="hero-image-box">
-                <img src="jonas-halbkoerper.png" alt="Jonas Plener" />
-              </div>
-            </div>
-
-            <div class="hero-person timo">
-              <div class="hero-image-box">
-                <img src="timo-halbkoerper.png" alt="Timo Hügel" />
-              </div>
-            </div>
-          </div>
-
-          <div class="hero-card">
-            <h3>Eure Ansprechpartner</h3>
-            <ul>
-              <li>für Familien, Angestellte und Selbstständige</li>
-              <li>Beratung digital und vor Ort</li>
-            </ul>
-          </div>
-        </div>
-
+    <div class="menu-wrap">
+      <div class="menu-text">
+        Für Eltern, Selbstständige und Angestellte<br />
+        im Kinzigtal &amp; der Ortenau
       </div>
-    </header>
 
-    <main>
+      <button type="button" class="burger-btn" id="burgerBtn" aria-label="Menü öffnen" aria-expanded="false" aria-controls="menuPanel">
+        <span class="burger-lines" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+    </div>
 
-      <section id="angestellt">
-        <h2>Für Angestellte</h2>
-        <div class="section-subtitle">
-          Als Angestellte:r hast Du über den Arbeitgeber und direkt Zugang zu Förderungen, die Deine Rente deutlich nach vorne bringen können.
-        </div>
+    <div class="menu-overlay" id="menuOverlay"></div>
 
-        <div class="grid-2">
-          <div class="card">
-            <div class="card-title">bAV – Betriebliche Altersvorsorge</div>
-            <ul>
-              <li>Über Deinen Arbeitgeber sparen und steuern sparen.</li>
-              <li>Oft mit Arbeitgeberzuschuss.</li>
-            </ul>
-            <a href="bav.html" class="btn-primary" style="display:inline-block;margin-top:.6rem;padding:.6rem 1.2rem;font-size:.85rem;">Mehr erfahren</a>
-          </div>
+    <nav class="menu-panel" id="menuPanel" aria-label="Navigation">
+      <div class="menu-header">
+        <span class="menu-header-title">Menü</span>
+        <button type="button" class="menu-close-btn" aria-label="Menü schließen">✕</button>
+      </div>
 
-          <div class="card">
-            <div class="card-title">Vermögensaufbau und Investieren</div>
-            <ul>
-              <li>Nebenbei vermögen aufbauen für später.</li>
-              <li>Mit regelmäßigen Sparbeiträgen.</li>
-            </ul>
-            <a href="vermoegen-aufbauen-investieren.html" class="btn-primary" style="display:inline-block;margin-top:.6rem;padding:.6rem 1.2rem;font-size:.85rem;">Mehr erfahren</a>
-          </div>
+      <div class="menu-content">
+        <section class="menu-section">
+          <h2 class="menu-section-title">Startseite</h2>
+          <ul class="menu-section-links">
+            <li><a href="leistung.html">Leistungen</a></li>
+          </ul>
+        </section>
 
-          <div class="card">
-            <div class="card-title">Arbeitskraft absichern</div>
-            <ul>
-              <li>Falls Du ausfällst: Dein Einkommen ist geschützt.</li>
-              <li>Eine unterschätzte Versicherung für Angestellte.</li>
-            </ul>
-            <a href="arbeitskraftabsicherung.html" class="btn-primary" style="display:inline-block;margin-top:.6rem;padding:.6rem 1.2rem;font-size:.85rem;">Mehr erfahren</a>
-          </div>
+        <section class="menu-section">
+          <h2 class="menu-section-title">Angestellt</h2>
+          <ul class="menu-section-links">
+            <li><a href="vermoegen-aufbauen-investieren.html">Vermögen aufbauen</a></li>
+            <li><a href="bav.html">bAV</a></li>
+            <li><a href="arbeitskraftabsicherung.html">Arbeitskraft absichern</a></li>
+            <li><a href="risikoleben.html">Familie absichern</a></li>
+            <li><a href="sachversicherungen.html">Sachversicherungen</a></li>
+            <li><a href="immobilien-finanzierung.html">Immobilien &amp; Finanzierung</a></li>
+          </ul>
+        </section>
 
-          <div class="card">
-            <div class="card-title">Sachversicherungen</div>
-            <ul>
-              <li>Haus, Wohnung, Auto und Co. richtig versichern.</li>
-              <li>Ohne Löcher und ohne Überversicherung.</li>
-            </ul>
-            <a href="sachversicherungen.html" class="btn-primary" style="display:inline-block;margin-top:.6rem;padding:.6rem 1.2rem;font-size:.85rem;">Mehr erfahren</a>
-          </div>
+        <section class="menu-section">
+          <h2 class="menu-section-title">Eltern &amp; Familie</h2>
+          <ul class="menu-section-links">
+            <li><a href="kinder-absichern.html">Kinder absichern</a></li>
+            <li><a href="eltern-retter-kindererziehungszeiten.html">Kindererziehungszeiten</a></li>
+            <li><a href="riester.html">Riester</a></li>
+            <li><a href="risikoleben.html">Familie absichern</a></li>
+          </ul>
+        </section>
 
-          <div class="card">
-            <div class="card-title">Familie absichern</div>
-            <ul>
-              <li>Wenn etwas passiert: Deine Familie ist versorgt.</li>
-              <li>Risikoleben und Absicherung klar durchdacht.</li>
-            </ul>
-            <a href="risikoleben.html" class="btn-primary" style="display:inline-block;margin-top:.6rem;padding:.6rem 1.2rem;font-size:.85rem;">Mehr erfahren</a>
-          </div>
+        <section class="menu-section">
+          <h2 class="menu-section-title">Unternehmer &amp; Selbstständig</h2>
+          <ul class="menu-section-links">
+            <li><a href="liquiditaet.html">Liquidität</a></li>
+            <li><a href="mitarbeiter-benefits.html">Mitarbeiter Benefits</a></li>
+            <li><a href="energie.html">Energie</a></li>
+            <li><a href="betriebliche-sachversicherung.html">Unternehmer absichern</a></li>
+            <li><a href="vertraege-optimieren.html">Verträge optimieren</a></li>
+            <li><a href="ruerup.html">Ruerup</a></li>
+            <li><a href="immobilien-finanzierung.html">Immobilien &amp; Finanzierung</a></li>
+          </ul>
+        </section>
 
-          <div class="card">
-            <div class="card-title">Immobilien & Finanzierung</div>
-            <ul>
-              <li>Das Eigenheim: finanziert, versichert, geplant.</li>
-              <li>Wir helfen bei der Gesamtstrategie.</li>
-            </ul>
-            <a href="immobilien-finanzierung.html" class="btn-primary" style="display:inline-block;margin-top:.6rem;padding:.6rem 1.2rem;font-size:.85rem;">Mehr erfahren</a>
-          </div>
-        </div>
-      </section>
-
-      <section id="eltern-familie">
-        <h2>Für Eltern & Familien</h2>
-        <div class="section-subtitle">
-          Mit Kindern oder bei Familienplanung: Hier geht es um Förderung für Eltern und den Schutz Deiner Kinder.
-        </div>
-
-        <div class="grid-2">
-          <div class="card">
-            <div class="card-title">Kindererziehungszeiten</div>
-            <ul>
-                <li>Rentenansprüche aus Erziehungszeiten sauber prüfen und richtig zuordnen.</li>
-                <li>Wichtig für Familien, die keine Ansprüche verschenken wollen.</li>
-            </ul>
-            <a href="eltern-retter-kindererziehungszeiten.html" class="btn-primary" style="display:inline-block;margin-top:.6rem;padding:.6rem 1.2rem;font-size:.85rem;">Mehr erfahren</a>
-          </div>
-
-          <div class="card">
-            <div class="card-title">Riester-Rente mit Zulagen</div>
-            <ul>
-              <li>Grundzulage + Kinderzulagen = Staat zahlt mit.</li>
-              <li>Besonders interessant für Eltern.</li>
-            </ul>
-            <a href="riester.html" class="btn-primary" style="display:inline-block;margin-top:.6rem;padding:.6rem 1.2rem;font-size:.85rem;">Mehr erfahren</a>
-          </div>
-
-          <div class="card">
-            <div class="card-title">Kinder absichern</div>
-            <ul>
-              <li>Für die Ausbildung oder den Start ins Leben.</li>
-              <li>Sinnvolle Vorsorge statt Überversicherung.</li>
-            </ul>
-            <a href="kinder-absichern.html" class="btn-primary" style="display:inline-block;margin-top:.6rem;padding:.6rem 1.2rem;font-size:.85rem;">Mehr erfahren</a>
-          </div>
-
-          <div class="card">
-            <div class="card-title">Familie absichern</div>
-            <ul>
-              <li>Wenn Dir etwas passiert: Deine Familie ist abgesichert.</li>
-              <li>Risikoleben und finanzielle Sicherheit.</li>
-            </ul>
-            <a href="risikoleben.html" class="btn-primary" style="display:inline-block;margin-top:.6rem;padding:.6rem 1.2rem;font-size:.85rem;">Mehr erfahren</a>
-          </div>
-        </div>
-      </section>
-
-      <section id="unternehmer-selbststaendig">
-        <h2>Für Unternehmer & Selbstständige</h2>
-        <div class="section-subtitle">
-          Du machst Dein eigenes Ding? Hier sind die Bausteine für Unternehmer:innen und Selbstständige.
-        </div>
-
-        <div class="grid-2">
-          <div class="card">
-            <div class="card-title">Rürup-Rente (Basisrente)</div>
-            <ul>
-              <li>Hohe Steuerabzüge für Selbstständige und Freiberufler.</li>
-              <li>Renditestark und gefördert vom Staat.</li>
-            </ul>
-            <a href="ruerup.html" class="btn-primary" style="display:inline-block;margin-top:.6rem;padding:.6rem 1.2rem;font-size:.85rem;">Mehr erfahren</a>
-          </div>
-
-          <div class="card">
-            <div class="card-title">Liquidität sichern</div>
-            <ul>
-              <li>Cash ist König – Deine Rücklagen planen.</li>
-              <li>Für Durststrecken und Chancen.</li>
-            </ul>
-            <a href="liquiditaet.html" class="btn-primary" style="display:inline-block;margin-top:.6rem;padding:.6rem 1.2rem;font-size:.85rem;">Mehr erfahren</a>
-          </div>
-
-          <div class="card">
-            <div class="card-title">Verträge optimieren</div>
-            <ul>
-              <li>Versicherungen und Vorsorge im Geschäft prüfen.</li>
-              <li>Oft Einsparpotenzial vorhanden.</li>
-            </ul>
-            <a href="vertraege-optimieren.html" class="btn-primary" style="display:inline-block;margin-top:.6rem;padding:.6rem 1.2rem;font-size:.85rem;">Mehr erfahren</a>
-          </div>
-
-          <div class="card">
-            <div class="card-title">Unternehmer absichern</div>
-            <ul>
-              <li>Wenn Du ausfällst, läuft das Business weiter.</li>
-              <li>Absicherung und Nachfolgeplanung.</li>
-            </ul>
-            <a href="betriebliche-sachversicherung.html" class="btn-primary" style="display:inline-block;margin-top:.6rem;padding:.6rem 1.2rem;font-size:.85rem;">Mehr erfahren</a>
-          </div>
-
-          <div class="card">
-            <div class="card-title">Mitarbeiter-Benefits</div>
-            <ul>
-              <li>Fachkräfte binden und Steuern sparen.</li>
-              <li>Mitarbeiterpflege rechnet sich.</li>
-            </ul>
-            <a href="mitarbeiter-benefits.html" class="btn-primary" style="display:inline-block;margin-top:.6rem;padding:.6rem 1.2rem;font-size:.85rem;">Mehr erfahren</a>
-          </div>
-
-          <div class="card">
-            <div class="card-title">Energie-Versorgung</div>
-            <ul>
-              <li>Energiekosten im Business senken.</li>
-              <li>Förderprogramme nutzen.</li>
-            </ul>
-            <a href="energie.html" class="btn-primary" style="display:inline-block;margin-top:.6rem;padding:.6rem 1.2rem;font-size:.85rem;">Mehr erfahren</a>
-          </div>
-        </div>
-      </section>
-
-      <section id="karriere-ausbildung">
-        <h2>Karriere & Ausbildung</h2>
-        <div class="section-subtitle">
-          Du planst Deinen Weg in die Finanzbranche oder möchtest mehr über die Fachkarriere wissen?
-        </div>
-
-        <div class="grid-2">
-          <div class="card">
-            <div class="card-title">Ausbildung & Zukunft</div>
-            <ul>
-              <li>Wege in die Finanzbranche und darüber hinaus.</li>
-              <li>Ausbildung, Studium, Fortbildung – alles abgedeckt.</li>
-            </ul>
-            <a href="ausbildung-und-zukunft.html" class="btn-primary" style="display:inline-block;margin-top:.6rem;padding:.6rem 1.2rem;font-size:.85rem;">Mehr erfahren</a>
-          </div>
-
-          <div class="card">
-            <div class="card-title">Karriere im Finanzbereich</div>
-            <ul>
-              <li>Als Finanzberater oder Spezialist durchstarten.</li>
-              <li>Chancen und Perspektiven in der Branche.</li>
-            </ul>
-            <a href="karriere-im-finanzbereich.html" class="btn-primary" style="display:inline-block;margin-top:.6rem;padding:.6rem 1.2rem;font-size:.85rem;">Mehr erfahren</a>
-          </div>
-        </div>
-      </section>
-
-      <section id="kontakt" style="margin-bottom:2rem;">
-        <div class="contact-strip">
-          <div class="contact-card">
-            <div class="contact-name">Jonas Plener</div>
-            <div class="contact-role">Finanzberater</div>
-            <div class="contact-links">
-              <a href="tel:+4915141678134">📞 0151 41678134</a>
-              <a href="mailto:Jonas.Plener@dvag.de">✉️ Jonas.Plener@dvag.de</a>
-            </div>
-          </div>
-
-          <div class="contact-card">
-            <div class="contact-name">Timo Hügel</div>
-            <div class="contact-role">Finanzberater</div>
-            <div class="contact-links">
-              <a href="tel:+4917663796605">📞 0176 63796605</a>
-              <a href="mailto:Timo.Huegel@dvag.de">✉️ Timo.Huegel@dvag.de</a>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer>
-      Diese Seite ersetzt keine individuelle Rechts-, Steuer- oder Sozialversicherungsberatung.
-      Alle Angaben ohne Gewähr. Maßgeblich sind die gesetzlichen Regelungen und die Informationen der jeweiligen Anbieter.
-    </footer>
+        <section class="menu-section">
+          <h2 class="menu-section-title">Karriere &amp; Ausbildung</h2>
+          <ul class="menu-section-links">
+            <li><a href="ausbildung-und-zukunft.html">Ausbildung &amp; Zukunft</a></li>
+            <li><a href="karriere-im-finanzbereich.html">Karriere im Finanzbereich</a></li>
+          </ul>
+        </section>
+      </div>
+    </nav>
   </div>
 
-  <script>
-    (function () {
-      const burgerBtn = document.getElementById("burgerBtn");
-      const menuPanel = document.getElementById("menuPanel");
-      const menuOverlay = document.getElementById("menuOverlay");
-      const menuCloseBtn = menuPanel.querySelector(".menu-close-btn");
-      if (!burgerBtn || !menuPanel || !menuOverlay) return;
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="hero-text animate-on-scroll">
+        <div class="hero-label">
+          <span class="dot"></span>
+          Leistungen · Finanzplanung auf Augenhöhe
+        </div>
+        <h1>Unsere Leistungen für Dich, Deine Familie und Dein Unternehmen</h1>
+        <p class="hero-lead">
+          Von der ersten Absicherung über den Eltern-Retter bis hin zur
+          langfristigen Vermögensplanung – Du bekommst alles aus einer Hand.
+          Klar erklärt, transparent und passend zu Deiner Lebenssituation.
+        </p>
 
-      function closeMenu() {
-        menuPanel.classList.remove("open");
-        menuOverlay.classList.remove("open");
-        burgerBtn.setAttribute("aria-expanded", "false");
-        document.body.style.overflow = "";
-      }
+        <div class="hero-badges">
+          <a href="#uebersicht" class="badge">
+            <span>Überblick Privatkunden</span>
+            <span class="arrow">↓</span>
+          </a>
+          <a href="#familie" class="badge">
+            <span>Familie & Kinder</span>
+            <span class="arrow">↓</span>
+          </a>
+          <a href="#unternehmen" class="badge">
+            <span>Für Unternehmen</span>
+            <span class="arrow">↓</span>
+          </a>
+        </div>
 
-      function openMenu() {
-        menuPanel.classList.add("open");
-        menuOverlay.classList.add("open");
-        burgerBtn.setAttribute("aria-expanded", "true");
-        document.body.style.overflow = "hidden";
-      }
+        <div class="hero-badges">
+          <a href="index.html#rentencheck" class="badge">
+            <span>Zum Eltern-Renten-Check</span>
+            <span class="arrow">→</span>
+          </a>
+        </div>
 
-      burgerBtn.addEventListener("click", function () {
-        const isOpen = burgerBtn.getAttribute("aria-expanded") === "true";
-        if (isOpen) closeMenu();
-        else openMenu();
-      });
+        <div class="cta-row">
+          <a href="https://forms.cloud.microsoft/e/DYguRWAj0N"
+             target="_blank"
+             class="btn-primary">
+            Unverbindliches Kennenlerngespräch
+          </a>
+          <a href="https://wa.me/4915141678134" target="_blank" rel="noopener" class="btn-wa">
+            Jonas kontaktieren
+          </a>
+          <a href="https://wa.me/4917663796605" target="_blank" rel="noopener" class="btn-wa">
+            Timo kontaktieren
+          </a>
+        </div>
+      </div>
 
-      menuCloseBtn.addEventListener("click", closeMenu);
-      menuOverlay.addEventListener("click", closeMenu);
+      <div class="hero-photo animate-on-scroll">
+        <div class="hero-people">
+          <div class="hero-person jonas">
+            <div class="hero-image-box">
+              <img src="jonas-halbkoerper.png" alt="Jonas Plener" />
+            </div>
+          </div>
+          <div class="hero-person timo">
+            <div class="hero-image-box">
+              <img src="timo-halbkoerper.png" alt="Timo Hügel" />
+            </div>
+          </div>
+        </div>
+        <div class="hero-card">
+          <h3>Eure Ansprechpartner</h3>
+          <ul>
+            <li>Eltern und Familien im Fokus</li>
+            <li>Beratung digital und vor Ort</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
 
-      menuPanel.querySelectorAll("a").forEach(function (link) {
-        link.addEventListener("click", function () {
-          const href = this.getAttribute("href");
-          if (href && !href.startsWith("#")) {
-            closeMenu();
-          }
-        });
-      });
+  <main>
 
-      document.addEventListener("keydown", function (event) {
-        if (event.key === "Escape" && menuPanel.classList.contains("open")) {
+    <!-- ÜBERSICHT PRIVATKUNDEN -->
+    <section id="uebersicht" class="animate-on-scroll">
+      <div class="tagline">Privatkunden</div>
+      <h2>Alles, was Deine Finanzen stabil macht</h2>
+      <div class="section-subtitle">
+        Du bekommst keinen Produktkatalog, sondern einen roten Faden durch Deine Finanzthemen:
+        Absicherung, Vorsorge und Vermögensaufbau – passend zu Deinem Alltag.
+      </div>
+
+      <div class="grid-3">
+        <!-- Absicherung & Schutz -->
+        <div class="card">
+          <div class="card-title">Absicherung &amp; Schutz</div>
+          <ul>
+            <li>Berufsunfähigkeit &amp; Arbeitskraftabsicherung</li>
+            <li>Haftpflicht, Hausrat, Wohngebäude</li>
+            <li>Risikoleben für Familie &amp; Immobilien</li>
+          </ul>
+        </div>
+
+        <!-- Vorsorge & Rente -->
+        <div class="card">
+          <div class="card-title">Vorsorge &amp; Rente</div>
+          <ul>
+            <li>Riester-Rente mit Zulagen</li>
+            <li>Rürup / Basisrente für Selbstständige &amp; Gutverdiener</li>
+            <li>Betriebliche Altersvorsorge (bAV) über den Arbeitgeber</li>
+          </ul>
+        </div>
+
+        <!-- Vermögensaufbau & Sparen -->
+        <div class="card">
+          <div class="card-title">Vermögensaufbau &amp; Sparen</div>
+          <ul>
+            <li>Investment- &amp; Fondssparpläne</li>
+            <li>Strategien für Einmalanlagen</li>
+            <li>Vermögensstruktur passend zu Deinen Zielen</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="centered-cta">
+        <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" class="btn-primary">
+          Gespräch zu Deinen Themen vereinbaren
+        </a>
+      </div>
+    </section>
+
+    <!-- FAMILIE & KINDER -->
+    <section id="familie" class="animate-on-scroll">
+      <div class="tagline">Familie & Kinder</div>
+      <h2>Eltern-Retter, Kinder-Absicherung und alles dazwischen</h2>
+      <div class="section-subtitle">
+        Für Eltern geht es nicht nur um Zahlen, sondern um Sicherheit für die ganze Familie.
+        Genau dort setzen wir an.
+      </div>
+
+      <div class="grid-3">
+        <!-- Eltern-Retter -->
+        <div class="card">
+          <div class="card-title">Eltern-Retter &amp; Kindererziehungszeiten</div>
+          <ul>
+            <li>Kindererziehungszeiten prüfen und nachmelden</li>
+            <li>Rentenaufbau speziell für Eltern</li>
+            <li>Abgleich mit Deiner Renteninformation</li>
+          </ul>
+        </div>
+
+        <!-- Kinder absichern -->
+        <div class="card">
+          <div class="card-title">Kinder absichern</div>
+          <ul>
+            <li>Unfall- &amp; Gesundheitsabsicherung für Kinder</li>
+            <li>Frühe Arbeitskraftabsicherung (z.&nbsp;B. Schüler-BU)</li>
+            <li>Abstimmung mit den Verträgen der Eltern</li>
+          </ul>
+        </div>
+
+        <!-- Ausbildung & Zukunft -->
+        <div class="card">
+          <div class="card-title">Ausbildung &amp; Zukunft</div>
+          <ul>
+            <li>Sparen für Ausbildung, Studium &amp; Start ins Leben</li>
+            <li>Langfristige Sparpläne auf den Namen des Kindes</li>
+            <li>Klarer Zukunftsplan für Eure Familie</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- zweiter CTA hier wie gewünscht -->
+      <div class="centered-cta">
+        <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" class="btn-primary">
+          Gespräch zu Deinen Themen vereinbaren
+        </a>
+      </div>
+    </section>
+
+    <!-- UNTERNEHMEN & SELBSTSTÄNDIGE -->
+    <section id="unternehmen" class="animate-on-scroll">
+      <div class="tagline">Unternehmen & Selbstständige</div>
+      <h2>Dein Unternehmen, Deine Mitarbeiter, Deine Vorsorge</h2>
+      <div class="section-subtitle">
+        Ob kleiner Betrieb oder wachsendes Unternehmen: Wir helfen Dir, private und betriebliche Themen
+        sauber zu trennen – und trotzdem aufeinander abzustimmen.
+      </div>
+
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-title">bAV – betriebliche Altersvorsorge</div>
+          <ul>
+            <li>Einführung oder Optimierung der bAV im Unternehmen</li>
+            <li>Individuelle Mitarbeiterberatung vor Ort oder digital</li>
+            <li>Unternehmer-Konzept für Deine eigene Versorgung</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="card-title">BKV & Mitarbeiter-Benefits</div>
+          <ul>
+            <li>Betriebliche Krankenversicherung (BKV)</li>
+            <li>Zusatzleistungen zur Mitarbeiterbindung</li>
+            <li>Praxisnahe Umsetzung inkl. Kommunikation</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Unternehmer & Selbstständige</div>
+          <ul>
+            <li>Absicherung der Unternehmer-Person</li>
+            <li>Vermögensaufbau außerhalb des Betriebs</li>
+            <li>Factoring- & Liquiditätslösungen (je nach Branche)</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Karriere &amp; Jobchance</div>
+          <ul>
+            <li>Berufliche Neuorientierung im Finanzbereich</li>
+            <li>Nebenberuflicher Einstieg mit Perspektive</li>
+            <li>Flexible Arbeitsmodelle und Entwicklungschancen</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="centered-cta">
+        <!-- Link soll zu neuer Seite führen -->
+        <a href="unternehmer-termin.html" class="btn-gold">
+          Termin für Unternehmer-Gespräch anfragen
+        </a>
+      </div>
+    </section>
+
+    <!-- Button zurück zum Eltern-Renten-Check -->
+    <section class="centered-cta">
+      <a href="index.html#rentencheck" class="btn-secondary">
+        Zurück zum Eltern-Renten-Check
+      </a>
+    </section>
+
+    <section id="kontakt" style="margin-bottom:2rem;">
+      <div class="contact-strip">
+        <div class="contact-card">
+          <div class="contact-name">Jonas Plener</div>
+          <div class="contact-role">Finanzberater</div>
+          <div class="contact-links">
+            <a href="tel:+4915141678134">📞 0151 41678134</a>
+            <a href="mailto:Jonas.Plener@dvag.de">✉️ Jonas.Plener@dvag.de</a>
+          </div>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-name">Timo Hügel</div>
+          <div class="contact-role">Finanzberater</div>
+          <div class="contact-links">
+            <a href="tel:+4917663796605">📞 0176 63796605</a>
+            <a href="mailto:Timo.Huegel@dvag.de">✉️ Timo.Huegel@dvag.de</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Diese Seite ersetzt keine individuelle Rechts-, Steuer- oder Sozialversicherungsberatung.
+    Alle Angaben ohne Gewähr. Maßgeblich sind die gesetzlichen Regelungen und die Informationen der jeweiligen Anbieter.
+  </footer>
+</div>
+
+<!-- MODALS -->
+
+<!-- Absicherung & Schutz -->
+<div class="modal-backdrop" id="modal-absicherung">
+  <div class="modal">
+    <h3>Absicherung &amp; Schutz – Details</h3>
+    <p>Wähle, womit wir starten sollen:</p>
+    <ul>
+      <li><a href="arbeitskraftabsicherung.html">Berufsunfähigkeit &amp; Arbeitskraftabsicherung</a></li>
+      <li><a href="sachversicherungen.html">Haftpflicht, Hausrat &amp; Wohngebäude</a></li>
+      <li><a href="risikoleben.html">Risikolebensversicherung für Familie &amp; Immobilien</a></li>
+    </ul>
+    <div class="modal-actions">
+      <button type="button" class="btn-secondary" data-close-modal>Schließen</button>
+      <a href="#uebersicht" class="btn-primary modal-main-link">Zur Übersicht Privatkunden</a>
+    </div>
+  </div>
+</div>
+
+<!-- Vorsorge & Rente -->
+<div class="modal-backdrop" id="modal-vorsorge">
+  <div class="modal">
+    <h3>Vorsorge &amp; Rente – Details</h3>
+    <p>Mehr Infos zu den einzelnen Bausteinen:</p>
+    <ul>
+      <li><a href="riester.html">Riester-Rente mit staatlicher Förderung</a></li>
+      <li><a href="ruerup-basisrente.html">Rürup / Basisrente – besonders für Selbstständige</a></li>
+      <li><a href="bav.html">Betriebliche Altersvorsorge (bAV)</a></li>
+    </ul>
+    <div class="modal-actions">
+      <button type="button" class="btn-secondary" data-close-modal>Schließen</button>
+      <a href="#uebersicht" class="btn-primary modal-main-link">Zur Übersicht Privatkunden</a>
+    </div>
+  </div>
+</div>
+
+<!-- Vermögensaufbau & Sparen -->
+<div class="modal-backdrop" id="modal-vermoegen">
+  <div class="modal">
+    <h3>Vermögensaufbau &amp; Sparen – Details</h3>
+    <p>Such Dir aus, womit wir starten:</p>
+    <ul>
+      <li><a href="fondssparen.html">Investment- &amp; Fondssparpläne</a></li>
+      <li><a href="einmalanlagen.html">Konzept für Einmalanlagen</a></li>
+      <li><a href="vermoegensstruktur.html">Vermögensstruktur &amp; Strategie</a></li>
+    </ul>
+    <div class="modal-actions">
+      <button type="button" class="btn-secondary" data-close-modal>Schließen</button>
+      <a href="#uebersicht" class="btn-primary modal-main-link">Zur Übersicht Privatkunden</a>
+    </div>
+  </div>
+</div>
+
+<!-- Eltern-Retter & Kindererziehungszeiten -->
+<div class="modal-backdrop" id="modal-elternretter">
+  <div class="modal">
+    <h3>Eltern-Retter &amp; Kindererziehungszeiten – Details</h3>
+    <p>Was Dich interessiert:</p>
+    <ul>
+      <li><a href="eltern-retter.html">Eltern-Retter – Überblick &amp; Konzept</a></li>
+      <li><a href="kindererziehungszeiten-pruefen.html">Kindererziehungszeiten prüfen &amp; nachmelden</a></li>
+      <li><a href="eltern-rente-optimieren.html">Eltern-Rente gezielt aufbauen</a></li>
+    </ul>
+    <div class="modal-actions">
+      <button type="button" class="btn-secondary" data-close-modal>Schließen</button>
+      <a href="#familie" class="btn-primary modal-main-link">Zur Übersicht Familie &amp; Kinder</a>
+    </div>
+  </div>
+</div>
+
+<!-- Kinder absichern -->
+<div class="modal-backdrop" id="modal-kinderabsichern">
+  <div class="modal">
+    <h3>Kinder absichern – Details</h3>
+    <p>Wo möchtest Du genauer hinschauen?</p>
+    <ul>
+      <li><a href="kinder-gesundheit.html">Gesundheits- &amp; Zusatzschutz für Kinder</a></li>
+      <li><a href="kinder-unfall.html">Kinder-Unfallabsicherung</a></li>
+      <li><a href="schueler-bu.html">Frühe Arbeitskraftabsicherung (Schüler-BU)</a></li>
+    </ul>
+    <div class="modal-actions">
+      <button type="button" class="btn-secondary" data-close-modal>Schließen</button>
+      <a href="#familie" class="btn-primary modal-main-link">Zur Übersicht Familie &amp; Kinder</a>
+    </div>
+  </div>
+</div>
+
+<!-- Ausbildung & Zukunft -->
+<div class="modal-backdrop" id="modal-ausbildung">
+  <div class="modal">
+    <h3>Ausbildung &amp; Zukunft – Details</h3>
+    <p>Wähle, welcher Bereich für Dich gerade wichtig ist:</p>
+    <ul>
+      <li><a href="ausbildungssparen.html">Sparen für Ausbildung &amp; Studium</a></li>
+      <li><a href="kinder-sparplaene.html">Langfristige Sparpläne fürs Kind</a></li>
+      <li><a href="kinder-zukunftsplanung.html">Zukunftsplan &amp; Rollenverteilung</a></li>
+    </ul>
+    <div class="modal-actions">
+      <button type="button" class="btn-secondary" data-close-modal>Schließen</button>
+      <a href="#familie" class="btn-primary modal-main-link">Zur Übersicht Familie &amp; Kinder</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    const burgerBtn = document.getElementById("burgerBtn");
+    const menuPanel = document.getElementById("menuPanel");
+    const menuOverlay = document.getElementById("menuOverlay");
+    const menuCloseBtn = menuPanel.querySelector(".menu-close-btn");
+    if (!burgerBtn || !menuPanel || !menuOverlay) return;
+
+    function closeMenu() {
+      menuPanel.classList.remove("open");
+      menuOverlay.classList.remove("open");
+      burgerBtn.setAttribute("aria-expanded", "false");
+      document.body.style.overflow = "";
+    }
+
+    function openMenu() {
+      menuPanel.classList.add("open");
+      menuOverlay.classList.add("open");
+      burgerBtn.setAttribute("aria-expanded", "true");
+      document.body.style.overflow = "hidden";
+    }
+
+    burgerBtn.addEventListener("click", function () {
+      const isOpen = burgerBtn.getAttribute("aria-expanded") === "true";
+      if (isOpen) closeMenu();
+      else openMenu();
+    });
+
+    menuCloseBtn.addEventListener("click", closeMenu);
+    menuOverlay.addEventListener("click", closeMenu);
+
+    menuPanel.querySelectorAll("a").forEach(function (link) {
+      link.addEventListener("click", function () {
+        const href = this.getAttribute("href");
+        if (href && !href.startsWith("#")) {
           closeMenu();
         }
       });
-    })();
+    });
 
-    document.addEventListener("DOMContentLoaded", () => {
-      const elements = document.querySelectorAll(".animate-on-scroll");
-      const observer = new IntersectionObserver((entries, obs) => {
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && menuPanel.classList.contains("open")) {
+        closeMenu();
+      }
+    });
+  })();
+
+  document.addEventListener("DOMContentLoaded", function () {
+    // Animation on scroll
+    const elements = document.querySelectorAll(".animate-on-scroll");
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("in-view");
             obs.unobserve(entry.target);
           }
         });
-      }, { threshold: 0.2 });
+      },
+      { threshold: 0.2 }
+    );
+    elements.forEach((el) => observer.observe(el));
 
-      elements.forEach((el) => observer.observe(el));
+    // Modals
+    const modalTriggers = document.querySelectorAll("[data-modal-target]");
+    const modalBackdrops = document.querySelectorAll(".modal-backdrop");
+
+    function openModal(id) {
+      const backdrop = document.getElementById(id);
+      if (backdrop) {
+        backdrop.classList.add("open");
+      }
+    }
+
+    function closeAllModals() {
+      modalBackdrops.forEach((mb) => mb.classList.remove("open"));
+    }
+
+    modalTriggers.forEach((card) => {
+      card.addEventListener("click", () => {
+        const id = card.getAttribute("data-modal-target");
+        if (id) openModal(id);
+      });
     });
 
-  </script>
+    modalBackdrops.forEach((mb) => {
+      mb.addEventListener("click", (e) => {
+        if (e.target === mb) {
+          mb.classList.remove("open");
+        }
+      });
+    });
+
+    document.querySelectorAll("[data-close-modal]").forEach((btn) => {
+      btn.addEventListener("click", closeAllModals);
+    });
+
+    // ESC schließt Modals
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        closeAllModals();
+      }
+    });
+  });
+</script>
 </body>
 </html>
+
+
