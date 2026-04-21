@@ -1586,6 +1586,40 @@
         height: 196px;
       }
     }
+  
+    /* Responsive: iPhone Mini & kleine Android Phones (375px - 414px) */
+    @media (max-width: 414px) {
+      body { font-size: 14px; }
+      .topbar { padding: 0.6rem 0.8rem; }
+      .topbar-avatars img { width: 40px; height: 40px; }
+      .topbar-title { font-size: 0.75rem; }
+      .topbar-tagline { font-size: 0.7rem; }
+      .menu-text { font-size: 0.7rem; }
+      header.hero { padding: 1.2rem 0.8rem 1.4rem; }
+      .hero h1 { font-size: 1.3rem; line-height: 1.2; }
+      .hero-lead { font-size: 0.8rem; line-height: 1.4; }
+      .badge { font-size: 0.7rem; padding: 0.2rem 0.5rem; }
+      .cta-row { gap: 0.4rem; flex-direction: column; }
+      .btn-primary, .btn-secondary, .btn-wa, .btn-gold { padding: 0.7rem 1rem; font-size: 0.85rem; width: 100%; }
+      .hero-photo { min-height: 280px; }
+      main { padding: 1.2rem 0.8rem 1.8rem; }
+      h2 { font-size: 1.2rem; }
+      .grid-3, .grid-2 { grid-template-columns: 1fr; }
+      .card { padding: 0.8rem; }
+      .card-title { font-size: 0.9rem; }
+      .card ul { font-size: 0.8rem; }
+      .contact-strip { grid-template-columns: 1fr; }
+      .contact-name { font-size: 0.85rem; }
+      footer { font-size: 0.7rem; padding: 0.8rem; }
+    }
+
+    @media (max-width: 375px) {
+      .topbar { padding: 0.5rem 0.6rem; }
+      .hero h1 { font-size: 1.1rem; }
+      .hero-lead { font-size: 0.75rem; }
+      h2 { font-size: 1.1rem; }
+      main { padding: 1rem 0.6rem 1.5rem; }
+    }
   </style>
 </head>
 <body>
@@ -1598,7 +1632,7 @@
         </div>
         <div>
           <div class="topbar-title">Jonas Plener &amp; Timo Hügel</div>
-          <div class="topbar-tagline">Agentur für Deutsche Vermögensberatung<br />Region Kinzigtal / Ortenau</div>
+          <div class="topbar-tagline">Finanzberatung<br />Region Kinzigtal / Ortenau</div>
         </div>
       </div>
 
@@ -1618,7 +1652,7 @@
         <div class="menu-content">
           <section class="menu-section">
             <h2 class="menu-section-title">Startseite</h2>
-            <ul class="menu-section-links"><li><a href="index.html">Themenauswahl</a></li></ul>
+            <ul class="menu-section-links"><li><a href="leistung.html">Leistungen</a></li></ul>
           </section>
           <section class="menu-section">
             <h2 class="menu-section-title">Angestellt</h2>
@@ -1676,10 +1710,11 @@
             <a href="#hausbudget-rechner" class="badge"><span>Rechner: Wie viel Haus kann ich mir leisten?</span><span class="arrow">↓</span></a>
             <a href="#kaufnebenkosten" class="badge"><span>Notar, Steuer, Makler im Blick</span><span class="arrow">↓</span></a>
             <a href="#zinsstrategie" class="badge"><span>Zinssicherung, Forward, Bausparen</span><span class="arrow">↓</span></a>
-          </div>
+            <a href="#kontakt" class="badge"><span>Kontakt</span><span class="arrow">↓</span></a>
+        </div>
 
           <div class="cta-row">
-            <a href="https://forms.office.com/e/F7Njwm7b2P" target="_blank" rel="noopener" class="btn-primary">Finanzierung gemeinsam durchgehen</a>
+            <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-primary">Finanzierung gemeinsam durchgehen</a>
             <a href="https://wa.me/4915141678134" target="_blank" rel="noopener" class="btn-wa">Jonas kontaktieren</a>
             <a href="https://wa.me/4917663796605" target="_blank" rel="noopener" class="btn-secondary">Timo kontaktieren</a>
           </div>
@@ -1690,235 +1725,22 @@
             <div class="hero-person jonas"><div class="hero-image-box"><img src="jonas-halbkoerper.png" alt="Jonas Plener" /></div></div>
             <div class="hero-person timo"><div class="hero-image-box"><img src="timo-halbkoerper.png" alt="Timo Hügel" /></div></div>
           </div>
-          <div class="hero-card">
-            <h3>Eure Ansprechpartner</h3>
-            <ul>
-              <li>Finanzierungsstruktur verständlich und praxisnah</li>
-              <li>Beratung digital und vor Ort</li>
-            </ul>
-          </div>
+                          <div class="hero-card">
+          <h3>Eure Ansprechpartner</h3>
+          <ul>
+            <li>Finanzierungsstruktur verständlich und praxisnah</li>
+            <li>Beratung digital und vor Ort</li>
+          </ul>
+        </div>
         </div>
       </div>
 
-      <div class="contact-strip">
-        <div class="contact-card">
-          <div class="contact-name">Jonas Plener</div>
-          <div class="contact-role">Vermögensberater bei der Deutschen Vermögensberatung</div>
-          <div class="contact-links">
-            <a href="tel:+4915141678134">0151 41678134</a>
-            <a href="mailto:Jonas.Plener@dvag.de">Jonas.Plener@dvag.de</a>
-          </div>
-        </div>
-        <div class="contact-card">
-          <div class="contact-name">Timo Hügel</div>
-          <div class="contact-role">Vermögensberater bei der Deutschen Vermögensberatung</div>
-          <div class="contact-links">
-            <a href="tel:+4917663796605">0176 63796605</a>
-            <a href="mailto:Timo.Huegel@dvag.de">Timo.Huegel@dvag.de</a>
-          </div>
-        </div>
-      </div>
-    </header>
+      </header>
 
     <main>
-      <section id="vorcheck">
-        <h2>1) Vorcheck: Passt ein konkreter Kaufpreis zu euren Daten?</h2>
-        <p class="section-subtitle">Trag zuerst genau das Haus ein, das dir im Kopf herumschwirrt. In wenigen Angaben siehst du dann sofort, ob es realistisch greifbar ist oder ob die Finanzierung euch unnötig unter Druck setzen würde.</p>
-
-        <div class="calc-shell">
-          <div class="precheck-stack">
-            <div class="calc-card">
-              <div class="chip">Objekt &amp; Haushalt</div>
-
-              <div class="precheck-input-grid">
-                <div class="field-wrap">
-                  <label for="targetPrice">Kaufpreis der Immobilie</label>
-                  <div class="field-row">
-                    <input id="targetPrice" type="number" min="0" step="1000" value="450000" />
-                    <span class="suffix">EUR</span>
-                  </div>
-                </div>
-
-                <div class="field-wrap">
-                  <label for="p1Income">Dein monatliches Nettoeinkommen</label>
-                  <div class="field-row">
-                    <input id="p1Income" type="number" min="0" step="100" value="3200" />
-                    <span class="suffix">EUR</span>
-                  </div>
-                </div>
-
-                <div class="field-wrap">
-                  <label for="p1Fixed">Deine monatlichen Fixkosten</label>
-                  <div class="field-row">
-                    <input id="p1Fixed" type="number" min="0" step="50" value="1200" />
-                    <span class="suffix">EUR</span>
-                  </div>
-                </div>
-
-                <div class="field-wrap">
-                  <label for="p1Equity">Dein Eigenkapital</label>
-                  <div class="field-row">
-                    <input id="p1Equity" type="number" min="0" step="1000" value="60000" />
-                    <span class="suffix">EUR</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="toggle-row" style="margin-top:0.2rem;">
-                <span class="label">Zu zweit finanzieren?</span>
-                <input id="isCouple" type="checkbox" />
-              </div>
-
-              <div id="partnerFields" class="partner-inline-grid hidden">
-                <div class="field-wrap">
-                  <label for="p2Income">Nettoeinkommen Person 2</label>
-                  <div class="field-row">
-                    <input id="p2Income" type="number" min="0" step="100" value="2400" />
-                    <span class="suffix">EUR</span>
-                  </div>
-                </div>
-
-                <div class="field-wrap">
-                  <label for="p2Fixed">Fixkosten Person 2</label>
-                  <div class="field-row">
-                    <input id="p2Fixed" type="number" min="0" step="50" value="650" />
-                    <span class="suffix">EUR</span>
-                  </div>
-                </div>
-
-                <div class="field-wrap">
-                  <label for="p2Equity">Eigenkapital Person 2</label>
-                  <div class="field-row">
-                    <input id="p2Equity" type="number" min="0" step="1000" value="30000" />
-                    <span class="suffix">EUR</span>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-
-            <div class="calc-card compact-card">
-              <div class="chip">Nebenkosten &amp; Zins</div>
-
-              <div class="toggle-row">
-                <span class="label">Grunderwerbsteuer berücksichtigen?</span>
-                <div class="toggle-inline">
-                  <input id="taxOn" type="checkbox" checked />
-                  <input id="taxPct" type="number" min="3" max="6.5" step="0.1" value="5.0" />
-                  <span class="suffix">%</span>
-                </div>
-              </div>
-
-              <div class="toggle-row">
-                <span class="label">Notar + Grundbuch berücksichtigen?</span>
-                <div class="toggle-inline">
-                  <input id="notaryOn" type="checkbox" checked />
-                  <input id="notaryPct" type="number" min="1" max="3" step="0.1" value="2.0" />
-                  <span class="suffix">%</span>
-                </div>
-              </div>
-
-              <div class="toggle-row">
-                <span class="label">Makler berücksichtigen?</span>
-                <div class="toggle-inline">
-                  <input id="brokerOn" type="checkbox" checked />
-                  <input id="brokerPct" type="number" min="0" max="7.14" step="0.01" value="3.57" />
-                  <span class="suffix">%</span>
-                </div>
-              </div>
-
-              <div class="toggle-row">
-                <span class="label">Renovierungspuffer berücksichtigen?</span>
-                <div class="toggle-inline">
-                  <input id="renoOn" type="checkbox" checked />
-                  <input id="renoAmount" type="number" min="0" step="1000" value="15000" />
-                  <span class="suffix">EUR</span>
-                </div>
-              </div>
-
-              <div class="compact-range-row">
-                <div class="compact-range-copy">
-                  <label for="interestPct">Sollzins</label>
-                  <p>Einfach zwischen 2,0 % und 4,0 % verschieben.</p>
-                </div>
-                <div class="field-row">
-                  <input id="interestPct" type="range" min="2" max="4" step="0.1" value="3.2" />
-                  <span class="suffix" id="interestOut">3,2 %</span>
-                </div>
-              </div>
-
-              <p class="small-note">Tilgung ist fest mit 2,0 % pro Jahr berücksichtigt.</p>
-              <p class="small-note">So bekommst du in wenigen Sekunden ein ehrliches Gefühl dafür, wie viel Luft euer Haushalt wirklich hat.</p>
-
-              <div class="calc-button-row precheck-action-row">
-                <button type="button" class="btn-primary" id="precheckButton">Haus berechnen</button>
-              </div>
-            </div>
-
-            <div class="house-card is-hidden" id="houseCard" data-stage="0">
-              <div class="house-title">Ergebnis für dein Wunschobjekt</div>
-              <div class="house-visual">
-                <div class="house-illustration">
-                  <div class="house-sky-glow"></div>
-                  <div class="house-cloud"></div>
-                  <div class="house-cloud-two"></div>
-                  <div class="house-ground"></div>
-                  <div class="house-path"></div>
-                  <div class="house-layer house-layer-base">
-                    <div class="house-shadow"></div>
-                    <div class="house-plinth"></div>
-                    <div class="house-lower"></div>
-                    <div class="house-upper"></div>
-                    <div class="house-garage"></div>
-                    <div class="house-roof-line"></div>
-                    <div class="house-roof-upper"></div>
-                    <div class="house-roof-garage"></div>
-                    <div class="house-wood-panel"></div>
-                    <div class="house-window-wide"></div>
-                    <div class="house-window-tall"></div>
-                    <div class="house-window-slim"></div>
-                    <div class="house-door"></div>
-                    <div class="house-side-door"></div>
-                    <div class="house-solar"></div>
-                    <div class="house-plant-left"></div>
-                    <div class="house-plant-right"></div>
-                  </div>
-                  <div class="house-layer house-layer-fill" id="houseReveal">
-                    <div class="house-sky-glow reveal-step reveal-5"></div>
-                    <div class="house-ground reveal-step reveal-4"></div>
-                    <div class="house-path reveal-step reveal-5"></div>
-                    <div class="house-shadow reveal-step reveal-1"></div>
-                    <div class="house-plinth reveal-step reveal-2"></div>
-                    <div class="house-lower reveal-step reveal-2"></div>
-                    <div class="house-upper reveal-step reveal-3"></div>
-                    <div class="house-garage reveal-step reveal-2"></div>
-                    <div class="house-roof-line reveal-step reveal-3"></div>
-                    <div class="house-roof-upper reveal-step reveal-4"></div>
-                    <div class="house-roof-garage reveal-step reveal-3"></div>
-                    <div class="house-wood-panel reveal-step reveal-4"></div>
-                    <div class="house-window-wide reveal-step reveal-2"></div>
-                    <div class="house-window-tall reveal-step reveal-3"></div>
-                    <div class="house-window-slim reveal-step reveal-4"></div>
-                    <div class="house-door reveal-step reveal-4"></div>
-                    <div class="house-side-door reveal-step reveal-5"></div>
-                    <div class="house-solar reveal-step reveal-5"></div>
-                    <div class="house-plant-left reveal-step reveal-1"></div>
-                    <div class="house-plant-right reveal-step reveal-3"></div>
-                  </div>
-                </div>
-              </div>
-              <p class="house-percent" id="housePercent">-</p>
-              <p class="house-text" id="houseText">Nach dem Klick siehst du, wie viel von deinem Wunschhaus heute schon realistisch drin ist.</p>
-              <div class="house-status warn" id="houseStatus">Noch keine vollständige Berechnung möglich.</div>
-              <a href="#hausbudget-rechner" class="primary-link">Weiter zum Rechner „Wie viel Haus kann ich mir leisten?“</a>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section id="hausbudget-rechner">
-        <h2>2) Rechner: Wie viel Haus kann ich mir leisten?</h2>
-        <p class="section-subtitle">Wenn das Wunschobjekt noch nicht feststeht, zeigt dir dieser zweite Rechner euren belastbaren Rahmen. Gleiche Logik, bewusst schlanker Aufbau, damit du direkt mit echten Größen arbeiten kannst.</p>
+        <h2>Rechner: Wie viel Haus kann ich mir leisten?</h2>
+        <p class="section-subtitle">Schätze deinen leistbaren Rahmen. Die Berechnung berücksichtigt Nebenkosten und begrenzt die Belastung auf max. 30 % des Einkommens für sinnvolle Ergebnisse.</p>
 
         <div class="calc-shell calc-shell-secondary">
           <div class="check-grid">
@@ -1954,6 +1776,13 @@
                   <input id="calcFixed" type="number" min="0" step="50" value="1850" />
                   <span class="suffix">EUR</span>
                 </div>
+              </div>
+
+              <div class="field-wrap" style="margin-bottom:0.5rem;">
+                <label style="display:flex; align-items:center; gap:0.5rem; margin:0; font-weight:700;">
+                  <input id="rentFallsAway" type="checkbox" />
+                  Fixkosten (Miete) fällt bei Finanzierung weg
+                </label>
               </div>
 
               <div class="field-wrap">
@@ -2153,7 +1982,7 @@
           <h2>Jetzt eure Immobilienfinanzierung persönlich sortieren</h2>
           <p>Wir schauen gemeinsam, welcher Kaufpreis wirklich tragbar ist, wie die Nebenkosten sauber eingeplant werden und welche Zinsstrategie zu eurer Lebensphase passt.</p>
           <div class="kontakt-btn-row">
-            <a href="https://forms.office.com/e/F7Njwm7b2P" target="_blank" rel="noopener" class="btn-primary">Immobilienfinanzierung gemeinsam sortieren</a>
+            <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-primary">Immobilienfinanzierung gemeinsam sortieren</a>
             <a href="https://wa.me/4915141678134" target="_blank" rel="noopener" class="btn-wa">Jonas via WhatsApp</a>
             <a href="https://wa.me/4917663796605" target="_blank" rel="noopener" class="btn-secondary">Timo via WhatsApp</a>
           </div>
@@ -2466,7 +2295,11 @@
         }
 
         const sicherheitspuffer = safetyBufferByChildren(children);
-        const leistbareMonatsrate = Math.max(0, income - fixed - sicherheitspuffer);
+        let leistbareMonatsrate = Math.max(0, income - fixed - sicherheitspuffer);
+        
+        // Anpassung: Begrenze auf max. 30% Belastungsquote für sinnvolle Ergebnisse
+        const maxRateByQuote = income * 0.3;
+        leistbareMonatsrate = Math.min(leistbareMonatsrate, maxRateByQuote);
 
         const sollzins = zins / 100;
         const jahresrate = leistbareMonatsrate * 12;
@@ -2562,12 +2395,16 @@
         el.addEventListener("input", updateRechner);
       });
 
-      if (calcHasSecondPerson && calcPerson2Wrap) {
-        calcHasSecondPerson.addEventListener("change", function () {
-          calcPerson2Wrap.classList.toggle("hidden", !calcHasSecondPerson.checked);
-          updateRechner();
-        });
-      }
+      const rentFallsAway = document.getElementById("rentFallsAway");
+      rentFallsAway.addEventListener("change", function() {
+        if (this.checked) {
+          calcFixed.value = 0;
+          calcFixed.disabled = true;
+        } else {
+          calcFixed.disabled = false;
+        }
+        updateRechner();
+      });
 
       if (precheckButton) {
         precheckButton.addEventListener("click", function () {
@@ -2586,3 +2423,7 @@
   </script>
 </body>
 </html>
+
+
+
+
