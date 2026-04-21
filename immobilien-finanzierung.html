@@ -1837,12 +1837,6 @@
               </div>
 
               <div class="result-note" id="calcExplain">Die Werte zeigen, welcher Kaufpreis und welche Monatsrate mit den aktuellen Eingaben rechnerisch möglich sind.</div>
-              <div class="result-fun" id="calcObjectType">Objekt-Feeling: -</div>
-              <div class="ampel-box" id="calcAmpelBox">
-                <div class="ampel-label">Sinnhaftigkeitsbewertung</div>
-                <div class="ampel-status warn" id="calcAmpelStatus">Angespannt</div>
-                <p class="ampel-text" id="calcAmpelText">Das Vorhaben ist machbar, aber finanziell angespannt.</p>
-              </div>
             </div>
           </div>
         </div>
@@ -2083,9 +2077,6 @@
       const calcOutRate = document.getElementById("calcOutRate");
       const calcOutLoan = document.getElementById("calcOutLoan");
       const calcExplain = document.getElementById("calcExplain");
-      const calcAmpelStatus = document.getElementById("calcAmpelStatus");
-      const calcAmpelText = document.getElementById("calcAmpelText");
-      const calcObjectType = document.getElementById("calcObjectType");
 
       let precheckActivated = false;
 
@@ -2153,15 +2144,6 @@
         if (children === 1) return 1000;
         if (children === 2) return 1200;
         return 1200 + ((children - 2) * 200);
-      }
-
-      function getObjectTypeByPrice(price) {
-        if (price < 100000) return "kleine Wohnung oder Einstieg";
-        if (price <= 200000) return "solide kleine Wohnung";
-        if (price <= 350000) return "gute Eigentumswohnung";
-        if (price <= 500000) return "Reihenhaus realistisch";
-        if (price <= 750000) return "solides Haus möglich";
-        return "gehobenes Objekt möglich";
       }
 
       function collectVorcheck() {
@@ -2281,16 +2263,6 @@
             calcExplain.classList.add("error");
             calcExplain.textContent = "Unplausible Eingabe erkannt. Bitte nur Werte ab 0 eingeben.";
           }
-          if (calcAmpelStatus) {
-            calcAmpelStatus.className = "ampel-status bad";
-            calcAmpelStatus.textContent = "Nicht sinnvoll";
-          }
-          if (calcAmpelText) {
-            calcAmpelText.textContent = "Es bleibt aktuell keine tragbare Monatsrate übrig.";
-          }
-          if (calcObjectType) {
-            calcObjectType.textContent = "Objekt-Feeling: kein realistischer Kaufpreis ableitbar.";
-          }
           return;
         }
 
@@ -2316,65 +2288,13 @@
         const belastungsquote = income > 0 ? (leistbareMonatsrate / income) : 1;
         const nebenkosten = maxKaufpreis * NEBENKOSTEN_QUOTE;
 
-        let p1 = 0;
-        if (belastungsquote <= 0.30) p1 = 2;
-        else if (belastungsquote <= 0.40) p1 = 1;
-
-        let p2 = 0;
-        const kleineRateGrenze = Math.max(250, income * 0.10);
-        if (leistbareMonatsrate === 0) p2 = 0;
-        else if (leistbareMonatsrate < kleineRateGrenze) p2 = 1;
-        else p2 = 2;
-
-        let p3 = 0;
-        if (equity >= nebenkosten) p3 = 2;
-        else if (equity >= (nebenkosten * 0.7)) p3 = 1;
-
-        const points = p1 + p2 + p3;
-
-        let status = "Nicht sinnvoll";
-        let statusClass = "bad";
-        let ampelText = "Das Vorhaben ist aktuell nicht sinnvoll darstellbar.";
-
-        if (points >= 5) {
-          status = "Sinnvoll";
-          statusClass = "good";
-          ampelText = "Das Vorhaben wirkt finanziell tragbar und sinnvoll.";
-        } else if (points >= 3) {
-          status = "Angespannt";
-          statusClass = "warn";
-          ampelText = "Das Vorhaben ist machbar, aber finanziell angespannt.";
-        }
-
-        if (leistbareMonatsrate === 0) {
-          status = "Nicht sinnvoll";
-          statusClass = "bad";
-          ampelText = "Es bleibt aktuell keine tragbare Monatsrate übrig.";
-        }
-
         calcOutPrice.textContent = toCurrency(maxKaufpreis);
         calcOutRate.textContent = toCurrency(leistbareMonatsrate);
         calcOutLoan.textContent = toCurrency(darlehensbedarf);
 
-        if (calcObjectType) {
-          if (leistbareMonatsrate === 0) {
-            calcObjectType.textContent = "Objekt-Feeling: kein realistischer Kaufpreis ableitbar.";
-          } else {
-            calcObjectType.textContent = "Objekt-Feeling: " + getObjectTypeByPrice(maxKaufpreis) + ".";
-          }
-        }
-
         if (calcExplain) {
           calcExplain.classList.remove("error");
           calcExplain.textContent = "Die Berechnung arbeitet intern mit 10 % Kaufnebenkosten und einem Sicherheitsbudget von " + toEuro(sicherheitspuffer) + " bei " + children + " Kind(ern).";
-        }
-
-        if (calcAmpelStatus) {
-          calcAmpelStatus.className = "ampel-status " + statusClass;
-          calcAmpelStatus.textContent = status;
-        }
-        if (calcAmpelText) {
-          calcAmpelText.textContent = ampelText;
         }
       }
 
@@ -2393,6 +2313,11 @@
 
       [calcIncome, calcIncomeP2, calcFixed, calcEquity, calcChildren, calcInterest].forEach(function (el) {
         el.addEventListener("input", updateRechner);
+      });
+
+      calcHasSecondPerson.addEventListener("change", function () {
+        calcPerson2Wrap.classList.toggle("hidden", !this.checked);
+        updateRechner();
       });
 
       const rentFallsAway = document.getElementById("rentFallsAway");
