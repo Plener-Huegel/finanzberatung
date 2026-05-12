@@ -1335,6 +1335,40 @@
         grid-template-columns: 1fr;
       }
     }
+  
+    /* Responsive: iPhone Mini & kleine Android Phones (375px - 414px) */
+    @media (max-width: 414px) {
+      body { font-size: 14px; }
+      .topbar { padding: 0.6rem 0.8rem; }
+      .topbar-avatars img { width: 40px; height: 40px; }
+      .topbar-title { font-size: 0.75rem; }
+      .topbar-tagline { font-size: 0.7rem; }
+      .menu-text { font-size: 0.7rem; }
+      header.hero { padding: 1.2rem 0.8rem 1.4rem; }
+      .hero h1 { font-size: 1.3rem; line-height: 1.2; }
+      .hero-lead { font-size: 0.8rem; line-height: 1.4; }
+      .badge { font-size: 0.7rem; padding: 0.2rem 0.5rem; }
+      .cta-row { gap: 0.4rem; flex-direction: column; }
+      .btn-primary, .btn-secondary, .btn-wa, .btn-gold { padding: 0.7rem 1rem; font-size: 0.85rem; width: 100%; }
+      .hero-photo { min-height: 280px; }
+      main { padding: 1.2rem 0.8rem 1.8rem; }
+      h2 { font-size: 1.2rem; }
+      .grid-3, .grid-2 { grid-template-columns: 1fr; }
+      .card { padding: 0.8rem; }
+      .card-title { font-size: 0.9rem; }
+      .card ul { font-size: 0.8rem; }
+      .contact-strip { grid-template-columns: 1fr; }
+      .contact-name { font-size: 0.85rem; }
+      footer { font-size: 0.7rem; padding: 0.8rem; }
+    }
+
+    @media (max-width: 375px) {
+      .topbar { padding: 0.5rem 0.6rem; }
+      .hero h1 { font-size: 1.1rem; }
+      .hero-lead { font-size: 0.75rem; }
+      h2 { font-size: 1.1rem; }
+      main { padding: 1rem 0.6rem 1.5rem; }
+    }
   </style>
 </head>
 <body>
@@ -1348,7 +1382,7 @@
         <div>
           <div class="topbar-title">Jonas Plener &amp; Timo Hügel</div>
           <div class="topbar-tagline">
-            Agentur für Deutsche Vermögensberatung<br />
+
             Region Kinzigtal / Ortenau
           </div>
         </div>
@@ -1381,7 +1415,7 @@
           <section class="menu-section">
             <h2 class="menu-section-title">Startseite</h2>
             <ul class="menu-section-links">
-              <li><a href="index.html">Themenauswahl</a></li>
+              <li><a href="leistung.html">Leistungen</a></li>
             </ul>
           </section>
 
@@ -1458,7 +1492,7 @@
           </div>
 
           <div class="cta-row">
-            <a href="https://forms.office.com/e/KP6FKm1i5u" target="_blank" rel="noopener" class="btn-primary">
+            <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-primary">
               bKV für deinen Betrieb prüfen
             </a>
             <a href="https://wa.me/4915141678134" target="_blank" rel="noopener" class="btn-wa">
@@ -1485,38 +1519,17 @@
             </div>
           </div>
 
-          <div class="hero-card">
-            <h3>bKV im Kern</h3>
-            <ul>
-              <li>keine Gesundheitsfragen</li>
-              <li>stärker als Mehrlohn</li>
-              <li>Bindung &amp; Recruiting</li>
-              <li>echter Arbeitgebervorteil</li>
-            </ul>
-          </div>
+                          <div class="hero-card">
+          <h3>Eure Ansprechpartner</h3>
+          <ul>
+            <li>keine Gesundheitsfragen</li>
+            <li>Beratung digital und vor Ort</li>
+          </ul>
+        </div>
         </div>
       </div>
 
-      <div class="contact-strip">
-        <div class="contact-card">
-          <div class="contact-name">Jonas Plener</div>
-          <div class="contact-role">Vermögensberater bei der Deutschen Vermögensberatung</div>
-          <div class="contact-links">
-            <a href="tel:+4915141678134">📞 0151 41678134</a>
-            <a href="mailto:Jonas.Plener@dvag.de">✉️ Jonas.Plener@dvag.de</a>
-          </div>
-        </div>
-
-        <div class="contact-card">
-          <div class="contact-name">Timo Hügel</div>
-          <div class="contact-role">Vermögensberater bei der Deutschen Vermögensberatung</div>
-          <div class="contact-links">
-            <a href="tel:+4917663796605">📞 0176 63796605</a>
-            <a href="mailto:Timo.Huegel@dvag.de">✉️ Timo.Huegel@dvag.de</a>
-          </div>
-        </div>
-      </div>
-    </header>
+      </header>
 
     <main>
       <section id="warum">
@@ -1720,7 +1733,7 @@
           <h2>Jetzt bKV für deinen Betrieb prüfen</h2>
           <p>Wir zeigen dir, welche Lösung zu deiner Betriebsgröße passt, wie viel du gegenüber einer Gehaltserhöhung sparst und wie die Einführung unkompliziert läuft.</p>
           <div class="kontakt-btn-row">
-            <a href="https://forms.office.com/e/KP6FKm1i5u" target="_blank" rel="noopener" class="btn-primary">bKV für deinen Betrieb anfragen</a>
+            <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-primary">bKV für deinen Betrieb anfragen</a>
             <a href="https://wa.me/4915141678134" target="_blank" rel="noopener" class="btn-wa">Jonas via WhatsApp</a>
             <a href="https://wa.me/4917663796605" target="_blank" rel="noopener" class="btn-secondary">Timo via WhatsApp</a>
           </div>
@@ -1918,4 +1931,8 @@
   </script>
 </body>
 </html>
+
+
+
+
 
