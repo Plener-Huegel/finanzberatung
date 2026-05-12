@@ -9,11 +9,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500&family=Raleway:wght@500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --primary: #2e6f80;
+      --primary: #4a787d;
       --accent: #f0b85c;
+      --danger: #b91c1c;
       --text: #111827;
       --muted: #4b5563;
       --border: #d9e2ec;
+      --soft: #f8fbff;
       --soft-safe: #ecfdf5;
       --soft-warn: #fff7ed;
       --wa: #22c55e;
@@ -99,6 +101,7 @@
       align-items: center;
       justify-content: flex-end;
       gap: 0.65rem;
+      min-width: 0;
       margin-left: auto;
     }
 
@@ -113,10 +116,21 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      width: auto;
+      height: auto;
+      border-radius: 0;
       border: none;
       background: transparent;
+      box-shadow: none;
       cursor: pointer;
+      transition: opacity .12s ease;
       padding: 0;
+    }
+
+    .burger-btn:hover {
+      transform: none;
+      box-shadow: none;
+      opacity: .7;
     }
 
     .burger-lines {
@@ -175,8 +189,10 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1.2rem;
+      padding: 1.2rem 1.2rem;
       border-bottom: 1px solid var(--border);
+      gap: 1rem;
+      flex-shrink: 0;
     }
 
     .menu-header-title {
@@ -185,6 +201,7 @@
       color: var(--primary);
       font-size: 1rem;
       text-transform: uppercase;
+      letter-spacing: .02em;
     }
 
     .menu-close-btn {
@@ -199,6 +216,11 @@
       color: var(--primary);
       font-size: 1.4rem;
       padding: 0;
+      transition: color .12s ease;
+    }
+
+    .menu-close-btn:hover {
+      color: var(--muted);
     }
 
     .menu-content { flex: 1; padding: 0.8rem 0; }
@@ -229,7 +251,9 @@
       padding: 0.6rem 1.2rem;
       font-size: 0.92rem;
       color: #1f2937;
+      transition: background .12s ease;
       border-left: 3px solid transparent;
+      position: relative;
     }
 
     .menu-section-links a:hover { background: #f3f4f6; }
@@ -357,7 +381,7 @@
       justify-content: center;
       align-items: center;
       min-width: 360px;
-      min-height: 430px;
+      min-height: 420px;
     }
 
     .hero-photo::before {
@@ -381,7 +405,7 @@
       justify-content: center;
       align-items: flex-end;
       gap: 16px;
-      padding: 28px 24px 118px;
+      padding: 28px 24px 112px;
       z-index: 1;
     }
 
@@ -409,7 +433,7 @@
 
     .hero-card {
       position: absolute;
-      bottom: -18px;
+      bottom: -26px;
       right: 57px;
       background: #fff;
       padding: 16px 22px;
@@ -417,7 +441,7 @@
       border: 1px solid rgba(148, 163, 184, 0.6);
       box-shadow: 0 8px 20px rgba(15, 23, 42, 0.18);
       z-index: 3;
-      width: 332px;
+      width: 330px;
       color: var(--muted);
     }
 
@@ -803,6 +827,55 @@
 
     .contact-links a:hover { color: var(--primary); text-decoration: underline; }
 
+    .kontakt-box {
+      background: linear-gradient(135deg, #e0f2fe, #fef3c7);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 1.5rem 1.4rem 1.7rem;
+      text-align: center;
+      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
+    }
+
+    .kontakt-box h2 {
+      color: var(--primary);
+      margin-bottom: 0.35rem;
+      font-size: 1.3rem;
+    }
+
+    .kontakt-box p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.1rem;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .kontakt-btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: center;
+      margin-bottom: 0.8rem;
+    }
+
+    .kontakt-mini-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+    }
+
+    .kontakt-mini-link {
+      font-size: 0.82rem;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .kontakt-mini-link:hover { text-decoration: underline; }
+
     footer {
       padding: 1rem 1.6rem 1.4rem;
       font-size: 0.78rem;
@@ -820,9 +893,9 @@
       .hero-inner { flex-direction: column-reverse; align-items: stretch; }
       .hero h1 { font-size: 1.6rem; }
       .hero-lead { font-size: 0.92rem; }
-      .hero-photo { min-width: 0; flex: 1 1 100%; min-height: 340px; }
+      .hero-photo { min-width: 0; flex: 1 1 100%; min-height: 330px; }
       .hero-photo::before { width: 300px; height: 300px; }
-      .hero-people { padding: 22px 10px 126px; gap: 8px; }
+      .hero-people { padding: 22px 10px 120px; gap: 8px; }
       .hero-person.jonas { left: 20px; }
       .hero-person.jonas .hero-image-box img { width: 230px; }
       .hero-person.timo { left: -20px; }
@@ -831,7 +904,7 @@
         right: 50%;
         transform: translateX(50%);
         width: min(92vw, 340px);
-        bottom: -4px;
+        bottom: 8px;
         padding: 14px 18px;
       }
       .contact-strip { grid-template-columns: 1fr; }
@@ -840,6 +913,43 @@
       .comparison-row,
       .calculator,
       .calculator-grid { grid-template-columns: 1fr; }
+      .kontakt-btn-row,
+      .kontakt-mini-row { flex-direction: column; align-items: stretch; }
+      .kontakt-mini-link { width: 100%; }
+    }
+  
+    /* Responsive: iPhone Mini & kleine Android Phones (375px - 414px) */
+    @media (max-width: 414px) {
+      body { font-size: 14px; }
+      .topbar { padding: 0.6rem 0.8rem; }
+      .topbar-avatars img { width: 40px; height: 40px; }
+      .topbar-title { font-size: 0.75rem; }
+      .topbar-tagline { font-size: 0.7rem; }
+      .menu-text { font-size: 0.7rem; }
+      header.hero { padding: 1.2rem 0.8rem 1.4rem; }
+      .hero h1 { font-size: 1.3rem; line-height: 1.2; }
+      .hero-lead { font-size: 0.8rem; line-height: 1.4; }
+      .badge { font-size: 0.7rem; padding: 0.2rem 0.5rem; }
+      .cta-row { gap: 0.4rem; flex-direction: column; }
+      .btn-primary, .btn-secondary, .btn-wa, .btn-gold { padding: 0.7rem 1rem; font-size: 0.85rem; width: 100%; }
+      .hero-photo { min-height: 280px; }
+      main { padding: 1.2rem 0.8rem 1.8rem; }
+      h2 { font-size: 1.2rem; }
+      .grid-3, .grid-2 { grid-template-columns: 1fr; }
+      .card { padding: 0.8rem; }
+      .card-title { font-size: 0.9rem; }
+      .card ul { font-size: 0.8rem; }
+      .contact-strip { grid-template-columns: 1fr; }
+      .contact-name { font-size: 0.85rem; }
+      footer { font-size: 0.7rem; padding: 0.8rem; }
+    }
+
+    @media (max-width: 375px) {
+      .topbar { padding: 0.5rem 0.6rem; }
+      .hero h1 { font-size: 1.1rem; }
+      .hero-lead { font-size: 0.75rem; }
+      h2 { font-size: 1.1rem; }
+      main { padding: 1rem 0.6rem 1.5rem; }
     }
   </style>
 </head>
@@ -853,7 +963,7 @@
         </div>
         <div>
           <div class="topbar-title">Jonas Plener &amp; Timo Hügel</div>
-          <div class="topbar-tagline">Agentur für Deutsche Vermögensberatung<br />Region Kinzigtal / Ortenau</div>
+          <div class="topbar-tagline">Finanzberatung<br />Region Kinzigtal / Ortenau</div>
         </div>
       </div>
 
@@ -899,12 +1009,10 @@
             <h2 class="menu-section-title">Unternehmer &amp; Selbstständig</h2>
             <ul class="menu-section-links">
               <li><a href="liquiditaet.html" class="active">Liquidität</a></li>
-              <li><a href="mitarbeiter-benefits.html">Mitarbeiter Benefits</a></li>
+              <li><a href="mitarbeiter-benefits.html">Betriebliche Krankenversicherung</a></li>
               <li><a href="energie.html">Energie</a></li>
-              <li><a href="unternehmer-absicherung.html">Unternehmer absichern</a></li>
-              <li><a href="vertraege-optimieren.html">Verträge optimieren</a></li>
+              <li><a href="betriebliche-sachversicherung.html">Betriebliche Sachversicherungen</a></li>
               <li><a href="ruerup.html">Rürup</a></li>
-              <li><a href="immobilien-finanzierung.html">Immobilien &amp; Finanzierung</a></li>
             </ul>
           </section>
           <section class="menu-section">
@@ -941,10 +1049,11 @@
             <a href="#leistungen" class="badge"><span>Leistungen</span><span class="arrow">↓</span></a>
             <a href="#rechner" class="badge"><span>Rechner</span><span class="arrow">↓</span></a>
             <a href="#ablauf" class="badge"><span>Ablauf</span><span class="arrow">↓</span></a>
-          </div>
+            <a href="#kontakt" class="badge"><span>Kontakt</span><span class="arrow">↓</span></a>
+        </div>
 
           <div class="cta-row">
-            <a href="https://forms.office.com/e/bt9MPF4c4x" target="_blank" rel="noopener" class="btn-primary">Liquidität &amp; Factoring gemeinsam prüfen</a>
+            <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-primary">Liquidität &amp; Factoring gemeinsam prüfen</a>
             <a href="https://wa.me/4915141678134" target="_blank" rel="noopener" class="btn-wa">Jonas kontaktieren</a>
             <a href="https://wa.me/4917663796605" target="_blank" rel="noopener" class="btn-secondary">Timo kontaktieren</a>
           </div>
@@ -955,60 +1064,17 @@
             <div class="hero-person jonas"><div class="hero-image-box"><img src="jonas-halbkoerper.png" alt="Jonas Plener" /></div></div>
             <div class="hero-person timo"><div class="hero-image-box"><img src="timo-halbkoerper.png" alt="Timo Hügel" /></div></div>
           </div>
-          <div class="hero-card">
-            <h3>Factoring im Kern</h3>
-            <ul>
-              <li>offene Rechnungen in 2 Bankarbeitstagen vorfinanzieren</li>
-              <li>je nach Modell mit Abrechnungsservice, Mahnwesen und Delkredere</li>
-              <li>Liquidität für Einkauf, Wachstum, Skonto und Entspannung im Alltag</li>
-            </ul>
-          </div>
+                          <div class="hero-card">
+          <h3>Eure Ansprechpartner</h3>
+          <ul>
+            <li>Vorfinanzierung in 2 Bankarbeitstagen</li>
+            <li>Beratung digital und vor Ort</li>
+          </ul>
+        </div>
         </div>
       </div>
 
-      <div class="contact-strip">
-        <div class="contact-card">
-          <div class="contact-name">Jonas Plener</div>
-          <div class="contact-role">Vermögensberater bei der Deutschen Vermögensberatung</div>
-          <div class="contact-links">
-            <a href="tel:+4915141678134">0151 41678134</a>
-            <a href="mailto:Jonas.Plener@dvag.de">Jonas.Plener@dvag.de</a>
-          </div>
-        </div>
-        <div class="contact-card">
-          <div class="contact-name">Timo Hügel</div>
-          <div class="contact-role">Vermögensberater bei der Deutschen Vermögensberatung</div>
-          <div class="contact-links">
-            <a href="tel:+4917663796605">0176 63796605</a>
-            <a href="mailto:Timo.Huegel@dvag.de">Timo.Huegel@dvag.de</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="stats-grid">
-        <article class="stat-card blue">
-          <div class="stat-label">Auszahlung</div>
-          <div class="stat-number">2 Bankarbeitstage</div>
-          <p class="stat-copy">Je nach Anbieter und Prüfung kann ein Großteil der Rechnung sehr schnell auf deinem Konto sein.</p>
-        </article>
-        <article class="stat-card orange">
-          <div class="stat-label">Liquidität</div>
-          <div class="stat-number">häufig 80 bis 90 % sofort</div>
-          <p class="stat-copy">Der vorfinanzierte Anteil entlastet Betriebsmittel, Löhne, Materialkauf und Steuertermine.</p>
-        </article>
-        <article class="stat-card blue">
-          <div class="stat-label">Service</div>
-          <div class="stat-number">Abrechnung &amp; Debitoren</div>
-          <p class="stat-copy">Je nach Modell lassen sich Rechnungsprüfung, Abrechnungsservice und Mahnwesen mit auslagern.</p>
-        </article>
-        <article class="stat-card green">
-          <div class="stat-label">Erweiterung</div>
-          <div class="stat-number">Mietkauf &amp; Leasing</div>
-          <p class="stat-copy">Für Maschinen, Fahrzeuge oder Ausstattung kann Factoring mit weiteren Finanzierungsbausteinen sinnvoll ergänzt werden.</p>
-        </article>
-      </div>
-
-    </header>
+      </header>
 
     <main>
       <section id="warum">
@@ -1261,7 +1327,26 @@
         </div>
 
         <div class="cta-row" style="margin-top:1rem;">
-          <a href="https://forms.office.com/e/bt9MPF4c4x" target="_blank" rel="noopener" class="btn-primary">Factoring für deinen Betrieb konkret einordnen</a>
+          <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-primary">Factoring für deinen Betrieb konkret einordnen</a>
+        </div>
+      </section>
+
+      <section id="kontakt">
+        <div class="kontakt-box">
+          <h2>Jetzt Liquidität &amp; Factoring persönlich prüfen</h2>
+          <p>Wir schauen gemeinsam, ob und welches Finanzierungsmodell zu deinem Betrieb passt – ohne Druck, dafür mit klaren Zahlen.</p>
+          <div class="kontakt-btn-row">
+            <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-primary">Factoring gemeinsam einordnen</a>
+            <a href="https://wa.me/4915141678134" target="_blank" rel="noopener" class="btn-wa">Jonas via WhatsApp</a>
+            <a href="https://wa.me/4917663796605" target="_blank" rel="noopener" class="btn-secondary">Timo via WhatsApp</a>
+          </div>
+          <div class="kontakt-mini-row">
+            <a href="tel:+4915141678134" class="kontakt-mini-link">Jonas: 0151 41678134</a>
+            <span style="color:var(--border);">|</span>
+            <a href="tel:+4917663796605" class="kontakt-mini-link">Timo: 0176 63796605</a>
+            <span style="color:var(--border);">|</span>
+            <a href="leistung.html" class="kontakt-mini-link">Alle Leistungen →</a>
+          </div>
         </div>
       </section>
     </main>
@@ -1371,3 +1456,7 @@
   </script>
 </body>
 </html>
+
+
+
+
