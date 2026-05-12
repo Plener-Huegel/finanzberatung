@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Karriere bei der DVAG - Jonas Plener &amp; Timo Hügel</title>
+  <title>Karriere - Jonas Plener &amp; Timo Hügel</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500&family=Raleway:wght@500;600;700;800&display=swap" rel="stylesheet" />
@@ -780,6 +780,40 @@
       .kontakt-btn-row { flex-direction: column; align-items: stretch; }
       .kontakt-btn-row a { width: 100%; }
     }
+  
+    /* Responsive: iPhone Mini & kleine Android Phones (375px - 414px) */
+    @media (max-width: 414px) {
+      body { font-size: 14px; }
+      .topbar { padding: 0.6rem 0.8rem; }
+      .topbar-avatars img { width: 40px; height: 40px; }
+      .topbar-title { font-size: 0.75rem; }
+      .topbar-tagline { font-size: 0.7rem; }
+      .menu-text { font-size: 0.7rem; }
+      header.hero { padding: 1.2rem 0.8rem 1.4rem; }
+      .hero h1 { font-size: 1.3rem; line-height: 1.2; }
+      .hero-lead { font-size: 0.8rem; line-height: 1.4; }
+      .badge { font-size: 0.7rem; padding: 0.2rem 0.5rem; }
+      .cta-row { gap: 0.4rem; flex-direction: column; }
+      .btn-primary, .btn-secondary, .btn-wa, .btn-gold { padding: 0.7rem 1rem; font-size: 0.85rem; width: 100%; }
+      .hero-photo { min-height: 280px; }
+      main { padding: 1.2rem 0.8rem 1.8rem; }
+      h2 { font-size: 1.2rem; }
+      .grid-3, .grid-2 { grid-template-columns: 1fr; }
+      .card { padding: 0.8rem; }
+      .card-title { font-size: 0.9rem; }
+      .card ul { font-size: 0.8rem; }
+      .contact-strip { grid-template-columns: 1fr; }
+      .contact-name { font-size: 0.85rem; }
+      footer { font-size: 0.7rem; padding: 0.8rem; }
+    }
+
+    @media (max-width: 375px) {
+      .topbar { padding: 0.5rem 0.6rem; }
+      .hero h1 { font-size: 1.1rem; }
+      .hero-lead { font-size: 0.75rem; }
+      h2 { font-size: 1.1rem; }
+      main { padding: 1rem 0.6rem 1.5rem; }
+    }
   </style>
 </head>
 <body>
@@ -792,7 +826,7 @@
         </div>
         <div>
           <div class="topbar-title">Jonas Plener &amp; Timo Hügel</div>
-          <div class="topbar-tagline">Agentur für Deutsche Vermögensberatung<br />Region Kinzigtal / Ortenau</div>
+          <div class="topbar-tagline">Finanzberatung<br />Region Kinzigtal / Ortenau</div>
         </div>
       </div>
 
@@ -812,7 +846,7 @@
         <div class="menu-content">
           <section class="menu-section">
             <h2 class="menu-section-title">Startseite</h2>
-            <ul class="menu-section-links"><li><a href="index.html">Themenauswahl</a></li></ul>
+            <ul class="menu-section-links"><li><a href="leistung.html">Leistungen</a></li></ul>
           </section>
           <section class="menu-section">
             <h2 class="menu-section-title">Angestellt</h2>
@@ -858,10 +892,10 @@
     <header class="hero">
       <div class="hero-inner">
         <div class="hero-text">
-          <div class="hero-label"><span class="dot"></span>DVAG · Einstieg · Karrierechance</div>
-          <h1>Karriere bei der DVAG heißt: <strong>selbstständig arbeiten und trotzdem starke Unterstützung im Rücken haben</strong></h1>
+          <div class="hero-label"><span class="dot"></span>Einstieg · Karrierechance</div>
+          <h1>Karriere heißt: <strong>selbstständig arbeiten und trotzdem starke Unterstützung im Rücken haben</strong></h1>
           <p class="hero-lead">
-            Wer bei der DVAG einsteigt, startet laut Karriereauftritt als selbstständiger Finanzcoach beziehungsweise Vermögensberater mit
+            Wer einsteigt, startet laut Karriereauftritt als selbstständiger Finanzcoach beziehungsweise Finanzberater mit
             <strong>Karrierecoach, Ausbildung, Tools, Team und klaren Entwicklungsmöglichkeiten</strong>. Dabei gibt es nicht nur einen Weg,
             sondern mehrere Einstiegsformen: direkt nach der Schule, über eine IHK-Ausbildung, duales Studium, Quereinstieg, Nebenberuf oder als Branchenkenner.
           </p>
@@ -876,10 +910,11 @@
             <a href="#einstieg" class="badge"><span>Einstiegswege</span><span class="arrow">↓</span></a>
             <a href="#ausbildung" class="badge"><span>Ausbildung</span><span class="arrow">↓</span></a>
             <a href="#karriere" class="badge"><span>Karrierechancen</span><span class="arrow">↓</span></a>
-          </div>
+            <a href="#kontakt" class="badge"><span>Kontakt</span><span class="arrow">↓</span></a>
+        </div>
 
           <div class="cta-row">
-            <a href="https://forms.office.com/e/uNpHDMqruw" target="_blank" rel="noopener" class="btn-primary">Karriere bei der DVAG gemeinsam einordnen</a>
+            <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-primary">Karriere gemeinsam einordnen</a>
             <a href="https://wa.me/4915141678134" target="_blank" rel="noopener" class="btn-wa">Jonas kontaktieren</a>
             <a href="https://wa.me/4917663796605" target="_blank" rel="noopener" class="btn-secondary">Timo kontaktieren</a>
           </div>
@@ -890,69 +925,27 @@
             <div class="hero-person jonas"><div class="hero-image-box"><img src="jonas-halbkoerper.png" alt="Jonas Plener" /></div></div>
             <div class="hero-person timo"><div class="hero-image-box"><img src="timo-halbkoerper.png" alt="Timo Hügel" /></div></div>
           </div>
-          <div class="hero-card">
-            <h3>Im Kern wichtig</h3>
-            <ul>
-              <li>mehrere Einstiegswege statt nur ein Standardmodell</li>
-              <li>persönlicher Karrierecoach und strukturierte Ausbildung</li>
-              <li>zwei Karrierepfade: Kundenbetreuung und Teamaufbau</li>
-            </ul>
-          </div>
+                          <div class="hero-card">
+          <h3>Eure Ansprechpartner</h3>
+          <ul>
+            <li>mehrere Einstiegswege statt nur ein Standardmodell</li>
+            <li>Beratung digital und vor Ort</li>
+          </ul>
+        </div>
         </div>
       </div>
 
-      <div class="contact-strip">
-        <div class="contact-card">
-          <div class="contact-name">Jonas Plener</div>
-          <div class="contact-role">Vermögensberater bei der Deutschen Vermögensberatung</div>
-          <div class="contact-links">
-            <a href="tel:+4915141678134">📞 0151 41678134</a>
-            <a href="mailto:Jonas.Plener@dvag.de">✉️ Jonas.Plener@dvag.de</a>
-          </div>
-        </div>
-        <div class="contact-card">
-          <div class="contact-name">Timo Hügel</div>
-          <div class="contact-role">Vermögensberater bei der Deutschen Vermögensberatung</div>
-          <div class="contact-links">
-            <a href="tel:+4917663796605">📞 0176 63796605</a>
-            <a href="mailto:Timo.Huegel@dvag.de">✉️ Timo.Huegel@dvag.de</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="stats-grid">
-        <article class="stat-card blue">
-          <div class="stat-label">Einstieg</div>
-          <div class="stat-number">mehrere Wege</div>
-          <p class="stat-copy">Berufseinsteiger, IHK-Ausbildung, duales Studium, Nebenberuf, Quereinstieg oder Branchenkenner.</p>
-        </article>
-        <article class="stat-card orange">
-          <div class="stat-label">Begleitung</div>
-          <div class="stat-number">Karrierecoach</div>
-          <p class="stat-copy">Laut DVAG startet niemand allein, sondern mit persönlicher Begleitung im Aufbau.</p>
-        </article>
-        <article class="stat-card blue">
-          <div class="stat-label">Weiterbildung</div>
-          <div class="stat-number">über 80 Mio. EUR</div>
-          <p class="stat-copy">Die DVAG kommuniziert jährliche Investitionen von über 80 Mio. EUR in Aus- und Weiterbildung.</p>
-        </article>
-        <article class="stat-card green">
-          <div class="stat-label">Karriere</div>
-          <div class="stat-number">Beratung oder Teamaufbau</div>
-          <p class="stat-copy">Kundenberatung und Führungsweg werden als zwei kombinierbare Karrierepfade beschrieben.</p>
-        </article>
-      </div>
-    </header>
+      </header>
 
     <main>
       <section id="beruf">
-        <h2>1) Wie der Beruf bei der DVAG beschrieben wird</h2>
-        <p class="section-subtitle">Auf der Karriereseite wird der Einstieg als Beruf des Finanzcoachs beziehungsweise Vermögensberaters beschrieben: Menschen in finanziellen Fragen langfristig begleiten und individuelle Konzepte entwickeln.</p>
+        <h2>1) Wie der Beruf beschrieben wird</h2>
+        <p class="section-subtitle">Auf der Karriereseite wird der Einstieg als Beruf des Finanzcoachs beziehungsweise Finanzberaters beschrieben: Menschen in finanziellen Fragen langfristig begleiten und individuelle Konzepte entwickeln.</p>
         <div class="grid-2">
           <article class="card blue-card">
             <div class="card-title">Die Aufgabe im Kern</div>
             <div class="number-pill">ganzheitliche Beratung</div>
-            <p>Im Mittelpunkt steht nicht nur ein einzelnes Produkt, sondern laut DVAG ein Allfinanzkonzept rund um Absicherung, Altersvorsorge, Vermögensaufbau, Finanzierung und weitere Finanzfragen.</p>
+            <p>Im Mittelpunkt steht nicht nur ein einzelnes Produkt, sondern ein Allfinanzkonzept rund um Absicherung, Altersvorsorge, Vermögensaufbau, Finanzierung und weitere Finanzfragen.</p>
             <ul>
               <li>finanzielle Situation und Ziele der Kunden analysieren</li>
               <li>individuelle Konzepte entwickeln statt nur Produkte zeigen</li>
@@ -990,7 +983,7 @@
             <p>Beworben wird eine Ausbildung zum Kaufmann oder zur Kauffrau für Versicherungen und Finanzanlagen mit Praxis in Direktion oder Geschäftsstelle plus Berufsschule.</p>
             <ul>
               <li>Dauer laut DVAG: 3 Jahre</li>
-              <li>zusätzliche Qualifikationen wie Vermögensberater DBBV und Finanzanlagenfachmann IHK</li>
+              <li>zusätzliche Qualifikationen wie Finanzberater DBBV und Finanzanlagenfachmann IHK</li>
               <li>persönliches Coaching, Prüfungsvorbereitung und Theorie-Praxis-Verzahnung</li>
             </ul>
           </article>
@@ -1111,7 +1104,7 @@
           <h2>Jetzt Karriere im Finanzbereich konkret besprechen</h2>
           <p>Wir zeigen dir, welcher Einstiegsweg zu dir passt und wie du Ausbildung, Entwicklung und Karrierechancen sinnvoll einordnest.</p>
           <div class="kontakt-btn-row">
-            <a href="https://forms.office.com/e/uNpHDMqruw" target="_blank" rel="noopener" class="btn-primary">Einstiegsweg bei der DVAG konkret besprechen</a>
+            <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-primary">Einstiegsweg  konkret besprechen</a>
             <a href="https://wa.me/4915141678134" target="_blank" rel="noopener" class="btn-wa">Jonas via WhatsApp</a>
             <a href="https://wa.me/4917663796605" target="_blank" rel="noopener" class="btn-secondary">Timo via WhatsApp</a>
           </div>
@@ -1124,6 +1117,28 @@
           </div>
         </div>
       </section>
+
+    <section id="kontakt" style="margin-bottom:2rem;">
+      <div class="contact-strip">
+        <div class="contact-card">
+          <div class="contact-name">Jonas Plener</div>
+          <div class="contact-role">Finanzberater</div>
+          <div class="contact-links">
+            <a href="tel:+4915141678134">📞 0151 41678134</a>
+            <a href="mailto:Jonas.Plener@dvag.de">✉️ Jonas.Plener@dvag.de</a>
+          </div>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-name">Timo Hügel</div>
+          <div class="contact-role">Finanzberater</div>
+          <div class="contact-links">
+            <a href="tel:+4917663796605">📞 0176 63796605</a>
+            <a href="mailto:Timo.Huegel@dvag.de">✉️ Timo.Huegel@dvag.de</a>
+          </div>
+        </div>
+      </div>
+    </section>
     </main>
 
     <footer>
@@ -1169,3 +1184,7 @@
   </script>
 </body>
 </html>
+
+
+
+
