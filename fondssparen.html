@@ -2,375 +2,188 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Leistungsseite</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vorschau Microsoft Form - Vermoegen aufbauen</title>
   <style>
+    :root {
+      --bg: #f4f7f8;
+      --card: #ffffff;
+      --text: #122026;
+      --muted: #52616b;
+      --primary: #2f6f7f;
+      --accent: #d99b30;
+      --border: #d7e1e7;
+    }
+    * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: "Raleway", sans-serif;
-      background: #f9fafb;
-      color: #111827;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(180deg, #eef6f9 0%, var(--bg) 100%);
+      color: var(--text);
     }
-
-    header.hero {
-      background: #eef7fa;
-      padding: 2.5rem 1.2rem;
-      border-bottom: 1px solid #e5e7eb;
+    .wrap {
+      max-width: 760px;
+      margin: 24px auto;
+      padding: 0 14px 30px;
     }
-
-    .hero-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-    }
-
-    .hero-label {
-      text-transform: uppercase;
-      font-size: 0.8rem;
-      color: #4a787d;
-      letter-spacing: 0.05em;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .dot {
-      width: 8px;
-      height: 8px;
-      background: #4a787d;
-      border-radius: 50%;
-      display: block;
-    }
-
-    .hero h1 {
-      margin-top: 0.6rem;
-      font-size: 1.9rem;
-      line-height: 1.3;
-      color: #1f2937;
-    }
-
-    .hero-lead {
-      margin-top: 0.75rem;
-      font-size: 1.05rem;
-      line-height: 1.55;
-      color: #374151;
-    }
-
-    .hero-photo img {
-      width: 100%;
-      border-radius: 14px;
-      object-fit: cover;
-    }
-
-    .btn-primary {
-      display: inline-block;
-      padding: 0.9rem 1.4rem;
-      background: #4a787d;
-      color: #ffffff;
-      border-radius: 12px;
-      text-decoration: none;
-      font-weight: 600;
-      margin-top: 1rem;
-    }
-
-    .btn-secondary {
-      display: inline-block;
-      padding: 0.8rem 1.3rem;
-      background: #d1d5db;
-      color: #1f2937;
-      border-radius: 12px;
-      text-decoration: none;
-      margin-top: 1rem;
-    }
-
-    main {
-      max-width: 1100px;
-      margin: 2rem auto;
-      padding: 0 1.2rem;
-    }
-
-    h2 {
-      color: #1f2937;
-      margin-top: 2.2rem;
-      margin-bottom: 1rem;
-      font-size: 1.5rem;
-    }
-
-    .grid-2 {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1rem;
-    }
-
-    @media (min-width: 768px) {
-      .grid-2 {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
     .card {
-      background: #ffffff;
+      background: var(--card);
+      border: 1px solid var(--border);
       border-radius: 14px;
-      padding: 1.2rem;
-      border: 1px solid #e5e7eb;
+      padding: 18px;
+      box-shadow: 0 8px 26px rgba(18, 32, 38, 0.08);
     }
-
-    .card-title {
-      font-weight: 600;
-      margin-bottom: 0.6rem;
-      color: #4a787d;
+    h1 {
+      margin: 0 0 8px;
+      font-size: 1.45rem;
+      color: var(--primary);
     }
-
-    /* BURGER MENU */
-    .menu-toggle {
-      position: fixed;
-      right: 18px;
-      top: 18px;
-      background: white;
-      border: 1px solid #e5e7eb;
-      padding: 0.5rem;
+    .desc {
+      margin: 0 0 18px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+    .q {
+      margin: 0 0 16px;
+      padding: 12px;
+      border: 1px solid var(--border);
       border-radius: 10px;
-      cursor: pointer;
-      z-index: 50;
+      background: #fcfeff;
     }
-
-    .menu-burger {
-      width: 22px;
-      height: 3px;
-      background: #111827;
-      margin: 3px 0;
-      border-radius: 50px;
+    .q h2 {
+      margin: 0 0 8px;
+      font-size: 1rem;
     }
-
-    .menu-panel-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.35);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.25s ease;
-      z-index: 40;
-    }
-
-    .menu-panel-backdrop.open {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .menu-panel {
-      position: fixed;
-      right: -260px;
-      top: 0;
-      height: 100%;
-      width: 260px;
-      background: #ffffff;
-      border-left: 1px solid #e5e7eb;
-      padding: 1.2rem;
-      z-index: 45;
-      transition: right 0.25s ease;
-    }
-
-    .menu-panel.open {
-      right: 0;
-    }
-
-    .menu-section-title {
-      text-transform: uppercase;
-      font-size: 0.8rem;
-      color: #9ca3af;
-      margin-top: 1rem;
-    }
-
-    .menu-link {
+    .req { color: #b42318; }
+    label {
       display: block;
-      padding: 0.4rem 0;
-      color: #111827;
-      text-decoration: none;
-      font-size: 0.95rem;
+      margin: 7px 0;
+      font-size: 0.96rem;
+    }
+    input[type="text"], textarea, select {
+      width: 100%;
+      margin-top: 6px;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #c4d2db;
+      font: inherit;
+    }
+    textarea { min-height: 80px; }
+    .submit {
+      margin-top: 8px;
+      border: none;
+      border-radius: 999px;
+      padding: 12px 18px;
+      background: linear-gradient(140deg, var(--accent), #c88616);
+      color: #1f2328;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .hint {
+      margin-top: 14px;
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+  
+    /* Responsive: iPhone Mini & kleine Android Phones (375px - 414px) */
+    @media (max-width: 414px) {
+      body { font-size: 14px; }
+      .topbar { padding: 0.6rem 0.8rem; }
+      .topbar-avatars img { width: 40px; height: 40px; }
+      .topbar-title { font-size: 0.75rem; }
+      .topbar-tagline { font-size: 0.7rem; }
+      .menu-text { font-size: 0.7rem; }
+      header.hero { padding: 1.2rem 0.8rem 1.4rem; }
+      .hero h1 { font-size: 1.3rem; line-height: 1.2; }
+      .hero-lead { font-size: 0.8rem; line-height: 1.4; }
+      .badge { font-size: 0.7rem; padding: 0.2rem 0.5rem; }
+      .cta-row { gap: 0.4rem; flex-direction: column; }
+      .btn-primary, .btn-secondary, .btn-wa, .btn-gold { padding: 0.7rem 1rem; font-size: 0.85rem; width: 100%; }
+      .hero-photo { min-height: 280px; }
+      main { padding: 1.2rem 0.8rem 1.8rem; }
+      h2 { font-size: 1.2rem; }
+      .grid-3, .grid-2 { grid-template-columns: 1fr; }
+      .card { padding: 0.8rem; }
+      .card-title { font-size: 0.9rem; }
+      .card ul { font-size: 0.8rem; }
+      .contact-strip { grid-template-columns: 1fr; }
+      .contact-name { font-size: 0.85rem; }
+      footer { font-size: 0.7rem; padding: 0.8rem; }
     }
 
-    footer {
-      text-align: center;
-      padding: 3rem 1rem;
-      color: #6b7280;
-      font-size: 0.85rem;
-      margin-top: 4rem;
+    @media (max-width: 375px) {
+      .topbar { padding: 0.5rem 0.6rem; }
+      .hero h1 { font-size: 1.1rem; }
+      .hero-lead { font-size: 0.75rem; }
+      h2 { font-size: 1.1rem; }
+      main { padding: 1rem 0.6rem 1.5rem; }
     }
   </style>
 </head>
-
 <body>
+  <div class="wrap">
+    <div class="card">
+      <h1>Vermoegen aufbauen - persoenlicher Check</h1>
+      <p class="desc">Vorschau fuer dein geplantes Microsoft Form. So koennen wir Aufbau und Fragen abstimmen, bevor du es in Forms anlegst.</p>
 
-<!-- 🔥 BURGER BUTTON -->
-<button class="menu-toggle" id="menu-toggle">
-  <div class="menu-burger"></div>
-  <div class="menu-burger"></div>
-  <div class="menu-burger"></div>
-</button>
-
-<!-- 🔥 BURGER OVERLAY + PANEL -->
-<div id="menu-backdrop" class="menu-panel-backdrop"></div>
-
-<nav id="menu-panel" class="menu-panel">
-  <div class="menu-section-title">Absicherung & Schutz</div>
-  <a class="menu-link" href="arbeitskraftabsicherung.html">Arbeitskraft & BU</a>
-  <a class="menu-link" href="haftpflicht-hausrat-gebaeude.html">Haftpflicht / Hausrat / Gebäude</a>
-  <a class="menu-link" href="risikoleben.html">Risikoleben</a>
-
-  <div class="menu-section-title">Vorsorge & Rente</div>
-  <a class="menu-link" href="riester.html">Riester</a>
-  <a class="menu-link" href="basisrente.html">Rürup / Basisrente</a>
-  <a class="menu-link" href="bav.html">Betriebliche Altersvorsorge</a>
-
-  <div class="menu-section-title">Vermögensaufbau & Sparen</div>
-  <a class="menu-link" href="fondssparen.html">Fondssparen</a>
-  <a class="menu-link" href="einmalanlagen.html">Einmalanlagen</a>
-  <a class="menu-link" href="vermoegensstruktur.html">Vermögensstruktur</a>
-
-  <div class="menu-section-title">Familie & Kinder</div>
-  <a class="menu-link" href="eltern-retter-kindererziehungszeiten.html">Eltern-Retter</a>
-  <a class="menu-link" href="kinder-absichern.html">Kinder absichern</a>
-  <a class="menu-link" href="ausbildung-und-zukunft.html">Ausbildung & Zukunft</a>
-</nav>
-
-<script>
-  const menuToggle = document.getElementById("menu-toggle");
-  const menuBackdrop = document.getElementById("menu-backdrop");
-  const menuPanel = document.getElementById("menu-panel");
-
-  menuToggle.addEventListener("click", () => {
-    menuPanel.classList.toggle("open");
-    menuBackdrop.classList.toggle("open");
-  });
-
-  menuBackdrop.addEventListener("click", () => {
-    menuPanel.classList.remove("open");
-    menuBackdrop.classList.remove("open");
-  });
-</script>
-
-<!-- ========================================================= -->
-<!-- 🚀 PAGE CONTENT – diesen Teil tauscht du aus! -->
-<!-- ========================================================= -->
-
-<!-- PAGE CONTENT START -->
-
-<header class="hero">
-  <div class="hero-inner">
-    <div class="hero-text animate-on-scroll">
-      <div class="hero-label">
-        <span class="dot"></span>
-        Vermögensaufbau & Sparen · Investment- & Fondssparpläne
+      <div class="q">
+        <h2>1) Was ist dein Hauptziel beim Vermoegensaufbau? <span class="req">*</span></h2>
+        <label><input type="radio" name="ziel" /> Vermoegen langfristig aufbauen</label>
+        <label><input type="radio" name="ziel" /> Fuer Altersvorsorge investieren</label>
+        <label><input type="radio" name="ziel" /> Kapital fuer Immobilie ansparen</label>
+        <label><input type="radio" name="ziel" /> Finanzielle Sicherheit aufbauen</label>
       </div>
 
-      <h1>Fondssparpläne – mit kleinen Beträgen Schritt für Schritt Vermögen aufbauen</h1>
-
-      <p class="hero-lead">
-        Mit regelmäßigen Sparplänen in Fonds oder ETFs lässt du dein Geld für dich arbeiten.
-        Gerade langfristig können Kursgewinne und Zinseszinseffekte einen großen Unterschied machen –
-        deutlich mehr als auf dem Tagesgeldkonto.
-      </p>
-
-      <div class="hero-badges">
-        <div class="badge">Flexibel anpassbar</div>
-        <div class="badge">Schon mit kleinen Beträgen möglich</div>
+      <div class="q">
+        <h2>2) Hast du bereits einen Spar- oder Investmentplan? <span class="req">*</span></h2>
+        <label><input type="radio" name="plan" /> Ja, regelmaessig</label>
+        <label><input type="radio" name="plan" /> Ja, aber unregelmaessig</label>
+        <label><input type="radio" name="plan" /> Nein, noch nicht</label>
       </div>
 
-      <div class="cta-row">
-        <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" class="btn-primary" target="_blank">
-          Fondssparplan-Check starten
-        </a>
+      <div class="q">
+        <h2>3) Wie viel moechtest du monatlich investieren? <span class="req">*</span></h2>
+        <select>
+          <option>Bitte auswaehlen</option>
+          <option>25-50 EUR</option>
+          <option>50-100 EUR</option>
+          <option>100-250 EUR</option>
+          <option>250+ EUR</option>
+          <option>Ich bin noch unsicher</option>
+        </select>
       </div>
-    </div>
 
-    <div class="hero-photo animate-on-scroll">
-      <img src="fondssparen-symbol.png" alt="Fondssparen" />
+      <div class="q">
+        <h2>4) Vorname und Nachname <span class="req">*</span></h2>
+        <input type="text" placeholder="Max Mustermann" />
+      </div>
+
+      <div class="q">
+        <h2>5) Telefonnummer <span class="req">*</span></h2>
+        <input type="text" placeholder="0151 12345678" />
+      </div>
+
+      <div class="q">
+        <h2>6) E-Mail <span class="req">*</span></h2>
+        <input type="text" placeholder="name@beispiel.de" />
+      </div>
+
+      <div class="q">
+        <h2>7) Optional: Was ist dir besonders wichtig?</h2>
+        <textarea placeholder="Kurze Notiz..."></textarea>
+      </div>
+
+      <div class="q">
+        <h2>8) Datenschutz <span class="req">*</span></h2>
+        <label><input type="checkbox" /> Ich stimme der Verarbeitung meiner Angaben zur Kontaktaufnahme zu.</label>
+      </div>
+
+      <button class="submit" type="button">Absenden (Vorschau)</button>
+      <p class="hint">Hinweis: Diese Seite ist nur eine lokale Vorschau. Dein echter Forms-Link wird in Microsoft Forms erzeugt.</p>
     </div>
   </div>
-</header>
-
-<main>
-
-  <section class="animate-on-scroll">
-    <h2>Wie funktioniert ein Fondssparplan?</h2>
-    <div class="grid-2">
-      <div class="card">
-        <div class="card-title">Regelmäßig investieren</div>
-        <ul>
-          <li>Monatlicher Beitrag, z. B. 50 €, 100 € oder mehr.</li>
-          <li>Du kaufst automatisch Anteile – unabhängig vom aktuellen Kurs.</li>
-          <li>Durch den Cost-Average-Effekt glättest du Schwankungen.</li>
-        </ul>
-      </div>
-      <div class="card">
-        <div class="card-title">Langfristiges Denken</div>
-        <ul>
-          <li>Kapitalmärkte schwanken, aber langfristig gab es historisch Wachstum.</li>
-          <li>Je länger der Anlagehorizont, desto besser lassen sich Schwankungen aussitzen.</li>
-          <li>Ideal für Ziele wie Altersvorsorge, Eigenkapital, Ausbildung der Kinder.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section class="animate-on-scroll">
-    <h2>Steuerlich: Depot vs. Versicherungslösung</h2>
-    <div class="grid-2">
-      <div class="card">
-        <div class="card-title">Depot</div>
-        <ul>
-          <li>Gewinne unterliegen der <strong>Abgeltungsteuer (25 %)</strong> plus Soli/Kirchensteuer.</li>
-          <li>Freistellungsauftrag bis 1.000 € (Ledige) bzw. 2.000 € (Verheiratete) nutzbar.</li>
-          <li>Vorabpauschale bei bestimmten Fonds – wir schauen, ob das relevant ist.</li>
-        </ul>
-      </div>
-      <div class="card">
-        <div class="card-title">Fondsgebundene Versicherung</div>
-        <ul>
-          <li>Oft interessant bei sehr langer Laufzeit und Rentenbezug.</li>
-          <li>
-            Bei Kapitalauszahlung nach Mindestlaufzeit und Mindestalter kann eine
-            <strong>Begünstigung (z. B. hälftige Versteuerung der Erträge)</strong> möglich sein –
-            je nach Vertragsmodell und aktueller Gesetzeslage.
-          </li>
-          <li>Bei Rentenzahlung gilt die Ertragsanteilsbesteuerung.</li>
-        </ul>
-      </div>
-    </div>
-    <p class="section-subtitle">
-      Wir vergleichen konkret: Wie sieht deine Nettorendite nach Kosten und Steuern in den
-      verschiedenen Varianten aus?
-    </p>
-  </section>
-
-  <section class="animate-on-scroll">
-    <h2>Nächster Schritt</h2>
-
-    <div class="centered-cta">
-      <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" class="btn-primary">
-        Deinen Fondssparplan mit mir besprechen
-      </a>
-    </div>
-    <div class="centered-cta" style="margin-top:1rem;">
-      <a href="leistung.html#vermoegen" class="btn-secondary">
-        Zurück zu Vermögensaufbau &amp; Sparen
-      </a>
-    </div>
-  </section>
-
-</main>
-
-<!-- PAGE CONTENT END -->
-
-
-<!-- ========================================================= -->
-
-<footer>
-  © 2025 Jonas Plener – Beratung digital & vor Ort
-</footer>
-
 </body>
 </html>
+
+
+
