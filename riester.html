@@ -779,11 +779,29 @@
       .hero-lead { font-size: 0.92rem; }
       .hero-photo { min-width: 0; flex: 1 1 100%; min-height: 330px; }
       .hero-photo::before { width: 300px; height: 300px; }
-      .hero-people { padding: 22px 10px 120px; gap: 8px; }
-      .hero-person.jonas { left: 20px; }
-      .hero-person.jonas .hero-image-box img { width: 230px; }
-      .hero-person.timo { left: -20px; }
-      .hero-person.timo .hero-image-box img { width: 130px; }
+      .hero-people {
+        padding: 24px 6px 112px;
+        gap: 0;
+        align-items: flex-end;
+      }
+      .hero-person.jonas {
+        left: 10px;
+        top: 0;
+      }
+      .hero-person.jonas .hero-image-box img {
+        width: 220px;
+        max-height: 320px;
+        transform: translateY(0);
+      }
+      .hero-person.timo {
+        left: -16px;
+        top: 0;
+      }
+      .hero-person.timo .hero-image-box img {
+        width: 120px;
+        max-height: 180px;
+        transform: translateY(0);
+      }
       .hero-card {
         right: 50%;
         transform: translateX(50%);
@@ -811,6 +829,26 @@
       .cta-row { gap: 0.4rem; flex-direction: column; }
       .btn-primary, .btn-secondary, .btn-wa, .btn-gold { padding: 0.7rem 1rem; font-size: 0.85rem; width: 100%; }
       .hero-photo { min-height: 280px; }
+      .hero-people {
+        padding: 20px 4px 106px;
+        gap: 0;
+      }
+      .hero-person.jonas {
+        left: 6px;
+        top: 0;
+      }
+      .hero-person.jonas .hero-image-box img {
+        width: 200px;
+        max-height: 300px;
+      }
+      .hero-person.timo {
+        left: -12px;
+        top: 0;
+      }
+      .hero-person.timo .hero-image-box img {
+        width: 108px;
+        max-height: 165px;
+      }
       main { padding: 1.2rem 0.8rem 1.8rem; }
       h2 { font-size: 1.2rem; }
       .grid-3, .grid-2 { grid-template-columns: 1fr; }
