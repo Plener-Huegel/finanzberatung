@@ -777,29 +777,50 @@
       .hero-inner { flex-direction: column-reverse; align-items: stretch; }
       .hero h1 { font-size: 1.6rem; }
       .hero-lead { font-size: 0.92rem; }
-      .hero-photo { min-width: 0; flex: 1 1 100%; min-height: 330px; }
+      .hero-photo {
+        min-width: 0;
+        flex: 1 1 100%;
+        min-height: 320px;
+        overflow: hidden;
+      }
       .hero-photo::before { width: 300px; height: 300px; }
       .hero-people {
-        padding: 24px 6px 112px;
+        padding: 0 0 24px;
         gap: 0;
         align-items: flex-end;
+        justify-content: center;
+        transform: scale(1.08);
+        transform-origin: bottom center;
+      }
+      .hero-person {
+        transform-origin: bottom center;
       }
       .hero-person.jonas {
-        left: 10px;
+        left: 8px;
         top: 0;
+        margin-right: -34px;
+      }
+      .hero-person.jonas .hero-image-box {
+        width: 190px;
+        height: 260px;
       }
       .hero-person.jonas .hero-image-box img {
         width: 220px;
-        max-height: 320px;
+        max-height: 290px;
         transform: translateY(0);
       }
       .hero-person.timo {
-        left: -16px;
+        left: 0;
         top: 0;
+        margin-left: -10px;
+      }
+      .hero-person.timo .hero-image-box {
+        width: 140px;
+        height: 220px;
       }
       .hero-person.timo .hero-image-box img {
-        width: 120px;
-        max-height: 180px;
+        width: 150px;
+        max-height: 220px;
         transform: translateY(0);
       }
       .hero-card {
@@ -828,26 +849,40 @@
       .badge { font-size: 0.7rem; padding: 0.2rem 0.5rem; }
       .cta-row { gap: 0.4rem; flex-direction: column; }
       .btn-primary, .btn-secondary, .btn-wa, .btn-gold { padding: 0.7rem 1rem; font-size: 0.85rem; width: 100%; }
-      .hero-photo { min-height: 280px; }
+      .hero-photo {
+        min-height: 280px;
+        overflow: hidden;
+      }
       .hero-people {
-        padding: 20px 4px 106px;
+        padding: 0 0 18px;
         gap: 0;
+        transform: scale(1.12);
       }
       .hero-person.jonas {
         left: 6px;
         top: 0;
+        margin-right: -42px;
+      }
+      .hero-person.jonas .hero-image-box {
+        width: 180px;
+        height: 240px;
       }
       .hero-person.jonas .hero-image-box img {
-        width: 200px;
-        max-height: 300px;
+        width: 210px;
+        max-height: 280px;
       }
       .hero-person.timo {
-        left: -12px;
+        left: 0;
         top: 0;
+        margin-left: -14px;
+      }
+      .hero-person.timo .hero-image-box {
+        width: 120px;
+        height: 205px;
       }
       .hero-person.timo .hero-image-box img {
-        width: 108px;
-        max-height: 165px;
+        width: 140px;
+        max-height: 210px;
       }
       main { padding: 1.2rem 0.8rem 1.8rem; }
       h2 { font-size: 1.2rem; }
