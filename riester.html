@@ -780,45 +780,55 @@
       .hero-photo {
         min-width: 0;
         flex: 1 1 100%;
-        min-height: 300px;
-        overflow: visible;
+        min-height: 320px;
+        overflow: hidden;
       }
       .hero-photo::before { width: 280px; height: 280px; }
       .hero-people {
+        position: absolute;
+        inset: 0;
         padding: 0 0 28px;
-        gap: 6px;
-        align-items: flex-end;
+        gap: 0;
+        align-items: end;
         justify-content: center;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
       }
       .hero-person {
+        position: absolute;
+        bottom: 0;
         transform-origin: bottom center;
       }
       .hero-person.jonas {
-        left: 0;
-        top: 0;
-        margin-right: -18px;
+        left: auto;
+        right: 6px;
+        transform: translateX(0);
+        bottom: 4px;
+        z-index: 2;
       }
       .hero-person.jonas .hero-image-box {
-        width: clamp(156px, 48vw, 200px);
-        height: clamp(220px, 62vw, 260px);
+        width: min(182px, 56vw);
+        height: min(256px, 74vw);
       }
       .hero-person.jonas .hero-image-box img {
-        width: clamp(180px, 56vw, 220px);
-        max-height: clamp(240px, 70vw, 280px);
-        transform: translateY(0);
+        width: min(214px, 68vw);
+        max-height: min(286px, 84vw);
+        transform: translateY(-2px);
       }
       .hero-person.timo {
-        left: 0;
-        top: 0;
-        margin-left: -4px;
+        left: 6px;
+        right: auto;
+        transform: translateX(0);
+        bottom: 6px;
+        z-index: 1;
       }
       .hero-person.timo .hero-image-box {
-        width: clamp(108px, 34vw, 140px);
-        height: clamp(176px, 48vw, 220px);
+        width: min(116px, 36vw);
+        height: min(190px, 56vw);
       }
       .hero-person.timo .hero-image-box img {
-        width: clamp(120px, 38vw, 150px);
-        max-height: clamp(180px, 52vw, 220px);
+        width: min(136px, 42vw);
+        max-height: min(220px, 64vw);
         transform: translateY(0);
       }
       .hero-card {
@@ -848,38 +858,44 @@
       .cta-row { gap: 0.4rem; flex-direction: column; }
       .btn-primary, .btn-secondary, .btn-wa, .btn-gold { padding: 0.7rem 1rem; font-size: 0.85rem; width: 100%; }
       .hero-photo {
-        min-height: 280px;
-        overflow: visible;
+        min-height: 300px;
+        overflow: hidden;
       }
       .hero-people {
+        position: absolute;
+        inset: 0;
         padding: 0 0 18px;
-        gap: 4px;
+        gap: 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
       }
       .hero-person.jonas {
-        left: 0;
-        top: 0;
-        margin-right: -14px;
+        left: auto;
+        right: 6px;
+        transform: translateX(0);
+        bottom: 2px;
       }
       .hero-person.jonas .hero-image-box {
-        width: clamp(148px, 46vw, 180px);
-        height: clamp(208px, 58vw, 240px);
+        width: min(168px, 52vw);
+        height: min(236px, 70vw);
       }
       .hero-person.jonas .hero-image-box img {
-        width: clamp(170px, 54vw, 210px);
-        max-height: clamp(220px, 66vw, 280px);
+        width: min(196px, 62vw);
+        max-height: min(264px, 80vw);
       }
       .hero-person.timo {
-        left: 0;
-        top: 0;
-        margin-left: -2px;
+        left: 6px;
+        right: auto;
+        transform: translateX(0);
+        bottom: 4px;
       }
       .hero-person.timo .hero-image-box {
-        width: clamp(100px, 32vw, 120px);
-        height: clamp(168px, 46vw, 205px);
+        width: min(104px, 32vw);
+        height: min(176px, 52vw);
       }
       .hero-person.timo .hero-image-box img {
-        width: clamp(108px, 34vw, 140px);
-        max-height: clamp(160px, 48vw, 210px);
+        width: min(122px, 38vw);
+        max-height: min(204px, 60vw);
       }
       main { padding: 1.2rem 0.8rem 1.8rem; }
       h2 { font-size: 1.2rem; }
