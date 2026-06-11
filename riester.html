@@ -850,9 +850,9 @@
       }
       .hero-people {
         position: relative;
-        width: min(100%, 340px);
+        width: min(100%, 320px);
         min-height: 220px;
-        padding: 4px 6px 0;
+        padding: 4px 0 0;
         gap: 0;
         align-items: flex-end;
         justify-content: center;
@@ -870,11 +870,13 @@
         z-index: auto;
       }
       .hero-person.jonas {
-        margin-left: 4px;
+        margin-left: 0;
+        margin-right: -10px;
         z-index: 2;
       }
       .hero-person.timo {
-        margin-right: 4px;
+        margin-left: -10px;
+        margin-right: 0;
         z-index: 1;
       }
       .hero-image-box {
@@ -884,17 +886,17 @@
         align-items: flex-end;
         justify-content: center;
       }
-      .hero-person.jonas .hero-image-box { width: min(158px, 46vw); }
+      .hero-person.jonas .hero-image-box { width: min(168px, 48vw); }
       .hero-person.jonas .hero-image-box img {
-        width: min(190px, 54vw);
-        max-width: 190px;
+        width: min(176px, 50vw);
+        max-width: 176px;
         max-height: none;
         transform: none;
       }
-      .hero-person.timo .hero-image-box { width: min(122px, 35vw); }
+      .hero-person.timo .hero-image-box { width: min(168px, 48vw); }
       .hero-person.timo .hero-image-box img {
-        width: min(132px, 40vw);
-        max-width: 132px;
+        width: min(176px, 50vw);
+        max-width: 176px;
         max-height: none;
         transform: none;
       }
@@ -928,10 +930,10 @@
       .hero-photo { min-height: 280px; }
       .hero-photo::before { width: min(240px, 82vw); height: min(240px, 82vw); top: 2px; }
       .hero-people { width: min(100%, 300px); min-height: 200px; }
-      .hero-person.jonas .hero-image-box { width: min(144px, 47vw); }
-      .hero-person.jonas .hero-image-box img { max-width: 168px; }
-      .hero-person.timo .hero-image-box { width: min(108px, 34vw); }
-      .hero-person.timo .hero-image-box img { max-width: 122px; }
+      .hero-person.jonas .hero-image-box { width: min(154px, 46vw); }
+      .hero-person.jonas .hero-image-box img { max-width: 162px; }
+      .hero-person.timo .hero-image-box { width: min(154px, 46vw); }
+      .hero-person.timo .hero-image-box img { max-width: 162px; }
       .hero-card { width: min(94vw, 290px); padding: 11px 12px; }
       .hero h1 { font-size: 1.35rem; }
       .badge { font-size: 0.72rem; padding: 0.22rem 0.48rem; }
