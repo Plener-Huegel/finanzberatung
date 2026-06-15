@@ -374,12 +374,10 @@
       flex: 0 0 450px;
       position: relative;
       display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
+      justify-content: center;
       align-items: center;
       min-width: 360px;
-      min-height: 420px;
-      padding: 6px 0 12px;
+      min-height: 430px;
     }
 
     .hero-photo::before {
@@ -397,27 +395,24 @@
     }
 
     .hero-people {
-      position: relative;
-      width: min(100%, 520px);
+      position: absolute;
+      inset: 0;
       display: flex;
       justify-content: center;
       align-items: flex-end;
-      gap: 8px;
-      padding: 6px 20px 0;
+      gap: 16px;
+      padding: 28px 24px 118px;
       z-index: 1;
-      min-height: 320px;
     }
 
     .hero-person {
       display: flex;
       align-items: flex-end;
-      position: relative;
-      flex: 0 0 auto;
     }
 
     .hero-image-box {
-      width: 220px;
-      height: 320px;
+      width: 210px;
+      height: 290px;
       display: flex;
       align-items: flex-end;
       justify-content: center;
@@ -430,23 +425,23 @@
       filter: drop-shadow(0 10px 20px rgba(15, 23, 42, 0.16));
     }
 
-    .hero-person.jonas { margin-left: 10px; }
-    .hero-person.jonas .hero-image-box img { width: 260px; max-height: 370px; transform: translateY(8px); }
-    .hero-person.timo { margin-right: 10px; }
-    .hero-person.timo .hero-image-box img { width: 175px; max-height: 300px; transform: translateY(8px); }
+    .hero-person.jonas { left: 52px; top: -8px; position: relative; }
+    .hero-person.jonas .hero-image-box img { width: 341px; max-height: 435px; transform: translateY(12px); }
+    .hero-person.timo { left: -40px; top: -8px; position: relative; }
+    .hero-person.timo .hero-image-box img { width: 168px; max-height: 225px; transform: translateY(12px); }
 
     .hero-card {
-      position: relative;
-      margin-top: 0;
+      position: absolute;
+      bottom: -12px;
+      right: 52px;
       background: #fff;
       padding: 16px 22px;
       border-radius: 20px;
       border: 1px solid rgba(148, 163, 184, 0.6);
       box-shadow: 0 8px 20px rgba(15, 23, 42, 0.18);
       z-index: 3;
-      width: min(320px, 88%);
+      width: 338px;
       color: var(--muted);
-      align-self: center;
     }
 
     .hero-card h3 {
@@ -1423,7 +1418,3 @@
   </script>
 </body>
 </html>
-
-
-
-
