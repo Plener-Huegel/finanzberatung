@@ -238,6 +238,40 @@
       .bar-name{width:90px;font-size:.72rem;}
       .field .input-row .mini-control{width:150px;max-width:52%;}
     }
+
+    /* Responsive: iPhone Mini & kleine Android Phones (375px - 414px) */
+    @media (max-width: 414px) {
+      body { font-size: 14px; }
+      .topbar { padding: 0.6rem 0.8rem; }
+      .topbar-avatars img { width: 40px; height: 40px; }
+      .topbar-title { font-size: 0.75rem; }
+      .topbar-tagline { font-size: 0.7rem; }
+      .menu-text { font-size: 0.7rem; }
+      header.hero { padding: 1.2rem 0.8rem 1.4rem; }
+      .hero h1 { font-size: 1.3rem; line-height: 1.2; }
+      .hero-lead { font-size: 0.8rem; line-height: 1.4; }
+      .badge { font-size: 0.7rem; padding: 0.2rem 0.5rem; }
+      .cta-row { gap: 0.4rem; flex-direction: column; }
+      .btn-primary, .btn-secondary, .btn-wa, .btn-gold { padding: 0.7rem 1rem; font-size: 0.85rem; width: 100%; }
+      .hero-photo { min-height: 280px; }
+      main { padding: 1.2rem 0.8rem 1.8rem; }
+      h2 { font-size: 1.2rem; }
+      .grid-3, .grid-2 { grid-template-columns: 1fr; }
+      .card { padding: 0.8rem; }
+      .card-title { font-size: 0.9rem; }
+      .card ul { font-size: 0.8rem; }
+      .contact-strip { grid-template-columns: 1fr; }
+      .contact-name { font-size: 0.85rem; }
+      footer { font-size: 0.7rem; padding: 0.8rem; }
+    }
+
+    @media (max-width: 375px) {
+      .topbar { padding: 0.5rem 0.6rem; }
+      .hero h1 { font-size: 1.1rem; }
+      .hero-lead { font-size: 0.75rem; }
+      h2 { font-size: 1.1rem; }
+      main { padding: 1rem 0.6rem 1.5rem; }
+    }
   </style>
 </head>
 <body>
@@ -250,7 +284,7 @@
         </div>
         <div>
           <div class="topbar-title">Jonas Plener &amp; Timo Hügel</div>
-          <div class="topbar-tagline">Agentur für Deutsche Vermögensberatung<br />Region Kinzigtal / Ortenau</div>
+          <div class="topbar-tagline">Onepager<br />Region Kinzigtal / Ortenau</div>
         </div>
       </div>
       <div class="menu-wrap">
@@ -259,7 +293,7 @@
           <span class="burger-lines" aria-hidden="true"><span></span><span></span><span></span></span>
         </button>
       </div>
-       <div class="menu-overlay" id="menuOverlay"></div>
+      <div class="menu-overlay" id="menuOverlay"></div>
       <nav class="menu-panel" id="menuPanel" aria-label="Navigation">
         <div class="menu-header">
           <span class="menu-header-title">Menü</span>
@@ -273,9 +307,10 @@
           <section class="menu-section">
             <h2 class="menu-section-title">Angestellt</h2>
             <ul class="menu-section-links">
-              <li><a href="vermoegen-aufbauen-investieren.html"class="active">Vermögen aufbauen</a></li>
+              <li><a href="vermoegen-aufbauen-investieren.html" class="active">Vermögen aufbauen</a></li>
               <li><a href="bav.html">bAV</a></li>
               <li><a href="arbeitskraftabsicherung.html">Arbeitskraft absichern</a></li>
+              <li><a href="risikoleben.html">Familie absichern</a></li>
               <li><a href="sachversicherungen.html">Sachversicherungen</a></li>
               <li><a href="immobilien-finanzierung.html">Immobilien &amp; Finanzierung</a></li>
             </ul>
@@ -295,7 +330,7 @@
               <li><a href="liquiditaet.html">Liquidität</a></li>
               <li><a href="betriebliche-krankenversicherung.html">Betriebliche Krankenversicherung</a></li>
               <li><a href="energie.html">Energie</a></li>
-              <li><a href="betriebliche-sachversicherung.html">Unternehmer absichern</a></li>
+              <li><a href="betriebliche-sachversicherung.html">Betriebliche Sachversicherungen</a></li>
               <li><a href="ruerup.html">Rürup</a></li>
             </ul>
           </section>
@@ -323,10 +358,10 @@
             <a href="#strategie" class="badge"><span>Strategie in 3 Schritten</span><span class="arrow">↓</span></a>
             <a href="#zinsrechner" class="badge"><span>Zinsrechner</span><span class="arrow">↓</span></a>
             <a href="#grafiken" class="badge"><span>Grafiken &amp; Erklärung</span><span class="arrow">↓</span></a>
-            <a href="#kontakt" class="badge"><span>Hier kontaktieren</span><span class="arrow">↓</span></a>
+            <a href="#kontakt" class="badge"><span>Kontakt</span><span class="arrow">↓</span></a>
           </div>
           <div class="cta-row">
-            <a href="https://forms.office.com/e/6B9nx13SNZ" target="_blank" rel="noopener" class="btn-primary">Investment-Check starten</a>
+            <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-primary">Investment-Check starten</a>
             <a href="https://wa.me/4915141678134" target="_blank" rel="noopener" class="btn-wa">Jonas kontaktieren</a>
             <a href="https://wa.me/4917663796605" target="_blank" rel="noopener" class="btn-secondary">Timo kontaktieren</a>
           </div>
@@ -337,36 +372,17 @@
             <div class="hero-person jonas"><div class="hero-image-box"><img src="jonas-halbkoerper.png" alt="Jonas Plener" /></div></div>
             <div class="hero-person timo"><div class="hero-image-box"><img src="timo-halbkoerper.png" alt="Timo Hügel" /></div></div>
           </div>
-          <div class="hero-card">
-            <h3>Eure Ansprechpartner</h3>
-            <ul>
-              <li>Vermögensaufbau klar erklärt</li>
-              <li>Strategie passend zu deinem Risiko</li>
-              <li>Digital und vor Ort</li>
-            </ul>
-          </div>
+                          <div class="hero-card">
+          <h3>Eure Ansprechpartner</h3>
+          <ul>
+            <li>Vermögensaufbau klar erklärt</li>
+            <li>Beratung digital und vor Ort</li>
+          </ul>
+        </div>
         </div>
       </div>
 
-      <div class="contact-strip">
-        <div class="contact-card">
-          <div class="contact-name">Jonas Plener</div>
-          <div class="contact-role">Vermögensberater bei der Deutschen Vermögensberatung</div>
-          <div class="contact-links">
-            <a href="tel:+4915141678134">0151 41678134</a>
-            <a href="mailto:Jonas.Plener@dvag.de">Jonas.Plener@dvag.de</a>
-          </div>
-        </div>
-        <div class="contact-card">
-          <div class="contact-name">Timo Hügel</div>
-          <div class="contact-role">Vermögensberater bei der Deutschen Vermögensberatung</div>
-          <div class="contact-links">
-            <a href="tel:+4917663796605">0176 63796605</a>
-            <a href="mailto:Timo.Huegel@dvag.de">Timo.Huegel@dvag.de</a>
-          </div>
-        </div>
-      </div>
-    </header>
+      </header>
 
     <main>
       <section id="strategie">
@@ -556,13 +572,22 @@
       </section>
 
       <section id="kontakt">
-        <div class="kontakt-box animate-on-scroll">
-          <h2>Jetzt Vermögensaufbau persönlich planen</h2>
-          <p>Wir berechnen mit dir mehrere Szenarien, wählen die passende Strategie und zeigen transparent, wie dein Plan in 5, 10 oder 20 Jahren aussehen kann.</p>
-          <div class="kontakt-btn-row">
-            <a href="https://forms.office.com/e/6B9nx13SNZ" target="_blank" rel="noopener" class="btn-forms">Investment-Check Formular</a>
-            <a href="https://wa.me/4915141678134" target="_blank" rel="noopener" class="btn-wa">Jonas kontaktieren</a>
-            <a href="https://wa.me/4917663796605" target="_blank" rel="noopener" class="btn-secondary">Timo kontaktieren</a>
+        <div class="contact-strip animate-on-scroll">
+          <div class="contact-card">
+            <div class="contact-name">Jonas Plener</div>
+            <div class="contact-role">Finanzberater</div>
+            <div class="contact-links">
+              <a href="tel:+4915141678134">0151 41678134</a>
+              <a href="mailto:Jonas.Plener@dvag.de">Jonas.Plener@dvag.de</a>
+            </div>
+          </div>
+          <div class="contact-card">
+            <div class="contact-name">Timo Hügel</div>
+            <div class="contact-role">Finanzberater</div>
+            <div class="contact-links">
+              <a href="tel:+4917663796605">0176 63796605</a>
+              <a href="mailto:Timo.Huegel@dvag.de">Timo.Huegel@dvag.de</a>
+            </div>
           </div>
         </div>
       </section>
