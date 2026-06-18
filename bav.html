@@ -205,8 +205,8 @@
     .animate-on-scroll.in-view{opacity:1;transform:translateY(0);}
 
     @media(min-width:768px){
-      .cta-row .btn-primary{flex:0 0 auto;}
-      .cta-row .btn-wa,.cta-row .btn-secondary{flex:0 0 315px;}
+      .cta-row .btn-primary{flex:0 0 100%;}
+      .cta-row .btn-wa,.cta-row .btn-secondary{flex:1 1 0;}
     }
     @media(max-width:1080px){.rechner-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
     @media(max-width:900px){.hero-photo{flex:1 1 100%;min-width:0;margin-top:0;}}
@@ -237,7 +237,7 @@
       .line-chart-shell{grid-template-columns:1fr;}
       .control-card-text{min-height:0;}
     }
-  
+
     /* Responsive: iPhone Mini & kleine Android Phones (375px - 414px) */
     @media (max-width: 414px) {
       body { font-size: 14px; }
@@ -622,20 +622,22 @@
 
     <!-- KONTAKT -->
     <section id="kontakt">
-      <div class="kontakt-box animate-on-scroll">
-        <h2>Jetzt deinen bAV-Check starten</h2>
-        <p>Wir prüfen gemeinsam, welcher Beitrag für dich optimal ist, was dein Arbeitgeber dazugibt und wie viel du am Ende mehr Rente bekommst. Kostenlos und unverbindlich.</p>
-        <div class="kontakt-btn-row">
-          <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-forms">bAV-Check starten (Formular)</a>
-          <a href="https://wa.me/4915141678134" target="_blank" rel="noopener" class="btn-wa">Jonas via WhatsApp</a>
-          <a href="https://wa.me/4917663796605" target="_blank" rel="noopener" class="btn-secondary">Timo via WhatsApp</a>
+      <div class="contact-strip animate-on-scroll">
+        <div class="contact-card">
+          <div class="contact-name">Jonas Plener</div>
+          <div class="contact-role">Finanzberater</div>
+          <div class="contact-links">
+            <a href="tel:+4915141678134">0151 41678134</a>
+            <a href="mailto:Jonas.Plener@dvag.de">Jonas.Plener@dvag.de</a>
+          </div>
         </div>
-        <div class="kontakt-mini-row">
-          <a href="tel:+4915141678134" class="kontakt-mini-link">&#128222; Jonas: 0151 41678134</a>
-          <span style="color:var(--border);">|</span>
-          <a href="tel:+4917663796605" class="kontakt-mini-link">&#128222; Timo: 0176 63796605</a>
-          <span style="color:var(--border);">|</span>
-          <a href="leistung.html" class="kontakt-mini-link">Alle Leistungen &#8594;</a>
+        <div class="contact-card">
+          <div class="contact-name">Timo Hügel</div>
+          <div class="contact-role">Finanzberater</div>
+          <div class="contact-links">
+            <a href="tel:+4917663796605">0176 63796605</a>
+            <a href="mailto:Timo.Huegel@dvag.de">Timo.Huegel@dvag.de</a>
+          </div>
         </div>
       </div>
     </section>
@@ -822,7 +824,3 @@ document.addEventListener("DOMContentLoaded",function(){
 
 </body>
 </html>
-
-
-
-
