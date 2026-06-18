@@ -359,7 +359,7 @@
       justify-content: center;
       align-items: center;
       min-width: 360px;
-      min-height: 420px;
+      min-height: 430px;
     }
 
     .hero-photo::before {
@@ -383,17 +383,13 @@
       justify-content: center;
       align-items: flex-end;
       gap: 16px;
-      padding: 28px 24px 112px;
+      padding: 28px 24px 118px;
       z-index: 1;
     }
 
     .hero-person {
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-end;
-      position: relative;
-      z-index: 1;
+      align-items: flex-end;
     }
 
     .hero-image-box {
@@ -411,30 +407,30 @@
       filter: drop-shadow(0 10px 20px rgba(15, 23, 42, 0.16));
     }
 
-    .hero-person.jonas { left: 52px; top: -8px; }
-    .hero-person.jonas .hero-image-box img { width: 341px; max-height: 435px; transform: translateY(12px); }
-    .hero-person.timo { left: -40px; top: -8px; }
-    .hero-person.timo .hero-image-box img { width: 168px; max-height: 225px; transform: translateY(12px); }
+    .hero-person.jonas { left: 52px; top: -3px; position: relative; }
+    .hero-person.jonas .hero-image-box img { width: 341px; max-width: none; max-height: 435px; transform: translateY(12px); }
+    .hero-person.timo { left: -40px; top: -3px; position: relative; }
+    .hero-person.timo .hero-image-box img { width: 168px; max-width: none; max-height: 225px; transform: translateY(12px); }
 
     .hero-card {
       position: absolute;
-      bottom: 18px;
-      right: 57px;
+      bottom: -12px;
+      right: 52px;
       background: #fff;
-      padding: 18px 24px;
-      border-radius: 22px;
+      padding: 16px 22px;
+      border-radius: 20px;
       border: 1px solid rgba(148, 163, 184, 0.6);
       box-shadow: 0 8px 20px rgba(15, 23, 42, 0.18);
       z-index: 3;
-      width: 332px;
+      width: 338px;
       color: var(--muted);
     }
 
     .hero-card h3 {
-      margin: 0 0 10px;
+      margin: 0 0 8px;
       color: var(--primary);
       font-family: "Raleway", system-ui, sans-serif;
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       text-align: center;
       font-weight: 800;
     }
@@ -442,9 +438,8 @@
     .hero-card ul {
       margin: 0;
       padding-left: 1.1rem;
-      font-size: 0.84rem;
+      font-size: 0.83rem;
     }
-
     .contact-strip {
       margin-top: 1rem;
       display: grid;
@@ -850,7 +845,6 @@
               <li><a href="vermoegen-aufbauen-investieren.html">Vermögen aufbauen</a></li>
               <li><a href="bav.html">bAV</a></li>
               <li><a href="arbeitskraftabsicherung.html">Arbeitskraft absichern</a></li>
-              <li><a href="risikoleben.html">Familie absichern</a></li>
               <li><a href="sachversicherungen.html">Sachversicherungen</a></li>
               <li><a href="immobilien-finanzierung.html">Immobilien &amp; Finanzierung</a></li>
             </ul>
