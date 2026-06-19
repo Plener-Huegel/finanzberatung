@@ -283,6 +283,18 @@
       h2 { font-size: 1.1rem; }
       main { padding: 1rem 0.6rem 1.5rem; }
     }
+  
+    /* CTA-Anordnung: bAV oben, Jonas + Timo darunter auf einer Linie */
+    @media(min-width:768px){
+      .cta-row .btn-primary{
+        flex:0 0 100%;
+      }
+      .cta-row .btn-wa,
+      .cta-row .btn-secondary{
+        flex:1 1 0;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -315,7 +327,7 @@
       <div class="menu-content">
         <section class="menu-section">
           <h2 class="menu-section-title">Startseite</h2>
-          <ul class="menu-section-links"><li><a href="leistung.html">Leistungen</a></li></ul>
+          <ul class="menu-section-links"><li><a href="index.html">Themenauswahl</a></li></ul>
         </section>
         <section class="menu-section">
           <h2 class="menu-section-title">Angestellt</h2>
@@ -323,7 +335,6 @@
             <li><a href="vermoegen-aufbauen-investieren.html">Vermögen aufbauen</a></li>
             <li><a href="bav.html" class="active">bAV</a></li>
             <li><a href="arbeitskraftabsicherung.html">Arbeitskraft absichern</a></li>
-            <li><a href="risikoleben.html">Familie absichern</a></li>
             <li><a href="sachversicherungen.html">Sachversicherungen</a></li>
             <li><a href="immobilien-finanzierung.html">Immobilien &amp; Finanzierung</a></li>
           </ul>
@@ -341,9 +352,9 @@
           <h2 class="menu-section-title">Unternehmer &amp; Selbstständig</h2>
           <ul class="menu-section-links">
             <li><a href="liquiditaet.html">Liquidität</a></li>
-              <li><a href="mitarbeiter-benefits.html">Betriebliche Krankenversicherung</a></li>
+              <li><a href="betriebliche-krankenversicherung.html">Betriebliche Krankenversicherung</a></li>
             <li><a href="energie.html">Energie</a></li>
-              <li><a href="betriebliche-sachversicherung.html">Betriebliche Sachversicherungen</a></li>
+              <li><a href="betriebliche-sachversicherung.html">Betriebliche Sachversicherung</a></li>
             <li><a href="ruerup.html">Rürup</a></li>
           </ul>
         </section>
@@ -636,23 +647,26 @@
 
     <!-- KONTAKT -->
     <section id="kontakt">
-      <div class="kontakt-box animate-on-scroll">
-        <h2>Jetzt deinen bAV-Check starten</h2>
-        <p>Wir prüfen gemeinsam, welcher Beitrag für dich optimal ist, was dein Arbeitgeber dazugibt und wie viel du am Ende mehr Rente bekommst. Kostenlos und unverbindlich.</p>
-        <div class="kontakt-btn-row">
-          <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-forms">bAV-Check starten (Formular)</a>
-          <a href="https://wa.me/4915141678134" target="_blank" rel="noopener" class="btn-wa">Jonas via WhatsApp</a>
-          <a href="https://wa.me/4917663796605" target="_blank" rel="noopener" class="btn-secondary">Timo via WhatsApp</a>
+      <div class="contact-strip animate-on-scroll">
+        <div class="contact-card">
+          <div class="contact-name">Jonas Plener</div>
+          <div class="contact-role">Finanzberater</div>
+          <div class="contact-links">
+            <a href="tel:+4915141678134">0151 41678134</a>
+            <a href="mailto:Jonas.Plener@dvag.de">Jonas.Plener@dvag.de</a>
+          </div>
         </div>
-        <div class="kontakt-mini-row">
-          <a href="tel:+4915141678134" class="kontakt-mini-link">&#128222; Jonas: 0151 41678134</a>
-          <span style="color:var(--border);">|</span>
-          <a href="tel:+4917663796605" class="kontakt-mini-link">&#128222; Timo: 0176 63796605</a>
-          <span style="color:var(--border);">|</span>
-          <a href="leistung.html" class="kontakt-mini-link">Alle Leistungen &#8594;</a>
+        <div class="contact-card">
+          <div class="contact-name">Timo Hügel</div>
+          <div class="contact-role">Finanzberater</div>
+          <div class="contact-links">
+            <a href="tel:+4917663796605">0176 63796605</a>
+            <a href="mailto:Timo.Huegel@dvag.de">Timo.Huegel@dvag.de</a>
+          </div>
         </div>
       </div>
     </section>
+
 
   </main>
 
@@ -836,7 +850,5 @@ document.addEventListener("DOMContentLoaded",function(){
 
 </body>
 </html>
-
-
 
 
