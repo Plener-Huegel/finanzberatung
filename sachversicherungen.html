@@ -864,6 +864,16 @@
       background: #f9fafb;
     }
 
+    @media (min-width: 768px) {
+      .cta-row .btn-primary {
+        flex: 0 0 100%;
+      }
+      .cta-row .btn-wa,
+      .cta-row .btn-secondary {
+        flex: 1 1 0;
+      }
+    }
+
     @media (max-width: 767px) {
       .topbar { padding-inline: 1rem; }
       .menu-panel { width: 100vw; }
@@ -913,7 +923,7 @@
         max-height: 88vh;
       }
     }
-  
+
     /* Responsive: iPhone Mini & kleine Android Phones (375px - 414px) */
     @media (max-width: 414px) {
       body { font-size: 14px; }
@@ -1350,21 +1360,24 @@
         </div>
       </section>
 
+      <!-- KONTAKT -->
       <section id="kontakt">
-        <div class="kontakt-box">
-          <h2>Jetzt eure Sachversicherungen persönlich sortieren</h2>
-          <p>Wir schauen gemeinsam, welche Risiken euch im Alltag wirklich treffen können, welche Bausteine Pflicht sind und was ihr bewusst weglassen könnt.</p>
-          <div class="kontakt-btn-row">
-            <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-primary">Sachversicherungen gemeinsam sortieren</a>
-            <a href="https://wa.me/4915141678134" target="_blank" rel="noopener" class="btn-wa">Jonas via WhatsApp</a>
-            <a href="https://wa.me/4917663796605" target="_blank" rel="noopener" class="btn-secondary">Timo via WhatsApp</a>
+        <div class="contact-strip">
+          <div class="contact-card">
+            <div class="contact-name">Jonas Plener</div>
+            <div class="contact-role">Finanzberater</div>
+            <div class="contact-links">
+              <a href="tel:+4915141678134">0151 41678134</a>
+              <a href="mailto:Jonas.Plener@dvag.de">Jonas.Plener@dvag.de</a>
+            </div>
           </div>
-          <div class="kontakt-mini-row">
-            <a href="tel:+4915141678134" class="kontakt-mini-link">Jonas: 0151 41678134</a>
-            <span style="color:var(--border);">|</span>
-            <a href="tel:+4917663796605" class="kontakt-mini-link">Timo: 0176 63796605</a>
-            <span style="color:var(--border);">|</span>
-            <a href="leistung.html" class="kontakt-mini-link">Alle Leistungen →</a>
+          <div class="contact-card">
+            <div class="contact-name">Timo Hügel</div>
+            <div class="contact-role">Finanzberater</div>
+            <div class="contact-links">
+              <a href="tel:+4917663796605">0176 63796605</a>
+              <a href="mailto:Timo.Huegel@dvag.de">Timo.Huegel@dvag.de</a>
+            </div>
           </div>
         </div>
       </section>
@@ -1461,7 +1474,3 @@
   </script>
 </body>
 </html>
-
-
-
-
