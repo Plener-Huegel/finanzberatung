@@ -1672,7 +1672,51 @@
         flex: 1 1 0;
       }
     }
-  </style>
+  
+@media (max-width:767px){
+  .hero-photo,
+  .hero-card{
+    display:none !important;
+  }
+
+  .hero-inner{
+    display:block !important;
+  }
+
+  .hero-text{
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    overflow:hidden !important;
+  }
+
+  .hero-badges,
+  .cta-row{
+    display:flex !important;
+    flex-direction:column !important;
+    width:100% !important;
+    gap:.6rem !important;
+  }
+
+  .hero-badges a,
+  .cta-row a,
+  .btn-primary,
+  .btn-secondary,
+  .btn-wa{
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    white-space:normal !important;
+    word-break:break-word !important;
+    overflow-wrap:anywhere !important;
+  }
+
+  body,.page{
+    overflow-x:hidden !important;
+  }
+}
+
+</style>
 </head>
 <body>
   <div class="page">
@@ -1684,12 +1728,12 @@
         </div>
         <div>
           <div class="topbar-title">Jonas Plener &amp; Timo Hügel</div>
-          <div class="topbar-tagline">Finanzberatung<br />Region Kinzigtal / Ortenau</div>
+          <div class="topbar-tagline">Finanzberatung</div>
         </div>
       </div>
 
       <div class="menu-wrap">
-        <div class="menu-text">Für Eltern, Selbstständige und Angestellte<br />im Kinzigtal &amp; der Ortenau</div>
+        <div class="menu-text"></div>
         <button type="button" class="burger-btn" id="burgerBtn" aria-label="Menü öffnen" aria-expanded="false" aria-controls="menuPanel">
           <span class="burger-lines" aria-hidden="true"><span></span><span></span><span></span></span>
         </button>
@@ -1862,6 +1906,10 @@
 
               <p class="small-note">Tilgung: fest 2,0 % p.a.</p>
               <p class="small-note">Kaufnebenkosten werden automatisch berücksichtigt.</p>
+              <div class="calc-button-row">
+                <button type="button" class="btn-primary" id="calcBtn">Berechnung aktualisieren</button>
+              </div>
+
             </div>
 
             <div class="calc-card calc-card-highlight">
@@ -2368,6 +2416,12 @@
         el.addEventListener("input", updateRechner);
       });
 
+      const calcBtn = document.getElementById("calcBtn");
+      if (calcBtn) {
+        calcBtn.addEventListener("click", updateRechner);
+      }
+
+
       calcHasSecondPerson.addEventListener("change", function () {
         calcPerson2Wrap.classList.toggle("hidden", !this.checked);
         updateRechner();
@@ -2401,8 +2455,6 @@
   </script>
 </body>
 </html>
-
-
 
 
 
