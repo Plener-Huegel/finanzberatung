@@ -17,6 +17,8 @@
       --bg-soft: #f9fbfb;
       --bg-warn: #fff7ed;
       --bg-info: #eef6ff;
+      --good: #16a34a;
+      --bad: #dc2626;
       --wa: #25d366;
       --shadow: 0 10px 25px rgba(15, 23, 42, 0.06);
       --shadow-strong: 0 18px 45px rgba(15, 23, 42, 0.12);
@@ -679,6 +681,98 @@
       margin-bottom: 0.45rem;
     }
 
+    .calc-wrapper {
+      border-radius: 24px;
+      padding: 1.2rem 1.1rem 1.4rem;
+      background: linear-gradient(to right, #fef3c7 0, #ffffff 45%, #e0f2fe 100%);
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+      margin-top: 0.6rem;
+    }
+
+    .calc-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+      gap: 1.2rem;
+    }
+
+    .calc-inputs label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+      color: var(--muted);
+    }
+
+    .calc-inputs input {
+      width: 100%;
+      padding: 0.58rem 0.65rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      font-size: 0.92rem;
+      background: #fff;
+    }
+
+    .calc-inputs .field { margin-bottom: 0.7rem; }
+    .calc-btn-row { margin-top: 0.3rem; }
+    .calc-btn-row button { width: 100%; }
+
+    .calc-result {
+      background: rgba(255, 255, 255, 0.92);
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .calc-expl { font-size: 0.9rem; margin: 0 0 0.6rem; }
+    .calc-expl strong { font-weight: 800; }
+
+    .calc-values {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 0.6rem;
+      margin-top: 0.4rem;
+    }
+
+    .calc-value-box {
+      padding: 0.55rem 0.7rem;
+      border-radius: 12px;
+      background: #fff;
+      border: 2px solid var(--border);
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.06);
+    }
+
+    .calc-value-box.today { border-color: rgba(220, 38, 38, 0.55); background: #fee2e2; }
+    .calc-value-box.boosted { border-color: #111827; background: #f3f4f6; }
+    .calc-value-box.diff { border-color: rgba(22, 163, 74, 0.55); background: #dcfce7; }
+    .calc-value-box.total { border-color: rgba(148, 163, 184, 0.7); background: #eff6ff; }
+
+    .calc-value-label { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.1rem; }
+    .calc-value-number { display: block; font-weight: 800; font-size: 1.05rem; margin-top: 2px; }
+    .calc-value-number.red { color: var(--bad); }
+    .calc-value-number.green { color: var(--good); }
+    .calc-value-number.black { color: #111827; }
+
+    .calc-note {
+      margin-top: 0.6rem;
+      font-size: 0.78rem;
+      color: #6b7280;
+    }
+
+    .calc-cta-row {
+      margin-top: 0.8rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .calc-examples-link {
+      margin-top: 0.6rem;
+      font-size: 0.85rem;
+      color: var(--primary);
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
     .kontakt-box {
       background: linear-gradient(135deg, #e0f2fe, #fef3c7);
       border: 1px solid var(--border);
@@ -771,9 +865,11 @@
       }
       .contact-strip { grid-template-columns: 1fr; }
       .cta-row,
+      .calc-cta-row,
       .kontakt-btn-row,
       .kontakt-mini-row { flex-direction: column; align-items: stretch; }
       .cta-row a,
+      .calc-cta-row a,
       .kontakt-mini-link { width: 100%; }
     }
   
@@ -828,7 +924,7 @@
         </div>
         <div>
           <div class="topbar-title">Jonas Plener &amp; Timo Hügel</div>
-          <div class="topbar-tagline">Finanzberatung<br />Region Kinzigtal / Ortenau</div>
+          <div class="topbar-tagline">Finanzberatung</div>
         </div>
       </div>
 
@@ -916,22 +1012,10 @@
           </div>
         </div>
 
-        <div class="hero-photo">
-          <div class="hero-people">
-            <div class="hero-person jonas"><div class="hero-image-box"><img src="jonas-halbkoerper.png" alt="Jonas Plener" /></div></div>
-            <div class="hero-person timo"><div class="hero-image-box"><img src="timo-halbkoerper.png" alt="Timo Hügel" /></div></div>
-          </div>
-                          <div class="hero-card">
-          <h3>Eure Ansprechpartner</h3>
-          <ul>
-            <li>V0800 bringt keine Sofortzahlung, sondern spätere Rentenpunkte ins Konto.</li>
-            <li>Beratung digital und vor Ort</li>
-          </ul>
-        </div>
         </div>
       </div>
 
-      </header>
+    </header>
 
     <main>
       <section id="v0800">
@@ -962,75 +1046,76 @@
       </section>
 
       <section id="rechner">
-        <h2>Rechner: V0800-Wirkung plus Riesterförderung</h2>
-        <p class="section-subtitle">Hier werden Kindererziehungszeiten und Riesterzulagen aus denselben Familienangaben parallel berechnet. So siehst du sauber getrennt, was später über die gesetzliche Rente wirkt und was heute als Riesterförderung mitläuft.</p>
+        <h2>Was kann deine Rente mit Förderung werden?</h2>
+        <p class="section-subtitle">Trag deine Daten ein und sieh, welchen Unterschied Förderung für deine Rente machen kann.</p>
 
-        <div class="calc-wrap">
+        <div class="calc-wrapper">
           <div class="calc-grid">
-            <label class="calc-field" for="childrenBefore1992">
-              <span class="calc-label">Kinder geboren bis 1991</span>
-              <input class="calc-input" id="childrenBefore1992" type="number" min="0" step="1" value="0" />
-            </label>
-            <label class="calc-field" for="children1992to2007">
-              <span class="calc-label">Kinder geboren 1992 bis 2007</span>
-              <input class="calc-input" id="children1992to2007" type="number" min="0" step="1" value="1" />
-            </label>
-            <label class="calc-field" for="childrenFrom2008">
-              <span class="calc-label">Kinder geboren ab 2008</span>
-              <input class="calc-input" id="childrenFrom2008" type="number" min="0" step="1" value="1" />
-            </label>
-            <label class="calc-field" for="pensionPointValue">
-              <span class="calc-label">Wert pro Rentenpunkt in EUR/Monat</span>
-              <input class="calc-input" id="pensionPointValue" type="number" min="0" step="0.01" value="40.79" />
-            </label>
-            <label class="calc-field" for="riesterGross">
-              <span class="calc-label">Rentenversicherungspflichtiges Jahresbrutto</span>
-              <input class="calc-input" id="riesterGross" type="number" min="0" step="100" value="42000" />
-            </label>
-            <label class="calc-field checkbox-row" for="riesterEligible">
-              <input id="riesterEligible" type="checkbox" checked />
-              <span>Direkt riesterberechtigt rechnen</span>
-            </label>
-          </div>
+            <div class="calc-inputs">
+              <div class="field">
+                <label for="birthdate">Dein Geburtsdatum</label>
+                <input type="date" id="birthdate" />
+              </div>
 
-          <div class="result-grid">
-            <article class="result-card">
-              <div class="result-title">Rentenpunkte aus Kindererziehung</div>
-              <div class="result-value" id="kezPointsResult">-</div>
-              <p class="result-hint">vereinfacht aus Geburtsjahrgängen abgeleitet</p>
-            </article>
-            <article class="result-card">
-              <div class="result-title">Zusätzliche Monatsrente später</div>
-              <div class="result-value" id="kezMonthlyResult">-</div>
-              <p class="result-hint">aus Rentenpunkten x Punktwert</p>
-            </article>
-            <article class="result-card">
-              <div class="result-title">Riesterzulagen pro Jahr</div>
-              <div class="result-value" id="riesterAllowanceResult">-</div>
-              <p class="result-hint">Grundzulage plus Kinderzulagen</p>
-            </article>
-            <article class="result-card">
-              <div class="result-title">Riester-Eigenbeitrag pro Jahr</div>
-              <div class="result-value" id="riesterOwnYearResult">-</div>
-              <p class="result-hint">4-%-Regel, max. 2.100 EUR, mind. 60 EUR</p>
-            </article>
-            <article class="result-card">
-              <div class="result-title">Riester-Eigenbeitrag pro Monat</div>
-              <div class="result-value" id="riesterOwnMonthResult">-</div>
-              <p class="result-hint">vereinfachte Monatsableitung</p>
-            </article>
-            <article class="result-card">
-              <div class="result-title">Förderquote auf Eigenbeitrag</div>
-              <div class="result-value" id="riesterRateResult">-</div>
-              <p class="result-hint">wie stark der Staat deinen Beitrag ergänzt</p>
-            </article>
-          </div>
+              <div class="field">
+                <label for="brutto">Dein monatliches Brutto-Einkommen in EUR</label>
+                <input type="number" id="brutto" min="0" step="50" placeholder="z. B. 3000" />
+              </div>
 
-          <div class="summary-box" id="summaryBox">
-            <strong>Hinweis:</strong> V0800 und Riester sind zwei verschiedene Logiken. Dieser Rechner zeigt beide Ergebnisse in einer Übersicht, rechnet sie aber nicht zu einer einzigen Fördersumme zusammen.
-          </div>
+              <div class="field">
+                <label for="children">Wie viele Kinder werden berücksichtigt?</label>
+                <input type="number" id="children" min="0" max="10" step="1" placeholder="Anzahl der Kinder" />
+              </div>
 
-          <p class="calc-disclaimer">Vereinfachte Darstellung ohne Sonderfälle wie mittelbare Riesterberechtigung, abweichende Kinderzulagen-Zuordnung, Splitting-Sonderkonstellationen oder individuelle Rentenkontenklärung.</p>
+              <div class="calc-btn-row">
+                <button type="button" class="btn-primary" id="calcBtn">Renten-Check berechnen</button>
+              </div>
+            </div>
+
+            <div class="calc-result" id="calc-result">
+              <p class="calc-expl">
+                Unten siehst du vier Zahlen:
+                <br /><strong>1. Rente heute</strong> ist das, was deine Rente ungefähr wäre, wenn du nichts änderst.
+                <br /><strong>2. Rente mit Förderung</strong> zeigt, was möglich sein kann, wenn du die passenden Bausteine nutzt.
+                <br /><strong>3. Mehr-Rente pro Monat</strong> ist die Differenz zwischen heute und mit Förderung.
+                <br /><strong>4. Summe bis 100 Jahre</strong> ist das Geld, das sich daraus bis zu deinem 100. Geburtstag aufsummieren kann.
+              </p>
+
+              <div class="calc-values">
+                <div class="calc-value-box today">
+                  <div class="calc-value-label">Rente heute, ca. pro Monat</div>
+                  <div class="calc-value-number red" id="res-today">-</div>
+                </div>
+
+                <div class="calc-value-box boosted">
+                  <div class="calc-value-label">Rente mit Förderung, ca. pro Monat</div>
+                  <div class="calc-value-number black" id="res-boosted">-</div>
+                </div>
+
+                <div class="calc-value-box diff">
+                  <div class="calc-value-label">Mehr-Rente pro Monat</div>
+                  <div class="calc-value-number green" id="res-diff">-</div>
+                </div>
+
+                <div class="calc-value-box total">
+                  <div class="calc-value-label">Zusätzliche Summe bis 100 Jahre</div>
+                  <div class="calc-value-number" id="res-lifetime">-</div>
+                </div>
+              </div>
+
+              <div class="calc-note">
+                Die Werte sind eine grobe Orientierung und ersetzen keine individuelle Beratung.
+                Welche Bausteine wirklich zu dir passen, klären wir am besten im Gespräch.
+              </div>
+
+              <div class="calc-cta-row">
+                <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-primary">Ergebnis mit uns durchgehen</a>
+                <a href="https://wa.me/4917663796605" target="_blank" rel="noopener" class="btn-wa">Ergebnis per WhatsApp schicken</a>
+              </div>
+
+              <div class="calc-examples-link"><a href="#beispiele">Beispiele dazu ansehen</a></div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -1152,109 +1237,65 @@
       });
     })();
 
-    (function () {
-      const childrenBefore1992 = document.getElementById("childrenBefore1992");
-      const children1992to2007 = document.getElementById("children1992to2007");
-      const childrenFrom2008 = document.getElementById("childrenFrom2008");
-      const pensionPointValue = document.getElementById("pensionPointValue");
-      const riesterGross = document.getElementById("riesterGross");
-      const riesterEligible = document.getElementById("riesterEligible");
+    // Rechner
+    function calculatePension() {
+      const birthInput = document.getElementById("birthdate").value;
+      const bruttoRaw = (document.getElementById("brutto").value || "").toString().replace(",", ".");
+      const bruttoInput = parseFloat(bruttoRaw);
+      const childrenInput = parseInt(document.getElementById("children").value, 10);
 
-      const kezPointsResult = document.getElementById("kezPointsResult");
-      const kezMonthlyResult = document.getElementById("kezMonthlyResult");
-      const riesterAllowanceResult = document.getElementById("riesterAllowanceResult");
-      const riesterOwnYearResult = document.getElementById("riesterOwnYearResult");
-      const riesterOwnMonthResult = document.getElementById("riesterOwnMonthResult");
-      const riesterRateResult = document.getElementById("riesterRateResult");
-      const summaryBox = document.getElementById("summaryBox");
+      const resTodayEl = document.getElementById("res-today");
+      const resBoostedEl = document.getElementById("res-boosted");
+      const resDiffEl = document.getElementById("res-diff");
+      const resLifetimeEl = document.getElementById("res-lifetime");
 
-      const DIRECT_ALLOWANCE = 175;
-      const CHILD_ALLOWANCE_BEFORE_2008 = 185;
-      const CHILD_ALLOWANCE_FROM_2008 = 300;
-      const MIN_RIESTER_OWN = 60;
-      const MAX_RIESTER_TARGET = 2100;
-
-      function asNumber(element) {
-        const value = Number(element.value);
-        return Number.isFinite(value) && value > 0 ? value : 0;
+      if (!birthInput || Number.isNaN(bruttoInput) || Number.isNaN(childrenInput)) {
+        resTodayEl.textContent = "Bitte alle Felder ausfüllen.";
+        resBoostedEl.textContent = "–";
+        resDiffEl.textContent = "–";
+        resLifetimeEl.textContent = "–";
+        return;
       }
 
-      function toCurrency(value) {
-        return new Intl.NumberFormat("de-DE", {
-          style: "currency",
-          currency: "EUR",
-          maximumFractionDigits: 0
-        }).format(Math.max(0, value));
-      }
+      const birthDate = new Date(birthInput);
+      const now = new Date();
+      let age = now.getFullYear() - birthDate.getFullYear();
+      const m = now.getMonth() - birthDate.getMonth();
+      if (m < 0 || (m === 0 && now.getDate() < birthDate.getDate())) age--;
+      if (age < 18) age = 18;
+      if (age > 67) age = 67;
 
-      function toNumber(value) {
-        return new Intl.NumberFormat("de-DE", {
-          minimumFractionDigits: 1,
-          maximumFractionDigits: 1
-        }).format(value);
-      }
+      const rentToday = bruttoInput * 0.4;
 
-      function toPercent(value) {
-        return new Intl.NumberFormat("de-DE", {
-          minimumFractionDigits: 0,
-          maximumFractionDigits: 0
-        }).format(Math.max(0, value)) + " %";
-      }
+      const kezPlus = childrenInput * 120;
+      const riesterBase = 175 / 12;
+      const riesterKids = childrenInput * (300 / 12);
 
-      function updateCalculator() {
-        const before1992 = asNumber(childrenBefore1992);
-        const from1992to2007 = asNumber(children1992to2007);
-        const from2008 = asNumber(childrenFrom2008);
-        const pointValue = asNumber(pensionPointValue);
-        const gross = asNumber(riesterGross);
-        const eligible = !!riesterEligible.checked;
+      const monthlyPlus = kezPlus + riesterBase + riesterKids;
+      const rentBoosted = rentToday + monthlyPlus;
+      const diff = monthlyPlus;
 
-        const kezPoints = (before1992 * 2.5) + (from1992to2007 * 3) + (from2008 * 3);
-        const kezMonthly = kezPoints * pointValue;
+      const yearsLeft = Math.max(0, 100 - age);
+      const lifetimeExtra = diff * 12 * yearsLeft;
 
-        const childrenBefore2008Total = before1992 + from1992to2007;
-        const riesterAllowance = eligible
-          ? DIRECT_ALLOWANCE + (childrenBefore2008Total * CHILD_ALLOWANCE_BEFORE_2008) + (from2008 * CHILD_ALLOWANCE_FROM_2008)
-          : 0;
+      const fmt = (val) =>
+        new Intl.NumberFormat("de-DE", { maximumFractionDigits: 0 }).format(Math.round(val));
 
-        const riesterTarget = eligible ? Math.min(MAX_RIESTER_TARGET, gross * 0.04) : 0;
-        const riesterOwnYear = eligible ? Math.max(MIN_RIESTER_OWN, riesterTarget - riesterAllowance) : 0;
-        const riesterOwnMonth = riesterOwnYear / 12;
-        const riesterRate = riesterOwnYear > 0 ? (riesterAllowance / riesterOwnYear) * 100 : 0;
+      resTodayEl.textContent = fmt(rentToday) + " €";
+      resBoostedEl.textContent = fmt(rentBoosted) + " €";
+      resDiffEl.textContent = fmt(diff) + " €";
+      resLifetimeEl.textContent = fmt(lifetimeExtra) + " €";
+    }
 
-        kezPointsResult.textContent = toNumber(kezPoints) + " Punkte";
-        kezMonthlyResult.textContent = toCurrency(kezMonthly);
-        riesterAllowanceResult.textContent = toCurrency(riesterAllowance);
-        riesterOwnYearResult.textContent = toCurrency(riesterOwnYear);
-        riesterOwnMonthResult.textContent = toCurrency(riesterOwnMonth);
-        riesterRateResult.textContent = eligible ? toPercent(riesterRate) : "-";
-
-        if (!eligible) {
-          summaryBox.innerHTML = "<strong>Hinweis:</strong> V0800 bleibt weiter relevant für die spätere Rentenwirkung. Die Riesterrechnung ist hier ausgeschaltet, weil in dieser vereinfachten Ansicht keine direkte Riesterberechtigung gerechnet wird.";
-          return;
-        }
-
-        summaryBox.innerHTML = "<strong>Vereinfacht zusammengefasst:</strong> Über V0800 kommen <strong>" + toNumber(kezPoints) + " Rentenpunkte</strong> ins Rentenkonto. Das entspricht später grob <strong>" + toCurrency(kezMonthly) + " mehr Monatsrente</strong>. Zusätzlich bringt Riester bei diesen Angaben <strong>" + toCurrency(riesterAllowance) + " staatliche Förderung pro Jahr</strong>. Beides wird hier parallel ausgewiesen, nicht miteinander verrechnet.";
-      }
-
-      [
-        childrenBefore1992,
-        children1992to2007,
-        childrenFrom2008,
-        pensionPointValue,
-        riesterGross,
-        riesterEligible
-      ].forEach(function (element) {
-        element.addEventListener("input", updateCalculator);
-        element.addEventListener("change", updateCalculator);
+    // Button klick + Enter in Inputs
+    document.getElementById("calcBtn")?.addEventListener("click", calculatePension);
+    ["birthdate","brutto","children"].forEach(id => {
+      document.getElementById(id)?.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") calculatePension();
       });
-
-      updateCalculator();
-    })();
+    });
   </script>
 </body>
 </html>
-
-
 
 
