@@ -773,19 +773,22 @@
       .hero-inner { flex-direction: column-reverse; align-items: stretch; }
       .hero h1 { font-size: 1.6rem; }
       .hero-lead { font-size: 0.92rem; }
-      .hero-photo { min-width: 0; flex: 1 1 100%; min-height: 340px; }
-      .hero-photo::before { width: 300px; height: 300px; }
-      .hero-people { padding: 22px 10px 126px; gap: 8px; }
+      .hero-photo { min-width: 0; flex: 1 1 100%; min-height: 320px; overflow: visible; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 0 0 10px; }
+      .hero-photo::before { width: min(270px, 86vw); height: min(270px, 86vw); top: 8px; left: 50%; transform: translateX(-50%); opacity: 0.7; }
+      .hero-people { position: relative; width: min(100%, 320px); min-height: 220px; padding: 4px 0 0; gap: 0; align-items: flex-end; justify-content: center; z-index: 2; }
       .hero-person.jonas { left: 20px; }
       .hero-person.jonas .hero-image-box img { width: 230px; }
-      .hero-person.timo { left: -20px; }
+      .hero-person.timo { margin-left: -10px; margin-right: 0; z-index: 1; transform: translate(-80px, 10px); }
       .hero-person.timo .hero-image-box img { width: 130px; }
       .hero-card {
-        right: 50%;
-        transform: translateX(50%);
-        width: min(92vw, 340px);
-        bottom: 4px;
-        padding: 14px 18px;
+        position: relative;
+        right: auto;
+        bottom: auto;
+        transform: none;
+        width: min(92vw, 300px);
+        margin: 8px auto 0;
+        padding: 12px 14px;
+        z-index: 3;
       }
       .contact-strip { grid-template-columns: 1fr; }
       .cta-row { flex-direction: column; align-items: stretch; }
@@ -808,7 +811,7 @@
       .badge { font-size: 0.7rem; padding: 0.2rem 0.5rem; }
       .cta-row { gap: 0.4rem; flex-direction: column; }
       .btn-primary, .btn-secondary, .btn-wa, .btn-gold { padding: 0.7rem 1rem; font-size: 0.85rem; width: 100%; }
-      .hero-photo { min-height: 280px; }
+      .hero-photo { min-height: 280px; }`r`n      .hero-photo::before { width: min(240px, 82vw); height: min(240px, 82vw); top: 2px; }`r`n      .hero-people { width: min(100%, 300px); min-height: 200px; }`r`n      .hero-person.jonas { transform: translate(0px, 10px); }`r`n      .hero-person.timo { transform: translate(-80px, 10px); }`r`n      .hero-person.jonas .hero-image-box { width: min(305px, 92vw); }`r`n      .hero-person.jonas .hero-image-box img { max-width: 318px; }`r`n      .hero-person.timo .hero-image-box { width: min(154px, 46vw); }`r`n      .hero-person.timo .hero-image-box img { max-width: 162px; }`r`n      .hero-card { width: min(94vw, 290px); padding: 11px 12px; }
       main { padding: 1.2rem 0.8rem 1.8rem; }
       h2 { font-size: 1.2rem; }
       .grid-3, .grid-2 { grid-template-columns: 1fr; }
@@ -839,11 +842,12 @@
         </div>
         <div>
           <div class="topbar-title">Jonas Plener &amp; Timo Hügel</div>
-          <div class="topbar-tagline">Finanzberatung<br
+          <div class="topbar-tagline">Finanzberatung<br />Region Kinzigtal / Ortenau</div>
         </div>
       </div>
 
       <div class="menu-wrap">
+        <div class="menu-text">Für Eltern, Selbstständige und Angestellte<br />im Kinzigtal &amp; der Ortenau</div>
         <button type="button" class="burger-btn" id="burgerBtn" aria-label="Menü öffnen" aria-expanded="false" aria-controls="menuPanel">
           <span class="burger-lines" aria-hidden="true"><span></span><span></span><span></span></span>
         </button>
@@ -1179,6 +1183,8 @@
   </script>
 </body>
 </html>
+
+
 
 
 
