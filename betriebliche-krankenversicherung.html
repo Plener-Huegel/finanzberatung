@@ -1028,73 +1028,104 @@
       .hero-lead { font-size: 0.92rem; }
 
       .hero-photo {
-        width: 100%;
-        flex: none;
         min-width: 0;
-        min-height: 0;
+        flex: 1 1 100%;
+        min-height: 320px;
+        overflow: visible;
         display: flex;
         flex-direction: column;
-        align-items: stretch;
-        position: relative;
-        overflow: hidden;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 0 0 10px;
         align-self: auto;
         margin-top: 0;
       }
 
       .hero-photo::before {
-        width: 200px;
-        height: 200px;
+        width: min(270px, 86vw);
+        height: min(270px, 86vw);
+        top: 8px;
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 0.7;
       }
 
       .hero-people {
         position: relative;
-        inset: auto;
-        top: auto;
+        width: min(100%, 320px);
+        min-height: 220px;
+        padding: 4px 0 0;
+        gap: 0;
+        align-items: flex-end;
+        justify-content: center;
+        z-index: 2;
+      }
+
+      .hero-person {
+        position: relative;
+        bottom: auto;
         left: auto;
         right: auto;
-        bottom: auto;
+        transform: none;
         display: flex;
-        justify-content: center;
         align-items: flex-end;
-        padding: 24px 16px 0;
-        gap: 0;
+        margin: 0;
+        z-index: auto;
+      }
+
+      .hero-person.jonas {
+        margin-left: 0;
+        margin-right: -10px;
+        z-index: 2;
+        transform: translate(0px, 10px);
+      }
+
+      .hero-person.timo {
+        margin-left: -10px;
+        margin-right: 0;
+        z-index: 1;
+        transform: translate(-80px, 10px);
       }
 
       .hero-image-box {
         width: auto;
         height: auto;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
       }
 
-      .hero-person.jonas {
-        left: 10px;
-        top: 0;
+      .hero-person.jonas .hero-image-box {
+        width: min(348px, 100vw);
       }
 
       .hero-person.jonas .hero-image-box img {
-        width: min(63vw, 231px);
-        max-height: 300px;
+        width: min(362px, 104vw);
+        max-width: 362px;
+        max-height: none;
         transform: none;
       }
 
-      .hero-person.timo {
-        left: -50px;
-        top: 0;
+      .hero-person.timo .hero-image-box {
+        width: min(168px, 48vw);
       }
 
       .hero-person.timo .hero-image-box img {
-        width: min(31vw, 116px);
-        max-height: 156px;
+        width: min(176px, 50vw);
+        max-width: 176px;
+        max-height: none;
         transform: none;
       }
 
       .hero-card {
-        position: static;
+        position: relative;
         right: auto;
         bottom: auto;
-        width: auto;
-        margin: -11px 45px 0;
-        border-radius: 16px;
-        padding: 14px 20px;
+        transform: none;
+        width: min(92vw, 300px);
+        margin: 8px auto 0;
+        padding: 12px 14px;
+        z-index: 3;
       }
 
       .cta-row {
@@ -1351,6 +1382,15 @@
       .cta-row { gap: 0.4rem; flex-direction: column; }
       .btn-primary, .btn-secondary, .btn-wa, .btn-gold { padding: 0.7rem 1rem; font-size: 0.85rem; width: 100%; }
       .hero-photo { min-height: 280px; }
+      .hero-photo::before { width: min(240px, 82vw); height: min(240px, 82vw); top: 2px; }
+      .hero-people { width: min(100%, 300px); min-height: 200px; }
+      .hero-person.jonas { transform: translate(0px, 10px); }
+      .hero-person.timo { transform: translate(-80px, 10px); }
+      .hero-person.jonas .hero-image-box { width: min(305px, 92vw); }
+      .hero-person.jonas .hero-image-box img { max-width: 318px; }
+      .hero-person.timo .hero-image-box { width: min(154px, 46vw); }
+      .hero-person.timo .hero-image-box img { max-width: 162px; }
+      .hero-card { width: min(94vw, 290px); padding: 11px 12px; }
       main { padding: 1.2rem 0.8rem 1.8rem; }
       h2 { font-size: 1.2rem; }
       .grid-3, .grid-2 { grid-template-columns: 1fr; }
@@ -1383,12 +1423,15 @@
           <div class="topbar-title">Jonas Plener &amp; Timo Hügel</div>
           <div class="topbar-tagline">
 
-            Finanzberatung
+            Region Kinzigtal / Ortenau
           </div>
         </div>
       </div>
 
       <div class="menu-wrap">
+        <div class="menu-text">
+          Für Eltern, Selbstständige und Angestellte<br />
+          im Kinzigtal &amp; der Ortenau
         </div>
 
         <button type="button" class="burger-btn" id="burgerBtn" aria-label="Menü öffnen" aria-expanded="false" aria-controls="menuPanel">
