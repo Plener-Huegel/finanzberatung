@@ -295,6 +295,96 @@
       }
     }
 
+  
+    /* Mobile-Fix bAV: Bildbereich weg, Hero und Buttons bleiben im Bildschirm */
+    @media (max-width:767px){
+      .hero-photo{
+        display:none !important;
+      }
+
+      .hero-inner{
+        display:block;
+        width:100%;
+      }
+
+      .hero-text{
+        width:100%;
+        max-width:100%;
+        min-width:0;
+        overflow-wrap:anywhere;
+        word-break:normal;
+      }
+
+      .hero-label,
+      .hero h1,
+      .hero-lead,
+      .hero-badges,
+      .cta-row{
+        max-width:100%;
+      }
+
+      .hero-label{
+        white-space:normal;
+        line-height:1.35;
+      }
+
+      .hero h1{
+        font-size:clamp(1.25rem, 6vw, 1.45rem);
+        line-height:1.18;
+      }
+
+      .hero-lead{
+        font-size:.88rem;
+        line-height:1.45;
+      }
+
+      .badge{
+        max-width:100%;
+        white-space:normal;
+        line-height:1.3;
+      }
+
+      .cta-row{
+        display:grid;
+        grid-template-columns:1fr;
+        gap:.55rem;
+        width:100%;
+      }
+
+      .cta-row a,
+      .btn-primary,
+      .btn-secondary,
+      .btn-wa,
+      .btn-gold,
+      .btn-forms{
+        width:100%;
+        max-width:100%;
+        min-width:0;
+        white-space:normal;
+        line-height:1.25;
+        padding:.72rem .9rem;
+        font-size:.84rem;
+        min-height:46px;
+      }
+    }
+
+    @media (max-width:414px){
+      .hero-label{
+        font-size:.74rem;
+        align-items:flex-start;
+      }
+
+      .cta-row a,
+      .btn-primary,
+      .btn-secondary,
+      .btn-wa,
+      .btn-gold,
+      .btn-forms{
+        font-size:.8rem;
+        padding:.68rem .75rem;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -327,7 +417,7 @@
       <div class="menu-content">
         <section class="menu-section">
           <h2 class="menu-section-title">Startseite</h2>
-          <ul class="menu-section-links"><li><a href="leistung.html">Themenauswahl</a></li></ul>
+          <ul class="menu-section-links"><li><a href="leistung.html">Leistungen</a></li></ul>
         </section>
         <section class="menu-section">
           <h2 class="menu-section-title">Angestellt</h2>
@@ -335,6 +425,7 @@
             <li><a href="vermoegen-aufbauen-investieren.html">Vermögen aufbauen</a></li>
             <li><a href="bav.html" class="active">bAV</a></li>
             <li><a href="arbeitskraftabsicherung.html">Arbeitskraft absichern</a></li>
+            <li><a href="risikoleben.html">Familie absichern</a></li>
             <li><a href="sachversicherungen.html">Sachversicherungen</a></li>
             <li><a href="immobilien-finanzierung.html">Immobilien &amp; Finanzierung</a></li>
           </ul>
@@ -352,7 +443,7 @@
           <h2 class="menu-section-title">Unternehmer &amp; Selbstständig</h2>
           <ul class="menu-section-links">
             <li><a href="liquiditaet.html">Liquidität</a></li>
-              <li><a href="betriebliche-krankenversicherung.html">Betriebliche Krankenversicherung</a></li>
+              <li><a href="mitarbeiter-benefits.html">Betriebliche Krankenversicherung</a></li>
             <li><a href="energie.html">Energie</a></li>
               <li><a href="betriebliche-sachversicherung.html">Betriebliche Sachversicherungen</a></li>
             <li><a href="ruerup.html">Rürup</a></li>
