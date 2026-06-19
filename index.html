@@ -728,10 +728,12 @@
     @media (max-width:767px){
       .topbar{padding-inline:1rem}
       .topbar-right{display:none}
-      .topbar-title{white-space:nowrap;}
+      .topbar-title{white-space:nowrap; font-size:.82rem;}
       .topbar-tagline{display:none;}
       .topbar-tagline-mobile{display:block; font-size:.7rem; color:var(--muted);}
       .menu-text{display:none;}
+
+      .page{overflow-x:hidden;}
 
       .menu-panel{
         width:100vw;
@@ -745,8 +747,10 @@
         align-items:stretch;
       }
 
-      .hero h1{font-size:1.45rem}
-      .hero-lead{font-size:.92rem}
+      .hero h1{font-size:1.25rem; overflow-wrap:break-word; word-break:normal;}
+      .hero-lead{font-size:.88rem; overflow-wrap:break-word;}
+      .hero-badges{gap:.4rem;}
+      .badge{font-size:.75rem; padding:.22rem .55rem;}
 
       .hero-photo{
         min-width:0;
