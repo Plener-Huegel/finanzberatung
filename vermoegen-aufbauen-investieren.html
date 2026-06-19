@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
@@ -272,7 +272,14 @@
       h2 { font-size: 1.1rem; }
       main { padding: 1rem 0.6rem 1.5rem; }
     }
-  </style>
+  
+    @media (max-width:767px){
+      .hero-photo{
+        display:none !important;
+      }
+    }
+
+</style>
 </head>
 <body>
   <div class="page">
@@ -284,7 +291,7 @@
         </div>
         <div>
           <div class="topbar-title">Jonas Plener &amp; Timo Hügel</div>
-          <div class="topbar-tagline">Finanzberatung<br />Region Kinzigtal / Ortenau</div>
+          <div class="topbar-tagline">Finanzberatung</div>
         </div>
       </div>
       <div class="menu-wrap">
@@ -297,7 +304,7 @@
       <nav class="menu-panel" id="menuPanel" aria-label="Navigation">
         <div class="menu-header">
           <span class="menu-header-title">Menü</span>
-          <button type="button" class="menu-close-btn" aria-label="Menü schließen">?</button>
+          <button type="button" class="menu-close-btn" aria-label="Menü schließen">✕</button>
         </div>
         <div class="menu-content">
           <section class="menu-section">
@@ -355,9 +362,9 @@
             Mit der richtigen Struktur, Risikostreuung und klaren Etappen wird Vermögensaufbau planbar.
           </p>
           <div class="hero-badges">
-            <a href="#strategie" class="badge"><span>Strategie in 3 Schritten</span><span class="arrow">?</span></a>
-            <a href="#zinsrechner" class="badge"><span>Zinsrechner</span><span class="arrow">?</span></a>
-            <a href="#grafiken" class="badge"><span>Grafiken &amp; Erklärung</span><span class="arrow">?</span></a>
+            <a href="#strategie" class="badge"><span>Strategie in 3 Schritten</span><span class="arrow">↓</span></a>
+            <a href="#zinsrechner" class="badge"><span>Zinsrechner</span><span class="arrow">↓</span></a>
+            <a href="#grafiken" class="badge"><span>Grafiken &amp; Erklärung</span><span class="arrow">↓</span></a>
             <a href="#kontakt" class="badge"><span>Kontakt</span><span class="arrow">↓</span></a>
           </div>
           <div class="cta-row">
@@ -896,7 +903,5 @@
   </script>
 </body>
 </html>
-
-
 
 
