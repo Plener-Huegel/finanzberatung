@@ -99,6 +99,10 @@
       color:var(--muted);
     }
 
+    .topbar-tagline-mobile{
+      display:none;
+    }
+
     .topbar-right{
       font-size:.8rem;
       color:var(--muted);
@@ -683,214 +687,6 @@
     .card li{margin-bottom:.18rem}
     .num{font-weight:800;color:var(--primary)}
 
-    .calc-wrapper{
-      border-radius:18px;
-      padding:1.2rem 1.1rem 1.4rem;
-      background:linear-gradient(to right, #fef3c7 0, #ffffff 45%, #e0f2fe 100%);
-      border:1px solid var(--border);
-      box-shadow:0 10px 25px rgba(15,23,42,.08);
-      margin-top:.6rem;
-    }
-
-    .calc-grid{
-      display:grid;
-      grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);
-      gap:1.2rem;
-    }
-
-    .calc-inputs label{
-      display:block;
-      font-size:.85rem;
-      font-weight:700;
-      margin-bottom:.25rem;
-    }
-
-    .calc-inputs input{
-      width:100%;
-      padding:.55rem .6rem;
-      border-radius:10px;
-      border:1px solid var(--border);
-      font-size:.9rem;
-    }
-
-    .calc-inputs .field{margin-bottom:.7rem}
-    .calc-btn-row{margin-top:.3rem}
-    .calc-btn-row button{width:100%}
-
-    .calc-result{
-      background:rgba(255,255,255,.9);
-      border-radius:14px;
-      padding:.9rem 1rem;
-      border:1px solid var(--border);
-      font-size:.9rem;
-      color:var(--muted);
-    }
-
-    .calc-expl{
-      font-size:.9rem;
-      margin-bottom:.6rem;
-      color:var(--muted);
-    }
-
-    .calc-expl strong{font-weight:800}
-
-    .calc-values{
-      display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));
-      gap:.6rem;
-      margin-top:.4rem;
-    }
-
-    .calc-value-box{
-      padding:.55rem .7rem;
-      border-radius:12px;
-      background:#fff;
-      border:2px solid var(--border);
-      box-shadow:0 8px 18px rgba(15,23,42,.06);
-    }
-
-    .calc-value-box.today{
-      border-color:rgba(220,38,38,.55);
-      background:#fee2e2;
-    }
-
-    .calc-value-box.boosted{
-      border-color:#111827;
-      background:#f3f4f6;
-    }
-
-    .calc-value-box.diff{
-      border-color:rgba(22,163,74,.55);
-      background:#dcfce7;
-    }
-
-    .calc-value-box.total{
-      border-color:rgba(148,163,184,.7);
-      background:#eff6ff;
-    }
-
-    .calc-value-label{
-      font-size:.8rem;
-      color:var(--muted);
-      margin-bottom:.1rem;
-    }
-
-    .calc-value-number{
-      display:block;
-      font-weight:800;
-      font-size:1.05rem;
-      margin-top:2px;
-    }
-
-    .calc-value-number.red{color:#dc2626}
-    .calc-value-number.green{color:#16a34a}
-    .calc-value-number.black{color:#111827}
-
-    .calc-note{
-      margin-top:.6rem;
-      font-size:.78rem;
-      color:#6b7280;
-    }
-
-    .calc-cta-row{
-      margin-top:.8rem;
-      display:flex;
-      flex-wrap:wrap;
-      gap:.6rem;
-    }
-
-    .calc-examples-link{
-      margin-top:.6rem;
-      font-size:.85rem;
-      color:var(--primary);
-      text-decoration:underline;
-      cursor:pointer;
-    }
-
-    .example-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
-      gap:1rem;
-      margin-top:.8rem;
-    }
-
-    .example-card{
-      background:#fff;
-      border-radius:18px;
-      border:1px solid var(--border);
-      padding:1rem 1.1rem 1.1rem;
-      box-shadow:var(--shadow);
-      font-size:.9rem;
-      color:var(--muted);
-    }
-
-    .example-title{
-      font-family:"Raleway",system-ui,sans-serif;
-      font-weight:800;
-      margin-bottom:.4rem;
-      color:var(--text);
-      font-size:1.05rem;
-    }
-
-    .example-row{
-      display:flex;
-      justify-content:space-between;
-      align-items:baseline;
-      margin-bottom:.2rem;
-      gap:.75rem;
-    }
-
-    .example-row strong{font-weight:800}
-
-    .example-highlight{
-      margin-top:.6rem;
-      font-weight:800;
-      color:var(--good);
-    }
-
-    .bar-track{
-      width:100%;
-      height:16px;
-      border-radius:999px;
-      background:#d1d5db;
-      overflow:hidden;
-      margin-top:.25rem;
-      margin-bottom:.4rem;
-    }
-
-    .bar-fill-before{
-      height:100%;
-      background:var(--primary);
-    }
-
-    .bar-fill-after{
-      height:100%;
-      background:var(--accent);
-      width:100%;
-    }
-
-    .example-footnote{
-      font-size:.8rem;
-      color:#6b7280;
-      margin-top:.4rem;
-    }
-
-    .bottom-cta{
-      margin-top:1.6rem;
-      padding:1.1rem 1.1rem 1.3rem;
-      border-radius:18px;
-      background:linear-gradient(to right, #e0f2fe, #fef3c7);
-      border:1px solid var(--border);
-      text-align:center;
-      font-size:.95rem;
-      box-shadow:var(--shadow);
-    }
-
-    .bottom-cta p{
-      margin:0 0 .8rem;
-      color:var(--muted);
-    }
-
     footer{
       padding:1rem 1.4rem 1.3rem;
       font-size:.78rem;
@@ -912,11 +708,13 @@
 
     @media (min-width:768px){
       .cta-row .btn-primary{
-        flex:0 0 auto;
+        flex:0 0 100%;
+        max-width:460px;
       }
       .cta-row .btn-wa,
       .cta-row .btn-secondary{
-        flex:0 0 315px;
+        flex:1 1 calc(50% - 0.4rem);
+        min-width:0;
       }
     }
 
@@ -930,6 +728,10 @@
     @media (max-width:767px){
       .topbar{padding-inline:1rem}
       .topbar-right{display:none}
+      .topbar-title{white-space:nowrap;}
+      .topbar-tagline{display:none;}
+      .topbar-tagline-mobile{display:block; font-size:.7rem; color:var(--muted);}
+      .menu-text{display:none;}
 
       .menu-panel{
         width:100vw;
@@ -946,37 +748,49 @@
       .hero h1{font-size:1.45rem}
       .hero-lead{font-size:.92rem}
 
-      /* ── Foto-Bereich: normaler Flex-Block statt absolute Kinder ── */
       .hero-photo{
-        width:100%;
-        flex:none;
         min-width:0;
-        min-height:0;
+        flex:1 1 100%;
+        min-height:320px;
+        overflow:visible;
         display:flex;
         flex-direction:column;
-        align-items:stretch;
-        position:relative;
-        overflow:hidden;
+        align-items:center;
+        justify-content:flex-start;
+        padding:0 0 10px;
       }
 
       .hero-photo::before{
-        width:200px;
-        height:200px;
+        width:min(270px,86vw);
+        height:min(270px,86vw);
+        top:8px;
+        left:50%;
+        transform:translateX(-50%);
+        opacity:0.7;
       }
 
-      /* Personen im normalen Fluss, nebeneinander, unten bündig */
       .hero-people{
         position:relative;
         inset:auto;
-        top:auto;
+        width:min(100%,320px);
+        min-height:220px;
+        padding:4px 0 0;
+        gap:0;
+        align-items:flex-end;
+        justify-content:center;
+        z-index:2;
+      }
+
+      .hero-person{
+        position:relative;
+        bottom:auto;
         left:auto;
         right:auto;
-        bottom:auto;
+        transform:none;
         display:flex;
-        justify-content:center;
         align-items:flex-end;
-        padding:24px 16px 0;
-        gap:0;
+        margin:0;
+        z-index:auto;
       }
 
       .hero-image-box{
@@ -984,39 +798,49 @@
         height:auto;
       }
 
-      /* Jonas-Offset */
       .hero-person.jonas{
-        left:10px;
-        top:0;
+        margin-left:0;
+        margin-right:-10px;
+        z-index:2;
+        transform:translate(0px,10px);
+        left:auto;
+        top:auto;
       }
 
-      .hero-person.jonas .hero-image-box img{
-        width:min(63vw,231px);
-        max-height:300px;
-        transform:none;
-      }
-
-      /* Timo-Offset */
       .hero-person.timo{
-        left:-50px;
-        top:0;
+        margin-left:-10px;
+        margin-right:0;
+        z-index:1;
+        transform:translate(-80px,10px);
+        left:auto;
+        top:auto;
       }
 
-      .hero-person.timo .hero-image-box img{
-        width:min(31vw,116px);
-        max-height:156px;
+      .hero-person.jonas .hero-image-box{width:min(348px,100vw);}
+      .hero-person.jonas .hero-image-box img{
+        width:min(362px,104vw);
+        max-width:362px;
+        max-height:none;
         transform:none;
       }
 
-      /* Info-Karte: statisch, unter den Bildern, beidseitig 45px Abstand */
+      .hero-person.timo .hero-image-box{width:min(168px,48vw);}
+      .hero-person.timo .hero-image-box img{
+        width:min(176px,50vw);
+        max-width:176px;
+        max-height:none;
+        transform:none;
+      }
+
       .hero-card{
-        position:static;
+        position:relative;
         right:auto;
         bottom:auto;
-        width:auto;
-        margin:-11px 45px 0;
-        border-radius:16px;
-        padding:14px 20px;
+        transform:none;
+        width:min(92vw,300px);
+        margin:8px auto 0;
+        padding:12px 14px;
+        z-index:3;
       }
 
       .cta-row{
@@ -1030,10 +854,6 @@
 
       .contact-strip{
         grid-template-columns:1fr;
-      }
-
-      .calc-grid{
-        grid-template-columns:minmax(0,1fr);
       }
 
       .btn-primary,.btn-secondary,.btn-wa,.btn-gold{
@@ -1057,6 +877,15 @@
       .cta-row { gap: 0.4rem; flex-direction: column; }
       .btn-primary, .btn-secondary, .btn-wa, .btn-gold { padding: 0.7rem 1rem; font-size: 0.85rem; width: 100%; }
       .hero-photo { min-height: 280px; }
+      .hero-photo::before { width: min(240px, 82vw); height: min(240px, 82vw); top: 2px; }
+      .hero-people { width: min(100%, 300px); min-height: 200px; }
+      .hero-person.jonas { transform: translate(0px, 10px); }
+      .hero-person.timo { transform: translate(-80px, 10px); }
+      .hero-person.jonas .hero-image-box { width: min(305px, 92vw); }
+      .hero-person.jonas .hero-image-box img { max-width: 318px; }
+      .hero-person.timo .hero-image-box { width: min(154px, 46vw); }
+      .hero-person.timo .hero-image-box img { max-width: 162px; }
+      .hero-card { width: min(94vw, 290px); padding: 11px 12px; }
       main { padding: 1.2rem 0.8rem 1.8rem; }
       h2 { font-size: 1.2rem; }
       .grid-3, .grid-2 { grid-template-columns: 1fr; }
@@ -1090,9 +919,9 @@
         <div>
           <div class="topbar-title">Jonas Plener &amp; Timo Hügel</div>
           <div class="topbar-tagline">
-
             Region Kinzigtal / Ortenau
           </div>
+          <div class="topbar-tagline-mobile">Finanzberatung</div>
         </div>
       </div>
 
@@ -1154,7 +983,7 @@
               <li><a href="liquiditaet.html">Liquidität</a></li>
               <li><a href="betriebliche-krankenversicherung.html">Betriebliche Krankenversicherung</a></li>
               <li><a href="energie.html">Energie</a></li>
-              <li><a href="betriebliche-sachversicherung.html">Betriebliche Sachversicherungen</a></li>
+              <li><a href="betriebliche-sachversicherung.html">Unternehmer absichern</a></li>
               <li><a href="ruerup.html">Rürup</a></li>
             </ul>
           </section>
@@ -1422,27 +1251,26 @@
         </div>
       </section>
 
-      <section id="kontakt" style="margin-bottom:2rem;">
-        <div class="contact-strip">
-          <div class="contact-card">
-            <div class="contact-name">Jonas Plener</div>
-            <div class="contact-role">Finanzberater</div>
-            <div class="contact-links">
-              <a href="tel:+4915141678134">📞 0151 41678134</a>
-              <a href="mailto:Jonas.Plener@dvag.de">✉️ Jonas.Plener@dvag.de</a>
-            </div>
-          </div>
-
-          <div class="contact-card">
-            <div class="contact-name">Timo Hügel</div>
-            <div class="contact-role">Finanzberater</div>
-            <div class="contact-links">
-              <a href="tel:+4917663796605">📞 0176 63796605</a>
-              <a href="mailto:Timo.Huegel@dvag.de">✉️ Timo.Huegel@dvag.de</a>
-            </div>
+    <section id="kontakt">
+      <div class="contact-strip animate-on-scroll">
+        <div class="contact-card">
+          <div class="contact-name">Jonas Plener</div>
+          <div class="contact-role">Finanzberater</div>
+          <div class="contact-links">
+            <a href="tel:+4915141678134">0151 41678134</a>
+            <a href="mailto:Jonas.Plener@dvag.de">Jonas.Plener@dvag.de</a>
           </div>
         </div>
-      </section>
+        <div class="contact-card">
+          <div class="contact-name">Timo Hügel</div>
+          <div class="contact-role">Finanzberater</div>
+          <div class="contact-links">
+            <a href="tel:+4917663796605">0176 63796605</a>
+            <a href="mailto:Timo.Huegel@dvag.de">Timo.Huegel@dvag.de</a>
+          </div>
+        </div>
+      </div>
+    </section>
     </main>
 
     <footer>
@@ -1515,5 +1343,3 @@
   </script>
 </body>
 </html>
-
-
