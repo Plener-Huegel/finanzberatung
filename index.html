@@ -559,20 +559,20 @@
     .hero-card ul{
       display:flex;
       flex-direction:column;
-      align-items:center;
+      align-items:flex-start;
       margin:0;
-      padding:0;
+      padding:0 0 0 .2rem;
       list-style:none;
     }
 
     .hero-card li{
       display:flex;
-      justify-content:center;
+      justify-content:flex-start;
       align-items:flex-start;
       gap:.55rem;
       margin-bottom:.3rem;
       font-size:.82rem;
-      text-align:center;
+      text-align:left;
     }
 
     .hero-card li::before{
@@ -805,7 +805,7 @@
         margin-left:0;
         margin-right:-10px;
         z-index:2;
-        transform:translate(30px,10px);
+        transform:translate(0px,10px);
         left:auto;
         top:auto;
       }
@@ -814,7 +814,7 @@
         margin-left:-10px;
         margin-right:0;
         z-index:1;
-        transform:translate(-40px,10px);
+        transform:translate(-20px,10px);
         left:auto;
         top:auto;
       }
