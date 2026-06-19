@@ -855,7 +855,34 @@
       .cta-row .btn-wa,
       .cta-row .btn-secondary { flex: 1 1 0; }
     }
-  </style>
+  
+@media (max-width:767px){
+  .hero-photo,
+  .hero-card{
+    display:none !important;
+  }
+
+  .hero-inner{
+    display:block !important;
+  }
+
+  .hero-text{
+    width:100% !important;
+    max-width:100% !important;
+  }
+
+  .cta-row{
+    display:grid !important;
+    grid-template-columns:1fr !important;
+  }
+
+  .cta-row a{
+    width:100% !important;
+    white-space:normal !important;
+  }
+}
+
+</style>
 </head>
 <body>
   <div class="page">
@@ -867,7 +894,7 @@
         </div>
         <div>
           <div class="topbar-title">Jonas Plener &amp; Timo Hügel</div>
-          <div class="topbar-tagline">Onepager<br />Region Kinzigtal / Ortenau</div>
+          <div class="topbar-tagline">Finanzberatung</div>
         </div>
       </div>
 
@@ -882,7 +909,7 @@
       <nav class="menu-panel" id="menuPanel" aria-label="Navigation">
         <div class="menu-header">
           <span class="menu-header-title">Menü</span>
-          <button type="button" class="menu-close-btn" aria-label="Menü schließen">?</button>
+          <button type="button" class="menu-close-btn" aria-label="Menü schließen">✕</button>
         </div>
         <div class="menu-content">
           <section class="menu-section">
@@ -941,10 +968,10 @@
           </p>
 
           <div class="hero-badges">
-            <a href="#grundschutz" class="badge"><span>Sach fürs Kind</span><span class="arrow">?</span></a>
-            <a href="#leben" class="badge"><span>Leben fürs Kind</span><span class="arrow">?</span></a>
-            <a href="#kranken" class="badge"><span>Krankenversicherung</span><span class="arrow">?</span></a>
-            <a href="#invest" class="badge"><span>Sparstart &amp; Zukunft</span><span class="arrow">?</span></a>
+            <a href="#grundschutz" class="badge"><span>Sach fürs Kind</span><span class="arrow">↓</span></a>
+            <a href="#leben" class="badge"><span>Leben fürs Kind</span><span class="arrow">↓</span></a>
+            <a href="#kranken" class="badge"><span>Krankenversicherung</span><span class="arrow">↓</span></a>
+            <a href="#invest" class="badge"><span>Sparstart &amp; Zukunft</span><span class="arrow">↓</span></a>
             <a href="#kontakt" class="badge"><span>Kontakt</span><span class="arrow">↓</span></a>
         </div>
 
@@ -1208,7 +1235,5 @@
   </script>
 </body>
 </html>
-
-
 
 
