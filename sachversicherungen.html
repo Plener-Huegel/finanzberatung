@@ -1008,7 +1008,58 @@
       h2 { font-size: 1.1rem; }
       main { padding: 1rem 0.6rem 1.5rem; }
     }
-  </style>
+  
+@media (max-width:767px){
+  .hero-photo{display:none !important;}
+
+  .hero-inner{display:block !important;}
+  .hero-text{
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    overflow-wrap:anywhere;
+  }
+
+  .hero-badges{
+    display:grid !important;
+    grid-template-columns:1fr !important;
+    gap:.5rem !important;
+  }
+
+  .badge{
+    width:100% !important;
+    max-width:100% !important;
+    white-space:normal !important;
+  }
+
+  .cta-row{
+    display:grid !important;
+    grid-template-columns:1fr !important;
+    width:100% !important;
+    gap:.6rem !important;
+  }
+
+  .cta-row a,
+  .btn-primary,
+  .btn-secondary,
+  .btn-wa{
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    white-space:normal !important;
+    padding:.75rem .9rem !important;
+    font-size:.84rem !important;
+  }
+
+  .hero-label,
+  .hero-lead,
+  .hero h1{
+    max-width:100% !important;
+    overflow-wrap:anywhere;
+  }
+}
+
+</style>
 </head>
 <body>
   <div class="page">
@@ -1020,7 +1071,7 @@
         </div>
         <div>
           <div class="topbar-title">Jonas Plener &amp; Timo Hügel</div>
-          <div class="topbar-tagline">Finanzberatung<br />Region Kinzigtal / Ortenau</div>
+          <div class="topbar-tagline">Finanzberatung</div>
         </div>
       </div>
 
@@ -1048,7 +1099,6 @@
               <li><a href="vermoegen-aufbauen-investieren.html">Vermögen aufbauen</a></li>
               <li><a href="bav.html">bAV</a></li>
               <li><a href="arbeitskraftabsicherung.html">Arbeitskraft absichern</a></li>
-              <li><a href="risikoleben.html">Familie absichern</a></li>
               <li><a href="sachversicherungen.html" class="active">Sachversicherungen</a></li>
               <li><a href="immobilien-finanzierung.html">Immobilien &amp; Finanzierung</a></li>
             </ul>
