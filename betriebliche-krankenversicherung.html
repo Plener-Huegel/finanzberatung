@@ -1409,7 +1409,102 @@
       h2 { font-size: 1.1rem; }
       main { padding: 1rem 0.6rem 1.5rem; }
     }
-  </style>
+  
+/* Mobile-Fix: Bilder ausblenden und Überbreite verhindern */
+@media (max-width:767px){
+  html,
+  body,
+  .page{
+    max-width:100% !important;
+    overflow-x:hidden !important;
+  }
+
+  .hero-photo,
+  .hero-card{
+    display:none !important;
+  }
+
+  .hero-inner{
+    display:block !important;
+    width:100% !important;
+  }
+
+  .hero-text{
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    overflow-wrap:anywhere !important;
+  }
+
+  .hero-label,
+  .hero h1,
+  .hero-lead,
+  .highlight-box,
+  .hero-badges,
+  .cta-row,
+  .roi-rechner,
+  .roi-ergebnis,
+  .roi-kachel,
+  .roi-inputs,
+  .roi-annahmen{
+    max-width:100% !important;
+    min-width:0 !important;
+  }
+
+  .hero-label,
+  .badge,
+  .btn-primary,
+  .btn-secondary,
+  .btn-wa,
+  .btn-gold,
+  .highlight-box,
+  .roi-kachel,
+  .roi-value,
+  .roi-sub{
+    white-space:normal !important;
+    overflow-wrap:anywhere !important;
+    word-break:normal !important;
+  }
+
+  .hero-badges{
+    display:flex !important;
+    flex-wrap:wrap !important;
+    gap:.45rem !important;
+  }
+
+  .cta-row{
+    display:grid !important;
+    grid-template-columns:1fr !important;
+    width:100% !important;
+    gap:.6rem !important;
+  }
+
+  .cta-row a,
+  .btn-primary,
+  .btn-secondary,
+  .btn-wa,
+  .btn-gold{
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    padding:.75rem .9rem !important;
+    font-size:.84rem !important;
+    line-height:1.25 !important;
+  }
+
+  .roi-rechner{
+    padding:1.2rem .9rem !important;
+    overflow:hidden !important;
+  }
+
+  .roi-ergebnis,
+  .roi-inputs,
+  .roi-annahmen{
+    grid-template-columns:1fr !important;
+  }
+}
+
+</style>
 </head>
 <body>
   <div class="page">
@@ -1421,10 +1516,7 @@
         </div>
         <div>
           <div class="topbar-title">Jonas Plener &amp; Timo Hügel</div>
-          <div class="topbar-tagline">
-
-            Region Kinzigtal / Ortenau
-          </div>
+          <div class="topbar-tagline">Finanzberatung</div>
         </div>
       </div>
 
@@ -1963,8 +2055,6 @@
   </script>
 </body>
 </html>
-
-
 
 
 
