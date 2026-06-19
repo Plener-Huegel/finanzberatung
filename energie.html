@@ -907,7 +907,54 @@
       h2 { font-size: 1.1rem; }
       main { padding: 1rem 0.6rem 1.5rem; }
     }
-  </style>
+  
+/* Mobile Anpassung */
+@media (max-width:767px){
+  .hero-photo,
+  .hero-card{
+    display:none !important;
+  }
+
+  .hero-inner{
+    display:block !important;
+  }
+
+  .hero-text{
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+  }
+
+  .hero-label,
+  .hero h1,
+  .hero-lead,
+  .highlight-box{
+    max-width:100% !important;
+    overflow-wrap:anywhere !important;
+    word-break:break-word !important;
+  }
+
+  .cta-row{
+    display:flex !important;
+    flex-direction:column !important;
+    width:100% !important;
+  }
+
+  .cta-row a,
+  .btn-primary,
+  .btn-secondary,
+  .btn-wa{
+    width:100% !important;
+    max-width:100% !important;
+    white-space:normal !important;
+  }
+
+  html,body,.page{
+    overflow-x:hidden !important;
+  }
+}
+
+</style>
 </head>
 <body>
   <div class="page">
@@ -919,7 +966,7 @@
         </div>
         <div>
           <div class="topbar-title">Jonas Plener &amp; Timo Hügel</div>
-          <div class="topbar-tagline">Finanzberatung<br />Region Kinzigtal / Ortenau</div>
+          <div class="topbar-tagline">Finanzberatung</div>
         </div>
       </div>
 
@@ -1372,7 +1419,5 @@
   </script>
 </body>
 </html>
-
-
 
 
