@@ -838,6 +838,19 @@
       background: #f9fafb;
     }
 
+    @media (min-width: 768px) {
+      .cta-row .btn-primary {
+        flex: 0 0 100%;
+        max-width: 460px;
+      }
+
+      .cta-row .btn-wa,
+      .cta-row .btn-secondary {
+        flex: 1 1 calc(50% - 0.4rem);
+        min-width: 0;
+      }
+    }
+
     @media (max-width: 767px) {
       .topbar { padding-inline: 1rem; }
       .menu-panel { width: 100vw; }
@@ -928,7 +941,7 @@
         </button>
       </div>
 
-       <div class="menu-overlay" id="menuOverlay"></div>
+      <div class="menu-overlay" id="menuOverlay"></div>
       <nav class="menu-panel" id="menuPanel" aria-label="Navigation">
         <div class="menu-header">
           <span class="menu-header-title">Menü</span>
@@ -945,6 +958,7 @@
               <li><a href="vermoegen-aufbauen-investieren.html">Vermögen aufbauen</a></li>
               <li><a href="bav.html">bAV</a></li>
               <li><a href="arbeitskraftabsicherung.html">Arbeitskraft absichern</a></li>
+              <li><a href="risikoleben.html">Familie absichern</a></li>
               <li><a href="sachversicherungen.html">Sachversicherungen</a></li>
               <li><a href="immobilien-finanzierung.html">Immobilien &amp; Finanzierung</a></li>
             </ul>
@@ -964,8 +978,8 @@
               <li><a href="liquiditaet.html">Liquidität</a></li>
               <li><a href="betriebliche-krankenversicherung.html">Betriebliche Krankenversicherung</a></li>
               <li><a href="energie.html">Energie</a></li>
-              <li><a href="betriebliche-sachversicherung.html">Unternehmer absichern</a></li>
-              <li><a href="ruerup.html"class="active">Rürup</a></li>
+              <li><a href="betriebliche-sachversicherung.html">Betriebliche Sachversicherungen</a></li>
+              <li><a href="ruerup.html" class="active">Rürup</a></li>
             </ul>
           </section>
           <section class="menu-section">
@@ -1221,41 +1235,24 @@
           welcher Tarif und welche Gesamtkombination wirklich sinnvoll sind</strong>.
         </div>
 
-        <div class="kontakt-box">
-          <h2>Jetzt Rürup für deine Situation prüfen</h2>
-          <p>Wir zeigen dir, wie stark der Steuereffekt ausfällt und welcher Rürup-Baustein zu Einkommen, Risiko und Planung passt.</p>
-          <div class="kontakt-btn-row">
-            <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-primary">Rürup konkret durchrechnen lassen</a>
-            <a href="https://wa.me/4915141678134" target="_blank" rel="noopener" class="btn-wa">Jonas via WhatsApp</a>
-            <a href="https://wa.me/4917663796605" target="_blank" rel="noopener" class="btn-secondary">Timo via WhatsApp</a>
-          </div>
-          <div class="kontakt-mini-row">
-            <a href="tel:+4915141678134" class="kontakt-mini-link">Jonas: 0151 41678134</a>
-            <span style="color:var(--border);">|</span>
-            <a href="tel:+4917663796605" class="kontakt-mini-link">Timo: 0176 63796605</a>
-            <span style="color:var(--border);">|</span>
-            <a href="leistung.html" class="kontakt-mini-link">Alle Leistungen →</a>
-          </div>
-        </div>
       </section>
 
-    <section id="kontakt" style="margin-bottom:2rem;">
-      <div class="contact-strip">
+    <section id="kontakt">
+      <div class="contact-strip animate-on-scroll">
         <div class="contact-card">
           <div class="contact-name">Jonas Plener</div>
           <div class="contact-role">Finanzberater</div>
           <div class="contact-links">
-            <a href="tel:+4915141678134">📞 0151 41678134</a>
-            <a href="mailto:Jonas.Plener@dvag.de">✉️ Jonas.Plener@dvag.de</a>
+            <a href="tel:+4915141678134">0151 41678134</a>
+            <a href="mailto:Jonas.Plener@dvag.de">Jonas.Plener@dvag.de</a>
           </div>
         </div>
-
         <div class="contact-card">
           <div class="contact-name">Timo Hügel</div>
           <div class="contact-role">Finanzberater</div>
           <div class="contact-links">
-            <a href="tel:+4917663796605">📞 0176 63796605</a>
-            <a href="mailto:Timo.Huegel@dvag.de">✉️ Timo.Huegel@dvag.de</a>
+            <a href="tel:+4917663796605">0176 63796605</a>
+            <a href="mailto:Timo.Huegel@dvag.de">Timo.Huegel@dvag.de</a>
           </div>
         </div>
       </div>
