@@ -1092,6 +1092,65 @@
       h2 { font-size: 1.1rem; }
       main { padding: 1rem 0.6rem 1.5rem; }
     }
+  
+    /* Mobile: Hero-Bilder und Ansprechpartner-Infokasten ausblenden */
+    @media (max-width:767px){
+      .hero-photo{
+        display:none !important;
+      }
+
+      .hero-inner{
+        display:block;
+        width:100%;
+      }
+
+      .hero-text{
+        width:100%;
+        max-width:100%;
+        min-width:0;
+        overflow-wrap:anywhere;
+      }
+
+      .hero-label,
+      .hero h1,
+      .hero-lead,
+      .highlight-box,
+      .hero-badges,
+      .cta-row{
+        max-width:100%;
+      }
+
+      .hero-label,
+      .badge,
+      .btn-primary,
+      .btn-secondary,
+      .btn-wa,
+      .btn-gold{
+        white-space:normal;
+        line-height:1.3;
+      }
+
+      .cta-row{
+        display:grid;
+        grid-template-columns:1fr;
+        gap:.55rem;
+        width:100%;
+      }
+
+      .cta-row a,
+      .btn-primary,
+      .btn-secondary,
+      .btn-wa,
+      .btn-gold{
+        width:100%;
+        max-width:100%;
+        min-width:0;
+        padding:.72rem .9rem;
+        font-size:.84rem;
+        min-height:46px;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -1105,15 +1164,14 @@
         <div>
           <div class="topbar-title">Jonas Plener &amp; Timo Hügel</div>
           <div class="topbar-tagline">
-            Region Kinzigtal / Ortenau
+            Finanzberatung
           </div>
         </div>
       </div>
 
       <div class="menu-wrap">
         <div class="menu-text">
-          Für Eltern, Selbstständige und Angestellte<br />
-          im Kinzigtal &amp; der Ortenau
+          Finanzberatung
         </div>
 
         <button type="button" class="burger-btn" id="burgerBtn" aria-label="Menü öffnen" aria-expanded="false" aria-controls="menuPanel">
@@ -1522,24 +1580,26 @@
       </section>
 
       <section id="kontakt">
-        <div class="kontakt-box animate-on-scroll">
-          <h2>Jetzt deine Arbeitskraftabsicherung persönlich prüfen</h2>
-          <p>Wir schauen gemeinsam, wie gut dein Einkommen heute abgesichert ist, welche Lücken bestehen und welcher Schutz wirklich zu deinem Beruf und deinem Leben passt.</p>
-          <div class="kontakt-btn-row">
-            <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-primary">Gespräch zu deiner Arbeitskraftabsicherung vereinbaren</a>
-            <a href="https://wa.me/4915141678134" target="_blank" rel="noopener" class="btn-wa">Jonas via WhatsApp</a>
-            <a href="https://wa.me/4917663796605" target="_blank" rel="noopener" class="btn-secondary">Timo via WhatsApp</a>
+        <div class="contact-strip animate-on-scroll">
+          <div class="contact-card">
+            <div class="contact-name">Jonas Plener</div>
+            <div class="contact-role">Finanzberater</div>
+            <div class="contact-links">
+              <a href="tel:+4915141678134">0151 41678134</a>
+              <a href="mailto:Jonas.Plener@dvag.de">Jonas.Plener@dvag.de</a>
+            </div>
           </div>
-          <div class="kontakt-mini-row">
-            <a href="tel:+4915141678134" class="kontakt-mini-link">Jonas: 0151 41678134</a>
-            <span style="color:var(--border);">|</span>
-            <a href="tel:+4917663796605" class="kontakt-mini-link">Timo: 0176 63796605</a>
-            <span style="color:var(--border);">|</span>
-            <a href="leistung.html" class="kontakt-mini-link">Alle Leistungen →</a>
+          <div class="contact-card">
+            <div class="contact-name">Timo Hügel</div>
+            <div class="contact-role">Finanzberater</div>
+            <div class="contact-links">
+              <a href="tel:+4917663796605">0176 63796605</a>
+              <a href="mailto:Timo.Huegel@dvag.de">Timo.Huegel@dvag.de</a>
+            </div>
           </div>
         </div>
       </section>
-    <section id="contact-team" style="margin-bottom:2rem;"><div class="contact-strip"><div class="contact-card"><div class="contact-name">Jonas Plener</div><div class="contact-role">Finanzberater</div><div class="contact-links"><a href="tel:+4915141678134">📞 0151 41678134</a><a href="mailto:Jonas.Plener@dvag.de">✉️ Jonas.Plener@dvag.de</a></div></div><div class="contact-card"><div class="contact-name">Timo Hügel</div><div class="contact-role">Finanzberater</div><div class="contact-links"><a href="tel:+4917663796605">📞 0176 63796605</a><a href="mailto:Timo.Huegel@dvag.de">✉️ Timo.Huegel@dvag.de</a></div></div></div></section></main>
+</main>
 
     <footer>
       Diese Seite ersetzt keine individuelle Rechts-, Steuer- oder Sozialversicherungsberatung.
@@ -1642,8 +1702,6 @@
   </script>
 </body>
 </html>
-
-
 
 
 
