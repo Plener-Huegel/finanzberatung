@@ -849,6 +849,12 @@
       h2 { font-size: 1.1rem; }
       main { padding: 1rem 0.6rem 1.5rem; }
     }
+
+    @media (min-width: 768px) {
+      .cta-row .btn-primary { flex: 0 0 100%; }
+      .cta-row .btn-wa,
+      .cta-row .btn-secondary { flex: 1 1 0; }
+    }
   </style>
 </head>
 <body>
@@ -872,11 +878,11 @@
         </button>
       </div>
 
-       <div class="menu-overlay" id="menuOverlay"></div>
+      <div class="menu-overlay" id="menuOverlay"></div>
       <nav class="menu-panel" id="menuPanel" aria-label="Navigation">
         <div class="menu-header">
           <span class="menu-header-title">Menü</span>
-          <button type="button" class="menu-close-btn" aria-label="Menü schließen">✕</button>
+          <button type="button" class="menu-close-btn" aria-label="Menü schließen">?</button>
         </div>
         <div class="menu-content">
           <section class="menu-section">
@@ -896,7 +902,7 @@
           <section class="menu-section">
             <h2 class="menu-section-title">Eltern &amp; Familie</h2>
             <ul class="menu-section-links">
-              <li><a href="kinder-absichern.html"class="active">Kinder absichern</a></li>
+              <li><a href="kinder-absichern.html" class="active">Kinder absichern</a></li>
               <li><a href="eltern-retter-kindererziehungszeiten.html">Kindererziehungszeiten</a></li>
               <li><a href="riester.html">Riester</a></li>
               <li><a href="risikoleben.html">Familie absichern</a></li>
@@ -1141,20 +1147,22 @@
       </section>
 
       <section id="kontakt">
-        <div class="kontakt-box">
-          <h2>Jetzt euer Kinderkonzept persönlich ordnen</h2>
-          <p>Wir schauen gemeinsam, welcher Schutz fürs Kind im Alltag wirklich sinnvoll ist, wie Gesundheit sauber abgesichert wird und wie ein früher Sparstart sinnvoll aufgebaut werden kann.</p>
-          <div class="kontakt-btn-row">
-            <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-primary">Kinderkonzept jetzt gemeinsam aufsetzen</a>
-            <a href="https://wa.me/4915141678134" target="_blank" rel="noopener" class="btn-wa">Jonas via WhatsApp</a>
-            <a href="https://wa.me/4917663796605" target="_blank" rel="noopener" class="btn-secondary">Timo via WhatsApp</a>
+        <div class="contact-strip animate-on-scroll">
+          <div class="contact-card">
+            <div class="contact-name">Jonas Plener</div>
+            <div class="contact-role">Finanzberater</div>
+            <div class="contact-links">
+              <a href="tel:+4915141678134">0151 41678134</a>
+              <a href="mailto:Jonas.Plener@dvag.de">Jonas.Plener@dvag.de</a>
+            </div>
           </div>
-          <div class="kontakt-mini-row">
-            <a href="tel:+4915141678134" class="kontakt-mini-link">Jonas: 0151 41678134</a>
-            <span style="color:var(--border);">|</span>
-            <a href="tel:+4917663796605" class="kontakt-mini-link">Timo: 0176 63796605</a>
-            <span style="color:var(--border);">|</span>
-            <a href="leistung.html" class="kontakt-mini-link">Alle Leistungen ?</a>
+          <div class="contact-card">
+            <div class="contact-name">Timo Hügel</div>
+            <div class="contact-role">Finanzberater</div>
+            <div class="contact-links">
+              <a href="tel:+4917663796605">0176 63796605</a>
+              <a href="mailto:Timo.Huegel@dvag.de">Timo.Huegel@dvag.de</a>
+            </div>
           </div>
         </div>
       </section>
