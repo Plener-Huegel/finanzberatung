@@ -381,7 +381,7 @@
       justify-content: center;
       align-items: center;
       min-width: 360px;
-      min-height: 430px;
+      min-height: 420px;
     }
 
     .hero-photo::before {
@@ -405,14 +405,11 @@
       justify-content: center;
       align-items: flex-end;
       gap: 16px;
-      padding: 28px 24px 118px;
+      padding: 28px 24px 112px;
       z-index: 1;
     }
 
-    .hero-person {
-      display: flex;
-      align-items: flex-end;
-    }
+    .hero-person { display: flex; align-items: flex-end; }
 
     .hero-image-box {
       width: 210px;
@@ -429,22 +426,22 @@
       filter: drop-shadow(0 10px 20px rgba(15, 23, 42, 0.16));
     }
 
-    .hero-person.jonas { left: 52px; top: -3px; position: relative; }
-    .hero-person.jonas .hero-image-box img { width: 341px; max-width: none; max-height: 435px; transform: translateY(12px); }
-    .hero-person.timo { left: -40px; top: -3px; position: relative; }
-    .hero-person.timo .hero-image-box img { width: 168px; max-width: none; max-height: 225px; transform: translateY(12px); }
+    .hero-person.jonas { left: 52px; top: -8px; position: relative; }
+    .hero-person.jonas .hero-image-box img { width: 341px; max-height: 435px; transform: translateY(12px); }
+    .hero-person.timo { left: -40px; top: -8px; position: relative; }
+    .hero-person.timo .hero-image-box img { width: 168px; max-height: 225px; transform: translateY(12px); }
 
     .hero-card {
       position: absolute;
-      bottom: 10px;
-      right: 52px;
+      bottom: -26px;
+      right: 57px;
       background: #fff;
       padding: 16px 22px;
       border-radius: 20px;
       border: 1px solid rgba(148, 163, 184, 0.6);
       box-shadow: 0 8px 20px rgba(15, 23, 42, 0.18);
       z-index: 3;
-      width: 338px;
+      width: 330px;
       color: var(--muted);
     }
 
@@ -954,6 +951,12 @@
       h2 { font-size: 1.1rem; }
       main { padding: 1rem 0.6rem 1.5rem; }
     }
+
+    @media (min-width: 768px) {
+      .cta-row .btn-primary { flex: 0 0 100%; }
+      .cta-row .btn-wa,
+      .cta-row .btn-secondary { flex: 1 1 0; }
+    }
   </style>
 </head>
 <body>
@@ -994,6 +997,7 @@
               <li><a href="vermoegen-aufbauen-investieren.html">Vermögen aufbauen</a></li>
               <li><a href="bav.html">bAV</a></li>
               <li><a href="arbeitskraftabsicherung.html">Arbeitskraft absichern</a></li>
+              <li><a href="risikoleben.html">Familie absichern</a></li>
               <li><a href="sachversicherungen.html">Sachversicherungen</a></li>
               <li><a href="immobilien-finanzierung.html">Immobilien &amp; Finanzierung</a></li>
             </ul>
@@ -1010,7 +1014,7 @@
           <section class="menu-section">
             <h2 class="menu-section-title">Unternehmer &amp; Selbstständig</h2>
             <ul class="menu-section-links">
-              <li><a href="liquiditaet.html"class="active">Liquidität</a></li>
+              <li><a href="liquiditaet.html" class="active">Liquidität</a></li>
               <li><a href="betriebliche-krankenversicherung.html">Betriebliche Krankenversicherung</a></li>
               <li><a href="energie.html">Energie</a></li>
               <li><a href="betriebliche-sachversicherung.html">Unternehmer absichern</a></li>
@@ -1190,30 +1194,6 @@
                 <label for="paymentTerm">Durchschnittliches Zahlungsziel in Tagen</label>
                 <input id="paymentTerm" type="number" min="0" step="1" value="45" />
               </div>
-              <div class="field">
-                <label for="advanceRate">Vorfinanzierungsquote in %</label>
-                <input id="advanceRate" type="number" min="0" max="100" step="1" value="85" />
-              </div>
-              <div class="field">
-                <label for="feeRate">Factoring-Kosten in % vom Rechnungsvolumen</label>
-                <input id="feeRate" type="number" min="0" step="0.1" value="2.5" />
-              </div>
-              <div class="field">
-                <label for="interestRate">Alternativer Kontokorrentzins p.a. in %</label>
-                <input id="interestRate" type="number" min="0" step="0.1" value="10.5" />
-              </div>
-              <div class="field">
-                <label for="adminSavings">Geschätzte Prozessersparnis pro Monat in EUR</label>
-                <input id="adminSavings" type="number" min="0" step="50" value="450" />
-              </div>
-              <div class="field">
-                <label for="skontoRate">Möglicher Skonto- oder Einkaufsvorteil in %</label>
-                <input id="skontoRate" type="number" min="0" step="0.1" value="1" />
-              </div>
-              <div class="field">
-                <label for="payoutDays">Auszahlung nach wie vielen Bankarbeitstagen?</label>
-                <input id="payoutDays" type="number" min="0" step="1" value="2" />
-              </div>
             </div>
             <p class="field-note">Orientierungslogik: Zinsersparnis + Prozesseffekt + möglicher Skontohebel minus Factoring-Kosten. Nicht berücksichtigt sind individuelle Vertragsdetails, Ausfallrisiken und steuerliche Effekte.</p>
           </div>
@@ -1334,20 +1314,22 @@
       </section>
 
       <section id="kontakt">
-        <div class="kontakt-box">
-          <h2>Jetzt Liquidität &amp; Factoring persönlich prüfen</h2>
-          <p>Wir schauen gemeinsam, ob und welches Finanzierungsmodell zu deinem Betrieb passt – ohne Druck, dafür mit klaren Zahlen.</p>
-          <div class="kontakt-btn-row">
-            <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-primary">Factoring gemeinsam einordnen</a>
-            <a href="https://wa.me/4915141678134" target="_blank" rel="noopener" class="btn-wa">Jonas via WhatsApp</a>
-            <a href="https://wa.me/4917663796605" target="_blank" rel="noopener" class="btn-secondary">Timo via WhatsApp</a>
+        <div class="contact-strip animate-on-scroll">
+          <div class="contact-card">
+            <div class="contact-name">Jonas Plener</div>
+            <div class="contact-role">Finanzberater</div>
+            <div class="contact-links">
+              <a href="tel:+4915141678134">0151 41678134</a>
+              <a href="mailto:Jonas.Plener@dvag.de">Jonas.Plener@dvag.de</a>
+            </div>
           </div>
-          <div class="kontakt-mini-row">
-            <a href="tel:+4915141678134" class="kontakt-mini-link">Jonas: 0151 41678134</a>
-            <span style="color:var(--border);">|</span>
-            <a href="tel:+4917663796605" class="kontakt-mini-link">Timo: 0176 63796605</a>
-            <span style="color:var(--border);">|</span>
-            <a href="leistung.html" class="kontakt-mini-link">Alle Leistungen →</a>
+          <div class="contact-card">
+            <div class="contact-name">Timo Hügel</div>
+            <div class="contact-role">Finanzberater</div>
+            <div class="contact-links">
+              <a href="tel:+4917663796605">0176 63796605</a>
+              <a href="mailto:Timo.Huegel@dvag.de">Timo.Huegel@dvag.de</a>
+            </div>
           </div>
         </div>
       </section>
@@ -1394,13 +1376,7 @@
     (function () {
       const fields = {
         invoiceVolume: document.getElementById("invoiceVolume"),
-        paymentTerm: document.getElementById("paymentTerm"),
-        advanceRate: document.getElementById("advanceRate"),
-        feeRate: document.getElementById("feeRate"),
-        interestRate: document.getElementById("interestRate"),
-        adminSavings: document.getElementById("adminSavings"),
-        skontoRate: document.getElementById("skontoRate"),
-        payoutDays: document.getElementById("payoutDays")
+        paymentTerm: document.getElementById("paymentTerm")
       };
 
       const outputs = {
@@ -1425,12 +1401,12 @@
       function render() {
         const invoiceVolume = readNumber(fields.invoiceVolume);
         const paymentTerm = readNumber(fields.paymentTerm);
-        const advanceRate = readNumber(fields.advanceRate) / 100;
-        const feeRate = readNumber(fields.feeRate) / 100;
-        const interestRate = readNumber(fields.interestRate) / 100;
-        const adminSavings = readNumber(fields.adminSavings);
-        const skontoRate = readNumber(fields.skontoRate) / 100;
-        const payoutDays = readNumber(fields.payoutDays);
+        const advanceRate = 0.85;
+        const feeRate = 0.025;
+        const interestRate = 0.105;
+        const adminSavings = 450;
+        const skontoRate = 0.01;
+        const payoutDays = 2;
 
         const advanceAmount = invoiceVolume * advanceRate;
         const daysSaved = Math.max(paymentTerm - payoutDays, 0);
