@@ -733,8 +733,6 @@
       .topbar-tagline-mobile{display:block; font-size:.7rem; color:var(--muted);}
       .menu-text{display:none;}
 
-      .page{overflow-x:hidden;}
-
       .menu-panel{
         width:100vw;
       }
@@ -747,9 +745,10 @@
         align-items:stretch;
       }
 
-      .hero h1{font-size:1.25rem; overflow-wrap:break-word; word-break:normal;}
-      .hero-lead{font-size:.88rem; overflow-wrap:break-word;}
-      .hero-badges{gap:.4rem;}
+      .hero-text{min-width:0; width:100%;}
+      .hero h1{font-size:1.25rem;}
+      .hero-lead{font-size:.88rem;}
+      .hero-badges{gap:.4rem; flex-wrap:wrap;}
       .badge{font-size:.75rem; padding:.22rem .55rem;}
 
       .hero-photo{
