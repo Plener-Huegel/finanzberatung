@@ -350,7 +350,7 @@
       transform: translateY(-1px);
     }
 
- .hero-photo {
+    .hero-photo {
       flex: 0 0 450px;
       position: relative;
       display: flex;
@@ -385,10 +385,7 @@
       z-index: 1;
     }
 
-    .hero-person {
-      display: flex;
-      align-items: flex-end;
-    }
+    .hero-person { display: flex; align-items: flex-end; }
 
     .hero-image-box {
       width: 210px;
@@ -405,14 +402,14 @@
       filter: drop-shadow(0 10px 20px rgba(15, 23, 42, 0.16));
     }
 
-    .hero-person.jonas { left: 52px; top: -3px; position: relative; }
-    .hero-person.jonas .hero-image-box img { width: 341px; max-width: none; max-height: 435px; transform: translateY(12px); }
-    .hero-person.timo { left: -40px; top: -3px; position: relative; }
-    .hero-person.timo .hero-image-box img { width: 168px; max-width: none; max-height: 225px; transform: translateY(12px); }
+    .hero-person.jonas { left: 52px; top: -8px; position: relative; }
+    .hero-person.jonas .hero-image-box img { width: 341px; max-height: 435px; transform: translateY(12px); }
+    .hero-person.timo { left: -40px; top: -8px; position: relative; }
+    .hero-person.timo .hero-image-box img { width: 168px; max-height: 225px; transform: translateY(12px); }
 
     .hero-card {
       position: absolute;
-      bottom: 10px;
+      bottom: -12px;
       right: 52px;
       background: #fff;
       padding: 16px 22px;
@@ -832,6 +829,19 @@
       background: #f9fafb;
     }
 
+    @media (min-width: 768px) {
+      .cta-row .btn-primary {
+        flex: 0 0 100%;
+        max-width: 460px;
+      }
+
+      .cta-row .btn-wa,
+      .cta-row .btn-secondary {
+        flex: 1 1 calc(50% - 0.4rem);
+        min-width: 0;
+      }
+    }
+
     @media (max-width: 767px) {
       .topbar { padding-inline: 1rem; }
       .menu-panel { width: 100vw; }
@@ -920,7 +930,7 @@
         </button>
       </div>
 
-       <div class="menu-overlay" id="menuOverlay"></div>
+      <div class="menu-overlay" id="menuOverlay"></div>
       <nav class="menu-panel" id="menuPanel" aria-label="Navigation">
         <div class="menu-header">
           <span class="menu-header-title">Menü</span>
@@ -955,7 +965,7 @@
             <ul class="menu-section-links">
               <li><a href="liquiditaet.html">Liquidität</a></li>
               <li><a href="betriebliche-krankenversicherung.html">Betriebliche Krankenversicherung</a></li>
-              <li><a href="energie.html"class="active">Energie</a></li>
+              <li><a href="energie.html" class="active">Energie</a></li>
               <li><a href="betriebliche-sachversicherung.html">Unternehmer absichern</a></li>
               <li><a href="ruerup.html">Rürup</a></li>
             </ul>
@@ -970,7 +980,7 @@
         </div>
       </nav>
     </div>
-    
+
     <header class="hero">
       <div class="hero-inner">
         <div class="hero-text">
@@ -1169,6 +1179,12 @@
             </article>
           </div>
         </div>
+
+        <div class="centered-cta" style="margin-top:1.4rem;">
+          <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-primary">
+            Hier deine Rechnung hochladen
+          </a>
+        </div>
       </section>
 
       <section id="loesungen">
@@ -1229,41 +1245,24 @@
           </article>
         </div>
 
-        <div class="kontakt-box">
-          <h2>Jetzt Energiekosten für deinen Betrieb prüfen</h2>
-          <p>Wir zeigen dir, welche Hebel zu deinem Verbrauch passen und wie du Strom- und Gaskosten im Betrieb spürbar senken kannst.</p>
-          <div class="kontakt-btn-row">
-            <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-primary">Energiekosten für deinen Betrieb anfragen</a>
-            <a href="https://wa.me/4915141678134" target="_blank" rel="noopener" class="btn-wa">Jonas via WhatsApp</a>
-            <a href="https://wa.me/4917663796605" target="_blank" rel="noopener" class="btn-secondary">Timo via WhatsApp</a>
-          </div>
-          <div class="kontakt-mini-row">
-            <a href="tel:+4915141678134" class="kontakt-mini-link">Jonas: 0151 41678134</a>
-            <span style="color:var(--border);">|</span>
-            <a href="tel:+4917663796605" class="kontakt-mini-link">Timo: 0176 63796605</a>
-            <span style="color:var(--border);">|</span>
-            <a href="leistung.html" class="kontakt-mini-link">Alle Leistungen →</a>
-          </div>
-        </div>
       </section>
 
-    <section id="kontakt" style="margin-bottom:2rem;">
-      <div class="contact-strip">
+    <section id="kontakt">
+      <div class="contact-strip animate-on-scroll">
         <div class="contact-card">
           <div class="contact-name">Jonas Plener</div>
           <div class="contact-role">Finanzberater</div>
           <div class="contact-links">
-            <a href="tel:+4915141678134">📞 0151 41678134</a>
-            <a href="mailto:Jonas.Plener@dvag.de">✉️ Jonas.Plener@dvag.de</a>
+            <a href="tel:+4915141678134">0151 41678134</a>
+            <a href="mailto:Jonas.Plener@dvag.de">Jonas.Plener@dvag.de</a>
           </div>
         </div>
-
         <div class="contact-card">
           <div class="contact-name">Timo Hügel</div>
           <div class="contact-role">Finanzberater</div>
           <div class="contact-links">
-            <a href="tel:+4917663796605">📞 0176 63796605</a>
-            <a href="mailto:Timo.Huegel@dvag.de">✉️ Timo.Huegel@dvag.de</a>
+            <a href="tel:+4917663796605">0176 63796605</a>
+            <a href="mailto:Timo.Huegel@dvag.de">Timo.Huegel@dvag.de</a>
           </div>
         </div>
       </div>
