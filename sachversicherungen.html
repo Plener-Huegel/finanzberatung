@@ -9,21 +9,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500&family=Raleway:wght@500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --primary: #4a787d;
-      --accent: #f4be69;
+      --primary: #2e6f80;
+      --accent: #f0b85c;
+      --danger: #b91c1c;
       --text: #111827;
       --muted: #4b5563;
-      --border: #e5e7eb;
-      --bg: #f4f8f8;
-      --bg-soft: #f9fbfb;
-      --good: #16a34a;
-      --wa: #25d366;
-      --psych: #ef4444;
-      --back: #f97316;
-      --other: #3b82f6;
-      --accident: #6b7280;
+      --border: #d9e2ec;
+      --soft: #f8fbff;
+      --soft-danger: #fff1f2;
+      --soft-safe: #ecfdf5;
+      --wa: #22c55e;
       --shadow: 0 10px 25px rgba(15, 23, 42, 0.06);
-      --shadowStrong: 0 18px 45px rgba(15, 23, 42, 0.12);
     }
 
     * { box-sizing: border-box; }
@@ -48,6 +44,7 @@
       display: flex;
       flex-direction: column;
       overflow: hidden;
+      position: relative;
     }
 
     .topbar {
@@ -83,9 +80,7 @@
       background: #fff;
     }
 
-    .topbar-avatars img + img {
-      margin-left: -10px;
-    }
+    .topbar-avatars img + img { margin-left: -10px; }
 
     .topbar-title {
       font-family: "Raleway", system-ui, sans-serif;
@@ -107,7 +102,6 @@
       align-items: center;
       justify-content: flex-end;
       gap: 0.65rem;
-      min-width: 0;
       margin-left: auto;
     }
 
@@ -122,21 +116,10 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: auto;
-      height: auto;
-      border-radius: 0;
       border: none;
       background: transparent;
-      box-shadow: none;
       cursor: pointer;
-      transition: opacity 0.12s ease;
       padding: 0;
-    }
-
-    .burger-btn:hover {
-      transform: none;
-      box-shadow: none;
-      opacity: 0.7;
     }
 
     .burger-lines {
@@ -154,17 +137,9 @@
       transition: transform 0.18s ease, opacity 0.18s ease;
     }
 
-    .burger-btn[aria-expanded="true"] .burger-lines span:nth-child(1) {
-      transform: translateY(7px) rotate(45deg);
-    }
-
-    .burger-btn[aria-expanded="true"] .burger-lines span:nth-child(2) {
-      opacity: 0;
-    }
-
-    .burger-btn[aria-expanded="true"] .burger-lines span:nth-child(3) {
-      transform: translateY(-7px) rotate(-45deg);
-    }
+    .burger-btn[aria-expanded="true"] .burger-lines span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .burger-btn[aria-expanded="true"] .burger-lines span:nth-child(2) { opacity: 0; }
+    .burger-btn[aria-expanded="true"] .burger-lines span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
     .menu-overlay {
       position: fixed;
@@ -187,7 +162,7 @@
       right: 0;
       height: 100vh;
       width: min(420px, 80vw);
-      background: #ffffff;
+      background: #fff;
       box-shadow: -8px 0 20px rgba(0, 0, 0, 0.15);
       transform: translateX(100%);
       transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
@@ -197,18 +172,14 @@
       flex-direction: column;
     }
 
-    .menu-panel.open {
-      transform: translateX(0);
-    }
+    .menu-panel.open { transform: translateX(0); }
 
     .menu-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1.2rem 1.2rem;
+      padding: 1.2rem;
       border-bottom: 1px solid var(--border);
-      gap: 1rem;
-      flex-shrink: 0;
     }
 
     .menu-header-title {
@@ -217,7 +188,6 @@
       color: var(--primary);
       font-size: 1rem;
       text-transform: uppercase;
-      letter-spacing: 0.02em;
     }
 
     .menu-close-btn {
@@ -232,23 +202,10 @@
       color: var(--primary);
       font-size: 1.4rem;
       padding: 0;
-      transition: color 0.12s ease;
     }
 
-    .menu-close-btn:hover {
-      color: var(--muted);
-    }
-
-    .menu-content {
-      flex: 1;
-      padding: 0.8rem 0;
-      overflow-y: auto;
-    }
-
-    .menu-section {
-      padding: 0;
-      margin: 0;
-    }
+    .menu-content { flex: 1; padding: 0.8rem 0; }
+    .menu-section { padding: 0; margin: 0; }
 
     .menu-section-title {
       font-family: "Raleway", system-ui, sans-serif;
@@ -269,627 +226,577 @@
       list-style: none;
     }
 
-    .menu-section-links li {
-      margin: 0;
-      padding: 0;
-    }
-
     .menu-section-links a {
       display: flex;
       align-items: center;
       padding: 0.6rem 1.2rem;
       font-size: 0.92rem;
       color: #1f2937;
-      transition: background 0.12s ease;
       border-left: 3px solid transparent;
-      position: relative;
     }
 
-    .menu-section-links a:hover {
-      background: #f3f4f6;
-    }
-
-    .menu-section-links a.active {
-      border-left-color: var(--accent);
-      background: rgba(244, 190, 105, 0.08);
-    }
+    .menu-section-links a:hover { background: #f3f4f6; }
+    .menu-section-links a.active { border-left-color: var(--accent); background: rgba(244, 190, 105, 0.08); }
 
     header.hero {
-      padding: 2.4rem 1.8rem 2.2rem;
+      padding: 2.4rem 1.6rem 2.2rem;
       border-bottom: 1px solid var(--border);
-      background:
-        radial-gradient(circle at top left, rgba(244, 190, 105, 0.28), transparent 38%),
-        linear-gradient(135deg, #ffffff 0%, #f9fbfb 45%, #eef7f7 100%);
+      background: radial-gradient(circle at top left, #fff7ed 0, #ffffff 45%, #e0f2fe 100%);
     }
 
     .hero-inner {
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+      display: flex;
+      flex-wrap: wrap;
       gap: 2rem;
       align-items: center;
     }
 
-    .hero-copy {
-      min-width: 0;
-    }
+    .hero-text { flex: 1 1 260px; min-width: 0; }
 
     .hero-label {
       display: inline-flex;
       align-items: center;
-      gap: 0.45rem;
-      padding: 0.35rem 0.7rem;
+      gap: 0.4rem;
+      padding: 0.15rem 0.65rem;
       border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
       background: rgba(255, 255, 255, 0.9);
-      border: 1px solid rgba(74, 120, 125, 0.18);
-      color: var(--primary);
-      font-size: 0.82rem;
-      font-weight: 600;
-      margin-bottom: 1rem;
     }
 
     .hero-label .dot {
-      width: 8px;
-      height: 8px;
+      width: 6px;
+      height: 6px;
       border-radius: 999px;
       background: var(--accent);
-      box-shadow: 0 0 0 5px rgba(244, 190, 105, 0.18);
     }
 
     .hero h1 {
-      margin: 0;
       font-family: "Raleway", system-ui, sans-serif;
-      font-size: clamp(2rem, 4vw, 3.2rem);
-      line-height: 1.08;
-      letter-spacing: -0.02em;
-      color: #0f172a;
+      font-weight: 800;
+      font-size: 2rem;
+      margin: 0 0 0.7rem;
+      letter-spacing: 0.02em;
     }
 
-    .hero h1 strong {
-      color: var(--primary);
-    }
+    .hero h1 strong { color: var(--danger); }
 
     .hero-lead {
-      margin: 1rem 0 0;
-      font-size: 1.02rem;
+      margin: 0 0 1rem;
       color: var(--muted);
-      max-width: 62ch;
+      max-width: 40rem;
+      font-size: 0.98rem;
     }
 
-    .hero-points {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0.75rem;
-      margin: 1.3rem 0 0;
-      padding: 0;
-      list-style: none;
-    }
+    .hero-lead strong { font-weight: 800; color: var(--text); }
 
-    .hero-points li {
+    .hero-badges {
       display: flex;
-      gap: 0.55rem;
-      align-items: flex-start;
-      padding: 0.8rem 0.9rem;
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.92);
-      border: 1px solid rgba(229, 231, 235, 0.95);
-      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.04);
-      font-size: 0.92rem;
-      color: #1f2937;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 0.8rem 0 1.2rem;
     }
 
-    .hero-points li span {
-      flex: 0 0 auto;
-      width: 22px;
-      height: 22px;
-      border-radius: 999px;
+    .badge {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      background: rgba(74, 120, 125, 0.12);
-      color: var(--primary);
-      font-size: 0.82rem;
-      font-weight: 700;
-      margin-top: 0.05rem;
+      gap: 0.32rem;
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.9);
+      font-size: 0.8rem;
+      color: var(--muted);
+      background: #ffffff;
+      box-shadow: 0 3px 8px rgba(15, 23, 42, 0.08);
     }
+
+    .badge .arrow { font-size: 0.9rem; color: var(--primary); }
 
     .cta-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.75rem;
-      margin-top: 1.4rem;
+      gap: 0.8rem;
+      align-items: center;
+      margin-top: 1rem;
     }
 
-    .btn-primary,
-    .btn-secondary,
-    .btn-wa,
-    .btn-gold {
+    .btn-primary, .btn-secondary, .btn-wa, .btn-outline {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 0.45rem;
-      min-height: 48px;
-      padding: 0.85rem 1.15rem;
+      padding: 0.9rem 1.7rem;
       border-radius: 999px;
       font-weight: 700;
       font-size: 0.95rem;
-      transition: transform 0.14s ease, box-shadow 0.14s ease, opacity 0.14s ease;
-      box-shadow: var(--shadow);
-      border: 1px solid transparent;
+      cursor: pointer;
+      border: none;
       text-align: center;
+      white-space: nowrap;
+      transition: transform 0.12s ease, filter 0.12s ease;
+      min-height: 54px;
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, var(--primary), #5f8f94);
-      color: #fff;
+      background: var(--accent);
+      color: #1f2933;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
     }
 
-    .btn-secondary {
-      background: #fff;
-      color: var(--primary);
-      border-color: rgba(74, 120, 125, 0.22);
-    }
-
-    .btn-wa {
+    .btn-secondary, .btn-wa {
       background: var(--wa);
-      color: #fff;
+      color: #ffffff;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
     }
 
-    .btn-gold {
-      background: linear-gradient(135deg, #f7d488, var(--accent));
-      color: #3f2d12;
+    .btn-outline {
+      background: #ffffff;
+      color: var(--primary);
+      border: 1px solid rgba(148, 163, 184, 0.85);
     }
 
-    .btn-primary:hover,
-    .btn-secondary:hover,
-    .btn-wa:hover,
-    .btn-gold:hover {
+    .btn-primary:hover, .btn-secondary:hover, .btn-wa:hover, .btn-outline:hover {
+      filter: brightness(1.03);
       transform: translateY(-1px);
-      box-shadow: 0 14px 28px rgba(15, 23, 42, 0.12);
     }
 
-    .hero-visual {
+    .hero-photo {
+      flex: 0 0 450px;
       position: relative;
-      min-height: 420px;
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
+      min-width: 360px;
+      min-height: 420px;
     }
 
-    .hero-visual::before {
+    .hero-photo::before {
       content: "";
       position: absolute;
-      inset: 8% 12% auto;
-      height: 72%;
-      border-radius: 32px;
-      background:
-        radial-gradient(circle at 30% 30%, rgba(244, 190, 105, 0.35), transparent 42%),
-        linear-gradient(160deg, rgba(74, 120, 125, 0.12), rgba(219, 234, 254, 0.55));
-      filter: blur(0.2px);
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #f4be69 0, #ffffff 52%, #cfe7ff 100%);
+      opacity: 0.62;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 0;
     }
 
-    .hero-card-stack {
-      position: relative;
-      width: min(100%, 420px);
-      display: grid;
-      gap: 1rem;
+    .hero-people {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 16px;
+      padding: 28px 24px 112px;
       z-index: 1;
     }
 
-    .hero-info-card,
-    .hero-mini-card {
-      background: rgba(255, 255, 255, 0.96);
-      border: 1px solid rgba(229, 231, 235, 0.95);
-      border-radius: 24px;
-      box-shadow: var(--shadowStrong);
-      backdrop-filter: blur(10px);
+    .hero-person {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      position: relative;
+      z-index: 1;
     }
 
-    .hero-info-card {
-      padding: 1.2rem 1.2rem 1.1rem;
+    .hero-image-box {
+      width: 210px;
+      height: 290px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
     }
 
-    .hero-info-card h2 {
-      margin: 0 0 0.45rem;
-      font-family: "Raleway", system-ui, sans-serif;
-      font-size: 1.15rem;
-      color: #0f172a;
+    .hero-image-box img {
+      height: auto;
+      object-fit: contain;
+      display: block;
+      filter: drop-shadow(0 10px 20px rgba(15, 23, 42, 0.16));
     }
 
-    .hero-info-card p {
-      margin: 0;
+    .hero-person.jonas { left: 52px; top: -8px; }
+    .hero-person.jonas .hero-image-box img { width: 341px; max-height: 435px; transform: translateY(12px); }
+    .hero-person.timo { left: -40px; top: -8px; }
+    .hero-person.timo .hero-image-box img { width: 168px; max-height: 225px; transform: translateY(12px); }
+
+    .hero-card {
+      position: absolute;
+      bottom: 18px;
+      right: 57px;
+      background: #fff;
+      padding: 18px 30px;
+      border-radius: 22px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.18);
+      z-index: 3;
+      width: 333px;
       color: var(--muted);
-      font-size: 0.94rem;
     }
 
-    .hero-mini-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0.9rem;
-    }
-
-    .hero-mini-card {
-      padding: 1rem;
-    }
-
-    .hero-mini-label {
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
+    .hero-card h3 {
+      margin: 0 0 10px;
       color: var(--primary);
-      font-weight: 700;
-      margin-bottom: 0.35rem;
-    }
-
-    .hero-mini-value {
       font-family: "Raleway", system-ui, sans-serif;
-      font-size: 1.15rem;
+      font-size: 0.92rem;
+      text-align: center;
       font-weight: 800;
-      color: #0f172a;
-      margin-bottom: 0.25rem;
     }
 
-    .hero-mini-copy {
-      font-size: 0.86rem;
-      color: var(--muted);
+    .hero-card ul {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .hero-card li {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 0.55rem;
+      margin-bottom: 0.3rem;
+      font-size: 0.82rem;
+      text-align: center;
+    }
+
+    .hero-card li::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent);
+      margin-top: 0.42rem;
+      flex: 0 0 8px;
     }
 
     .contact-strip {
+      margin-top: 1rem;
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 1rem;
+      gap: 0.8rem;
     }
 
     .contact-card {
-      border-radius: 22px;
-      border: 1px solid rgba(229, 231, 235, 0.95);
-      background: linear-gradient(180deg, #ffffff 0%, #f9fbfb 100%);
-      padding: 1rem 1.05rem;
-      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.05);
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 0.9rem 1rem;
+      box-shadow: var(--shadow);
     }
 
     .contact-name {
       font-family: "Raleway", system-ui, sans-serif;
       font-weight: 800;
-      color: #0f172a;
-      margin-bottom: 0.15rem;
+      color: var(--primary);
+      margin-bottom: 0.25rem;
+      font-size: 1rem;
     }
 
     .contact-role {
-      font-size: 0.88rem;
+      font-size: 0.84rem;
       color: var(--muted);
-      margin-bottom: 0.7rem;
+      margin-bottom: 0.45rem;
     }
 
     .contact-links {
       display: flex;
       flex-direction: column;
-      gap: 0.35rem;
+      gap: 0.28rem;
       font-size: 0.92rem;
     }
 
-    .contact-links a {
-      color: var(--primary);
-      font-weight: 600;
-    }
+    .contact-links a:hover { color: var(--primary); text-decoration: underline; }
 
     main {
-      padding: 1.8rem;
-      display: grid;
-      gap: 1.2rem;
+      padding: 1.8rem 1.6rem 2.4rem;
+      flex: 1;
+      background: linear-gradient(to bottom, #ffffff 0, #f9fafb 100%);
     }
 
-    section {
-      border-radius: 28px;
-      border: 1px solid rgba(229, 231, 235, 0.95);
-      background: linear-gradient(180deg, #ffffff 0%, #fbfcfc 100%);
-      padding: 1.35rem 1.35rem 1.45rem;
-      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.04);
-      scroll-margin-top: 90px;
-    }
+    section { margin-bottom: 2rem; }
 
-    section h2 {
-      margin: 0;
+    h2 {
       font-family: "Raleway", system-ui, sans-serif;
+      margin: 0 0 0.4rem;
       font-size: 1.45rem;
-      color: #0f172a;
-      letter-spacing: -0.01em;
+      color: var(--primary);
+      font-weight: 800;
     }
 
     .section-subtitle {
-      margin: 0.55rem 0 0;
+      margin-bottom: 1rem;
       color: var(--muted);
-      font-size: 0.96rem;
-      max-width: 72ch;
+      font-size: 0.95rem;
     }
 
     .grid-2,
     .grid-3 {
       display: grid;
       gap: 1rem;
-      margin-top: 1rem;
     }
 
-    .grid-2 {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
+    .grid-2 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
 
-    .grid-3 {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .card {
-      border-radius: 22px;
-      border: 1px solid rgba(229, 231, 235, 0.95);
+    .card,
+    .risk-card,
+    .insurance-card,
+    .example-card,
+    .priority-card {
       background: #fff;
-      padding: 1rem 1rem 1.05rem;
-      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.04);
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      padding: 1.1rem 1.15rem;
     }
 
-    .card-title {
+    .card-title,
+    .risk-title,
+    .insurance-title,
+    .example-title,
+    .priority-title {
       font-family: "Raleway", system-ui, sans-serif;
-      font-size: 1rem;
       font-weight: 800;
-      color: #0f172a;
-      margin-bottom: 0.45rem;
+      margin: 0 0 0.4rem;
+      color: var(--text);
+      font-size: 1.02rem;
     }
 
-    .card p,
-    .card li {
+    .card ul,
+    .priority-card ul {
+      margin: 0.25rem 0 0;
+      padding-left: 1.2rem;
       color: var(--muted);
-      font-size: 0.93rem;
     }
 
-    .card ul {
-      margin: 0.55rem 0 0;
-      padding-left: 1.1rem;
+    .risk-grid,
+    .example-grid,
+    .priority-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
     }
 
-    .badge-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.55rem;
-      margin-top: 1rem;
+    .risk-card {
+      background: linear-gradient(160deg, var(--soft-danger) 0, #ffffff 75%);
+      border-color: #fbcfe8;
     }
 
-    .badge {
+    .risk-tag,
+    .insurance-tag,
+    .example-tag {
       display: inline-flex;
       align-items: center;
-      gap: 0.35rem;
-      padding: 0.45rem 0.7rem;
+      padding: 0.2rem 0.6rem;
       border-radius: 999px;
-      background: rgba(74, 120, 125, 0.08);
-      color: var(--primary);
-      font-size: 0.84rem;
+      font-size: 0.75rem;
       font-weight: 700;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.35rem;
+    }
+
+    .risk-tag {
+      color: #b91c1c;
+      background: #fee2e2;
+      border: 1px solid #fecaca;
+    }
+
+    .insurance-tag {
+      color: #0f766e;
+      background: #ccfbf1;
+      border: 1px solid #99f6e4;
+    }
+
+    .example-tag {
+      color: #1d4ed8;
+      background: #dbeafe;
+      border: 1px solid #bfdbfe;
+    }
+
+    .risk-copy,
+    .insurance-copy,
+    .example-copy,
+    .source-note {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.93rem;
     }
 
     .insurance-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 1rem;
-      margin-top: 1rem;
     }
 
     .insurance-card {
-      border-radius: 24px;
-      border: 1px solid rgba(229, 231, 235, 0.95);
-      background: linear-gradient(180deg, #ffffff 0%, #f9fbfb 100%);
-      padding: 1.05rem 1.05rem 1.1rem;
-      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.05);
+      background: linear-gradient(160deg, #f8fafc 0, #ffffff 80%);
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
-    }
-
-    .insurance-topline {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.75rem;
-    }
-
-    .insurance-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      padding: 0.35rem 0.65rem;
-      border-radius: 999px;
-      background: rgba(244, 190, 105, 0.18);
-      color: #7c5a1d;
-      font-size: 0.78rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
-    }
-
-    .insurance-priority {
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: var(--primary);
-    }
-
-    .insurance-title {
-      font-family: "Raleway", system-ui, sans-serif;
-      font-size: 1.08rem;
-      font-weight: 800;
-      color: #0f172a;
-      margin: 0;
+      gap: 0.5rem;
+      padding: 1.2rem 1.2rem 1.1rem;
+      min-height: 250px;
     }
 
     .insurance-copy {
-      margin: 0;
-      color: var(--muted);
-      font-size: 0.93rem;
-    }
-
-    .insurance-list {
-      margin: 0;
-      padding-left: 1.1rem;
-      color: var(--muted);
-      font-size: 0.92rem;
-    }
-
-    .insurance-list li + li {
-      margin-top: 0.3rem;
+      font-size: 0.97rem;
+      line-height: 1.5;
     }
 
     .insurance-open-btn {
-      margin-top: auto;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 44px;
-      padding: 0.75rem 1rem;
+      gap: 0.35rem;
+      margin-top: auto;
+      border: 1px solid rgba(148, 163, 184, 0.9);
+      background: #ffffff;
       border-radius: 999px;
-      border: 1px solid rgba(74, 120, 125, 0.18);
-      background: #fff;
-      color: var(--primary);
+      padding: 0.45rem 0.85rem;
+      font-size: 0.84rem;
       font-weight: 700;
+      color: var(--primary);
       cursor: pointer;
-      transition: transform 0.14s ease, box-shadow 0.14s ease;
-      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.04);
+    }
+
+    .insurance-open-btn::after {
+      content: "▾";
+      font-size: 0.88rem;
+      transform: rotate(-90deg);
     }
 
     .insurance-open-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
+      border-color: var(--accent);
+      filter: brightness(1.02);
     }
 
-    .comparison-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 1rem;
-      overflow: hidden;
-      border-radius: 18px;
-      border-style: hidden;
-      box-shadow: 0 0 0 1px rgba(229, 231, 235, 0.95);
-    }
-
-    .comparison-table th,
-    .comparison-table td {
-      padding: 0.85rem 0.9rem;
-      text-align: left;
-      vertical-align: top;
-      border-bottom: 1px solid rgba(229, 231, 235, 0.95);
-      font-size: 0.92rem;
-    }
-
-    .comparison-table th {
-      background: #f9fbfb;
-      color: var(--primary);
-      font-family: "Raleway", system-ui, sans-serif;
-      font-size: 0.84rem;
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
-    }
-
-    .comparison-table tr:last-child td {
-      border-bottom: none;
-    }
-
-    .example-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-
-    .example-card {
-      border-radius: 22px;
+    .insurance-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.55);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 80;
       padding: 1rem;
-      border: 1px solid rgba(229, 231, 235, 0.95);
-      background: #fff;
-      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.04);
     }
 
-    .example-card.small {
-      background: linear-gradient(180deg, #ffffff 0%, #f9fbfb 100%);
+    .insurance-overlay.open {
+      display: flex;
     }
 
-    .example-card.medium {
-      background: linear-gradient(180deg, #fffdf7 0%, #fff7e8 100%);
+    .insurance-modal {
+      width: min(760px, 94vw);
+      max-height: 86vh;
+      overflow-y: auto;
+      background: #ffffff;
+      border-radius: 22px;
+      box-shadow: 0 24px 40px rgba(15, 23, 42, 0.3);
+      border: 1px solid #d9e2ec;
+      padding: 1.2rem 1.2rem 1.05rem;
+      position: relative;
     }
 
-    .example-card.large {
-      background: linear-gradient(180deg, #fff8f8 0%, #fff1f1 100%);
-    }
-
-    .example-tag {
-      display: inline-flex;
-      padding: 0.3rem 0.55rem;
+    .insurance-modal-close {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      width: 36px;
+      height: 36px;
       border-radius: 999px;
-      background: rgba(74, 120, 125, 0.08);
-      color: var(--primary);
-      font-size: 0.76rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
-      margin-bottom: 0.55rem;
+      border: 1px solid #d1d5db;
+      background: #ffffff;
+      color: #0f172a;
+      font-size: 1.2rem;
+      cursor: pointer;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .example-title {
+    .insurance-modal-head {
+      border-bottom: 1px solid #e5edf5;
+      padding: 0.2rem 2.1rem 0.85rem 0;
+      margin-bottom: 0.9rem;
+    }
+
+    .insurance-modal-head .insurance-tag {
+      margin-bottom: 0.4rem;
+    }
+
+    .insurance-modal-title {
       margin: 0;
       font-family: "Raleway", system-ui, sans-serif;
-      font-size: 1rem;
-      color: #0f172a;
+      font-size: 1.35rem;
+      color: var(--text);
+      line-height: 1.3;
     }
+
+    .insurance-modal-body {
+      color: var(--muted);
+      font-size: 0.96rem;
+      line-height: 1.6;
+    }
+
+    .insurance-modal-body p {
+      margin: 0 0 0.7rem;
+    }
+
+    .insurance-modal-body ul {
+      margin: 0 0 0.8rem;
+      padding-left: 1.25rem;
+    }
+
+    .insurance-modal-body li {
+      margin-bottom: 0.3rem;
+    }
+
+    .example-card.small { border-left: 4px solid #0ea5e9; }
+    .example-card.medium { border-left: 4px solid #f59e0b; }
+    .example-card.large { border-left: 4px solid #dc2626; }
 
     .example-amount {
-      margin-top: 0.35rem;
-      font-size: 1rem;
+      font-family: "Raleway", system-ui, sans-serif;
+      font-size: 1.5rem;
       font-weight: 800;
-      color: #7c5a1d;
-    }
-
-    .example-copy {
-      margin: 0.55rem 0 0;
-      color: var(--muted);
-      font-size: 0.9rem;
+      line-height: 1.1;
+      margin: 0.25rem 0;
+      color: var(--text);
     }
 
     .example-links {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 0.8rem;
+      gap: 0.45rem;
+      margin-top: 0.55rem;
     }
 
     .example-link {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 38px;
-      padding: 0.55rem 0.8rem;
+      padding: 0.45rem 0.75rem;
       border-radius: 999px;
-      border: 1px solid rgba(74, 120, 125, 0.18);
+      border: 1px solid rgba(148, 163, 184, 0.9);
+      background: #fff;
       color: var(--primary);
-      font-size: 0.84rem;
       font-weight: 700;
-      background: rgba(255, 255, 255, 0.92);
+      font-size: 0.78rem;
     }
 
-    .example-link:hover {
-      border-color: var(--accent);
-    }
-
-    .source-note {
-      font-size: 0.82rem;
-      color: #6b7280;
-    }
-
-    .priority-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1rem;
-      margin-top: 1rem;
-    }
+    .example-link:hover { border-color: var(--accent); }
 
     .priority-card {
-      background: linear-gradient(160deg, #f9fbfb 0, #ffffff 75%);
-      border: 1px solid #dbe7e8;
-      border-radius: 22px;
-      padding: 1rem;
-      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.04);
+      background: linear-gradient(160deg, var(--soft-safe) 0, #ffffff 75%);
+      border-color: #bbf7d0;
     }
 
     .priority-number {
@@ -905,27 +812,13 @@
       margin-bottom: 0.45rem;
     }
 
-    .priority-title {
-      margin: 0;
-      font-family: "Raleway", system-ui, sans-serif;
-      font-size: 1rem;
-      color: #0f172a;
-    }
-
-    .priority-card ul {
-      margin: 0.65rem 0 0;
-      padding-left: 1.1rem;
-      color: var(--muted);
-      font-size: 0.92rem;
-    }
-
     .kontakt-box {
       background: linear-gradient(135deg, #e0f2fe, #fef3c7);
       border: 1px solid var(--border);
       border-radius: 20px;
       padding: 1.5rem 1.4rem 1.7rem;
       text-align: center;
-      box-shadow: var(--shadowStrong);
+      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
     }
 
     .kontakt-box h2 {
@@ -970,126 +863,6 @@
       text-decoration: underline;
     }
 
-    .insurance-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(15, 23, 42, 0.55);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.18s ease;
-      z-index: 70;
-    }
-
-    .insurance-overlay.open {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .insurance-modal {
-      width: min(760px, 100%);
-      max-height: 90vh;
-      overflow: auto;
-      border-radius: 28px;
-      background: #fff;
-      border: 1px solid rgba(229, 231, 235, 0.95);
-      box-shadow: 0 24px 60px rgba(15, 23, 42, 0.22);
-      padding: 1.2rem 1.2rem 1.3rem;
-    }
-
-    .insurance-modal-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
-
-    .insurance-modal-tag {
-      display: inline-flex;
-      padding: 0.3rem 0.55rem;
-      border-radius: 999px;
-      background: rgba(244, 190, 105, 0.18);
-      color: #7c5a1d;
-      font-size: 0.76rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
-      margin-bottom: 0.45rem;
-    }
-
-    .insurance-modal-title {
-      margin: 0;
-      font-family: "Raleway", system-ui, sans-serif;
-      font-size: 1.35rem;
-      color: #0f172a;
-    }
-
-    .insurance-modal-close {
-      border: none;
-      background: transparent;
-      color: var(--primary);
-      font-size: 1.6rem;
-      cursor: pointer;
-      line-height: 1;
-      padding: 0;
-    }
-
-    .insurance-modal-body {
-      display: grid;
-      gap: 1rem;
-    }
-
-    .detail-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 1rem;
-    }
-
-    .detail-box {
-      border-radius: 20px;
-      border: 1px solid rgba(229, 231, 235, 0.95);
-      background: #f9fbfb;
-      padding: 0.95rem 1rem;
-    }
-
-    .detail-box h3 {
-      margin: 0 0 0.45rem;
-      font-family: "Raleway", system-ui, sans-serif;
-      font-size: 0.98rem;
-      color: #0f172a;
-    }
-
-    .detail-box p,
-    .detail-box li {
-      margin: 0;
-      color: var(--muted);
-      font-size: 0.92rem;
-    }
-
-    .detail-box ul {
-      margin: 0;
-      padding-left: 1.1rem;
-    }
-
-    .detail-box ul li + li {
-      margin-top: 0.3rem;
-    }
-
-    .animate-on-scroll {
-      opacity: 0;
-      transform: translateY(18px);
-      transition: opacity 0.45s ease, transform 0.45s ease;
-    }
-
-    .animate-on-scroll.in-view {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
     footer {
       padding: 1rem 1.6rem 1.4rem;
       font-size: 0.78rem;
@@ -1103,32 +876,10 @@
         flex: 0 0 100%;
         max-width: 460px;
       }
-
       .cta-row .btn-wa,
       .cta-row .btn-secondary {
         flex: 1 1 calc(50% - 0.4rem);
         min-width: 0;
-      }
-    }
-
-    @media (max-width: 991px) {
-      .hero-inner,
-      .grid-2,
-      .grid-3,
-      .insurance-grid,
-      .example-grid,
-      .priority-grid,
-      .detail-grid,
-      .contact-strip {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-points {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-visual {
-        min-height: auto;
       }
     }
 
@@ -1138,35 +889,124 @@
       .menu-text { display: none; }
       header.hero { padding: 2rem 1rem 2rem; }
       main { padding: 1.6rem 1rem 2.2rem; }
-      .hero h1 { font-size: 1.8rem; }
+      .hero-inner { flex-direction: column-reverse; align-items: stretch; }
+      .hero h1 { font-size: 1.6rem; }
       .hero-lead { font-size: 0.92rem; }
+      .hero-photo {
+        min-width: 0;
+        flex: 1 1 100%;
+        min-height: 320px;
+        overflow: visible;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 0 0 10px;
+      }
+      .hero-photo::before {
+        width: min(270px, 86vw);
+        height: min(270px, 86vw);
+        top: 8px;
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 0.7;
+      }
+      .hero-people {
+        position: relative;
+        width: min(100%, 320px);
+        min-height: 220px;
+        padding: 4px 0 0;
+        gap: 0;
+        align-items: flex-end;
+        justify-content: center;
+        z-index: 2;
+      }
+      .hero-person {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        right: auto;
+        transform: none;
+        display: flex;
+        align-items: flex-end;
+        margin: 0;
+        z-index: auto;
+      }
+      .hero-person.jonas { margin-left: 0; margin-right: -10px; z-index: 2; transform: translate(0px, 10px); }
+      .hero-person.timo { margin-left: -10px; margin-right: 0; z-index: 1; transform: translate(-80px, 10px); }
+      .hero-image-box { width: auto; height: auto; display: flex; align-items: flex-end; justify-content: center; }
+      .hero-person.jonas .hero-image-box { width: min(348px, 100vw); }
+      .hero-person.jonas .hero-image-box img { width: min(362px, 104vw); max-width: 362px; max-height: none; transform: none; }
+      .hero-person.timo .hero-image-box { width: min(168px, 48vw); }
+      .hero-person.timo .hero-image-box img { width: min(176px, 50vw); max-width: 176px; max-height: none; transform: none; }
+      .hero-card {
+        position: relative;
+        right: auto;
+        bottom: auto;
+        transform: none;
+        width: min(92vw, 300px);
+        margin: 8px auto 0;
+        padding: 12px 14px;
+        z-index: 3;
+      }
+      .contact-strip { grid-template-columns: 1fr; }
       .cta-row,
       .kontakt-btn-row,
       .kontakt-mini-row,
       .example-links { flex-direction: column; align-items: stretch; }
       .cta-row a,
       .kontakt-mini-link,
-      .example-link,
-      .insurance-open-btn { width: 100%; }
+      .example-link { width: 100%; }
+      .insurance-open-btn {
+        width: 100%;
+      }
       .insurance-modal {
         width: min(96vw, 760px);
         max-height: 88vh;
       }
     }
-
+  
+    /* Responsive: iPhone Mini & kleine Android Phones (375px - 414px) */
     @media (max-width: 414px) {
       body { font-size: 14px; }
       .topbar { padding: 0.6rem 0.8rem; }
       .topbar-avatars img { width: 40px; height: 40px; }
       .topbar-title { font-size: 0.75rem; }
       .topbar-tagline { font-size: 0.7rem; }
+      .menu-text { font-size: 0.7rem; }
       header.hero { padding: 1.2rem 0.8rem 1.4rem; }
-      .hero h1 { font-size: 1.45rem; line-height: 1.2; }
-      .hero-lead { font-size: 0.82rem; line-height: 1.4; }
+      .hero h1 { font-size: 1.3rem; line-height: 1.2; }
+      .hero-lead { font-size: 0.8rem; line-height: 1.4; }
       .badge { font-size: 0.7rem; padding: 0.2rem 0.5rem; }
+      .cta-row { gap: 0.4rem; flex-direction: column; }
       .btn-primary, .btn-secondary, .btn-wa, .btn-gold { padding: 0.7rem 1rem; font-size: 0.85rem; width: 100%; }
-      section { padding: 1rem 0.9rem 1.1rem; border-radius: 22px; }
-      .insurance-modal { padding: 1rem 0.9rem 1.1rem; border-radius: 22px; }
+      .hero-photo { min-height: 280px; }
+      .hero-photo::before { width: min(240px, 82vw); height: min(240px, 82vw); top: 2px; }
+      .hero-people { width: min(100%, 300px); min-height: 200px; }
+      .hero-person.jonas { transform: translate(0px, 10px); }
+      .hero-person.timo { transform: translate(-80px, 10px); }
+      .hero-person.jonas .hero-image-box { width: min(305px, 92vw); }
+      .hero-person.jonas .hero-image-box img { max-width: 318px; }
+      .hero-person.timo .hero-image-box { width: min(154px, 46vw); }
+      .hero-person.timo .hero-image-box img { max-width: 162px; }
+      .hero-card { width: min(94vw, 290px); padding: 11px 12px; }
+      main { padding: 1.2rem 0.8rem 1.8rem; }
+      h2 { font-size: 1.2rem; }
+      .grid-3, .grid-2 { grid-template-columns: 1fr; }
+      .card { padding: 0.8rem; }
+      .card-title { font-size: 0.9rem; }
+      .card ul { font-size: 0.8rem; }
+      .contact-strip { grid-template-columns: 1fr; }
+      .contact-name { font-size: 0.85rem; }
+      footer { font-size: 0.7rem; padding: 0.8rem; }
+    }
+
+    @media (max-width: 375px) {
+      .topbar { padding: 0.5rem 0.6rem; }
+      .hero h1 { font-size: 1.1rem; }
+      .hero-lead { font-size: 0.75rem; }
+      h2 { font-size: 1.1rem; }
+      main { padding: 1rem 0.6rem 1.5rem; }
     }
   </style>
 </head>
@@ -1180,297 +1020,297 @@
         </div>
         <div>
           <div class="topbar-title">Jonas Plener &amp; Timo Hügel</div>
-          <div class="topbar-tagline">Finanzberatung mit Struktur, Klarheit und persönlicher Begleitung</div>
+          <div class="topbar-tagline">Finanzberatung<br />Region Kinzigtal / Ortenau</div>
         </div>
       </div>
 
       <div class="menu-wrap">
-        <div class="menu-text">Themenübersicht &amp; weitere Seiten</div>
-        <button class="burger-btn" id="burgerBtn" aria-label="Menü öffnen" aria-expanded="false" aria-controls="menuPanel">
-          <span class="burger-lines">
-            <span></span>
-            <span></span>
-            <span></span>
-          </span>
+        <div class="menu-text">Für Eltern, Selbstständige und Angestellte<br />im Kinzigtal &amp; der Ortenau</div>
+        <button type="button" class="burger-btn" id="burgerBtn" aria-label="Menü öffnen" aria-expanded="false" aria-controls="menuPanel">
+          <span class="burger-lines" aria-hidden="true"><span></span><span></span><span></span></span>
         </button>
       </div>
+
+      <div class="menu-overlay" id="menuOverlay"></div>
+      <nav class="menu-panel" id="menuPanel" aria-label="Navigation">
+        <div class="menu-header">
+          <span class="menu-header-title">Menü</span>
+          <button type="button" class="menu-close-btn" aria-label="Menü schließen">✕</button>
+        </div>
+        <div class="menu-content">
+          <section class="menu-section">
+            <h2 class="menu-section-title">Startseite</h2>
+            <ul class="menu-section-links"><li><a href="index.html">Themenauswahl</a></li></ul>
+          </section>
+          <section class="menu-section">
+            <h2 class="menu-section-title">Angestellt</h2>
+            <ul class="menu-section-links">
+              <li><a href="vermoegen-aufbauen-investieren.html">Vermögen aufbauen</a></li>
+              <li><a href="bav.html">bAV</a></li>
+              <li><a href="arbeitskraftabsicherung.html">Arbeitskraft absichern</a></li>
+              <li><a href="risikoleben.html">Familie absichern</a></li>
+              <li><a href="sachversicherungen.html" class="active">Sachversicherungen</a></li>
+              <li><a href="immobilien-finanzierung.html">Immobilien &amp; Finanzierung</a></li>
+            </ul>
+          </section>
+          <section class="menu-section">
+            <h2 class="menu-section-title">Eltern &amp; Familie</h2>
+            <ul class="menu-section-links">
+              <li><a href="kinder-absichern.html">Kinder absichern</a></li>
+              <li><a href="eltern-retter-kindererziehungszeiten.html">Kindererziehungszeiten</a></li>
+              <li><a href="riester.html">Riester</a></li>
+              <li><a href="risikoleben.html">Familie absichern</a></li>
+            </ul>
+          </section>
+          <section class="menu-section">
+            <h2 class="menu-section-title">Unternehmer &amp; Selbstständig</h2>
+            <ul class="menu-section-links">
+              <li><a href="liquiditaet.html">Liquidität</a></li>
+              <li><a href="betriebliche-krankenversicherung.html">Betriebliche Krankenversicherung</a></li>
+              <li><a href="energie.html">Energie</a></li>
+              <li><a href="betriebliche-sachversicherung.html">Betriebliche Sachversicherungen</a></li>
+              <li><a href="ruerup.html">Rürup</a></li>
+            </ul>
+          </section>
+          <section class="menu-section">
+            <h2 class="menu-section-title">Karriere &amp; Ausbildung</h2>
+            <ul class="menu-section-links">
+              <li><a href="ausbildung-und-zukunft.html">Ausbildung &amp; Zukunft</a></li>
+              <li><a href="karriere-im-finanzbereich.html">Karriere im Finanzbereich</a></li>
+            </ul>
+          </section>
+        </div>
+      </nav>
     </div>
 
-    <div class="menu-overlay" id="menuOverlay"></div>
-    <aside class="menu-panel" id="menuPanel" aria-hidden="true">
-      <div class="menu-header">
-        <div class="menu-header-title">Navigation</div>
-        <button class="menu-close-btn" type="button" aria-label="Menü schließen">×</button>
-      </div>
-      <div class="menu-content">
-        <div class="menu-section">
-          <p class="menu-section-title">Auf dieser Seite</p>
-          <ul class="menu-section-links">
-            <li><a href="#ueberblick">Überblick</a></li>
-            <li><a href="#bausteine">Wichtige Bausteine</a></li>
-            <li><a href="#vergleich">Was schützt wovor?</a></li>
-            <li><a href="#beispiele">Praxisbeispiele</a></li>
-            <li><a href="#priorisierung">Priorisierung</a></li>
-            <li><a href="#kontakt">Kontakt</a></li>
-          </ul>
-        </div>
-        <div class="menu-section">
-          <p class="menu-section-title">Weitere Themen</p>
-          <ul class="menu-section-links">
-            <li><a href="index.html">Startseite</a></li>
-            <li><a href="arbeitskraftabsicherung.html">Arbeitskraftabsicherung</a></li>
-            <li><a href="kinder-absichern.html">Kinder absichern</a></li>
-            <li><a href="liquiditaet.html">Liquidität</a></li>
-            <li><a href="riester.html">Riester</a></li>
-            <li><a href="ruerup.html">Rürup</a></li>
-            <li><a href="risikoleben.html">Risikoleben</a></li>
-            <li><a href="vermoegen-aufbauen-investieren.html">Vermögen aufbauen</a></li>
-            <li><a href="leistung.html">Alle Leistungen</a></li>
-          </ul>
-        </div>
-      </div>
-    </aside>
-
-    <header class="hero" id="ueberblick">
+    <header class="hero">
       <div class="hero-inner">
-        <div class="hero-copy">
-          <div class="hero-label"><span class="dot"></span> Sachversicherungen verständlich priorisieren</div>
-          <h1>Die richtigen <strong>Sachversicherungen</strong> schützen deinen Alltag, dein Eigentum und deine Haftungsrisiken.</h1>
+        <div class="hero-text">
+          <div class="hero-label"><span class="dot"></span>Sachversicherungen · Alltag finanziell stabil halten</div>
+          <h1>Kleine Panne, großer Schaden: <strong>dein Alltag darf daran nicht kippen</strong></h1>
           <p class="hero-lead">
-            Nicht jede Police ist automatisch sinnvoll. Entscheidend ist, welche Risiken dich finanziell wirklich treffen können,
-            welche Schäden existenziell werden und welche Bausteine zu deiner Lebenssituation passen.
+            Genau hier wird es emotional: Ein geplatzter Schlauch, ein verlorener Schlüssel oder ein Rechtsstreit
+            kommen oft im falschen Moment. Mit den richtigen Bausteinen bleiben <strong>Nerven, Zeit und Geld</strong> geschützt.
           </p>
 
-          <ul class="hero-points">
-            <li><span>1</span><div><strong>Existenz schützen</strong><br />Haftpflicht, Hausrat und Wohngebäude sauber priorisieren.</div></li>
-            <li><span>2</span><div><strong>Alltag absichern</strong><br />Rechtsschutz, KFZ und Reise nur dort, wo sie echten Mehrwert liefern.</div></li>
-            <li><span>3</span><div><strong>Überversicherung vermeiden</strong><br />Bausteine nur dann wählen, wenn Risiko und Nutzen zusammenpassen.</div></li>
-            <li><span>4</span><div><strong>Verständlich entscheiden</strong><br />Wir ordnen gemeinsam, was Pflicht, Kür oder verzichtbar ist.</div></li>
-          </ul>
+          <div class="hero-badges">
+            <a href="#alltag-risiken" class="badge"><span>Was Familien wirklich trifft</span><span class="arrow">↓</span></a>
+            <a href="#versicherungen-kompakt" class="badge"><span>Alle wichtigen Policen im Überblick</span><span class="arrow">↓</span></a>
+            <a href="#live-beispiele" class="badge"><span>Echte Schadensbeispiele aus der Praxis</span><span class="arrow">↓</span></a>
+            <a href="#priorisierung" class="badge"><span>Welche Reihenfolge sinnvoll ist</span><span class="arrow">↓</span></a>
+            <a href="#kontakt" class="badge"><span>Kontakt</span><span class="arrow">↓</span></a>
+        </div>
 
           <div class="cta-row">
-            <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-primary">Sachversicherungen gemeinsam prüfen</a>
-            <a href="https://wa.me/4915141678134" target="_blank" rel="noopener" class="btn-wa">Jonas via WhatsApp</a>
-            <a href="https://wa.me/4917663796605" target="_blank" rel="noopener" class="btn-secondary">Timo via WhatsApp</a>
+            <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-primary">Sachschutz-Check starten</a>
+            <a href="https://wa.me/4915141678134" target="_blank" rel="noopener" class="btn-wa">Jonas kontaktieren</a>
+            <a href="https://wa.me/4917663796605" target="_blank" rel="noopener" class="btn-secondary">Timo kontaktieren</a>
           </div>
         </div>
 
-        <div class="hero-visual">
-          <div class="hero-card-stack">
-            <div class="hero-info-card">
-              <h2>Worum es bei Sachversicherungen wirklich geht</h2>
-              <p>
-                Sachversicherungen ersetzen nicht dein Einkommen, sondern schützen dich vor Kosten, die durch Schäden,
-                Haftung oder Streitigkeiten plötzlich entstehen und dein Budget massiv belasten können.
-              </p>
-            </div>
-            <div class="hero-mini-grid">
-              <div class="hero-mini-card">
-                <div class="hero-mini-label">Basis</div>
-                <div class="hero-mini-value">Haftpflicht</div>
-                <div class="hero-mini-copy">Für fast jeden Haushalt der wichtigste Startpunkt.</div>
-              </div>
-              <div class="hero-mini-card">
-                <div class="hero-mini-label">Eigentum</div>
-                <div class="hero-mini-value">Hausrat &amp; Gebäude</div>
-                <div class="hero-mini-copy">Relevant, wenn Werte oder Eigentum geschützt werden müssen.</div>
-              </div>
-            </div>
-            <div class="contact-strip">
-              <div class="contact-card">
-                <div class="contact-name">Jonas Plener</div>
-                <div class="contact-role">Finanzberater</div>
-                <div class="contact-links">
-                  <a href="tel:+4915141678134">?? 0151 41678134</a>
-                  <a href="mailto:Jonas.Plener@dvag.de">?? Jonas.Plener@dvag.de</a>
-                </div>
-              </div>
-              <div class="contact-card">
-                <div class="contact-name">Timo Hügel</div>
-                <div class="contact-role">Finanzberater</div>
-                <div class="contact-links">
-                  <a href="tel:+4917663796605">?? 0176 63796605</a>
-                  <a href="mailto:Timo.Huegel@dvag.de">?? Timo.Huegel@dvag.de</a>
-                </div>
-              </div>
-            </div>
+        <div class="hero-photo">
+          <div class="hero-people">
+            <div class="hero-person jonas"><div class="hero-image-box"><img src="jonas-halbkoerper.png" alt="Jonas Plener" /></div></div>
+            <div class="hero-person timo"><div class="hero-image-box"><img src="timo-halbkoerper.png" alt="Timo Hügel" /></div></div>
           </div>
+                          <div class="hero-card">
+          <h3>Eure Ansprechpartner</h3>
+          <ul>
+            <li>Sachschutz mit klarer Priorität statt Überversicherung</li>
+            <li>Beratung digital und vor Ort</li>
+          </ul>
+        </div>
         </div>
       </div>
-    </header>
+
+      </header>
 
     <main>
-      <section id="bausteine">
-        <h2>Welche Sachversicherungen typischerweise relevant sind</h2>
-        <p class="section-subtitle">
-          Die richtige Auswahl hängt nicht von Werbung oder Bauchgefühl ab, sondern von Haftungsrisiken, Besitzwerten,
-          Wohnsituation, Mobilität und deinem persönlichen Sicherheitsbedürfnis.
-        </p>
-
-        <div class="badge-row">
-          <span class="badge">Privathaftpflicht</span>
-          <span class="badge">Hausrat</span>
-          <span class="badge">Wohngebäude</span>
-          <span class="badge">Rechtsschutz</span>
-          <span class="badge">KFZ</span>
-          <span class="badge">Reise &amp; Spezialbausteine</span>
+      <section id="alltag-risiken">
+        <h2>Was am meisten unterschätzt wird</h2>
+        <p class="section-subtitle">Die größten Stressfaktoren sind selten spektakulär. Sie treffen plötzlich und kosten sofort Geld.</p>
+        <div class="risk-grid">
+          <article class="risk-card">
+            <div class="risk-tag">Haushalt</div>
+            <h3 class="risk-title">Leitungswasser, Glas, Einbruch</h3>
+            <p class="risk-copy">Ein einziger Schaden kann mehrere Räume betreffen und sofort vier- bis fünfstellig werden.</p>
+          </article>
+          <article class="risk-card">
+            <div class="risk-tag">Haftung</div>
+            <h3 class="risk-title">Du verursachst fremden Schaden</h3>
+            <p class="risk-copy">Bei Personenschäden können Summen schnell sehr hoch werden. Das kann langfristig belasten.</p>
+          </article>
+          <article class="risk-card">
+            <div class="risk-tag">Recht &amp; Reise</div>
+            <h3 class="risk-title">Streitfall oder Reiseausfall</h3>
+            <p class="risk-copy">Anwalt, Gericht oder Storno treffen oft dann, wenn ohnehin schon Druck da ist.</p>
+          </article>
         </div>
+      </section>
 
+      <section id="versicherungen-kompakt">
+        <h2>Diese Versicherungen solltest du gemeinsam prüfen</h2>
+        <p class="section-subtitle">Erst der Basisschutz, dann sinnvolle Ergänzungen je nach Lebenslage. Über den Button öffnet sich ein separates Info-Fenster mit allen Details.</p>
         <div class="insurance-grid">
-          <article class="insurance-card animate-on-scroll" data-detail-id="haftpflicht" data-detail-tag="Basis" data-detail-title="Privathaftpflicht">
-            <div class="insurance-topline">
-              <span class="insurance-tag">Pflichtgefühl ohne Pflicht</span>
-              <span class="insurance-priority">Priorität: sehr hoch</span>
-            </div>
+          <article class="insurance-card" data-detail-id="haftpflicht" data-detail-tag="Pflicht-Basis" data-detail-title="Privathaftpflicht">
+            <div class="insurance-tag">Pflicht-Basis</div>
             <h3 class="insurance-title">Privathaftpflicht</h3>
-            <p class="insurance-copy">Sie schützt dich, wenn du anderen einen Schaden zufügst und dafür haftbar gemacht wirst.</p>
-            <ul class="insurance-list">
-              <li>Personen-, Sach- und Vermögensschäden können sehr teuer werden.</li>
-              <li>Oft die wichtigste Sachversicherung überhaupt.</li>
-              <li>Auch kleine Missgeschicke können hohe Folgekosten auslösen.</li>
-            </ul>
-            <button class="insurance-open-btn" type="button">Details ansehen</button>
+            <p class="insurance-copy">Deckt Schäden, die du anderen zufügst. Für fast jeden Haushalt der wichtigste Grundbaustein.</p>
+            <button type="button" class="insurance-open-btn">Mehr Details</button>
           </article>
-
-          <article class="insurance-card animate-on-scroll" data-detail-id="hausrat" data-detail-tag="Eigentum" data-detail-title="Hausratversicherung">
-            <div class="insurance-topline">
-              <span class="insurance-tag">Werte im Haushalt</span>
-              <span class="insurance-priority">Priorität: mittel bis hoch</span>
-            </div>
-            <h3 class="insurance-title">Hausratversicherung</h3>
-            <p class="insurance-copy">Sie ersetzt Schäden an deinem beweglichen Besitz, etwa durch Feuer, Leitungswasser, Sturm oder Einbruchdiebstahl.</p>
-            <ul class="insurance-list">
-              <li>Sinnvoll bei höherem Einrichtungswert.</li>
-              <li>Wichtig ist die richtige Versicherungssumme.</li>
-              <li>Zusatzbausteine sollten bewusst gewählt werden.</li>
-            </ul>
-            <button class="insurance-open-btn" type="button">Details ansehen</button>
-          </article>
-
-          <article class="insurance-card animate-on-scroll" data-detail-id="wohngebaeude" data-detail-tag="Eigentum" data-detail-title="Wohngebäudeversicherung">
-            <div class="insurance-topline">
-              <span class="insurance-tag">Für Eigentümer</span>
-              <span class="insurance-priority">Priorität: sehr hoch</span>
-            </div>
-            <h3 class="insurance-title">Wohngebäudeversicherung</h3>
-            <p class="insurance-copy">Sie schützt das Gebäude selbst, also Dach, Wände, fest verbaute Bestandteile und je nach Tarif weitere Risiken.</p>
-            <ul class="insurance-list">
-              <li>Für Eigentümer praktisch unverzichtbar.</li>
-              <li>Elementarrisiken sollten separat geprüft werden.</li>
-              <li>Unterversicherung und veraltete Tarife sind häufige Probleme.</li>
-            </ul>
-            <button class="insurance-open-btn" type="button">Details ansehen</button>
-          </article>
-
-          <article class="insurance-card animate-on-scroll" data-detail-id="rechtsschutz" data-detail-tag="Alltag" data-detail-title="Rechtsschutzversicherung">
-            <div class="insurance-topline">
-              <span class="insurance-tag">Zugang zum Recht</span>
-              <span class="insurance-priority">Priorität: individuell</span>
-            </div>
-            <h3 class="insurance-title">Rechtsschutz</h3>
-            <p class="insurance-copy">Sie übernimmt je nach Baustein Kosten für Anwalt, Gericht, Gutachten oder Mediation.</p>
-            <ul class="insurance-list">
-              <li>Besonders relevant bei Verkehr, Beruf, Wohnen oder Familie.</li>
-              <li>Nicht jeder Streit ist automatisch versichert.</li>
-              <li>Wartezeiten und Ausschlüsse müssen verstanden werden.</li>
-            </ul>
-            <button class="insurance-open-btn" type="button">Details ansehen</button>
-          </article>
-
-          <article class="insurance-card animate-on-scroll" data-detail-id="kfz" data-detail-tag="Mobilität" data-detail-title="KFZ-Versicherung">
-            <div class="insurance-topline">
-              <span class="insurance-tag">Für Fahrzeughalter</span>
-              <span class="insurance-priority">Priorität: abhängig vom Fahrzeug</span>
-            </div>
+          <article class="insurance-card" data-detail-id="kfz" data-detail-tag="Mobilität" data-detail-title="KFZ-Versicherung">
+            <div class="insurance-tag">Mobilität</div>
             <h3 class="insurance-title">KFZ-Versicherung</h3>
-            <p class="insurance-copy">Die Haftpflicht ist gesetzlich vorgeschrieben, Teil- und Vollkasko sind eine wirtschaftliche Abwägung.</p>
-            <ul class="insurance-list">
-              <li>Haftpflicht ist Pflicht.</li>
-              <li>Kasko hängt von Fahrzeugwert, Finanzierung und Risikoprofil ab.</li>
-              <li>Werkstattbindung, Schutzbrief und Selbstbeteiligung bewusst wählen.</li>
-            </ul>
-            <button class="insurance-open-btn" type="button">Details ansehen</button>
+            <p class="insurance-copy">Für Fahrzeughalter zentral: von gesetzlicher Haftpflicht bis Kasko- und Zusatzbausteinen.</p>
+            <button type="button" class="insurance-open-btn">Mehr Details</button>
           </article>
+          <article class="insurance-card" data-detail-id="hausrat" data-detail-tag="Haushalt" data-detail-title="Hausrat">
+            <div class="insurance-tag">Haushalt</div>
+            <h3 class="insurance-title">Hausrat</h3>
+            <p class="insurance-copy">Schützt Möbel, Kleidung, Technik und Einrichtung bei typischen Schäden in der Wohnung.</p>
+            <button type="button" class="insurance-open-btn">Mehr Details</button>
+          </article>
+          <article class="insurance-card" data-detail-id="glas" data-detail-tag="Ergänzung" data-detail-title="Glasversicherung">
+            <div class="insurance-tag">Ergänzung</div>
+            <h3 class="insurance-title">Glasversicherung</h3>
+            <p class="insurance-copy">Kann sinnvoll sein, wenn du viele große oder spezielle Glasflächen hast.</p>
+            <button type="button" class="insurance-open-btn">Mehr Details</button>
+          </article>
+          <article class="insurance-card" data-detail-id="unfall" data-detail-tag="Absicherung" data-detail-title="Unfallversicherung">
+            <div class="insurance-tag">Absicherung</div>
+            <h3 class="insurance-title">Unfallversicherung</h3>
+            <p class="insurance-copy">Leistet bei dauerhaften Unfallfolgen, zum Beispiel als Kapital oder Unfallrente.</p>
+            <button type="button" class="insurance-open-btn">Mehr Details</button>
+          </article>
+          <article class="insurance-card" data-detail-id="reise" data-detail-tag="Reisen" data-detail-title="Reiseversicherung">
+            <div class="insurance-tag">Reisen</div>
+            <h3 class="insurance-title">Reiseversicherung</h3>
+            <p class="insurance-copy">Im Sachbereich vor allem wichtig: Reiserücktritt, Reiseabbruch und Reisegepäckschutz.</p>
+            <button type="button" class="insurance-open-btn">Mehr Details</button>
+          </article>
+          <article class="insurance-card" data-detail-id="rechtsschutz" data-detail-tag="Streitfälle" data-detail-title="Rechtsschutz">
+            <div class="insurance-tag">Streitfälle</div>
+            <h3 class="insurance-title">Rechtsschutz</h3>
+            <p class="insurance-copy">Übernimmt Kosten für Anwalt, Gericht und oft auch Gutachten in versicherten Bereichen.</p>
+            <button type="button" class="insurance-open-btn">Mehr Details</button>
+          </article>
+          <article class="insurance-card" data-detail-id="wohngebaeude" data-detail-tag="Eigentum" data-detail-title="Wohngebäude">
+            <div class="insurance-tag">Eigentum</div>
+            <h3 class="insurance-title">Wohngebäude</h3>
+            <p class="insurance-copy">Für Eigentümer zentral: schützt das Gebäude selbst, nicht den beweglichen Hausrat.</p>
+            <button type="button" class="insurance-open-btn">Mehr Details</button>
+          </article>
+          <article class="insurance-card" data-detail-id="tiere" data-detail-tag="Bei Tierhaltung wichtig" data-detail-title="Tierhalterhaftpflicht (Hund/Pferd)">
+            <div class="insurance-tag">Bei Tierhaltung wichtig</div>
+            <h3 class="insurance-title">Tierhalterhaftpflicht (Hund/Pferd)</h3>
+            <p class="insurance-copy">Bei Hund oder Pferd sehr oft unverzichtbar, weil die Privathaftpflicht solche Risiken nicht automatisch abdeckt.</p>
+            <button type="button" class="insurance-open-btn">Mehr Details</button>
+          </article>
+        </div>
 
-          <article class="insurance-card animate-on-scroll" data-detail-id="reise" data-detail-tag="Ergänzung" data-detail-title="Reise- und Spezialbausteine">
-            <div class="insurance-topline">
-              <span class="insurance-tag">Nur bei echtem Bedarf</span>
-              <span class="insurance-priority">Priorität: selektiv</span>
+        <div class="insurance-overlay" id="insuranceOverlay" aria-hidden="true">
+          <div class="insurance-modal" role="dialog" aria-modal="true" aria-labelledby="insuranceModalTitle">
+            <button type="button" class="insurance-modal-close" id="insuranceModalClose" aria-label="Details schließen">✕</button>
+            <div class="insurance-modal-head">
+              <div class="insurance-tag" id="insuranceModalTag"></div>
+              <h3 class="insurance-modal-title" id="insuranceModalTitle"></h3>
             </div>
-            <h3 class="insurance-title">Reise &amp; Spezialbausteine</h3>
-            <p class="insurance-copy">Dazu zählen etwa Reiserücktritt, Reiseabbruch, Glas, Tierhalterhaftpflicht oder spezielle Zusatzdeckungen.</p>
-            <ul class="insurance-list">
-              <li>Oft sinnvoll, aber nicht pauschal für jeden.</li>
-              <li>Nutzen hängt stark von Lebensstil und Risiko ab.</li>
-              <li>Hier entsteht besonders häufig unnötige Doppelabsicherung.</li>
+            <div class="insurance-modal-body" id="insuranceModalBody"></div>
+          </div>
+        </div>
+
+        <div hidden>
+          <template id="template-haftpflicht">
+            <p>Die Privathaftpflicht ist weniger ein Produkt als dein finanzielles Schutznetz bei Fehlern im Alltag. Entscheidend ist nicht nur, dass du versichert bist, sondern wie gut der Vertrag in kritischen Situationen reagiert.</p>
+            <ul>
+              <li>Prüfe hohe Deckungssummen, damit auch schwere Personenschäden tragbar bleiben.</li>
+              <li>Forderungsausfall hilft, wenn dir selbst jemand schadet, aber nicht zahlen kann.</li>
+              <li>Mit Kindern ist relevant, wie mit Schäden durch deliktunfähige Kinder umgegangen wird.</li>
             </ul>
-            <button class="insurance-open-btn" type="button">Details ansehen</button>
-          </article>
+            <p>Praxisfrage im Beratungstermin: Welche privaten Risiken können heute finanziell nicht aus der Rücklage gezahlt werden?</p>
+          </template>
+          <template id="template-kfz">
+            <p>Die KFZ-Versicherung besteht aus mehreren Bausteinen, die je nach Fahrzeugwert, Nutzung und persönlicher Situation unterschiedlich gewichtet werden sollten. Wichtig ist, dass der Schutz nicht nur günstig, sondern im Schadenfall auch belastbar ist.</p>
+            <ul>
+              <li>KFZ-Haftpflicht: gesetzlich verpflichtend und Basis für Schäden, die du anderen zufügst.</li>
+              <li>Teilkasko: typischer Schutz bei Diebstahl, Glasbruch, Wildunfall, Sturm, Hagel und Elementarereignissen.</li>
+              <li>Vollkasko: erweitert um selbst verursachte Unfallschäden am eigenen Fahrzeug und Vandalismus.</li>
+              <li>Schutzbrief: organisiert und bezahlt je nach Tarif Pannenhilfe, Abschleppen, Weiter- oder Rückreise.</li>
+              <li>Fahrerschutz: kann den Fahrer bei eigenverschuldeten Unfällen zusätzlich absichern.</li>
+              <li>Rabattschutz und GAP-Deckung: je nach Situation relevant, z.B. bei Leasing oder hohem SF-Rabatt.</li>
+            </ul>
+            <p>Praxisfrage im Beratungstermin: Welche Kombination aus Haftpflicht, Kasko und Zusatzbausteinen passt zu deinem Fahrzeug und deinem echten Nutzungsrisiko?</p>
+          </template>
+          <template id="template-hausrat">
+            <p>Bei Hausrat geht es um die Wiederherstellung deines Alltags nach Brand, Wasserschaden oder Einbruch. Die zentrale Frage lautet: Wie schnell kannst du deinen Haushalt nach einem Schaden neu aufbauen?</p>
+            <ul>
+              <li>Wert der Einrichtung realistisch erfassen, damit keine Unterversicherung entsteht.</li>
+              <li>Neben Möbeln auch Technik, Kleidung, Fahrräder und Besonderheiten sauber prüfen.</li>
+              <li>Je nach Wohnlage können Zusatzbausteine wie Fahrraddiebstahl oder Elementar sinnvoll sein.</li>
+            </ul>
+            <p>Praxisfrage im Beratungstermin: Welche Gegenstände würden bei Totalverlust sofort ersetzt werden müssen?</p>
+          </template>
+          <template id="template-glas">
+            <p>Glas ist kein Pflichtbaustein, aber in bestimmten Wohnsituationen wirtschaftlich sinnvoll. Vor allem große, teure oder schwer ersetzbare Glasflächen können schnell hohe Einzelkosten auslösen.</p>
+            <ul>
+              <li>Relevant bei Wintergarten, bodentiefen Fenstern, Glasduschen oder hochwertigen Kochfeldern.</li>
+              <li>Wichtig ist, welche Gläser eingeschlossen sind und welche ausgeschlossen werden.</li>
+              <li>Der Baustein ist sinnvoll, wenn ein möglicher Bruch die Liquidität stark belastet.</li>
+            </ul>
+            <p>Praxisfrage im Beratungstermin: Welche Glasfläche wäre finanziell am unangenehmsten, wenn sie morgen ersetzt werden müsste?</p>
+          </template>
+          <template id="template-unfall">
+            <p>Die Unfallversicherung ist ein Ergänzungsbaustein für dauerhafte gesundheitliche Folgen nach Unfällen. Sie kann finanzielle Spielräume schaffen, wenn Umbauten, Reha oder Einkommenslücken organisiert werden müssen.</p>
+            <ul>
+              <li>Wichtige Stellhebel sind Progression, Gliedertaxe und mögliche Rentenleistung.</li>
+              <li>Sofortleistungen und Reha-Bausteine können in der frühen Phase entscheidend sein.</li>
+              <li>Sie ergänzt andere Vorsorge, ersetzt aber keine umfassende Arbeitskraftabsicherung.</li>
+            </ul>
+            <p>Praxisfrage im Beratungstermin: Welche finanzielle Reserve wäre nach einem schweren Freizeitunfall realistisch verfügbar?</p>
+          </template>
+          <template id="template-reise">
+            <p>Im Sachversicherungs-Kontext stehen bei Reisen vor allem finanzielle Schäden rund um Buchung, Gepäck und Reiseabbruch im Fokus. Entscheidend ist, welche Kosten im Störfall wirklich anfallen können.</p>
+            <ul>
+              <li>Reiserücktritt und Reiseabbruch greifen bei versicherten Gründen vor oder während der Reise.</li>
+              <li>Reisegepäckschutz kann bei Verlust, Diebstahl oder Beschädigung sinnvoll sein.</li>
+              <li>Wichtig sind Entschädigungsgrenzen, Selbstbehalte und konkrete Ausschlüsse im Vertrag.</li>
+              <li>Prüfe bei teurer Ausrüstung (z.B. Kamera, Sportequipment), ob diese voll mitversichert ist.</li>
+            </ul>
+            <p>Praxisfrage im Beratungstermin: Welche Reisekosten oder Gepäckwerte würden bei Ausfall oder Verlust dein Budget wirklich treffen?</p>
+          </template>
+          <template id="template-rechtsschutz">
+            <p>Rechtsschutz schafft oft erst die Möglichkeit, Ansprüche wirklich durchzusetzen. Ohne Deckung wird ein berechtigter Fall häufig nicht verfolgt, weil Kostenrisiko und Dauer abschrecken.</p>
+            <ul>
+              <li>Bausteine wie Privat, Verkehr, Beruf und Wohnen sollten gezielt kombiniert werden.</li>
+              <li>Wartezeiten und Ausschlüsse entscheiden, ob ein konkreter Fall wirklich gedeckt ist.</li>
+              <li>Telefonische Erstberatung und Mediation können Konflikte früh entschärfen.</li>
+            </ul>
+            <p>Praxisfrage im Beratungstermin: In welchen Lebensbereichen wäre ein Streit finanziell oder emotional besonders belastend?</p>
+          </template>
+          <template id="template-wohngebaeude">
+            <p>Die Wohngebäudeversicherung schützt die Immobilie selbst und ist für Eigentümer ein Kernschutz. Entscheidend ist, dass die Versicherungssumme zum echten Wiederherstellungswert passt.</p>
+            <ul>
+              <li>Versichert sind je nach Vertrag Gebäudehülle, fest verbaute Teile und Haustechnik.</li>
+              <li>Nach Modernisierungen sollte die Absicherung aktualisiert werden.</li>
+              <li>Elementarschutz gewinnt je nach Lage und Wetterrisiko deutlich an Bedeutung.</li>
+            </ul>
+            <p>Praxisfrage im Beratungstermin: Welche finanziellen Folgen hätte ein größerer Gebäudeschaden ohne passende Absicherung?</p>
+          </template>
+          <template id="template-tiere">
+            <p>Bei Hund und Pferd ist die Tierhalterhaftpflicht ein eigener, oft unverzichtbarer Schutzbaustein. Das Tier handelt eigenständig, und genau daraus entstehen Haftungsfälle mit teils hohen Folgekosten.</p>
+            <ul>
+              <li>Deckt Personen-, Sach- und Vermögensschäden durch das Tier im Alltag und unterwegs.</li>
+              <li>In vielen Bundesländern ist sie für Hunde verpflichtend.</li>
+              <li>Sinnvoll sind hohe Deckungssummen und Mitversicherung von Fremdhütern.</li>
+            </ul>
+            <p>Praxisfrage im Beratungstermin: Wer führt oder betreut das Tier regelmäßig und ist diese Person im Vertrag sauber berücksichtigt?</p>
+          </template>
         </div>
       </section>
 
-      <section id="vergleich">
-        <h2>Was schützt wovor?</h2>
-        <p class="section-subtitle">
-          Ein klarer Überblick hilft, die Funktion jeder Police zu verstehen und Überschneidungen oder Lücken zu erkennen.
-        </p>
-
-        <table class="comparison-table">
-          <thead>
-            <tr>
-              <th>Versicherung</th>
-              <th>Schützt vor</th>
-              <th>Besonders wichtig wenn</th>
-              <th>Typische Stolpersteine</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Privathaftpflicht</strong></td>
-              <td>Forderungen Dritter nach verursachten Schäden</td>
-              <td>eigentlich fast immer</td>
-              <td>zu geringe Deckung, fehlende Bausteine, alte Bedingungen</td>
-            </tr>
-            <tr>
-              <td><strong>Hausrat</strong></td>
-              <td>Schäden am beweglichen Besitz</td>
-              <td>dein Inventarwert spürbar ist</td>
-              <td>Unterversicherung, falsche Wohnfläche, unnötige Extras</td>
-            </tr>
-            <tr>
-              <td><strong>Wohngebäude</strong></td>
-              <td>Schäden am Gebäude selbst</td>
-              <td>du Eigentümer bist</td>
-              <td>fehlende Elementardeckung, veraltete Summen</td>
-            </tr>
-            <tr>
-              <td><strong>Rechtsschutz</strong></td>
-              <td>Kosten eines Rechtsstreits</td>
-              <td>du Konfliktpotenzial im Alltag oder Beruf hast</td>
-              <td>Wartezeiten, Ausschlüsse, falsche Bausteinkombination</td>
-            </tr>
-            <tr>
-              <td><strong>KFZ</strong></td>
-              <td>Schäden rund ums Fahrzeug</td>
-              <td>du ein Auto besitzt oder finanzierst</td>
-              <td>unpassende Selbstbeteiligung, unnötige Vollkasko</td>
-            </tr>
-            <tr>
-              <td><strong>Reise / Spezial</strong></td>
-              <td>situative Zusatzrisiken</td>
-              <td>du häufig reist oder spezielle Risiken hast</td>
-              <td>Doppelversicherungen, geringer Nutzen im Verhältnis zum Beitrag</td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-
-      <section id="beispiele">
-        <h2>Praxisbeispiele: Wie teuer fehlender Schutz werden kann</h2>
-        <p class="section-subtitle">
-          Viele Schäden wirken im Alltag klein – bis die Rechnung kommt. Genau deshalb lohnt sich eine saubere Priorisierung.
-        </p>
-
+      <section id="live-beispiele">
+        <h2>Echte Schadensbeispiele: klein bis groß</h2>
+        <p class="section-subtitle">Reale Größenordnungen aus öffentlich zugänglichen Verbraucher- und Verbandsinfos.</p>
         <div class="example-grid">
           <article class="example-card small">
             <div class="example-tag">Kleiner bis mittlerer Schaden</div>
@@ -1546,8 +1386,8 @@
             <h3 class="priority-title">Existenz zuerst</h3>
             <ul>
               <li>Privathaftpflicht</li>
-              <li>Hausrat bei relevantem Inventarwert</li>
-              <li>Wohngebäude bei Eigentum</li>
+              <li>Hausrat (bei relevantem Inventarwert)</li>
+              <li>Wohngebäude (bei Eigentum)</li>
             </ul>
           </article>
           <article class="priority-card">
@@ -1563,50 +1403,31 @@
             <div class="priority-number">3</div>
             <h3 class="priority-title">Sonderfälle sauber abdecken</h3>
             <ul>
-              <li>KFZ-Bausteine passend wählen</li>
-              <li>Glas nur bei echtem Bedarf</li>
-              <li>Tierhalterhaftpflicht bei Hund oder Pferd</li>
-              <li>Zusatzbausteine nur bei echtem Nutzen</li>
+              <li>KFZ-Bausteine passend wählen (Haftpflicht, Kasko, Schutzbrief)</li>
+              <li>Glas, wenn wirklich relevant</li>
+              <li>Tierhalterhaftpflicht bei Hund/Pferd</li>
+              <li>Zusatzbausteine nur bei echtem Bedarf</li>
             </ul>
           </article>
         </div>
       </section>
 
       <section id="kontakt">
-        <div class="kontakt-box animate-on-scroll">
-          <h2>Jetzt deine Sachversicherungen sinnvoll ordnen</h2>
-          <p>Wir prüfen gemeinsam, welche Bausteine für dich wirklich wichtig sind, wo Lücken bestehen und wo du Beiträge sparen kannst, ohne Schutz zu verlieren.</p>
-          <div class="kontakt-btn-row">
-            <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-primary">Gespräch zu deinen Sachversicherungen vereinbaren</a>
-            <a href="https://wa.me/4915141678134" target="_blank" rel="noopener" class="btn-wa">Jonas via WhatsApp</a>
-            <a href="https://wa.me/4917663796605" target="_blank" rel="noopener" class="btn-secondary">Timo via WhatsApp</a>
-          </div>
-          <div class="kontakt-mini-row">
-            <a href="tel:+4915141678134" class="kontakt-mini-link">Jonas: 0151 41678134</a>
-            <span style="color:var(--border);">|</span>
-            <a href="tel:+4917663796605" class="kontakt-mini-link">Timo: 0176 63796605</a>
-            <span style="color:var(--border);">|</span>
-            <a href="leistung.html" class="kontakt-mini-link">Alle Leistungen ?</a>
-          </div>
-        </div>
-      </section>
-
-      <section id="contact-team" style="margin-bottom:2rem;">
-        <div class="contact-strip">
+        <div class="contact-strip animate-on-scroll">
           <div class="contact-card">
             <div class="contact-name">Jonas Plener</div>
             <div class="contact-role">Finanzberater</div>
             <div class="contact-links">
-              <a href="tel:+4915141678134">?? 0151 41678134</a>
-              <a href="mailto:Jonas.Plener@dvag.de">?? Jonas.Plener@dvag.de</a>
+              <a href="tel:+4915141678134">0151 41678134</a>
+              <a href="mailto:Jonas.Plener@dvag.de">Jonas.Plener@dvag.de</a>
             </div>
           </div>
           <div class="contact-card">
             <div class="contact-name">Timo Hügel</div>
             <div class="contact-role">Finanzberater</div>
             <div class="contact-links">
-              <a href="tel:+4917663796605">?? 0176 63796605</a>
-              <a href="mailto:Timo.Huegel@dvag.de">?? Timo.Huegel@dvag.de</a>
+              <a href="tel:+4917663796605">0176 63796605</a>
+              <a href="mailto:Timo.Huegel@dvag.de">Timo.Huegel@dvag.de</a>
             </div>
           </div>
         </div>
@@ -1618,129 +1439,6 @@
       Alle Angaben ohne Gewähr. Maßgeblich sind die gesetzlichen Regelungen und die Informationen der jeweiligen Anbieter.
     </footer>
   </div>
-
-  <div class="insurance-overlay" id="insuranceOverlay" aria-hidden="true">
-    <div class="insurance-modal" role="dialog" aria-modal="true" aria-labelledby="insuranceModalTitle">
-      <div class="insurance-modal-header">
-        <div>
-          <div class="insurance-modal-tag" id="insuranceModalTag">Details</div>
-          <h2 class="insurance-modal-title" id="insuranceModalTitle">Versicherungsdetails</h2>
-        </div>
-        <button class="insurance-modal-close" id="insuranceModalClose" type="button" aria-label="Details schließen">×</button>
-      </div>
-      <div class="insurance-modal-body" id="insuranceModalBody"></div>
-    </div>
-  </div>
-
-  <template id="template-haftpflicht">
-    <div class="detail-grid">
-      <div class="detail-box">
-        <h3>Warum sie so wichtig ist</h3>
-        <ul>
-          <li>Sie schützt vor Schadenersatzforderungen, die deine finanzielle Existenz bedrohen können.</li>
-          <li>Schon ein kurzer Moment Unachtsamkeit kann hohe Kosten auslösen.</li>
-          <li>Sie prüft im Regelfall auch, ob Ansprüche gegen dich überhaupt berechtigt sind.</li>
-        </ul>
-      </div>
-      <div class="detail-box">
-        <h3>Worauf wir achten</h3>
-        <ul>
-          <li>Ausreichend hohe Deckungssumme.</li>
-          <li>Aktuelle Bedingungen und sinnvolle Zusatzbausteine.</li>
-          <li>Passende Mitversicherung für Familie, Ehrenamt oder Schlüsselverlust.</li>
-        </ul>
-      </div>
-    </div>
-  </template>
-
-  <template id="template-hausrat">
-    <div class="detail-grid">
-      <div class="detail-box">
-        <h3>Was abgesichert wird</h3>
-        <p>Alles, was in deinem Haushalt beweglich ist: Möbel, Kleidung, Technik, Hausrat und je nach Tarif weitere Gegenstände.</p>
-      </div>
-      <div class="detail-box">
-        <h3>Typische Fehler</h3>
-        <ul>
-          <li>Versicherungssumme zu niedrig angesetzt.</li>
-          <li>Wohnfläche oder Wertentwicklung nicht aktualisiert.</li>
-          <li>Zusatzbausteine abgeschlossen, die kaum Mehrwert bringen.</li>
-        </ul>
-      </div>
-    </div>
-  </template>
-
-  <template id="template-wohngebaeude">
-    <div class="detail-grid">
-      <div class="detail-box">
-        <h3>Für wen relevant</h3>
-        <p>Für Eigentümer von Häusern oder Immobilien, weil Schäden am Gebäude selbst schnell sehr teuer werden können.</p>
-      </div>
-      <div class="detail-box">
-        <h3>Besonders wichtig</h3>
-        <ul>
-          <li>Elementarschäden bewusst prüfen.</li>
-          <li>Tarif regelmäßig an Baukosten und Modernisierungen anpassen.</li>
-          <li>Leistungsumfang bei Leitungswasser, Sturm und weiteren Risiken verstehen.</li>
-        </ul>
-      </div>
-    </div>
-  </template>
-
-  <template id="template-rechtsschutz">
-    <div class="detail-grid">
-      <div class="detail-box">
-        <h3>Wann er sinnvoll ist</h3>
-        <ul>
-          <li>Wenn du Konfliktpotenzial im Verkehr, Beruf, Miet- oder Privatbereich hast.</li>
-          <li>Wenn du im Streitfall nicht aus Kostengründen verzichten möchtest.</li>
-          <li>Wenn dir planbare Unterstützung im Ernstfall wichtig ist.</li>
-        </ul>
-      </div>
-      <div class="detail-box">
-        <h3>Worauf wir achten</h3>
-        <ul>
-          <li>Welche Bausteine wirklich gebraucht werden.</li>
-          <li>Wartezeiten, Selbstbeteiligung und Ausschlüsse.</li>
-          <li>Ob bestehende Verträge zu deiner aktuellen Lebenslage passen.</li>
-        </ul>
-      </div>
-    </div>
-  </template>
-
-  <template id="template-kfz">
-    <div class="detail-grid">
-      <div class="detail-box">
-        <h3>Grundlogik</h3>
-        <p>Die Haftpflicht ist Pflicht. Teil- oder Vollkasko sind wirtschaftliche Entscheidungen abhängig von Fahrzeugwert, Finanzierung und persönlichem Risiko.</p>
-      </div>
-      <div class="detail-box">
-        <h3>Typische Stellschrauben</h3>
-        <ul>
-          <li>Selbstbeteiligung passend wählen.</li>
-          <li>Werkstattbindung bewusst entscheiden.</li>
-          <li>Schutzbrief und Zusatzleistungen nur bei echtem Nutzen ergänzen.</li>
-        </ul>
-      </div>
-    </div>
-  </template>
-
-  <template id="template-reise">
-    <div class="detail-grid">
-      <div class="detail-box">
-        <h3>Was dazugehört</h3>
-        <ul>
-          <li>Reiserücktritt und Reiseabbruch</li>
-          <li>Gepäck- oder Glasbausteine</li>
-          <li>Tierhalterhaftpflicht oder andere Spezialdeckungen</li>
-        </ul>
-      </div>
-      <div class="detail-box">
-        <h3>Unser Ansatz</h3>
-        <p>Wir prüfen, ob ein echter Bedarf besteht oder ob du nur zusätzliche Beiträge zahlst, ohne dass das Risiko für dich relevant genug ist.</p>
-      </div>
-    </div>
-  </template>
 
   <script>
     (function () {
@@ -1759,7 +1457,6 @@
       function closeMenu() {
         menuPanel.classList.remove("open");
         menuOverlay.classList.remove("open");
-        menuPanel.setAttribute("aria-hidden", "true");
         burgerBtn.setAttribute("aria-expanded", "false");
         document.body.style.overflow = "";
       }
@@ -1767,31 +1464,17 @@
       function openMenu() {
         menuPanel.classList.add("open");
         menuOverlay.classList.add("open");
-        menuPanel.setAttribute("aria-hidden", "false");
         burgerBtn.setAttribute("aria-expanded", "true");
         document.body.style.overflow = "hidden";
       }
 
       burgerBtn.addEventListener("click", function () {
         const isOpen = burgerBtn.getAttribute("aria-expanded") === "true";
-        if (isOpen) {
-          closeMenu();
-        } else {
-          openMenu();
-        }
+        if (isOpen) closeMenu(); else openMenu();
       });
 
       menuCloseBtn.addEventListener("click", closeMenu);
       menuOverlay.addEventListener("click", closeMenu);
-
-      menuPanel.querySelectorAll("a").forEach(function (link) {
-        link.addEventListener("click", function () {
-          const href = this.getAttribute("href");
-          if (href) {
-            closeMenu();
-          }
-        });
-      });
 
       function closeInsuranceModal() {
         if (!insuranceOverlay) return;
@@ -1842,22 +1525,10 @@
         }
       });
     })();
-
-    document.addEventListener("DOMContentLoaded", function () {
-      const elements = document.querySelectorAll(".animate-on-scroll");
-      const observer = new IntersectionObserver(function (entries, obs) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("in-view");
-            obs.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.2 });
-
-      elements.forEach(function (el) {
-        observer.observe(el);
-      });
-    });
   </script>
 </body>
 </html>
+
+
+
+
