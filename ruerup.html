@@ -918,7 +918,91 @@
       h2 { font-size: 1.1rem; }
       main { padding: 1rem 0.6rem 1.5rem; }
     }
-  </style>
+  
+/* Mobile-Fix: Bilder ausblenden und Überbreite verhindern */
+@media (max-width:767px){
+  html,
+  body,
+  .page{
+    max-width:100% !important;
+    overflow-x:hidden !important;
+  }
+
+  .hero-photo,
+  .hero-card{
+    display:none !important;
+  }
+
+  .hero-inner{
+    display:block !important;
+    width:100% !important;
+  }
+
+  .hero-text{
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    overflow-wrap:anywhere !important;
+  }
+
+  .hero-label,
+  .hero h1,
+  .hero-lead,
+  .highlight-box,
+  .hero-badges,
+  .cta-row,
+  .calculator,
+  .calculator-panel,
+  .calculator-grid,
+  .result-stack{
+    max-width:100% !important;
+    min-width:0 !important;
+  }
+
+  .hero-label,
+  .badge,
+  .btn-primary,
+  .btn-secondary,
+  .btn-wa,
+  .highlight-box,
+  .result-card strong{
+    white-space:normal !important;
+    overflow-wrap:anywhere !important;
+    word-break:normal !important;
+  }
+
+  .hero-badges{
+    display:flex !important;
+    flex-wrap:wrap !important;
+    gap:.45rem !important;
+  }
+
+  .cta-row{
+    display:grid !important;
+    grid-template-columns:1fr !important;
+    width:100% !important;
+    gap:.6rem !important;
+  }
+
+  .cta-row a,
+  .btn-primary,
+  .btn-secondary,
+  .btn-wa{
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    padding:.75rem .9rem !important;
+    font-size:.84rem !important;
+    line-height:1.25 !important;
+  }
+
+  .calculator,
+  .calculator-grid{
+    grid-template-columns:1fr !important;
+  }
+}
+
+</style>
 </head>
 <body>
   <div class="page">
@@ -930,7 +1014,7 @@
         </div>
         <div>
           <div class="topbar-title">Jonas Plener &amp; Timo Hügel</div>
-          <div class="topbar-tagline">Finanzberatung<br />Region Kinzigtal / Ortenau</div>
+          <div class="topbar-tagline">Finanzberatung</div>
         </div>
       </div>
 
@@ -1071,7 +1155,7 @@
 
       <section id="steuervorteil">
         <h2>2) So wirkt der Steuervorteil in der Praxis</h2>
-        <p class="section-subtitle">Wichtig ist nicht nur der eingezahlte Beitrag, sondern wie stark sich dieser Beitrag nach Steuerersparnis wirklich auf Ihr Monatsbudget auswirkt. Die Schätzung unten arbeitet deshalb vereinfacht mit Jahresbrutto beziehungsweise Gewinn vor Steuern und der Kinderzahl.</p>
+        <p class="section-subtitle">Wichtig ist nicht nur der eingezahlte Beitrag, sondern wie stark sich dieser Beitrag nach Steuerersparnis wirklich auf Ihr Monatsbudget auswirkt. Die Schätzung unten arbeitet deshalb vereinfacht mit Jahresbrutto beziehungsweise Gewinn vor Steuern.</p>
 
         <div class="grid-3" style="margin-bottom:1rem;">
           <article class="card blue-card">
@@ -1116,12 +1200,8 @@
                 <label for="annualGross">Jahresbrutto bzw. Gewinn vor Steuern in EUR</label>
                 <input id="annualGross" type="number" min="0" step="5000" value="80000" />
               </div>
-              <div class="field span-2">
-                <label for="childrenCount">Anzahl Kinder</label>
-                <input id="childrenCount" type="number" min="0" max="10" step="1" value="1" />
-              </div>
             </div>
-            <p class="field-note">Die Rechnung ist nur eine grobe Orientierung. Verwendet wird eine vorsichtige Schätzung aus Jahresbrutto oder Gewinn vor Steuern und Kinderzahl. Themen wie Ehegattensplitting, Kirchensteuer, Krankenversicherung, weitere Sonderausgaben oder der exakte Grenzsteuersatz sind hier bewusst nicht vollständig berücksichtigt.</p>
+            <p class="field-note">Die Rechnung ist nur eine grobe Orientierung. Verwendet wird eine vorsichtige Schätzung aus Jahresbrutto oder Gewinn vor Steuern. Themen wie Ehegattensplitting, Kirchensteuer, Krankenversicherung, weitere Sonderausgaben oder der exakte Grenzsteuersatz sind hier bewusst nicht vollständig berücksichtigt.</p>
           </div>
 
           <div class="result-stack">
@@ -1133,7 +1213,7 @@
             <article class="result-card is-info">
               <div class="result-title">Geschätzte Steuerentlastung</div>
               <strong id="taxReliefResult">1.008 EUR</strong>
-              <p>Vereinfachte Schätzung auf Basis von Brutto oder Gewinn und Kinderzahl. Entlastungssatz aktuell etwa <span id="estimatedRateResult">36 %</span>.</p>
+              <p>Vereinfachte Schätzung auf Basis von Brutto oder Gewinn. Entlastungssatz aktuell etwa <span id="estimatedRateResult">36 %</span>.</p>
             </article>
             <article class="result-card is-caution">
               <div class="result-title">Gefühlter Nettoaufwand pro Monat</div>
@@ -1273,7 +1353,6 @@
       const menuCloseBtn = menuPanel.querySelector(".menu-close-btn");
       const monthlyContributionInput = document.getElementById("monthlyContribution");
       const annualGrossInput = document.getElementById("annualGross");
-      const childrenCountInput = document.getElementById("childrenCount");
       const annualContributionResult = document.getElementById("annualContributionResult");
       const taxReliefResult = document.getElementById("taxReliefResult");
       const netCostResult = document.getElementById("netCostResult");
@@ -1303,7 +1382,7 @@
         }).format(value).replace("€", "EUR").trim();
       }
 
-      function estimateReliefRate(annualGross, childrenCount) {
+      function estimateReliefRate(annualGross) {
         let estimatedRate = 0.18;
 
         if (annualGross >= 130000) estimatedRate = 0.44;
@@ -1313,15 +1392,13 @@
         else if (annualGross >= 45000) estimatedRate = 0.28;
         else if (annualGross >= 30000) estimatedRate = 0.22;
 
-        estimatedRate -= Math.min(childrenCount, 4) * 0.015;
         return Math.min(0.45, Math.max(0.12, estimatedRate));
       }
 
       function updateCalculator() {
         const monthlyContribution = Math.max(0, Number(monthlyContributionInput.value) || 0);
         const annualGross = Math.max(0, Number(annualGrossInput.value) || 0);
-        const childrenCount = Math.max(0, Math.floor(Number(childrenCountInput.value) || 0));
-        const reliefRate = estimateReliefRate(annualGross, childrenCount);
+        const reliefRate = estimateReliefRate(annualGross);
         const annualContribution = monthlyContribution * 12;
         const taxRelief = annualContribution * reliefRate;
         const netMonthlyCost = (annualContribution - taxRelief) / 12;
@@ -1344,17 +1421,14 @@
         if (event.key === "Escape") closeMenu();
       });
 
-      if (monthlyContributionInput && annualGrossInput && childrenCountInput) {
+      if (monthlyContributionInput && annualGrossInput) {
         monthlyContributionInput.addEventListener("input", updateCalculator);
         annualGrossInput.addEventListener("input", updateCalculator);
-        childrenCountInput.addEventListener("input", updateCalculator);
         updateCalculator();
       }
     })();
   </script>
 </body>
 </html>
-
-
 
 
