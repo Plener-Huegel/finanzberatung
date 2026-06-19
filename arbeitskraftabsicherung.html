@@ -937,13 +937,10 @@
     @media (min-width: 768px) {
       .cta-row .btn-primary {
         flex: 0 0 100%;
-        max-width: 460px;
       }
-
       .cta-row .btn-wa,
       .cta-row .btn-secondary {
-        flex: 1 1 calc(50% - 0.4rem);
-        min-width: 0;
+        flex: 1 1 0;
       }
     }
 
@@ -1068,7 +1065,7 @@
         justify-content: center;
       }
     }
-  
+
     /* Responsive: iPhone Mini & kleine Android Phones (375px - 414px) */
     @media (max-width: 414px) {
       body { font-size: 14px; }
@@ -1201,7 +1198,7 @@
           </p>
 
           <div class="highlight-box">
-            Viele denken: <strong>„Mein Job ist nicht gefährlich, mir passiert schon nichts.“</strong>
+            Viele denken: <strong>„Mein Job ist nicht gefährlich, mir passiert schon nichts."</strong>
             Berufsunfähigkeit hat aber selten etwas mit riskanten Jobs zu tun – sie entsteht oft
             durch Krankheit oder in der Freizeit. Genau dafür ist der Schutz da.
           </div>
@@ -1260,7 +1257,7 @@
         <p class="section-subtitle">
           Statistisch wird etwa <strong>jeder Vierte bis zum Rentenalter mindestens einmal berufsunfähig</strong>.
           Viele denken dabei an schwere Unfälle – tatsächlich sind es oft <strong>Psyche, Rücken
-          und innere Erkrankungen</strong>. Genau diese Lücke zwischen Realität und „Wird schon gutgehen“
+          und innere Erkrankungen</strong>. Genau diese Lücke zwischen Realität und „Wird schon gutgehen"
           schließt eine saubere Arbeitskraftabsicherung.
         </p>
 
@@ -1286,7 +1283,7 @@
       </section>
 
       <section id="jeder-vierte" class="persons-section">
-        <h2>„Jeder Vierte“ – was heißt das eigentlich?</h2>
+        <h2>„Jeder Vierte" – was heißt das eigentlich?</h2>
         <p class="section-subtitle">
           Stell dir 20 Menschen vor, die heute mit dir im Büro, in der Werkstatt oder im Homeoffice
           sitzen. <strong>Bei etwa fünf von ihnen wird im Laufe des Berufslebens die Arbeitskraft
@@ -1327,7 +1324,7 @@
       <section id="ursachen">
         <h2>Häufigste Ursachen – nicht der Unfall, sondern die Gesundheit</h2>
         <p class="section-subtitle">
-          Wenn Menschen berufsunfähig werden, liegt es nur selten am „spektakulären Unfall“. In der
+          Wenn Menschen berufsunfähig werden, liegt es nur selten am „spektakulären Unfall". In der
           Praxis sind es vor allem psychische Belastungen, Rückenprobleme und andere Krankheiten.
         </p>
 
@@ -1366,10 +1363,10 @@
       </section>
 
       <section id="gesundheit">
-        <h2>Gesundheit „einfrieren“ – warum frühe Absicherung so viel bringt</h2>
+        <h2>Gesundheit „einfrieren" – warum frühe Absicherung so viel bringt</h2>
         <p class="section-subtitle">
           Je jünger und gesünder du bist, desto entspannter ist die Annahme – und desto mehr kannst du
-          deinen heutigen Gesundheitszustand für später „konservieren“.
+          deinen heutigen Gesundheitszustand für später „konservieren".
         </p>
 
         <div class="grid-2">
@@ -1497,7 +1494,7 @@
         <h2>Wie wir gemeinsam vorgehen</h2>
         <p class="section-subtitle">
           Mir ist wichtig, dass du verstehst, <strong>was</strong> du absicherst und <strong>warum</strong> – nicht,
-          dass du einfach „eine BU mehr“ im Ordner liegen hast. Im Gespräch gehen wir Schritt für Schritt durch:
+          dass du einfach „eine BU mehr" im Ordner liegen hast. Im Gespräch gehen wir Schritt für Schritt durch:
         </p>
 
         <div class="grid-2">
@@ -1522,25 +1519,28 @@
 
       </section>
 
+      <!-- KONTAKT -->
       <section id="kontakt">
-        <div class="kontakt-box animate-on-scroll">
-          <h2>Jetzt deine Arbeitskraftabsicherung persönlich prüfen</h2>
-          <p>Wir schauen gemeinsam, wie gut dein Einkommen heute abgesichert ist, welche Lücken bestehen und welcher Schutz wirklich zu deinem Beruf und deinem Leben passt.</p>
-          <div class="kontakt-btn-row">
-            <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-primary">Gespräch zu deiner Arbeitskraftabsicherung vereinbaren</a>
-            <a href="https://wa.me/4915141678134" target="_blank" rel="noopener" class="btn-wa">Jonas via WhatsApp</a>
-            <a href="https://wa.me/4917663796605" target="_blank" rel="noopener" class="btn-secondary">Timo via WhatsApp</a>
+        <div class="contact-strip animate-on-scroll">
+          <div class="contact-card">
+            <div class="contact-name">Jonas Plener</div>
+            <div class="contact-role">Finanzberater</div>
+            <div class="contact-links">
+              <a href="tel:+4915141678134">0151 41678134</a>
+              <a href="mailto:Jonas.Plener@dvag.de">Jonas.Plener@dvag.de</a>
+            </div>
           </div>
-          <div class="kontakt-mini-row">
-            <a href="tel:+4915141678134" class="kontakt-mini-link">Jonas: 0151 41678134</a>
-            <span style="color:var(--border);">|</span>
-            <a href="tel:+4917663796605" class="kontakt-mini-link">Timo: 0176 63796605</a>
-            <span style="color:var(--border);">|</span>
-            <a href="leistung.html" class="kontakt-mini-link">Alle Leistungen →</a>
+          <div class="contact-card">
+            <div class="contact-name">Timo Hügel</div>
+            <div class="contact-role">Finanzberater</div>
+            <div class="contact-links">
+              <a href="tel:+4917663796605">0176 63796605</a>
+              <a href="mailto:Timo.Huegel@dvag.de">Timo.Huegel@dvag.de</a>
+            </div>
           </div>
         </div>
       </section>
-    <section id="contact-team" style="margin-bottom:2rem;"><div class="contact-strip"><div class="contact-card"><div class="contact-name">Jonas Plener</div><div class="contact-role">Finanzberater</div><div class="contact-links"><a href="tel:+4915141678134">📞 0151 41678134</a><a href="mailto:Jonas.Plener@dvag.de">✉️ Jonas.Plener@dvag.de</a></div></div><div class="contact-card"><div class="contact-name">Timo Hügel</div><div class="contact-role">Finanzberater</div><div class="contact-links"><a href="tel:+4917663796605">📞 0176 63796605</a><a href="mailto:Timo.Huegel@dvag.de">✉️ Timo.Huegel@dvag.de</a></div></div></div></section></main>
+    </main>
 
     <footer>
       Diese Seite ersetzt keine individuelle Rechts-, Steuer- oder Sozialversicherungsberatung.
@@ -1643,8 +1643,3 @@
   </script>
 </body>
 </html>
-
-
-
-
-
