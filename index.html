@@ -747,7 +747,85 @@
       .hero-badges{gap:.4rem; flex-wrap:wrap;}
       .badge{font-size:.75rem; padding:.22rem .55rem;}
 
-      
+      .hero-photo{
+        display:none;
+      }
+
+      .hero-people{
+        position:relative;
+        inset:auto;
+        width:min(100%,320px);
+        min-height:220px;
+        padding:4px 0 0;
+        gap:0;
+        align-items:flex-end;
+        justify-content:center;
+        z-index:2;
+        transform:translateX(calc(-15% + 8px));
+      }
+
+      .hero-person{
+        position:relative;
+        bottom:auto;
+        left:auto;
+        right:auto;
+        transform:none;
+        display:flex;
+        align-items:flex-end;
+        margin:0;
+        z-index:auto;
+      }
+
+      .hero-image-box{
+        width:auto;
+        height:auto;
+      }
+
+      .hero-person.jonas{
+        margin-left:0;
+        margin-right:-10px;
+        z-index:2;
+        transform:translate(-10px,10px);
+        left:auto;
+        top:auto;
+      }
+
+      .hero-person.timo{
+        margin-left:-10px;
+        margin-right:0;
+        z-index:1;
+        transform:translate(-90px,10px);
+        left:auto;
+        top:auto;
+      }
+
+      .hero-person.jonas .hero-image-box{width:min(266px,77vw);}
+      .hero-person.jonas .hero-image-box img{
+        width:min(277px,80vw);
+        max-width:277px;
+        max-height:none;
+        transform:none;
+      }
+
+      .hero-person.timo .hero-image-box{width:min(128px,37vw);}
+      .hero-person.timo .hero-image-box img{
+        width:min(134px,38vw);
+        max-width:134px;
+        max-height:none;
+        transform:none;
+      }
+
+      .hero-card{
+        position:relative;
+        right:auto;
+        bottom:auto;
+        transform:none;
+        width:min(92vw,300px);
+        margin:8px auto 0;
+        padding:12px 14px;
+        z-index:3;
+      }
+
       .cta-row{
         flex-direction:column;
         align-items:stretch;
