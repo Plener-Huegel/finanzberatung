@@ -3,23 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Sachversicherungen - Jonas Plener &amp; Timo Hügel</title>
+  <title>Arbeitskraftabsicherung &amp; Berufsunfähigkeit - Jonas Plener &amp; Timo Hügel</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500&family=Raleway:wght@500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --primary: #2e6f80;
-      --accent: #f0b85c;
-      --danger: #b91c1c;
+      --primary: #4a787d;
+      --accent: #f4be69;
       --text: #111827;
       --muted: #4b5563;
-      --border: #d9e2ec;
-      --soft: #f8fbff;
-      --soft-danger: #fff1f2;
-      --soft-safe: #ecfdf5;
-      --wa: #22c55e;
+      --border: #e5e7eb;
+      --bg: #f4f8f8;
+      --bg-soft: #f9fbfb;
+      --good: #16a34a;
+      --wa: #25d366;
+      --psych: #ef4444;
+      --back: #f97316;
+      --other: #3b82f6;
+      --accident: #6b7280;
       --shadow: 0 10px 25px rgba(15, 23, 42, 0.06);
+      --shadowStrong: 0 18px 45px rgba(15, 23, 42, 0.12);
     }
 
     * { box-sizing: border-box; }
@@ -44,7 +48,6 @@
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      position: relative;
     }
 
     .topbar {
@@ -80,7 +83,9 @@
       background: #fff;
     }
 
-    .topbar-avatars img + img { margin-left: -10px; }
+    .topbar-avatars img + img {
+      margin-left: -10px;
+    }
 
     .topbar-title {
       font-family: "Raleway", system-ui, sans-serif;
@@ -102,6 +107,7 @@
       align-items: center;
       justify-content: flex-end;
       gap: 0.65rem;
+      min-width: 0;
       margin-left: auto;
     }
 
@@ -116,10 +122,21 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      width: auto;
+      height: auto;
+      border-radius: 0;
       border: none;
       background: transparent;
+      box-shadow: none;
       cursor: pointer;
+      transition: opacity 0.12s ease;
       padding: 0;
+    }
+
+    .burger-btn:hover {
+      transform: none;
+      box-shadow: none;
+      opacity: 0.7;
     }
 
     .burger-lines {
@@ -137,9 +154,17 @@
       transition: transform 0.18s ease, opacity 0.18s ease;
     }
 
-    .burger-btn[aria-expanded="true"] .burger-lines span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .burger-btn[aria-expanded="true"] .burger-lines span:nth-child(2) { opacity: 0; }
-    .burger-btn[aria-expanded="true"] .burger-lines span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .burger-btn[aria-expanded="true"] .burger-lines span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .burger-btn[aria-expanded="true"] .burger-lines span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .burger-btn[aria-expanded="true"] .burger-lines span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
 
     .menu-overlay {
       position: fixed;
@@ -162,7 +187,7 @@
       right: 0;
       height: 100vh;
       width: min(420px, 80vw);
-      background: #fff;
+      background: #ffffff;
       box-shadow: -8px 0 20px rgba(0, 0, 0, 0.15);
       transform: translateX(100%);
       transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
@@ -172,14 +197,18 @@
       flex-direction: column;
     }
 
-    .menu-panel.open { transform: translateX(0); }
+    .menu-panel.open {
+      transform: translateX(0);
+    }
 
     .menu-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1.2rem;
+      padding: 1.2rem 1.2rem;
       border-bottom: 1px solid var(--border);
+      gap: 1rem;
+      flex-shrink: 0;
     }
 
     .menu-header-title {
@@ -188,6 +217,7 @@
       color: var(--primary);
       font-size: 1rem;
       text-transform: uppercase;
+      letter-spacing: 0.02em;
     }
 
     .menu-close-btn {
@@ -202,10 +232,23 @@
       color: var(--primary);
       font-size: 1.4rem;
       padding: 0;
+      transition: color 0.12s ease;
     }
 
-    .menu-content { flex: 1; padding: 0.8rem 0; }
-    .menu-section { padding: 0; margin: 0; }
+    .menu-close-btn:hover {
+      color: var(--muted);
+    }
+
+    .menu-content {
+      flex: 1;
+      padding: 0.8rem 0;
+      overflow-y: auto;
+    }
+
+    .menu-section {
+      padding: 0;
+      margin: 0;
+    }
 
     .menu-section-title {
       font-family: "Raleway", system-ui, sans-serif;
@@ -226,32 +269,64 @@
       list-style: none;
     }
 
+    .menu-section-links li {
+      margin: 0;
+      padding: 0;
+    }
+
     .menu-section-links a {
       display: flex;
       align-items: center;
       padding: 0.6rem 1.2rem;
       font-size: 0.92rem;
       color: #1f2937;
+      transition: background 0.12s ease;
       border-left: 3px solid transparent;
+      position: relative;
     }
 
-    .menu-section-links a:hover { background: #f3f4f6; }
-    .menu-section-links a.active { border-left-color: var(--accent); background: rgba(244, 190, 105, 0.08); }
+    .menu-section-links a:hover {
+      background: #f3f4f6;
+    }
+
+    .menu-section-links a.active {
+      border-left-color: var(--accent);
+      background: rgba(244, 190, 105, 0.08);
+    }
+
+    .menu-section-links a::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: var(--accent);
+      opacity: 0;
+      transition: opacity 0.12s ease;
+    }
+
+    .menu-section-links a:hover::before {
+      opacity: 1;
+    }
 
     header.hero {
-      padding: 2.4rem 1.6rem 2.2rem;
+      padding: 2rem 1.4rem 2.2rem;
       border-bottom: 1px solid var(--border);
-      background: radial-gradient(circle at top left, #fff7ed 0, #ffffff 45%, #e0f2fe 100%);
+      background: radial-gradient(circle at top left, #fdf4e6 0, #ffffff 40%, #e0f2fe 100%);
     }
 
     .hero-inner {
       display: flex;
       flex-wrap: wrap;
       gap: 2rem;
-      align-items: center;
+      align-items: flex-start;
     }
 
-    .hero-text { flex: 1 1 260px; min-width: 0; }
+    .hero-text {
+      flex: 1 1 280px;
+      min-width: 0;
+    }
 
     .hero-label {
       display: inline-flex;
@@ -281,22 +356,25 @@
       letter-spacing: 0.02em;
     }
 
-    .hero h1 strong { color: var(--danger); }
+    .hero h1 strong { color: var(--primary); }
 
     .hero-lead {
       margin: 0 0 1rem;
       color: var(--muted);
-      max-width: 40rem;
+      max-width: 38rem;
       font-size: 0.98rem;
     }
 
-    .hero-lead strong { font-weight: 800; color: var(--text); }
+    .hero-lead strong {
+      font-weight: 800;
+      color: var(--primary);
+    }
 
     .hero-badges {
       display: flex;
       flex-wrap: wrap;
       gap: 0.5rem;
-      margin: 0.8rem 0 1.2rem;
+      margin: 0.6rem 0 1.1rem;
     }
 
     .badge {
@@ -308,11 +386,14 @@
       border: 1px solid rgba(148, 163, 184, 0.9);
       font-size: 0.8rem;
       color: var(--muted);
-      background: #ffffff;
+      background: #fff;
       box-shadow: 0 3px 8px rgba(15, 23, 42, 0.08);
     }
 
-    .badge .arrow { font-size: 0.9rem; color: var(--primary); }
+    .badge .arrow {
+      font-size: 0.9rem;
+      color: var(--primary);
+    }
 
     .cta-row {
       display: flex;
@@ -322,7 +403,7 @@
       margin-top: 1rem;
     }
 
-    .btn-primary, .btn-secondary, .btn-wa, .btn-outline {
+    .btn-primary, .btn-secondary, .btn-wa, .btn-gold {
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -338,7 +419,7 @@
       min-height: 54px;
     }
 
-    .btn-primary {
+    .btn-primary, .btn-gold {
       background: var(--accent);
       color: #1f2933;
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
@@ -346,17 +427,14 @@
 
     .btn-secondary, .btn-wa {
       background: var(--wa);
-      color: #ffffff;
+      color: #fff;
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
     }
 
-    .btn-outline {
-      background: #ffffff;
-      color: var(--primary);
-      border: 1px solid rgba(148, 163, 184, 0.85);
-    }
-
-    .btn-primary:hover, .btn-secondary:hover, .btn-wa:hover, .btn-outline:hover {
+    .btn-primary:hover,
+    .btn-secondary:hover,
+    .btn-wa:hover,
+    .btn-gold:hover {
       filter: brightness(1.03);
       transform: translateY(-1px);
     }
@@ -367,8 +445,10 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      align-self: flex-start;
       min-width: 360px;
       min-height: 420px;
+      margin-top: 0.2rem;
     }
 
     .hero-photo::before {
@@ -420,14 +500,35 @@
       filter: drop-shadow(0 10px 20px rgba(15, 23, 42, 0.16));
     }
 
-    .hero-person.jonas { left: 52px; top: -8px; }
-    .hero-person.jonas .hero-image-box img { width: 341px; max-height: 435px; transform: translateY(12px); }
-    .hero-person.timo { left: -40px; top: -8px; }
-    .hero-person.timo .hero-image-box img { width: 168px; max-height: 225px; transform: translateY(12px); }
+    .hero-person.jonas {
+      left: 52px;
+      top: -8px;
+    }
+
+    .hero-person.jonas .hero-image-box img {
+      width: 341px;
+      max-height: 435px;
+      transform: translateY(12px);
+    }
+
+    .hero-person.timo {
+      left: -40px;
+      top: -8px;
+    }
+
+    .hero-person.timo .hero-image-box img {
+      width: 168px;
+      max-height: 225px;
+      transform: translateY(12px);
+    }
+
+    .hero-name {
+      display: none;
+    }
 
     .hero-card {
       position: absolute;
-      bottom: 18px;
+      bottom: 8px;
       right: 57px;
       background: #fff;
       padding: 18px 30px;
@@ -513,10 +614,12 @@
       font-size: 0.92rem;
     }
 
-    .contact-links a:hover { color: var(--primary); text-decoration: underline; }
+    .contact-links a:hover {
+      text-decoration: underline;
+    }
 
     main {
-      padding: 1.8rem 1.6rem 2.4rem;
+      padding: 1.8rem 1.4rem 2.4rem;
       flex: 1;
       background: linear-gradient(to bottom, #ffffff 0, #f9fafb 100%);
     }
@@ -534,282 +637,281 @@
     .section-subtitle {
       margin-bottom: 1rem;
       color: var(--muted);
-      font-size: 0.95rem;
+      font-size: 0.9rem;
     }
 
-    .grid-2,
-    .grid-3 {
+    .section-subtitle strong {
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .grid-2 {
       display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 1rem;
     }
 
-    .grid-2 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
-    .grid-3 { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
-
-    .card,
-    .risk-card,
-    .insurance-card,
-    .example-card,
-    .priority-card {
-      background: #fff;
-      border-radius: 20px;
-      border: 1px solid var(--border);
+    .card {
+      background: linear-gradient(to bottom, #fff, var(--bg-soft));
+      border-radius: 16px;
+      padding: 1rem 1.05rem;
+      border: 2px solid rgba(74, 120, 125, 0.20);
       box-shadow: var(--shadow);
-      padding: 1.1rem 1.15rem;
-    }
-
-    .card-title,
-    .risk-title,
-    .insurance-title,
-    .example-title,
-    .priority-title {
-      font-family: "Raleway", system-ui, sans-serif;
-      font-weight: 800;
-      margin: 0 0 0.4rem;
-      color: var(--text);
-      font-size: 1.02rem;
-    }
-
-    .card ul,
-    .priority-card ul {
-      margin: 0.25rem 0 0;
-      padding-left: 1.2rem;
+      font-size: 0.92rem;
       color: var(--muted);
     }
 
-    .risk-grid,
-    .example-grid,
-    .priority-grid {
+    .card-title {
+      font-family: "Raleway", system-ui, sans-serif;
+      font-weight: 800;
+      margin-bottom: 0.35rem;
+      color: var(--text);
+      font-size: 1rem;
+    }
+
+    .card ul {
+      margin: 0.2rem 0 0;
+      padding-left: 1.1rem;
+    }
+
+    .card li { margin-bottom: 0.18rem; }
+
+    .highlight-box {
+      background: #fff7ed;
+      border-radius: 14px;
+      border: 1px solid #fed7aa;
+      padding: 0.9rem 1rem;
+      font-size: 0.9rem;
+      color: #7c2d12;
+      margin-top: 0.8rem;
+    }
+
+    .num {
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .persons-section {
+      margin-top: 1rem;
+    }
+
+    .persons-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      max-width: 360px;
+      margin-top: 0.6rem;
+    }
+
+    .person {
+      width: 26px;
+      height: 42px;
+      border-radius: 12px;
+      border: 2px solid #d1d5db;
+      position: relative;
+      overflow: hidden;
+      background: #f9fafb;
+    }
+
+    .person::before {
+      content: "";
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 2px solid #d1d5db;
+      background: #f9fafb;
+    }
+
+    .person.filled,
+    .person.filled::before {
+      background: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .persons-note {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
+
+    .charts-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 1rem;
-    }
-
-    .risk-card {
-      background: linear-gradient(160deg, var(--soft-danger) 0, #ffffff 75%);
-      border-color: #fbcfe8;
-    }
-
-    .risk-tag,
-    .insurance-tag,
-    .example-tag {
-      display: inline-flex;
+      margin-top: 0.9rem;
       align-items: center;
-      padding: 0.2rem 0.6rem;
-      border-radius: 999px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.02em;
+    }
+
+    .pie-causes-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .pie-causes {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: conic-gradient(
+        var(--psych) 0 40%,
+        var(--back) 40% 65%,
+        var(--other) 65% 85%,
+        var(--accident) 85% 100%
+      );
+      position: relative;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.15);
+    }
+
+    .pie-causes-inner {
+      position: absolute;
+      inset: 24px;
+      border-radius: 50%;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 0.8rem;
+      padding: 0.2rem 0.4rem;
+    }
+
+    .legend {
+      font-size: 0.88rem;
+    }
+
+    .legend-row {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
       margin-bottom: 0.35rem;
     }
 
-    .risk-tag {
-      color: #b91c1c;
-      background: #fee2e2;
-      border: 1px solid #fecaca;
+    .legend-color {
+      width: 14px;
+      height: 14px;
+      border-radius: 4px;
     }
 
-    .insurance-tag {
-      color: #0f766e;
-      background: #ccfbf1;
-      border: 1px solid #99f6e4;
-    }
+    .legend-color.psych { background: var(--psych); }
+    .legend-color.back { background: var(--back); }
+    .legend-color.other { background: var(--other); }
+    .legend-color.accident { background: var(--accident); }
 
-    .example-tag {
-      color: #1d4ed8;
-      background: #dbeafe;
-      border: 1px solid #bfdbfe;
-    }
-
-    .risk-copy,
-    .insurance-copy,
-    .example-copy,
-    .source-note {
-      margin: 0;
-      color: var(--muted);
-      font-size: 0.93rem;
-    }
-
-    .insurance-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1rem;
-    }
-
-    .insurance-card {
-      background: linear-gradient(160deg, #f8fafc 0, #ffffff 80%);
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      padding: 1.2rem 1.2rem 1.1rem;
-      min-height: 250px;
-    }
-
-    .insurance-copy {
-      font-size: 0.97rem;
-      line-height: 1.5;
-    }
-
-    .insurance-open-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.35rem;
-      margin-top: auto;
-      border: 1px solid rgba(148, 163, 184, 0.9);
-      background: #ffffff;
-      border-radius: 999px;
-      padding: 0.45rem 0.85rem;
-      font-size: 0.84rem;
-      font-weight: 700;
-      color: var(--primary);
-      cursor: pointer;
-    }
-
-    .insurance-open-btn::after {
-      content: "▾";
-      font-size: 0.88rem;
-      transform: rotate(-90deg);
-    }
-
-    .insurance-open-btn:hover {
-      border-color: var(--accent);
-      filter: brightness(1.02);
-    }
-
-    .insurance-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(15, 23, 42, 0.55);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 80;
-      padding: 1rem;
-    }
-
-    .insurance-overlay.open {
-      display: flex;
-    }
-
-    .insurance-modal {
-      width: min(760px, 94vw);
-      max-height: 86vh;
-      overflow-y: auto;
-      background: #ffffff;
-      border-radius: 22px;
-      box-shadow: 0 24px 40px rgba(15, 23, 42, 0.3);
-      border: 1px solid #d9e2ec;
-      padding: 1.2rem 1.2rem 1.05rem;
-      position: relative;
-    }
-
-    .insurance-modal-close {
-      position: absolute;
-      top: 0.75rem;
-      right: 0.75rem;
-      width: 36px;
-      height: 36px;
-      border-radius: 999px;
-      border: 1px solid #d1d5db;
-      background: #ffffff;
-      color: #0f172a;
-      font-size: 1.2rem;
-      cursor: pointer;
-      line-height: 1;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .insurance-modal-head {
-      border-bottom: 1px solid #e5edf5;
-      padding: 0.2rem 2.1rem 0.85rem 0;
-      margin-bottom: 0.9rem;
-    }
-
-    .insurance-modal-head .insurance-tag {
-      margin-bottom: 0.4rem;
-    }
-
-    .insurance-modal-title {
-      margin: 0;
-      font-family: "Raleway", system-ui, sans-serif;
-      font-size: 1.35rem;
-      color: var(--text);
-      line-height: 1.3;
-    }
-
-    .insurance-modal-body {
-      color: var(--muted);
-      font-size: 0.96rem;
-      line-height: 1.6;
-    }
-
-    .insurance-modal-body p {
-      margin: 0 0 0.7rem;
-    }
-
-    .insurance-modal-body ul {
-      margin: 0 0 0.8rem;
-      padding-left: 1.25rem;
-    }
-
-    .insurance-modal-body li {
-      margin-bottom: 0.3rem;
-    }
-
-    .example-card.small { border-left: 4px solid #0ea5e9; }
-    .example-card.medium { border-left: 4px solid #f59e0b; }
-    .example-card.large { border-left: 4px solid #dc2626; }
-
-    .example-amount {
-      font-family: "Raleway", system-ui, sans-serif;
-      font-size: 1.5rem;
-      font-weight: 800;
-      line-height: 1.1;
-      margin: 0.25rem 0;
-      color: var(--text);
-    }
-
-    .example-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.45rem;
-      margin-top: 0.55rem;
-    }
-
-    .example-link {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0.45rem 0.75rem;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.9);
-      background: #fff;
-      color: var(--primary);
-      font-weight: 700;
+    .small-note {
       font-size: 0.78rem;
+      color: #6b7280;
+      margin-top: 0.3rem;
     }
 
-    .example-link:hover { border-color: var(--accent); }
-
-    .priority-card {
-      background: linear-gradient(160deg, var(--soft-safe) 0, #ffffff 75%);
-      border-color: #bbf7d0;
+    .timeline {
+      margin-top: 0.4rem;
+      border-left: 2px solid #e5e7eb;
+      padding-left: 1.1rem;
     }
 
-    .priority-number {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 28px;
-      height: 28px;
+    .timeline-step {
+      margin-bottom: 0.8rem;
+      position: relative;
+      padding-left: 0.2rem;
+    }
+
+    .timeline-step::before {
+      content: "";
+      position: absolute;
+      left: -1.25rem;
+      top: 0.2rem;
+      width: 10px;
+      height: 10px;
       border-radius: 999px;
       background: var(--accent);
-      color: #1f2933;
-      font-weight: 800;
-      margin-bottom: 0.45rem;
+      box-shadow: 0 0 0 4px rgba(244, 190, 105, 0.3);
+    }
+
+    .timeline-age {
+      font-weight: 600;
+      color: var(--primary);
+      font-size: 0.9rem;
+      margin-bottom: 0.15rem;
+    }
+
+    .price-table {
+      margin-top: 0.7rem;
+      border-radius: 16px;
+      background: #f9fafb;
+      border: 1px dashed #d1d5db;
+      padding: 0.7rem 0.9rem;
+      font-size: 0.86rem;
+    }
+
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.25rem;
+    }
+
+    .price-row span:first-child {
+      font-weight: 500;
+      color: var(--primary);
+    }
+
+    .price-row span:last-child {
+      font-weight: 600;
+    }
+
+    .reasons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0.8rem;
+      margin-top: 0.8rem;
+    }
+
+    .reason-box {
+      border-radius: 22px;
+      border: 1px solid #d1e3e4;
+      background: #ffffff;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.03);
+      padding: 0.85rem 0.95rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .reason-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      background: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-right: 0.4rem;
+    }
+
+    .centered-cta {
+      text-align: center;
+      margin-top: 1.2rem;
+    }
+
+    .bottom-cta {
+      margin-top: 1.6rem;
+      padding: 1.1rem 1.1rem 1.3rem;
+      border-radius: 18px;
+      background: linear-gradient(to right, #e0f2fe, #fef3c7);
+      border: 1px solid var(--border);
+      text-align: center;
+      font-size: 0.95rem;
+      box-shadow: var(--shadow);
+    }
+
+    .bottom-cta p {
+      margin: 0 0 0.8rem;
+      color: var(--muted);
     }
 
     .kontakt-box {
@@ -818,7 +920,7 @@
       border-radius: 20px;
       padding: 1.5rem 1.4rem 1.7rem;
       text-align: center;
-      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
+      box-shadow: var(--shadowStrong);
     }
 
     .kontakt-box h2 {
@@ -864,22 +966,67 @@
     }
 
     footer {
-      padding: 1rem 1.6rem 1.4rem;
+      padding: 1rem 1.4rem 1.3rem;
       font-size: 0.78rem;
       color: #6b7280;
       border-top: 1px solid var(--border);
       background: #f9fafb;
     }
 
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .animate-on-scroll.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (min-width: 768px) {
+      .cta-row .btn-primary {
+        flex: 0 0 100%;
+        max-width: 460px;
+      }
+
+      .cta-row .btn-wa,
+      .cta-row .btn-secondary {
+        flex: 1 1 calc(50% - 0.4rem);
+        min-width: 0;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .hero-photo {
+        flex: 1 1 100%;
+        min-width: 0;
+        margin-top: 0;
+      }
+    }
+
     @media (max-width: 767px) {
       .topbar { padding-inline: 1rem; }
-      .menu-panel { width: 100vw; }
-      .menu-text { display: none; }
-      header.hero { padding: 2rem 1rem 2rem; }
+
+      .menu-panel {
+        width: 100vw;
+      }
+
+      .menu-text {
+        display: none;
+      }
+
+      header.hero { padding: 1.2rem 1rem 1.5rem; }
       main { padding: 1.6rem 1rem 2.2rem; }
-      .hero-inner { flex-direction: column-reverse; align-items: stretch; }
-      .hero h1 { font-size: 1.6rem; }
+
+      .hero-inner {
+        flex-direction: column-reverse;
+        align-items: stretch;
+      }
+
+      .hero h1 { font-size: 1.45rem; }
       .hero-lead { font-size: 0.92rem; }
+
       .hero-photo {
         min-width: 0;
         flex: 1 1 100%;
@@ -890,7 +1037,10 @@
         align-items: center;
         justify-content: flex-start;
         padding: 0 0 10px;
+        align-self: auto;
+        margin-top: 0;
       }
+
       .hero-photo::before {
         width: min(270px, 86vw);
         height: min(270px, 86vw);
@@ -899,6 +1049,7 @@
         transform: translateX(-50%);
         opacity: 0.7;
       }
+
       .hero-people {
         position: relative;
         width: min(100%, 320px);
@@ -909,6 +1060,7 @@
         justify-content: center;
         z-index: 2;
       }
+
       .hero-person {
         position: relative;
         bottom: auto;
@@ -920,13 +1072,51 @@
         margin: 0;
         z-index: auto;
       }
-      .hero-person.jonas { margin-left: 0; margin-right: -10px; z-index: 2; transform: translate(0px, 10px); }
-      .hero-person.timo { margin-left: -10px; margin-right: 0; z-index: 1; transform: translate(-80px, 10px); }
-      .hero-image-box { width: auto; height: auto; display: flex; align-items: flex-end; justify-content: center; }
-      .hero-person.jonas .hero-image-box { width: min(348px, 100vw); }
-      .hero-person.jonas .hero-image-box img { width: min(362px, 104vw); max-width: 362px; max-height: none; transform: none; }
-      .hero-person.timo .hero-image-box { width: min(168px, 48vw); }
-      .hero-person.timo .hero-image-box img { width: min(176px, 50vw); max-width: 176px; max-height: none; transform: none; }
+
+      .hero-person.jonas {
+        margin-left: 0;
+        margin-right: -10px;
+        z-index: 2;
+        transform: translate(0px, 10px);
+      }
+
+      .hero-person.timo {
+        margin-left: -10px;
+        margin-right: 0;
+        z-index: 1;
+        transform: translate(-80px, 10px);
+      }
+
+      .hero-image-box {
+        width: auto;
+        height: auto;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+      }
+
+      .hero-person.jonas .hero-image-box {
+        width: min(348px, 100vw);
+      }
+
+      .hero-person.jonas .hero-image-box img {
+        width: min(362px, 104vw);
+        max-width: 362px;
+        max-height: none;
+        transform: none;
+      }
+
+      .hero-person.timo .hero-image-box {
+        width: min(168px, 48vw);
+      }
+
+      .hero-person.timo .hero-image-box img {
+        width: min(176px, 50vw);
+        max-width: 176px;
+        max-height: none;
+        transform: none;
+      }
+
       .hero-card {
         position: relative;
         right: auto;
@@ -937,20 +1127,26 @@
         padding: 12px 14px;
         z-index: 3;
       }
-      .contact-strip { grid-template-columns: 1fr; }
-      .cta-row,
-      .kontakt-btn-row,
-      .kontakt-mini-row,
-      .example-links { flex-direction: column; align-items: stretch; }
-      .cta-row a,
-      .kontakt-mini-link,
-      .example-link { width: 100%; }
-      .insurance-open-btn {
+
+      .cta-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .cta-row a {
         width: 100%;
       }
-      .insurance-modal {
-        width: min(96vw, 760px);
-        max-height: 88vh;
+
+      .contact-strip {
+        grid-template-columns: 1fr;
+      }
+
+      .btn-primary,
+      .btn-secondary,
+      .btn-wa,
+      .btn-gold {
+        width: 100%;
+        justify-content: center;
       }
     }
   
@@ -1008,39 +1204,55 @@
         </div>
         <div>
           <div class="topbar-title">Jonas Plener &amp; Timo Hügel</div>
-          <div class="topbar-tagline">Finanzberatung<br />Region Kinzigtal / Ortenau</div>
+          <div class="topbar-tagline">
+            Region Kinzigtal / Ortenau
+          </div>
         </div>
       </div>
 
       <div class="menu-wrap">
-        <div class="menu-text">Für Eltern, Selbstständige und Angestellte<br />im Kinzigtal &amp; der Ortenau</div>
+        <div class="menu-text">
+          Für Eltern, Selbstständige und Angestellte<br />
+          im Kinzigtal &amp; der Ortenau
+        </div>
+
         <button type="button" class="burger-btn" id="burgerBtn" aria-label="Menü öffnen" aria-expanded="false" aria-controls="menuPanel">
-          <span class="burger-lines" aria-hidden="true"><span></span><span></span><span></span></span>
+          <span class="burger-lines" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
         </button>
       </div>
 
       <div class="menu-overlay" id="menuOverlay"></div>
+
       <nav class="menu-panel" id="menuPanel" aria-label="Navigation">
         <div class="menu-header">
           <span class="menu-header-title">Menü</span>
           <button type="button" class="menu-close-btn" aria-label="Menü schließen">✕</button>
         </div>
+
         <div class="menu-content">
           <section class="menu-section">
             <h2 class="menu-section-title">Startseite</h2>
-            <ul class="menu-section-links"><li><a href="index.html">Themenauswahl</a></li></ul>
+            <ul class="menu-section-links">
+              <li><a href="leistung.html">Leistungen</a></li>
+            </ul>
           </section>
+
           <section class="menu-section">
             <h2 class="menu-section-title">Angestellt</h2>
             <ul class="menu-section-links">
               <li><a href="vermoegen-aufbauen-investieren.html">Vermögen aufbauen</a></li>
               <li><a href="bav.html">bAV</a></li>
-              <li><a href="arbeitskraftabsicherung.html">Arbeitskraft absichern</a></li>
+              <li><a href="arbeitskraftabsicherung.html" class="active">Arbeitskraft absichern</a></li>
               <li><a href="risikoleben.html">Familie absichern</a></li>
-              <li><a href="sachversicherungen.html" class="active">Sachversicherungen</a></li>
+              <li><a href="sachversicherungen.html">Sachversicherungen</a></li>
               <li><a href="immobilien-finanzierung.html">Immobilien &amp; Finanzierung</a></li>
             </ul>
           </section>
+
           <section class="menu-section">
             <h2 class="menu-section-title">Eltern &amp; Familie</h2>
             <ul class="menu-section-links">
@@ -1050,6 +1262,7 @@
               <li><a href="risikoleben.html">Familie absichern</a></li>
             </ul>
           </section>
+
           <section class="menu-section">
             <h2 class="menu-section-title">Unternehmer &amp; Selbstständig</h2>
             <ul class="menu-section-links">
@@ -1060,6 +1273,7 @@
               <li><a href="ruerup.html">Rürup</a></li>
             </ul>
           </section>
+
           <section class="menu-section">
             <h2 class="menu-section-title">Karriere &amp; Ausbildung</h2>
             <ul class="menu-section-links">
@@ -1073,38 +1287,64 @@
 
     <header class="hero">
       <div class="hero-inner">
-        <div class="hero-text">
-          <div class="hero-label"><span class="dot"></span>Sachversicherungen · Alltag finanziell stabil halten</div>
-          <h1>Kleine Panne, großer Schaden: <strong>dein Alltag darf daran nicht kippen</strong></h1>
+        <div class="hero-text animate-on-scroll">
+          <div class="hero-label"><span class="dot"></span>Absicherung &amp; Schutz · Berufsunfähigkeit &amp; Arbeitskraft</div>
+
+          <h1>Einkommen bleibt, auch wenn du es nicht kannst</h1>
+
           <p class="hero-lead">
-            Genau hier wird es emotional: Ein geplatzter Schlauch, ein verlorener Schlüssel oder ein Rechtsstreit
-            kommen oft im falschen Moment. Mit den richtigen Bausteinen bleiben <strong>Nerven, Zeit und Geld</strong> geschützt.
+            Deine Arbeitskraft ist das, wovon alles andere bezahlt wird: Miete, Hauskredit, Familie,
+            Vorsorge. Fällt sie weg, kann es schnell eng werden. <strong>Eine gute BU- und
+            Arbeitskraftabsicherung sorgt dafür, dass Geld weiter reinkommt</strong>, wenn dein
+            Körper oder deine Psyche nicht mehr mitmachen.
           </p>
 
+          <div class="highlight-box">
+            Viele denken: <strong>„Mein Job ist nicht gefährlich, mir passiert schon nichts.“</strong>
+            Berufsunfähigkeit hat aber selten etwas mit riskanten Jobs zu tun – sie entsteht oft
+            durch Krankheit oder in der Freizeit. Genau dafür ist der Schutz da.
+          </div>
+
           <div class="hero-badges">
-            <a href="#alltag-risiken" class="badge"><span>Was Familien wirklich trifft</span><span class="arrow">↓</span></a>
-            <a href="#versicherungen-kompakt" class="badge"><span>Alle wichtigen Policen im Überblick</span><span class="arrow">↓</span></a>
-            <a href="#live-beispiele" class="badge"><span>Echte Schadensbeispiele aus der Praxis</span><span class="arrow">↓</span></a>
-            <a href="#priorisierung" class="badge"><span>Welche Reihenfolge sinnvoll ist</span><span class="arrow">↓</span></a>
+            <a href="#warum" class="badge"><span>Warum BU zählt</span><span class="arrow">↓</span></a>
+            <a href="#jeder-vierte" class="badge"><span>Jeder Vierte</span><span class="arrow">↓</span></a>
+            <a href="#ursachen" class="badge"><span>Häufige Ursachen</span><span class="arrow">↓</span></a>
+            <a href="#vorgehen" class="badge"><span>So gehen wir vor</span><span class="arrow">↓</span></a>
             <a href="#kontakt" class="badge"><span>Kontakt</span><span class="arrow">↓</span></a>
         </div>
 
           <div class="cta-row">
-            <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-primary">Sachschutz-Check starten</a>
-            <a href="https://wa.me/4915141678134" target="_blank" rel="noopener" class="btn-wa">Jonas kontaktieren</a>
-            <a href="https://wa.me/4917663796605" target="_blank" rel="noopener" class="btn-secondary">Timo kontaktieren</a>
+            <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-primary">
+              Gespräch zu deiner Arbeitskraft vereinbaren
+            </a>
+            <a href="https://wa.me/4915141678134" target="_blank" rel="noopener" class="btn-wa">
+              Jonas kontaktieren
+            </a>
+            <a href="https://wa.me/4917663796605" target="_blank" rel="noopener" class="btn-secondary">
+              Timo kontaktieren
+            </a>
           </div>
         </div>
 
-        <div class="hero-photo">
+        <div class="hero-photo animate-on-scroll">
           <div class="hero-people">
-            <div class="hero-person jonas"><div class="hero-image-box"><img src="jonas-halbkoerper.png" alt="Jonas Plener" /></div></div>
-            <div class="hero-person timo"><div class="hero-image-box"><img src="timo-halbkoerper.png" alt="Timo Hügel" /></div></div>
+            <div class="hero-person jonas">
+              <div class="hero-image-box">
+                <img src="jonas-halbkoerper.png" alt="Jonas Plener" />
+              </div>
+            </div>
+
+            <div class="hero-person timo">
+              <div class="hero-image-box">
+                <img src="timo-halbkoerper.png" alt="Timo Hügel" />
+              </div>
+            </div>
           </div>
+
                           <div class="hero-card">
           <h3>Eure Ansprechpartner</h3>
           <ul>
-            <li>Sachschutz mit klarer Priorität statt Überversicherung</li>
+            <li>Arbeitskraft, BU und Einkommensschutz klar erklärt</li>
             <li>Beratung digital und vor Ort</li>
           </ul>
         </div>
@@ -1114,298 +1354,279 @@
       </header>
 
     <main>
-      <section id="alltag-risiken">
-        <h2>Was am meisten unterschätzt wird</h2>
-        <p class="section-subtitle">Die größten Stressfaktoren sind selten spektakulär. Sie treffen plötzlich und kosten sofort Geld.</p>
-        <div class="risk-grid">
-          <article class="risk-card">
-            <div class="risk-tag">Haushalt</div>
-            <h3 class="risk-title">Leitungswasser, Glas, Einbruch</h3>
-            <p class="risk-copy">Ein einziger Schaden kann mehrere Räume betreffen und sofort vier- bis fünfstellig werden.</p>
-          </article>
-          <article class="risk-card">
-            <div class="risk-tag">Haftung</div>
-            <h3 class="risk-title">Du verursachst fremden Schaden</h3>
-            <p class="risk-copy">Bei Personenschäden können Summen schnell sehr hoch werden. Das kann langfristig belasten.</p>
-          </article>
-          <article class="risk-card">
-            <div class="risk-tag">Recht &amp; Reise</div>
-            <h3 class="risk-title">Streitfall oder Reiseausfall</h3>
-            <p class="risk-copy">Anwalt, Gericht oder Storno treffen oft dann, wenn ohnehin schon Druck da ist.</p>
-          </article>
+      <section id="warum">
+        <h2>Warum deine Arbeitskraft dein größtes Vermögen ist</h2>
+        <p class="section-subtitle">
+          Statistisch wird etwa <strong>jeder Vierte bis zum Rentenalter mindestens einmal berufsunfähig</strong>.
+          Viele denken dabei an schwere Unfälle – tatsächlich sind es oft <strong>Psyche, Rücken
+          und innere Erkrankungen</strong>. Genau diese Lücke zwischen Realität und „Wird schon gutgehen“
+          schließt eine saubere Arbeitskraftabsicherung.
+        </p>
+
+        <div class="grid-2">
+          <div class="card animate-on-scroll">
+            <div class="card-title">Was eine BU in der Praxis leistet</div>
+            <ul>
+              <li>Monatliche Rente, wenn du deinen Beruf dauerhaft nur noch eingeschränkt oder gar nicht mehr ausüben kannst.</li>
+              <li>Gilt typischerweise bei Krankheiten, Unfällen und psychischen Erkrankungen wie Burn-out oder Depression.</li>
+              <li>Sichert dein Einkommen, damit du Miete, Kredit, Familie und Vorsorge weiter stemmen kannst.</li>
+            </ul>
+          </div>
+
+          <div class="card animate-on-scroll">
+            <div class="card-title">Was passiert ohne Absicherung?</div>
+            <ul>
+              <li>Die gesetzliche Erwerbsminderungsrente greift nur, wenn du kaum noch arbeitsfähig bist.</li>
+              <li>Rücklagen und Altersvorsorge werden oft vorzeitig aufgebraucht.</li>
+              <li>Entscheidungen werden aus Druck getroffen: Hausverkauf, Konsumstopp oder Verzicht bei der Familie.</li>
+            </ul>
+          </div>
         </div>
       </section>
 
-      <section id="versicherungen-kompakt">
-        <h2>Diese Versicherungen solltest du gemeinsam prüfen</h2>
-        <p class="section-subtitle">Erst der Basisschutz, dann sinnvolle Ergänzungen je nach Lebenslage. Über den Button öffnet sich ein separates Info-Fenster mit allen Details.</p>
-        <div class="insurance-grid">
-          <article class="insurance-card" data-detail-id="haftpflicht" data-detail-tag="Pflicht-Basis" data-detail-title="Privathaftpflicht">
-            <div class="insurance-tag">Pflicht-Basis</div>
-            <h3 class="insurance-title">Privathaftpflicht</h3>
-            <p class="insurance-copy">Deckt Schäden, die du anderen zufügst. Für fast jeden Haushalt der wichtigste Grundbaustein.</p>
-            <button type="button" class="insurance-open-btn">Mehr Details</button>
-          </article>
-          <article class="insurance-card" data-detail-id="kfz" data-detail-tag="Mobilität" data-detail-title="KFZ-Versicherung">
-            <div class="insurance-tag">Mobilität</div>
-            <h3 class="insurance-title">KFZ-Versicherung</h3>
-            <p class="insurance-copy">Für Fahrzeughalter zentral: von gesetzlicher Haftpflicht bis Kasko- und Zusatzbausteinen.</p>
-            <button type="button" class="insurance-open-btn">Mehr Details</button>
-          </article>
-          <article class="insurance-card" data-detail-id="hausrat" data-detail-tag="Haushalt" data-detail-title="Hausrat">
-            <div class="insurance-tag">Haushalt</div>
-            <h3 class="insurance-title">Hausrat</h3>
-            <p class="insurance-copy">Schützt Möbel, Kleidung, Technik und Einrichtung bei typischen Schäden in der Wohnung.</p>
-            <button type="button" class="insurance-open-btn">Mehr Details</button>
-          </article>
-          <article class="insurance-card" data-detail-id="glas" data-detail-tag="Ergänzung" data-detail-title="Glasversicherung">
-            <div class="insurance-tag">Ergänzung</div>
-            <h3 class="insurance-title">Glasversicherung</h3>
-            <p class="insurance-copy">Kann sinnvoll sein, wenn du viele große oder spezielle Glasflächen hast.</p>
-            <button type="button" class="insurance-open-btn">Mehr Details</button>
-          </article>
-          <article class="insurance-card" data-detail-id="unfall" data-detail-tag="Absicherung" data-detail-title="Unfallversicherung">
-            <div class="insurance-tag">Absicherung</div>
-            <h3 class="insurance-title">Unfallversicherung</h3>
-            <p class="insurance-copy">Leistet bei dauerhaften Unfallfolgen, zum Beispiel als Kapital oder Unfallrente.</p>
-            <button type="button" class="insurance-open-btn">Mehr Details</button>
-          </article>
-          <article class="insurance-card" data-detail-id="reise" data-detail-tag="Reisen" data-detail-title="Reiseversicherung">
-            <div class="insurance-tag">Reisen</div>
-            <h3 class="insurance-title">Reiseversicherung</h3>
-            <p class="insurance-copy">Im Sachbereich vor allem wichtig: Reiserücktritt, Reiseabbruch und Reisegepäckschutz.</p>
-            <button type="button" class="insurance-open-btn">Mehr Details</button>
-          </article>
-          <article class="insurance-card" data-detail-id="rechtsschutz" data-detail-tag="Streitfälle" data-detail-title="Rechtsschutz">
-            <div class="insurance-tag">Streitfälle</div>
-            <h3 class="insurance-title">Rechtsschutz</h3>
-            <p class="insurance-copy">Übernimmt Kosten für Anwalt, Gericht und oft auch Gutachten in versicherten Bereichen.</p>
-            <button type="button" class="insurance-open-btn">Mehr Details</button>
-          </article>
-          <article class="insurance-card" data-detail-id="wohngebaeude" data-detail-tag="Eigentum" data-detail-title="Wohngebäude">
-            <div class="insurance-tag">Eigentum</div>
-            <h3 class="insurance-title">Wohngebäude</h3>
-            <p class="insurance-copy">Für Eigentümer zentral: schützt das Gebäude selbst, nicht den beweglichen Hausrat.</p>
-            <button type="button" class="insurance-open-btn">Mehr Details</button>
-          </article>
-          <article class="insurance-card" data-detail-id="tiere" data-detail-tag="Bei Tierhaltung wichtig" data-detail-title="Tierhalterhaftpflicht (Hund/Pferd)">
-            <div class="insurance-tag">Bei Tierhaltung wichtig</div>
-            <h3 class="insurance-title">Tierhalterhaftpflicht (Hund/Pferd)</h3>
-            <p class="insurance-copy">Bei Hund oder Pferd sehr oft unverzichtbar, weil die Privathaftpflicht solche Risiken nicht automatisch abdeckt.</p>
-            <button type="button" class="insurance-open-btn">Mehr Details</button>
-          </article>
-        </div>
+      <section id="jeder-vierte" class="persons-section">
+        <h2>„Jeder Vierte“ – was heißt das eigentlich?</h2>
+        <p class="section-subtitle">
+          Stell dir 20 Menschen vor, die heute mit dir im Büro, in der Werkstatt oder im Homeoffice
+          sitzen. <strong>Bei etwa fünf von ihnen wird im Laufe des Berufslebens die Arbeitskraft
+          so eingeschränkt, dass der bisherige Job nicht mehr geht.</strong>
+        </p>
 
-        <div class="insurance-overlay" id="insuranceOverlay" aria-hidden="true">
-          <div class="insurance-modal" role="dialog" aria-modal="true" aria-labelledby="insuranceModalTitle">
-            <button type="button" class="insurance-modal-close" id="insuranceModalClose" aria-label="Details schließen">✕</button>
-            <div class="insurance-modal-head">
-              <div class="insurance-tag" id="insuranceModalTag"></div>
-              <h3 class="insurance-modal-title" id="insuranceModalTitle"></h3>
+        <div class="card animate-on-scroll">
+          <div id="persons-container" class="persons-grid">
+            <span class="person"></span>
+            <span class="person"></span>
+            <span class="person"></span>
+            <span class="person"></span>
+            <span class="person"></span>
+            <span class="person"></span>
+            <span class="person"></span>
+            <span class="person"></span>
+            <span class="person"></span>
+            <span class="person"></span>
+            <span class="person"></span>
+            <span class="person"></span>
+            <span class="person"></span>
+            <span class="person"></span>
+            <span class="person"></span>
+            <span class="person"></span>
+            <span class="person"></span>
+            <span class="person"></span>
+            <span class="person"></span>
+            <span class="person"></span>
+          </div>
+          <p class="persons-note">
+            Beim Scrollen werden nacheinander fünf Figuren eingefärbt – <strong>so viele betrifft
+            Berufsunfähigkeit statistisch gesehen</strong>. Erschreckend: Man sieht ihnen vorher
+            nicht an, wer es sein wird.
+          </p>
+        </div>
+      </section>
+
+      <section id="ursachen">
+        <h2>Häufigste Ursachen – nicht der Unfall, sondern die Gesundheit</h2>
+        <p class="section-subtitle">
+          Wenn Menschen berufsunfähig werden, liegt es nur selten am „spektakulären Unfall“. In der
+          Praxis sind es vor allem psychische Belastungen, Rückenprobleme und andere Krankheiten.
+        </p>
+
+        <div class="card animate-on-scroll">
+          <div class="charts-grid">
+            <div class="pie-causes-wrapper">
+              <div class="pie-causes">
+                <div class="pie-causes-inner" aria-hidden="true"></div>
+              </div>
             </div>
-            <div class="insurance-modal-body" id="insuranceModalBody"></div>
+
+            <div class="legend">
+              <div class="legend-row">
+                <span class="legend-color psych"></span>
+                <span><strong>Psyche</strong> – ca. 40 %</span>
+              </div>
+              <div class="legend-row">
+                <span class="legend-color back"></span>
+                <span><strong>Rücken &amp; Gelenke</strong> – ca. 25 %</span>
+              </div>
+              <div class="legend-row">
+                <span class="legend-color other"></span>
+                <span><strong>Sonstige Erkrankungen</strong> wie Herz, Krebs oder Nerven – ca. 20 %</span>
+              </div>
+              <div class="legend-row">
+                <span class="legend-color accident"></span>
+                <span><strong>Unfälle</strong> – ca. 15 %</span>
+              </div>
+              <p class="small-note">
+                Die genauen Werte schwanken je nach Statistik, aber das Bild ist klar: <strong>Die meisten
+                Fälle kommen leise – über Gesundheit und Psyche</strong>, nicht über den spektakulären Unfall.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="gesundheit">
+        <h2>Gesundheit „einfrieren“ – warum frühe Absicherung so viel bringt</h2>
+        <p class="section-subtitle">
+          Je jünger und gesünder du bist, desto entspannter ist die Annahme – und desto mehr kannst du
+          deinen heutigen Gesundheitszustand für später „konservieren“.
+        </p>
+
+        <div class="grid-2">
+          <div class="card animate-on-scroll">
+            <div class="card-title">Gesundheit sichern, solange sie gut ist</div>
+            <ul>
+              <li>Viele Diagnosen entstehen zwischen 30 und 50 – dann wird der Abschluss schwieriger oder nur mit Ausschlüssen möglich.</li>
+              <li>Mit einem frühen Vertrag wird dein Gesundheitszustand zum Zeitpunkt des Abschlusses dokumentiert.</li>
+              <li>Über Nachversicherungs- und Optionsrechte lässt sich der Schutz später an Einkommen, Familie oder Immobilienkauf anpassen.</li>
+            </ul>
+          </div>
+
+          <div class="card animate-on-scroll">
+            <div class="card-title">Je früher, desto stabiler der Schutz</div>
+            <div class="timeline">
+              <div class="timeline-step">
+                <div class="timeline-age">Ausbildung / Studium etwa 25</div>
+                <div>
+                  Wenig Diagnosen, viel Zukunft vor dir – ideal, um eine Grund-Absicherung aufzubauen,
+                  die später mit dir mitwachsen kann.
+                </div>
+              </div>
+              <div class="timeline-step">
+                <div class="timeline-age">Karriere &amp; Familie etwa 35</div>
+                <div>
+                  Einkommen steigt, Verantwortung auch: Kinder, Haus, Kredite. Hier ist wichtig,
+                  dass der Schutz zu deinem neuen Leben passt.
+                </div>
+              </div>
+              <div class="timeline-step">
+                <div class="timeline-age">40+ etwa 45</div>
+                <div>
+                  Rücken, Psyche, Blutdruck – jetzt zeigt sich, wie wertvoll ein früher Abschluss war.
+                  Neue Verträge sind deutlich schwieriger.
+                </div>
+              </div>
+            </div>
+
+            <div class="price-table">
+              <div class="price-row">
+                <span>Start mit 25</span>
+                <span>z. B. ca. 60 EUR / Monat</span>
+              </div>
+              <div class="price-row">
+                <span>Start mit 35</span>
+                <span>z. B. ca. 95 EUR / Monat</span>
+              </div>
+              <div class="price-row">
+                <span>Start mit 45</span>
+                <span>z. B. ca. 145 EUR / Monat</span>
+              </div>
+              <p class="small-note">
+                Fiktives Beispiel für dieselbe BU-Rente, etwa 1.500 EUR im Monat. Es geht nicht um den
+                exakten Betrag, sondern um das Prinzip: <strong>Warten macht den Schutz meist deutlich teurer</strong>
+                – oder irgendwann gar nicht mehr möglich.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="gruende">
+        <h2>Drei Hauptgründe, warum sich eine BU fast immer lohnt</h2>
+
+        <div class="reasons-grid">
+          <div class="reason-box animate-on-scroll">
+            <div><span class="reason-number">1</span><strong>Einkommen sichern</strong></div>
+            <p style="margin:0.4rem 0 0;">
+              Deine laufenden Ausgaben hören bei Krankheit nicht auf. Mit einer BU-Rente sicherst du
+              dir ein planbares Einkommen – unabhängig davon, ob du arbeiten kannst oder nicht.
+            </p>
+          </div>
+
+          <div class="reason-box animate-on-scroll">
+            <div><span class="reason-number">2</span><strong>Vorsorge &amp; Vermögen schützen</strong></div>
+            <p style="margin:0.4rem 0 0;">
+              Ohne Absicherung werden als erstes Sparpläne und Altersvorsorge gestoppt.
+              Eine BU verhindert, dass du mühsam aufgebautes Vermögen wieder auflösen musst.
+            </p>
+          </div>
+
+          <div class="reason-box animate-on-scroll">
+            <div><span class="reason-number">3</span><strong>Freiheit für medizinische Entscheidungen</strong></div>
+            <p style="margin:0.4rem 0 0;">
+              Mit stabiler Einkommensbasis kannst du Therapien, Reha oder Auszeiten nach medizinischer
+              Notwendigkeit wählen – nicht nach Kontostand.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="steuer">
+        <h2>Wie wird die BU-Rente steuerlich behandelt?</h2>
+        <p class="section-subtitle">
+          Steuerlich ist die BU-Rente ein Mix: Beiträge können teilweise als Vorsorgeaufwand gelten,
+          die spätere BU-Rente selbst wird nur mit einem Anteil versteuert.
+        </p>
+
+        <div class="grid-2">
+          <div class="card animate-on-scroll">
+            <div class="card-title">Während der Berufstätigkeit</div>
+            <p>
+              Beiträge zur reinen BU zählen je nach Gestaltung zu den Vorsorgeaufwendungen. Wie viel
+              genau anerkannt wird, hängt von deiner Gesamtsituation ab: gesetzliche Rente, Krankenversicherung
+              und weitere Verträge spielen zusammen. Wir schauen uns das im Detail mit deiner echten Steuerlogik an.
+            </p>
+          </div>
+
+          <div class="card animate-on-scroll">
+            <div class="card-title">Im Leistungsfall</div>
+            <p>
+              Die BU-Rente wird mit dem sogenannten <strong>Ertragsanteil</strong> besteuert – also nur mit
+              einem Teilbetrag, der von deinem Alter bei Beginn der BU-Rente abhängt. Je älter du beim
+              Leistungsbeginn bist, desto niedriger ist dieser steuerpflichtige Anteil.
+            </p>
+            <p class="small-note">
+              Wichtig: Die BU ist trotzdem dazu gedacht, deinen Alltag zu tragen. Die konkrete Netto-Wirkung
+              rechnen wir gemeinsam mit realistischen Annahmen.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="vorgehen">
+        <h2>Wie wir gemeinsam vorgehen</h2>
+        <p class="section-subtitle">
+          Mir ist wichtig, dass du verstehst, <strong>was</strong> du absicherst und <strong>warum</strong> – nicht,
+          dass du einfach „eine BU mehr“ im Ordner liegen hast. Im Gespräch gehen wir Schritt für Schritt durch:
+        </p>
+
+        <div class="grid-2">
+          <div class="card animate-on-scroll">
+            <div class="card-title">1. Ist-Analyse &amp; Risiko-Check</div>
+            <ul>
+              <li>Beruf, Einkommen, bestehende Verträge und familiäre Situation.</li>
+              <li>Welche Risiken bei dir besonders kritisch wären, zum Beispiel Alleinverdiener, Selbstständigkeit oder Kredite.</li>
+              <li>Welche Leistung du wirklich brauchst, damit es im Ernstfall reicht.</li>
+            </ul>
+          </div>
+
+          <div class="card animate-on-scroll">
+            <div class="card-title">2. Konzept &amp; Umsetzung</div>
+            <ul>
+              <li>Auswahl passender Lösungen mit Blick auf Gesundheit, Flexibilität und Steuern.</li>
+              <li>Saubere Gesundheitsdokumentation, damit im Leistungsfall alles nachvollziehbar ist.</li>
+              <li>Regelmäßiger Check, ob Schutz und Leben noch zusammenpassen.</li>
+            </ul>
           </div>
         </div>
 
-        <div hidden>
-          <template id="template-haftpflicht">
-            <p>Die Privathaftpflicht ist weniger ein Produkt als dein finanzielles Schutznetz bei Fehlern im Alltag. Entscheidend ist nicht nur, dass du versichert bist, sondern wie gut der Vertrag in kritischen Situationen reagiert.</p>
-            <ul>
-              <li>Prüfe hohe Deckungssummen, damit auch schwere Personenschäden tragbar bleiben.</li>
-              <li>Forderungsausfall hilft, wenn dir selbst jemand schadet, aber nicht zahlen kann.</li>
-              <li>Mit Kindern ist relevant, wie mit Schäden durch deliktunfähige Kinder umgegangen wird.</li>
-            </ul>
-            <p>Praxisfrage im Beratungstermin: Welche privaten Risiken können heute finanziell nicht aus der Rücklage gezahlt werden?</p>
-          </template>
-          <template id="template-kfz">
-            <p>Die KFZ-Versicherung besteht aus mehreren Bausteinen, die je nach Fahrzeugwert, Nutzung und persönlicher Situation unterschiedlich gewichtet werden sollten. Wichtig ist, dass der Schutz nicht nur günstig, sondern im Schadenfall auch belastbar ist.</p>
-            <ul>
-              <li>KFZ-Haftpflicht: gesetzlich verpflichtend und Basis für Schäden, die du anderen zufügst.</li>
-              <li>Teilkasko: typischer Schutz bei Diebstahl, Glasbruch, Wildunfall, Sturm, Hagel und Elementarereignissen.</li>
-              <li>Vollkasko: erweitert um selbst verursachte Unfallschäden am eigenen Fahrzeug und Vandalismus.</li>
-              <li>Schutzbrief: organisiert und bezahlt je nach Tarif Pannenhilfe, Abschleppen, Weiter- oder Rückreise.</li>
-              <li>Fahrerschutz: kann den Fahrer bei eigenverschuldeten Unfällen zusätzlich absichern.</li>
-              <li>Rabattschutz und GAP-Deckung: je nach Situation relevant, z.B. bei Leasing oder hohem SF-Rabatt.</li>
-            </ul>
-            <p>Praxisfrage im Beratungstermin: Welche Kombination aus Haftpflicht, Kasko und Zusatzbausteinen passt zu deinem Fahrzeug und deinem echten Nutzungsrisiko?</p>
-          </template>
-          <template id="template-hausrat">
-            <p>Bei Hausrat geht es um die Wiederherstellung deines Alltags nach Brand, Wasserschaden oder Einbruch. Die zentrale Frage lautet: Wie schnell kannst du deinen Haushalt nach einem Schaden neu aufbauen?</p>
-            <ul>
-              <li>Wert der Einrichtung realistisch erfassen, damit keine Unterversicherung entsteht.</li>
-              <li>Neben Möbeln auch Technik, Kleidung, Fahrräder und Besonderheiten sauber prüfen.</li>
-              <li>Je nach Wohnlage können Zusatzbausteine wie Fahrraddiebstahl oder Elementar sinnvoll sein.</li>
-            </ul>
-            <p>Praxisfrage im Beratungstermin: Welche Gegenstände würden bei Totalverlust sofort ersetzt werden müssen?</p>
-          </template>
-          <template id="template-glas">
-            <p>Glas ist kein Pflichtbaustein, aber in bestimmten Wohnsituationen wirtschaftlich sinnvoll. Vor allem große, teure oder schwer ersetzbare Glasflächen können schnell hohe Einzelkosten auslösen.</p>
-            <ul>
-              <li>Relevant bei Wintergarten, bodentiefen Fenstern, Glasduschen oder hochwertigen Kochfeldern.</li>
-              <li>Wichtig ist, welche Gläser eingeschlossen sind und welche ausgeschlossen werden.</li>
-              <li>Der Baustein ist sinnvoll, wenn ein möglicher Bruch die Liquidität stark belastet.</li>
-            </ul>
-            <p>Praxisfrage im Beratungstermin: Welche Glasfläche wäre finanziell am unangenehmsten, wenn sie morgen ersetzt werden müsste?</p>
-          </template>
-          <template id="template-unfall">
-            <p>Die Unfallversicherung ist ein Ergänzungsbaustein für dauerhafte gesundheitliche Folgen nach Unfällen. Sie kann finanzielle Spielräume schaffen, wenn Umbauten, Reha oder Einkommenslücken organisiert werden müssen.</p>
-            <ul>
-              <li>Wichtige Stellhebel sind Progression, Gliedertaxe und mögliche Rentenleistung.</li>
-              <li>Sofortleistungen und Reha-Bausteine können in der frühen Phase entscheidend sein.</li>
-              <li>Sie ergänzt andere Vorsorge, ersetzt aber keine umfassende Arbeitskraftabsicherung.</li>
-            </ul>
-            <p>Praxisfrage im Beratungstermin: Welche finanzielle Reserve wäre nach einem schweren Freizeitunfall realistisch verfügbar?</p>
-          </template>
-          <template id="template-reise">
-            <p>Im Sachversicherungs-Kontext stehen bei Reisen vor allem finanzielle Schäden rund um Buchung, Gepäck und Reiseabbruch im Fokus. Entscheidend ist, welche Kosten im Störfall wirklich anfallen können.</p>
-            <ul>
-              <li>Reiserücktritt und Reiseabbruch greifen bei versicherten Gründen vor oder während der Reise.</li>
-              <li>Reisegepäckschutz kann bei Verlust, Diebstahl oder Beschädigung sinnvoll sein.</li>
-              <li>Wichtig sind Entschädigungsgrenzen, Selbstbehalte und konkrete Ausschlüsse im Vertrag.</li>
-              <li>Prüfe bei teurer Ausrüstung (z.B. Kamera, Sportequipment), ob diese voll mitversichert ist.</li>
-            </ul>
-            <p>Praxisfrage im Beratungstermin: Welche Reisekosten oder Gepäckwerte würden bei Ausfall oder Verlust dein Budget wirklich treffen?</p>
-          </template>
-          <template id="template-rechtsschutz">
-            <p>Rechtsschutz schafft oft erst die Möglichkeit, Ansprüche wirklich durchzusetzen. Ohne Deckung wird ein berechtigter Fall häufig nicht verfolgt, weil Kostenrisiko und Dauer abschrecken.</p>
-            <ul>
-              <li>Bausteine wie Privat, Verkehr, Beruf und Wohnen sollten gezielt kombiniert werden.</li>
-              <li>Wartezeiten und Ausschlüsse entscheiden, ob ein konkreter Fall wirklich gedeckt ist.</li>
-              <li>Telefonische Erstberatung und Mediation können Konflikte früh entschärfen.</li>
-            </ul>
-            <p>Praxisfrage im Beratungstermin: In welchen Lebensbereichen wäre ein Streit finanziell oder emotional besonders belastend?</p>
-          </template>
-          <template id="template-wohngebaeude">
-            <p>Die Wohngebäudeversicherung schützt die Immobilie selbst und ist für Eigentümer ein Kernschutz. Entscheidend ist, dass die Versicherungssumme zum echten Wiederherstellungswert passt.</p>
-            <ul>
-              <li>Versichert sind je nach Vertrag Gebäudehülle, fest verbaute Teile und Haustechnik.</li>
-              <li>Nach Modernisierungen sollte die Absicherung aktualisiert werden.</li>
-              <li>Elementarschutz gewinnt je nach Lage und Wetterrisiko deutlich an Bedeutung.</li>
-            </ul>
-            <p>Praxisfrage im Beratungstermin: Welche finanziellen Folgen hätte ein größerer Gebäudeschaden ohne passende Absicherung?</p>
-          </template>
-          <template id="template-tiere">
-            <p>Bei Hund und Pferd ist die Tierhalterhaftpflicht ein eigener, oft unverzichtbarer Schutzbaustein. Das Tier handelt eigenständig, und genau daraus entstehen Haftungsfälle mit teils hohen Folgekosten.</p>
-            <ul>
-              <li>Deckt Personen-, Sach- und Vermögensschäden durch das Tier im Alltag und unterwegs.</li>
-              <li>In vielen Bundesländern ist sie für Hunde verpflichtend.</li>
-              <li>Sinnvoll sind hohe Deckungssummen und Mitversicherung von Fremdhütern.</li>
-            </ul>
-            <p>Praxisfrage im Beratungstermin: Wer führt oder betreut das Tier regelmäßig und ist diese Person im Vertrag sauber berücksichtigt?</p>
-          </template>
-        </div>
-      </section>
-
-      <section id="live-beispiele">
-        <h2>Echte Schadensbeispiele: klein bis groß</h2>
-        <p class="section-subtitle">Reale Größenordnungen aus öffentlich zugänglichen Verbraucher- und Verbandsinfos.</p>
-        <div class="example-grid">
-          <article class="example-card small">
-            <div class="example-tag">Kleiner bis mittlerer Schaden</div>
-            <h3 class="example-title">Hausrat: Teilschaden in der Wohnung</h3>
-            <div class="example-amount">ca. 5.000 EUR bis 10.000 EUR</div>
-            <p class="example-copy">Typische Größenordnung bei Leitungswasser oder Einzelschäden an Inventar.</p>
-            <div class="example-links">
-              <a class="example-link" target="_blank" rel="noopener" href="https://www.verbraucherzentrale.de/wissen/geld-versicherungen/weitere-versicherungen/hausratversicherung-auf-den-wert-der-einrichtung-kommts-an-13889">Verbraucherzentrale Hausrat</a>
-            </div>
-          </article>
-
-          <article class="example-card medium">
-            <div class="example-tag">Mittlerer Schaden</div>
-            <h3 class="example-title">Fremdschlüssel / Schließanlage</h3>
-            <div class="example-amount">14.000 EUR im dokumentierten Fall</div>
-            <p class="example-copy">Austausch einer Schließanlage am Gymnasium inkl. neuer Schlüssel für das Kollegium.</p>
-            <div class="example-links">
-              <a class="example-link" target="_blank" rel="noopener" href="https://www.verbraucherzentrale.de/wissen/geld-versicherungen/weitere-versicherungen/generalschluessel-verloren-drohende-kosten-bis-zum-preis-eines-kleinwagens-10679">Verbraucherzentrale Schlüsselverlust</a>
-            </div>
-          </article>
-
-          <article class="example-card medium">
-            <div class="example-tag">Mittel bis groß</div>
-            <h3 class="example-title">Unterversicherung im Brandfall</h3>
-            <div class="example-amount">10.000 EUR Schaden, nur 5.000 EUR Erstattung</div>
-            <p class="example-copy">Beispiel aus Verbraucherzentrale: falsche Versicherungssumme halbiert im Ernstfall die Leistung.</p>
-            <div class="example-links">
-              <a class="example-link" target="_blank" rel="noopener" href="https://www.verbraucherzentrale.de/wissen/geld-versicherungen/weitere-versicherungen/hausratversicherung-auf-den-wert-der-einrichtung-kommts-an-13889">Verbraucherzentrale Unterversicherung</a>
-            </div>
-          </article>
-
-          <article class="example-card large">
-            <div class="example-tag">Großer Schaden</div>
-            <h3 class="example-title">Haftungs- und Personenschäden</h3>
-            <div class="example-amount">kann fünf- bis siebenstellig werden</div>
-            <p class="example-copy">Bei schweren Haftungsfällen können Forderungen existenziell werden. Genau deshalb ist Haftpflicht Basis.</p>
-            <div class="example-links">
-              <a class="example-link" target="_blank" rel="noopener" href="https://www.verbraucherzentrale.de/wissen/geld-versicherungen/weitere-versicherungen/private-haftpflichtversicherung-ein-absolutes-muss-fuer-alle-13891">Verbraucherzentrale Haftpflicht</a>
-            </div>
-          </article>
-
-          <article class="example-card large">
-            <div class="example-tag">Großer Schaden</div>
-            <h3 class="example-title">Rechtsstreit mit mehreren Instanzen</h3>
-            <div class="example-amount">Anwalt + Gericht + Gutachten = schnell sehr hoch</div>
-            <p class="example-copy">Rechtsschutz kann den Zugang zum Recht sichern, wenn ein Streit sonst aus Kostengründen vermieden würde.</p>
-            <div class="example-links">
-              <a class="example-link" target="_blank" rel="noopener" href="https://www.verbraucherzentrale.de/wissen/geld-versicherungen/weitere-versicherungen/rechtsschutzversicherung-ueberfluessig-oder-sinnvoll-32194">Verbraucherzentrale Rechtsschutz</a>
-            </div>
-          </article>
-
-          <article class="example-card small">
-            <div class="example-tag">Zusatzhinweis</div>
-            <h3 class="example-title">Reise: Storno, Abbruch, Gepäck</h3>
-            <div class="example-amount">je nach Reise von klein bis hoch</div>
-            <p class="example-copy">Welche Reisebausteine sinnvoll sind, hängt von Reisekosten, Gepäckwert und Stornorisiko ab.</p>
-            <div class="example-links">
-              <a class="example-link" target="_blank" rel="noopener" href="https://www.verbraucherzentrale.de/wissen/geld-versicherungen/weitere-versicherungen/auslandsreisen-welcher-versicherungsschutz-ist-notwendig-10713">Verbraucherzentrale Reise</a>
-            </div>
-          </article>
-        </div>
-        <p class="source-note" style="margin-top:0.8rem;">
-          Quellenbezug: Verbraucherzentrale (Artikelstände 2025/2026) und GDV-Hinweise zur Schaden- und Unfallversicherung.
-        </p>
-      </section>
-
-      <section id="priorisierung">
-        <h2>Praktische Reihenfolge statt Bauchgefühl</h2>
-        <p class="section-subtitle">Damit das Thema nicht erschlägt, priorisieren wir in drei Stufen.</p>
-        <div class="priority-grid">
-          <article class="priority-card">
-            <div class="priority-number">1</div>
-            <h3 class="priority-title">Existenz zuerst</h3>
-            <ul>
-              <li>Privathaftpflicht</li>
-              <li>Hausrat (bei relevantem Inventarwert)</li>
-              <li>Wohngebäude (bei Eigentum)</li>
-            </ul>
-          </article>
-          <article class="priority-card">
-            <div class="priority-number">2</div>
-            <h3 class="priority-title">Alltag &amp; Lebensstil</h3>
-            <ul>
-              <li>Rechtsschutz nach Lebenslage</li>
-              <li>Reisegepäck-, Rücktritt- und Abbruchschutz je Reiseprofil</li>
-              <li>Unfallversicherung gezielt prüfen</li>
-            </ul>
-          </article>
-          <article class="priority-card">
-            <div class="priority-number">3</div>
-            <h3 class="priority-title">Sonderfälle sauber abdecken</h3>
-            <ul>
-              <li>KFZ-Bausteine passend wählen (Haftpflicht, Kasko, Schutzbrief)</li>
-              <li>Glas, wenn wirklich relevant</li>
-              <li>Tierhalterhaftpflicht bei Hund/Pferd</li>
-              <li>Zusatzbausteine nur bei echtem Bedarf</li>
-            </ul>
-          </article>
-        </div>
       </section>
 
       <section id="kontakt">
-        <div class="kontakt-box">
-          <h2>Jetzt eure Sachversicherungen persönlich sortieren</h2>
-          <p>Wir schauen gemeinsam, welche Risiken euch im Alltag wirklich treffen können, welche Bausteine Pflicht sind und was ihr bewusst weglassen könnt.</p>
+        <div class="kontakt-box animate-on-scroll">
+          <h2>Jetzt deine Arbeitskraftabsicherung persönlich prüfen</h2>
+          <p>Wir schauen gemeinsam, wie gut dein Einkommen heute abgesichert ist, welche Lücken bestehen und welcher Schutz wirklich zu deinem Beruf und deinem Leben passt.</p>
           <div class="kontakt-btn-row">
-            <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-primary">Sachversicherungen gemeinsam sortieren</a>
+            <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-primary">Gespräch zu deiner Arbeitskraftabsicherung vereinbaren</a>
             <a href="https://wa.me/4915141678134" target="_blank" rel="noopener" class="btn-wa">Jonas via WhatsApp</a>
             <a href="https://wa.me/4917663796605" target="_blank" rel="noopener" class="btn-secondary">Timo via WhatsApp</a>
           </div>
@@ -1418,9 +1639,12 @@
           </div>
         </div>
       </section>
-    </main>
+    <section id="contact-team" style="margin-bottom:2rem;"><div class="contact-strip"><div class="contact-card"><div class="contact-name">Jonas Plener</div><div class="contact-role">Finanzberater</div><div class="contact-links"><a href="tel:+4915141678134">📞 0151 41678134</a><a href="mailto:Jonas.Plener@dvag.de">✉️ Jonas.Plener@dvag.de</a></div></div><div class="contact-card"><div class="contact-name">Timo Hügel</div><div class="contact-role">Finanzberater</div><div class="contact-links"><a href="tel:+4917663796605">📞 0176 63796605</a><a href="mailto:Timo.Huegel@dvag.de">✉️ Timo.Huegel@dvag.de</a></div></div></div></section></main>
 
-    <footer>Diese Seite ersetzt keine individuelle Rechts-, Steuer- oder Sozialversicherungsberatung. Alle Angaben ohne Gewähr.</footer>
+    <footer>
+      Diese Seite ersetzt keine individuelle Rechts-, Steuer- oder Sozialversicherungsberatung.
+      Alle Angaben ohne Gewähr. Maßgeblich sind die gesetzlichen Regelungen und die Informationen der jeweiligen Anbieter.
+    </footer>
   </div>
 
   <script>
@@ -1429,12 +1653,6 @@
       const menuPanel = document.getElementById("menuPanel");
       const menuOverlay = document.getElementById("menuOverlay");
       const menuCloseBtn = menuPanel.querySelector(".menu-close-btn");
-      const insuranceOverlay = document.getElementById("insuranceOverlay");
-      const insuranceModalClose = document.getElementById("insuranceModalClose");
-      const insuranceModalTag = document.getElementById("insuranceModalTag");
-      const insuranceModalTitle = document.getElementById("insuranceModalTitle");
-      const insuranceModalBody = document.getElementById("insuranceModalBody");
-      const insuranceOpenButtons = document.querySelectorAll(".insurance-open-btn");
       if (!burgerBtn || !menuPanel || !menuOverlay) return;
 
       function closeMenu() {
@@ -1453,64 +1671,78 @@
 
       burgerBtn.addEventListener("click", function () {
         const isOpen = burgerBtn.getAttribute("aria-expanded") === "true";
-        if (isOpen) closeMenu(); else openMenu();
+        if (isOpen) {
+          closeMenu();
+        } else {
+          openMenu();
+        }
       });
 
       menuCloseBtn.addEventListener("click", closeMenu);
       menuOverlay.addEventListener("click", closeMenu);
 
-      function closeInsuranceModal() {
-        if (!insuranceOverlay) return;
-        insuranceOverlay.classList.remove("open");
-        insuranceOverlay.setAttribute("aria-hidden", "true");
-        document.body.style.overflow = "";
-      }
-
-      function openInsuranceModal(card) {
-        if (!insuranceOverlay || !insuranceModalTag || !insuranceModalTitle || !insuranceModalBody) return;
-        const detailId = card.getAttribute("data-detail-id");
-        const detailTag = card.getAttribute("data-detail-tag") || "Details";
-        const detailTitle = card.getAttribute("data-detail-title") || "Versicherungsdetails";
-        const template = document.getElementById("template-" + detailId);
-        if (!template) return;
-
-        insuranceModalTag.textContent = detailTag;
-        insuranceModalTitle.textContent = detailTitle;
-        insuranceModalBody.innerHTML = template.innerHTML;
-        insuranceOverlay.classList.add("open");
-        insuranceOverlay.setAttribute("aria-hidden", "false");
-        document.body.style.overflow = "hidden";
-      }
-
-      insuranceOpenButtons.forEach(function (button) {
-        button.addEventListener("click", function () {
-          const card = button.closest(".insurance-card");
-          if (card) openInsuranceModal(card);
+      menuPanel.querySelectorAll("a").forEach(function (link) {
+        link.addEventListener("click", function () {
+          const href = this.getAttribute("href");
+          if (href && !href.startsWith("#")) {
+            closeMenu();
+          }
         });
       });
 
-      if (insuranceModalClose) {
-        insuranceModalClose.addEventListener("click", closeInsuranceModal);
-      }
-
-      if (insuranceOverlay) {
-        insuranceOverlay.addEventListener("click", function (event) {
-          if (event.target === insuranceOverlay) {
-            closeInsuranceModal();
-          }
-        });
-      }
-
       document.addEventListener("keydown", function (event) {
-        if (event.key === "Escape") {
+        if (event.key === "Escape" && menuPanel.classList.contains("open")) {
           closeMenu();
-          closeInsuranceModal();
         }
       });
     })();
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const elements = document.querySelectorAll(".animate-on-scroll");
+      const observer = new IntersectionObserver(function (entries, obs) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("in-view");
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
+
+      elements.forEach(function (el) {
+        observer.observe(el);
+      });
+
+      const personsContainer = document.getElementById("persons-container");
+      if (!personsContainer) return;
+
+      const persons = Array.from(personsContainer.querySelectorAll(".person"));
+      const toFill = 5;
+      let animated = false;
+
+      const personsObserver = new IntersectionObserver(function (entries, obs) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting && !animated) {
+            animated = true;
+            let index = 0;
+            const interval = window.setInterval(function () {
+              if (index >= toFill) {
+                window.clearInterval(interval);
+                return;
+              }
+              persons[index].classList.add("filled");
+              index += 1;
+            }, 200);
+            obs.unobserve(personsContainer);
+          }
+        });
+      }, { threshold: 0.4 });
+
+      personsObserver.observe(personsContainer);
+    });
   </script>
 </body>
 </html>
+
 
 
 
