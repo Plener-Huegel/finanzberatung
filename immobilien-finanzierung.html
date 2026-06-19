@@ -1907,7 +1907,7 @@
               <p class="small-note">Tilgung: fest 2,0 % p.a.</p>
               <p class="small-note">Kaufnebenkosten werden automatisch berücksichtigt.</p>
               <div class="calc-button-row">
-                <button type="button" class="btn-primary" id="calcBtn">Berechnung aktualisieren</button>
+                <button type="button" class="btn-primary" id="calcBtn">Ergebnis berechnen</button>
               </div>
 
             </div>
@@ -2100,75 +2100,45 @@
       const burgerBtn = document.getElementById("burgerBtn");
       const menuPanel = document.getElementById("menuPanel");
       const menuOverlay = document.getElementById("menuOverlay");
-      const menuCloseBtn = menuPanel.querySelector(".menu-close-btn");
-      if (!burgerBtn || !menuPanel || !menuOverlay) return;
+      const menuCloseBtn = menuPanel ? menuPanel.querySelector(".menu-close-btn") : null;
 
-      function closeMenu() {
-        menuPanel.classList.remove("open");
-        menuOverlay.classList.remove("open");
-        burgerBtn.setAttribute("aria-expanded", "false");
-        document.body.style.overflow = "";
+      if (burgerBtn && menuPanel && menuOverlay) {
+        function closeMenu() {
+          menuPanel.classList.remove("open");
+          menuOverlay.classList.remove("open");
+          burgerBtn.setAttribute("aria-expanded", "false");
+          document.body.style.overflow = "";
+        }
+
+        function openMenu() {
+          menuPanel.classList.add("open");
+          menuOverlay.classList.add("open");
+          burgerBtn.setAttribute("aria-expanded", "true");
+          document.body.style.overflow = "hidden";
+        }
+
+        burgerBtn.addEventListener("click", function () {
+          const isOpen = burgerBtn.getAttribute("aria-expanded") === "true";
+          if (isOpen) closeMenu(); else openMenu();
+        });
+
+        if (menuCloseBtn) menuCloseBtn.addEventListener("click", closeMenu);
+        menuOverlay.addEventListener("click", closeMenu);
+
+        document.addEventListener("keydown", function (event) {
+          if (event.key === "Escape") closeMenu();
+        });
       }
 
-      function openMenu() {
-        menuPanel.classList.add("open");
-        menuOverlay.classList.add("open");
-        burgerBtn.setAttribute("aria-expanded", "true");
-        document.body.style.overflow = "hidden";
-      }
-
-      burgerBtn.addEventListener("click", function () {
-        const isOpen = burgerBtn.getAttribute("aria-expanded") === "true";
-        if (isOpen) closeMenu(); else openMenu();
-      });
-
-      menuCloseBtn.addEventListener("click", closeMenu);
-      menuOverlay.addEventListener("click", closeMenu);
-
-      document.addEventListener("keydown", function (event) {
-        if (event.key === "Escape") closeMenu();
-      });
-
-      const TILGUNG = 2.0;
-      const FIXED_RATIO = 0.35;
-      const HYPOTHETICAL_BUFFER_RATIO = 0.8;
       const TILGUNG_DECIMAL = 0.02;
       const NEBENKOSTEN_QUOTE = 0.10;
-
-      const targetPrice = document.getElementById("targetPrice");
-      const p1Income = document.getElementById("p1Income");
-      const p1Fixed = document.getElementById("p1Fixed");
-      const p1Equity = document.getElementById("p1Equity");
-      const isCouple = document.getElementById("isCouple");
-      const partnerFields = document.getElementById("partnerFields");
-      const p2Income = document.getElementById("p2Income");
-      const p2Fixed = document.getElementById("p2Fixed");
-      const p2Equity = document.getElementById("p2Equity");
-
-      const taxOn = document.getElementById("taxOn");
-      const taxPct = document.getElementById("taxPct");
-      const notaryOn = document.getElementById("notaryOn");
-      const notaryPct = document.getElementById("notaryPct");
-      const brokerOn = document.getElementById("brokerOn");
-      const brokerPct = document.getElementById("brokerPct");
-      const renoOn = document.getElementById("renoOn");
-      const renoAmount = document.getElementById("renoAmount");
-
-      const interestPct = document.getElementById("interestPct");
-      const interestOut = document.getElementById("interestOut");
-      const precheckButton = document.getElementById("precheckButton");
-      const houseCard = document.getElementById("houseCard");
-
-      const houseReveal = document.getElementById("houseReveal");
-      const housePercent = document.getElementById("housePercent");
-      const houseText = document.getElementById("houseText");
-      const houseStatus = document.getElementById("houseStatus");
 
       const calcIncome = document.getElementById("calcIncome");
       const calcHasSecondPerson = document.getElementById("calcHasSecondPerson");
       const calcPerson2Wrap = document.getElementById("calcPerson2Wrap");
       const calcIncomeP2 = document.getElementById("calcIncomeP2");
       const calcFixed = document.getElementById("calcFixed");
+      const rentFallsAway = document.getElementById("rentFallsAway");
       const calcEquity = document.getElementById("calcEquity");
       const calcChildren = document.getElementById("calcChildren");
       const calcInterest = document.getElementById("calcInterest");
@@ -2178,11 +2148,10 @@
       const calcOutRate = document.getElementById("calcOutRate");
       const calcOutLoan = document.getElementById("calcOutLoan");
       const calcExplain = document.getElementById("calcExplain");
-
-      let precheckActivated = false;
+      const calcBtn = document.getElementById("calcBtn");
 
       function asNumber(value, fallback) {
-        const n = Number(value);
+        const n = Number(String(value || "").replace(",", "."));
         return Number.isFinite(n) ? n : fallback;
       }
 
@@ -2201,39 +2170,6 @@
         }).format(value) + " %";
       }
 
-      function getNebenkostenProzent() {
-        const tax = taxOn.checked ? Math.max(0, asNumber(taxPct.value, 0)) : 0;
-        const notary = notaryOn.checked ? Math.max(0, asNumber(notaryPct.value, 0)) : 0;
-        const broker = brokerOn.checked ? Math.max(0, asNumber(brokerPct.value, 0)) : 0;
-        return (tax + notary + broker) / 100;
-      }
-
-      function getPuffer() {
-        return renoOn.checked ? Math.max(0, asNumber(renoAmount.value, 0)) : 0;
-      }
-
-      function maxPreisFromInputs(income, fixed, equity, zinsPct, ancillaryPct, puffer) {
-        const freieRate = Math.max(0, (income * FIXED_RATIO) - fixed);
-        return maxPreisFromRate(freieRate, equity, zinsPct, ancillaryPct, puffer);
-      }
-
-      function maxPreisFromRate(freieRate, equity, zinsPct, ancillaryPct, puffer) {
-        const annuitaetMonat = ((zinsPct + TILGUNG) / 100) / 12;
-        const maxDarlehen = annuitaetMonat > 0 ? freieRate / annuitaetMonat : 0;
-        const maxPreis = Math.max(0, (maxDarlehen + equity - puffer) / (1 + ancillaryPct));
-        const nebenkosten = maxPreis * ancillaryPct;
-        const projektkosten = maxPreis + nebenkosten + puffer;
-        const darlehen = Math.max(0, projektkosten - equity);
-        const beleihung = maxPreis > 0 ? (darlehen / maxPreis) * 100 : 0;
-
-        return {
-          freieRate: freieRate,
-          maxPreis: maxPreis,
-          darlehen: darlehen,
-          beleihung: beleihung
-        };
-      }
-
       function toEuro(value) {
         return new Intl.NumberFormat("de-DE", {
           maximumFractionDigits: 0
@@ -2247,130 +2183,43 @@
         return 1200 + ((children - 2) * 200);
       }
 
-      function collectVorcheck() {
-        const p1Inc = Math.max(0, asNumber(p1Income.value, 0));
-        const p1Fix = Math.max(0, asNumber(p1Fixed.value, 0));
-        const p1Eq = Math.max(0, asNumber(p1Equity.value, 0));
-
-        const two = isCouple.checked;
-        const p2Inc = two ? Math.max(0, asNumber(p2Income.value, 0)) : 0;
-        const p2Fix = two ? Math.max(0, asNumber(p2Fixed.value, 0)) : 0;
-        const p2Eq = two ? Math.max(0, asNumber(p2Equity.value, 0)) : 0;
-
-        const income = p1Inc + p2Inc;
-        const fixed = p1Fix + p2Fix;
-        const equity = p1Eq + p2Eq;
-
-        const zins = Math.min(4, Math.max(2, asNumber(interestPct.value, 3.2)));
-        const ancillaryPct = getNebenkostenProzent();
-        const puffer = getPuffer();
-
-        interestOut.textContent = toPercent(zins);
-
-        const result = maxPreisFromInputs(income, fixed, equity, zins, ancillaryPct, puffer);
-        const objektPreis = Math.max(0, asNumber(targetPrice.value, 0));
-        const quote = objektPreis > 0 ? (result.maxPreis / objektPreis) * 100 : 0;
-
-        calcIncome.value = Math.round(p1Inc);
-        calcIncomeP2.value = Math.round(p2Inc);
-        calcFixed.value = Math.round(fixed);
-        calcEquity.value = Math.round(equity);
-        calcInterest.value = zins.toFixed(1);
-
-        return {
-          income: income,
-          fixed: fixed,
-          equity: equity,
-          objektPreis: objektPreis,
-          visibleQuote: Math.max(0, Math.min(140, quote)),
-          result: result
-        };
-      }
-
-      function getHouseStage(quote) {
-        if (quote <= 0) return 0;
-        if (quote < 30) return 1;
-        if (quote < 55) return 2;
-        if (quote < 75) return 3;
-        if (quote < 95) return 4;
-        return 5;
-      }
-
-      function renderVorcheck() {
-        const data = collectVorcheck();
-        const stage = getHouseStage(data.visibleQuote);
-
-        houseCard.classList.remove("is-hidden");
-        houseCard.setAttribute("data-stage", String(stage));
-        if (houseReveal) {
-          houseReveal.setAttribute("data-stage", String(stage));
-        }
-        housePercent.textContent = toPercent(data.visibleQuote);
-
-        if (data.objektPreis <= 0) {
-          houseText.textContent = "Bitte einen Kaufpreis eingeben.";
-          houseStatus.className = "house-status warn";
-          houseStatus.textContent = "Noch keine vollständige Berechnung möglich.";
-        } else if (data.visibleQuote >= 100) {
-          houseText.textContent = "Das Wunschhaus liegt mit den aktuellen Angaben in eurem machbaren Bereich und wirkt tragbar.";
-          houseStatus.className = "house-status good";
-          houseStatus.textContent = "Sehr solide Ausgangslage. Jetzt geht es um saubere Struktur, Bankvergleich und Zinssicherung.";
-        } else if (data.visibleQuote >= 75) {
-          houseText.textContent = "Das Wunschhaus ist nah dran, aber nicht ganz ohne Spannung. Kleine Stellschrauben können hier viel verändern.";
-          houseStatus.className = "house-status warn";
-          houseStatus.textContent = "Mit guter Struktur kann es passen. Prüft besonders Kaufpreis, Eigenkapital und Nebenkosten sehr sauber.";
-        } else {
-          houseText.textContent = "So wie es jetzt aussieht, wäre dieses Haus finanziell zu ambitioniert und würde euch wahrscheinlich zu eng werden.";
-          houseStatus.className = "house-status bad";
-          houseStatus.textContent = "Besser jetzt ehrlich gegenrechnen als später dauerhaft Druck im Alltag zu haben. Preis, Budget oder Eigenkapital anpassen.";
-        }
-
-        updateRechner();
-      }
-
-      function syncVorcheckOnly() {
-        collectVorcheck();
-        updateRechner();
-        if (precheckActivated) {
-          renderVorcheck();
-        }
-      }
-
       function updateRechner() {
-        const income1 = asNumber(calcIncome.value, 0);
+        if (!calcIncome || !calcFixed || !calcEquity || !calcChildren || !calcInterest) return;
+
+        const income1 = Math.max(0, asNumber(calcIncome.value, 0));
         const secondPersonActive = !!(calcHasSecondPerson && calcHasSecondPerson.checked);
-        const income2 = secondPersonActive ? asNumber(calcIncomeP2.value, 0) : 0;
-        const income = Math.max(0, income1) + Math.max(0, income2);
-        const fixed = Math.max(0, asNumber(calcFixed.value, 0));
+        const income2 = secondPersonActive ? Math.max(0, asNumber(calcIncomeP2 ? calcIncomeP2.value : 0, 0)) : 0;
+        const income = income1 + income2;
+
+        const fixed = rentFallsAway && rentFallsAway.checked ? 0 : Math.max(0, asNumber(calcFixed.value, 0));
         const equity = Math.max(0, asNumber(calcEquity.value, 0));
         const childrenRaw = asNumber(calcChildren.value, 0);
         const children = Math.max(0, Math.floor(childrenRaw));
         const zins = Math.min(4, Math.max(2, asNumber(calcInterest.value, 3.2)));
 
-        const hasInvalid =
-          !Number.isFinite(income1) || income1 < 0 ||
-          (secondPersonActive && (!Number.isFinite(income2) || income2 < 0)) ||
-          !Number.isFinite(fixed) || fixed < 0 ||
-          !Number.isFinite(equity) || equity < 0 ||
-          !Number.isFinite(childrenRaw) || childrenRaw < 0;
+        if (calcInterestOut) calcInterestOut.textContent = toPercent(zins);
 
-        calcInterestOut.textContent = toPercent(zins);
+        const hasInvalid =
+          income <= 0 ||
+          !Number.isFinite(fixed) ||
+          !Number.isFinite(equity) ||
+          !Number.isFinite(childrenRaw) ||
+          childrenRaw < 0;
 
         if (hasInvalid) {
-          calcOutPrice.textContent = toCurrency(0);
-          calcOutRate.textContent = toCurrency(0);
-          calcOutLoan.textContent = toCurrency(0);
+          if (calcOutPrice) calcOutPrice.textContent = "-";
+          if (calcOutRate) calcOutRate.textContent = "-";
+          if (calcOutLoan) calcOutLoan.textContent = "-";
           if (calcExplain) {
             calcExplain.classList.add("error");
-            calcExplain.textContent = "Unplausible Eingabe erkannt. Bitte nur Werte ab 0 eingeben.";
+            calcExplain.textContent = "Bitte Einkommen, Fixkosten, Eigenkapital und Kinder plausibel ausfüllen.";
           }
           return;
         }
 
         const sicherheitspuffer = safetyBufferByChildren(children);
         let leistbareMonatsrate = Math.max(0, income - fixed - sicherheitspuffer);
-        
-        // Anpassung: Begrenze auf max. 30% Belastungsquote für sinnvolle Ergebnisse
+
         const maxRateByQuote = income * 0.3;
         leistbareMonatsrate = Math.min(leistbareMonatsrate, maxRateByQuote);
 
@@ -2386,71 +2235,43 @@
         let darlehensbedarf = gesamtkosten - equity;
         if (darlehensbedarf < 0) darlehensbedarf = 0;
 
-        const belastungsquote = income > 0 ? (leistbareMonatsrate / income) : 1;
-        const nebenkosten = maxKaufpreis * NEBENKOSTEN_QUOTE;
-
-        calcOutPrice.textContent = toCurrency(maxKaufpreis);
-        calcOutRate.textContent = toCurrency(leistbareMonatsrate);
-        calcOutLoan.textContent = toCurrency(darlehensbedarf);
+        if (calcOutPrice) calcOutPrice.textContent = toCurrency(maxKaufpreis);
+        if (calcOutRate) calcOutRate.textContent = toCurrency(leistbareMonatsrate);
+        if (calcOutLoan) calcOutLoan.textContent = toCurrency(darlehensbedarf);
 
         if (calcExplain) {
           calcExplain.classList.remove("error");
-          calcExplain.textContent = "Die Berechnung arbeitet intern mit 10 % Kaufnebenkosten und einem Sicherheitsbudget von " + toEuro(sicherheitspuffer) + " bei " + children + " Kind(ern).";
+          calcExplain.textContent =
+            "Die Berechnung arbeitet mit 10 % Kaufnebenkosten, 2,0 % Tilgung p.a. und einem Sicherheitsbudget von "
+            + toEuro(sicherheitspuffer) + " bei " + children + " Kind(ern).";
         }
       }
 
-      isCouple.addEventListener("change", function () {
-        partnerFields.classList.toggle("hidden", !isCouple.checked);
-        syncVorcheckOnly();
-      });
-
-      [
-        targetPrice, p1Income, p1Fixed, p1Equity, p2Income, p2Fixed, p2Equity,
-        taxOn, taxPct, notaryOn, notaryPct, brokerOn, brokerPct, renoOn, renoAmount,
-        interestPct
-      ].forEach(function (el) {
-        el.addEventListener("input", syncVorcheckOnly);
-      });
-
-      [calcIncome, calcIncomeP2, calcFixed, calcEquity, calcChildren, calcInterest].forEach(function (el) {
-        el.addEventListener("input", updateRechner);
-      });
-
-      const calcBtn = document.getElementById("calcBtn");
-      if (calcBtn) {
-        calcBtn.addEventListener("click", updateRechner);
-      }
-
-
-      calcHasSecondPerson.addEventListener("change", function () {
-        calcPerson2Wrap.classList.toggle("hidden", !this.checked);
-        updateRechner();
-      });
-
-      const rentFallsAway = document.getElementById("rentFallsAway");
-      rentFallsAway.addEventListener("change", function() {
-        if (this.checked) {
-          calcFixed.value = 0;
-          calcFixed.disabled = true;
-        } else {
-          calcFixed.disabled = false;
-        }
-        updateRechner();
-      });
-
-      if (precheckButton) {
-        precheckButton.addEventListener("click", function () {
-          precheckActivated = true;
-          renderVorcheck();
+      if (calcHasSecondPerson && calcPerson2Wrap) {
+        calcHasSecondPerson.addEventListener("change", function () {
+          calcPerson2Wrap.classList.toggle("hidden", !this.checked);
+          updateRechner();
         });
       }
 
-      partnerFields.classList.add("hidden");
-      if (calcPerson2Wrap) {
-        calcPerson2Wrap.classList.add("hidden");
+      if (rentFallsAway && calcFixed) {
+        rentFallsAway.addEventListener("change", function () {
+          if (this.checked) {
+            calcFixed.disabled = true;
+          } else {
+            calcFixed.disabled = false;
+          }
+          updateRechner();
+        });
       }
-      houseCard.setAttribute("data-stage", "0");
-      syncVorcheckOnly();
+
+      [calcIncome, calcIncomeP2, calcFixed, calcEquity, calcChildren, calcInterest].forEach(function (el) {
+        if (el) el.addEventListener("input", updateRechner);
+      });
+
+      if (calcBtn) calcBtn.addEventListener("click", updateRechner);
+
+      updateRechner();
     })();
   </script>
 </body>
