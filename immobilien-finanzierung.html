@@ -368,7 +368,7 @@
       justify-content: center;
       align-items: center;
       min-width: 360px;
-      min-height: 430px;
+      min-height: 420px;
     }
 
     .hero-photo::before {
@@ -392,13 +392,17 @@
       justify-content: center;
       align-items: flex-end;
       gap: 16px;
-      padding: 28px 24px 118px;
+      padding: 28px 24px 112px;
       z-index: 1;
     }
 
     .hero-person {
       display: flex;
-      align-items: flex-end;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      position: relative;
+      z-index: 1;
     }
 
     .hero-image-box {
@@ -416,39 +420,63 @@
       filter: drop-shadow(0 10px 20px rgba(15, 23, 42, 0.16));
     }
 
-    .hero-person.jonas { left: 52px; top: -3px; position: relative; }
-    .hero-person.jonas .hero-image-box img { width: 341px; max-width: none; max-height: 435px; transform: translateY(12px); }
-    .hero-person.timo { left: -40px; top: -3px; position: relative; }
-    .hero-person.timo .hero-image-box img { width: 168px; max-width: none; max-height: 225px; transform: translateY(12px); }
+    .hero-person.jonas { left: 52px; top: -8px; }
+    .hero-person.jonas .hero-image-box img { width: 341px; max-height: 435px; transform: translateY(12px); }
+    .hero-person.timo { left: -40px; top: -8px; }
+    .hero-person.timo .hero-image-box img { width: 168px; max-height: 225px; transform: translateY(12px); }
 
     .hero-card {
       position: absolute;
-      bottom: -12px;
-      right: 52px;
+      bottom: 18px;
+      right: 57px;
       background: #fff;
-      padding: 16px 22px;
-      border-radius: 20px;
+      padding: 18px 30px;
+      border-radius: 22px;
       border: 1px solid rgba(148, 163, 184, 0.6);
       box-shadow: 0 8px 20px rgba(15, 23, 42, 0.18);
       z-index: 3;
-      width: 338px;
+      width: 333px;
       color: var(--muted);
     }
 
     .hero-card h3 {
-      margin: 0 0 8px;
+      margin: 0 0 10px;
       color: var(--primary);
       font-family: "Raleway", system-ui, sans-serif;
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       text-align: center;
       font-weight: 800;
     }
 
     .hero-card ul {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       margin: 0;
-      padding-left: 1.1rem;
-      font-size: 0.83rem;
+      padding: 0;
+      list-style: none;
     }
+
+    .hero-card li {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 0.55rem;
+      margin-bottom: 0.3rem;
+      font-size: 0.82rem;
+      text-align: center;
+    }
+
+    .hero-card li::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent);
+      margin-top: 0.42rem;
+      flex: 0 0 8px;
+    }
+
     .contact-strip {
       margin-top: 1rem;
       display: grid;
@@ -1592,6 +1620,16 @@
       h2 { font-size: 1.1rem; }
       main { padding: 1rem 0.6rem 1.5rem; }
     }
+
+    @media (min-width: 768px) {
+      .cta-row .btn-primary {
+        flex: 0 0 100%;
+      }
+      .cta-row .btn-wa,
+      .cta-row .btn-secondary {
+        flex: 1 1 0;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1615,7 +1653,7 @@
         </button>
       </div>
 
-       <div class="menu-overlay" id="menuOverlay"></div>
+      <div class="menu-overlay" id="menuOverlay"></div>
       <nav class="menu-panel" id="menuPanel" aria-label="Navigation">
         <div class="menu-header">
           <span class="menu-header-title">Menü</span>
@@ -1624,7 +1662,7 @@
         <div class="menu-content">
           <section class="menu-section">
             <h2 class="menu-section-title">Startseite</h2>
-            <ul class="menu-section-links"><li><a href="index.html">Themenauswahl</a></li></ul>
+            <ul class="menu-section-links"><li><a href="leistung.html">Leistungen</a></li></ul>
           </section>
           <section class="menu-section">
             <h2 class="menu-section-title">Angestellt</h2>
@@ -1632,8 +1670,9 @@
               <li><a href="vermoegen-aufbauen-investieren.html">Vermögen aufbauen</a></li>
               <li><a href="bav.html">bAV</a></li>
               <li><a href="arbeitskraftabsicherung.html">Arbeitskraft absichern</a></li>
+              <li><a href="risikoleben.html">Familie absichern</a></li>
               <li><a href="sachversicherungen.html">Sachversicherungen</a></li>
-              <li><a href="immobilien-finanzierung.html"class="active">Immobilien &amp; Finanzierung</a></li>
+              <li><a href="immobilien-finanzierung.html" class="active">Immobilien &amp; Finanzierung</a></li>
             </ul>
           </section>
           <section class="menu-section">
@@ -1649,9 +1688,9 @@
             <h2 class="menu-section-title">Unternehmer &amp; Selbstständig</h2>
             <ul class="menu-section-links">
               <li><a href="liquiditaet.html">Liquidität</a></li>
-              <li><a href="betriebliche-krankenversicherung.html">Betriebliche Krankenversicherung</a></li>
+              <li><a href="mitarbeiter-benefits.html">Betriebliche Krankenversicherung</a></li>
               <li><a href="energie.html">Energie</a></li>
-              <li><a href="betriebliche-sachversicherung.html">Unternehmer absichern</a></li>
+              <li><a href="betriebliche-sachversicherung.html">Betriebliche Sachversicherungen</a></li>
               <li><a href="ruerup.html">Rürup</a></li>
             </ul>
           </section>
@@ -1665,7 +1704,7 @@
         </div>
       </nav>
     </div>
-    
+
     <header class="hero">
       <div class="hero-inner">
         <div class="hero-text">
@@ -1885,7 +1924,7 @@
             <div class="card-title">Bausparer zur Zinssicherung</div>
             <p class="small-note" style="margin:0 0 0.75rem; font-size:0.9rem;">Bausparen ist nicht nur ein Sparvertrag, sondern oft ein Werkzeug, um sich heute schon einen künftigen Darlehenszins zu sichern. Gerade bei langer Planung oder Anschlussfinanzierung kann das strategisch stark sein.</p>
             <details class="more-toggle">
-              <summary>Mit dem Aufklappen starten die Details und Stichpunkte</summary>
+              
               <ul>
                 <li>Bausparmodelle können niedrige Darlehenszinsen absichern, z.B. 0,95 % im Darlehenstarif.</li>
                 <li>Interessant für planbare Anschlussfinanzierung, Modernisierung oder spätere Teilentschuldung.</li>
@@ -1943,20 +1982,22 @@
       </section>
 
       <section id="kontakt">
-        <div class="kontakt-box">
-          <h2>Jetzt eure Immobilienfinanzierung persönlich sortieren</h2>
-          <p>Wir schauen gemeinsam, welcher Kaufpreis wirklich tragbar ist, wie die Nebenkosten sauber eingeplant werden und welche Zinsstrategie zu eurer Lebensphase passt.</p>
-          <div class="kontakt-btn-row">
-            <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-primary">Immobilienfinanzierung gemeinsam sortieren</a>
-            <a href="https://wa.me/4915141678134" target="_blank" rel="noopener" class="btn-wa">Jonas via WhatsApp</a>
-            <a href="https://wa.me/4917663796605" target="_blank" rel="noopener" class="btn-secondary">Timo via WhatsApp</a>
+        <div class="contact-strip animate-on-scroll">
+          <div class="contact-card">
+            <div class="contact-name">Jonas Plener</div>
+            <div class="contact-role">Finanzberater</div>
+            <div class="contact-links">
+              <a href="tel:+4915141678134">0151 41678134</a>
+              <a href="mailto:Jonas.Plener@dvag.de">Jonas.Plener@dvag.de</a>
+            </div>
           </div>
-          <div class="kontakt-mini-row">
-            <a href="tel:+4915141678134" class="kontakt-mini-link">Jonas: 0151 41678134</a>
-            <span style="color:var(--border);">|</span>
-            <a href="tel:+4917663796605" class="kontakt-mini-link">Timo: 0176 63796605</a>
-            <span style="color:var(--border);">|</span>
-            <a href="leistung.html" class="kontakt-mini-link">Alle Leistungen →</a>
+          <div class="contact-card">
+            <div class="contact-name">Timo Hügel</div>
+            <div class="contact-role">Finanzberater</div>
+            <div class="contact-links">
+              <a href="tel:+4917663796605">0176 63796605</a>
+              <a href="mailto:Timo.Huegel@dvag.de">Timo.Huegel@dvag.de</a>
+            </div>
           </div>
         </div>
       </section>
@@ -2319,7 +2360,3 @@
   </script>
 </body>
 </html>
-
-
-
-
