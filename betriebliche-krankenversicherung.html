@@ -445,8 +445,10 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      align-self: flex-start;
       min-width: 360px;
-      min-height: 430px;
+      min-height: 420px;
+      margin-top: 0.2rem;
     }
 
     .hero-photo::before {
@@ -470,13 +472,17 @@
       justify-content: center;
       align-items: flex-end;
       gap: 16px;
-      padding: 28px 24px 118px;
+      padding: 28px 24px 112px;
       z-index: 1;
     }
 
     .hero-person {
       display: flex;
-      align-items: flex-end;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      position: relative;
+      z-index: 1;
     }
 
     .hero-image-box {
@@ -494,38 +500,82 @@
       filter: drop-shadow(0 10px 20px rgba(15, 23, 42, 0.16));
     }
 
-    .hero-person.jonas { left: 52px; top: -3px; position: relative; }
-    .hero-person.jonas .hero-image-box img { width: 341px; max-width: none; max-height: 435px; transform: translateY(12px); }
-    .hero-person.timo { left: -40px; top: -3px; position: relative; }
-    .hero-person.timo .hero-image-box img { width: 168px; max-width: none; max-height: 225px; transform: translateY(12px); }
+    .hero-person.jonas {
+      left: 52px;
+      top: -8px;
+    }
+
+    .hero-person.jonas .hero-image-box img {
+      width: 341px;
+      max-height: 435px;
+      transform: translateY(12px);
+    }
+
+    .hero-person.timo {
+      left: -40px;
+      top: -8px;
+    }
+
+    .hero-person.timo .hero-image-box img {
+      width: 168px;
+      max-height: 225px;
+      transform: translateY(12px);
+    }
+
+    .hero-name {
+      display: none;
+    }
 
     .hero-card {
       position: absolute;
-      bottom: 10px;
-      right: 52px;
+      bottom: 8px;
+      right: 57px;
       background: #fff;
-      padding: 16px 22px;
-      border-radius: 20px;
+      padding: 18px 30px;
+      border-radius: 22px;
       border: 1px solid rgba(148, 163, 184, 0.6);
       box-shadow: 0 8px 20px rgba(15, 23, 42, 0.18);
       z-index: 3;
-      width: 338px;
+      width: 333px;
       color: var(--muted);
     }
 
     .hero-card h3 {
-      margin: 0 0 8px;
+      margin: 0 0 10px;
       color: var(--primary);
       font-family: "Raleway", system-ui, sans-serif;
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       text-align: center;
       font-weight: 800;
     }
 
     .hero-card ul {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       margin: 0;
-      padding-left: 1.1rem;
-      font-size: 0.83rem;
+      padding: 0;
+      list-style: none;
+    }
+
+    .hero-card li {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 0.55rem;
+      margin-bottom: 0.3rem;
+      font-size: 0.82rem;
+      text-align: center;
+    }
+
+    .hero-card li::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent);
+      margin-top: 0.42rem;
+      flex: 0 0 8px;
     }
 
     .contact-strip {
@@ -1353,17 +1403,20 @@
         </button>
       </div>
 
-       <div class="menu-overlay" id="menuOverlay"></div>
+      <div class="menu-overlay" id="menuOverlay"></div>
+
       <nav class="menu-panel" id="menuPanel" aria-label="Navigation">
         <div class="menu-header">
           <span class="menu-header-title">Menü</span>
           <button type="button" class="menu-close-btn" aria-label="Menü schließen">✕</button>
         </div>
+
         <div class="menu-content">
           <section class="menu-section">
             <h2 class="menu-section-title">Startseite</h2>
             <ul class="menu-section-links"><li><a href="index.html">Themenauswahl</a></li></ul>
           </section>
+
           <section class="menu-section">
             <h2 class="menu-section-title">Angestellt</h2>
             <ul class="menu-section-links">
@@ -1374,6 +1427,7 @@
               <li><a href="immobilien-finanzierung.html">Immobilien &amp; Finanzierung</a></li>
             </ul>
           </section>
+
           <section class="menu-section">
             <h2 class="menu-section-title">Eltern &amp; Familie</h2>
             <ul class="menu-section-links">
@@ -1383,16 +1437,18 @@
               <li><a href="risikoleben.html">Familie absichern</a></li>
             </ul>
           </section>
+
           <section class="menu-section">
             <h2 class="menu-section-title">Unternehmer &amp; Selbstständig</h2>
             <ul class="menu-section-links">
               <li><a href="liquiditaet.html">Liquidität</a></li>
-              <li><a href="betriebliche-krankenversicherung.html"class="active">Betriebliche Krankenversicherung</a></li>
+              <li><a href="betriebliche-krankenversicherung.html" class="active">Betriebliche Krankenversicherung</a></li>
               <li><a href="energie.html">Energie</a></li>
               <li><a href="betriebliche-sachversicherung.html">Unternehmer absichern</a></li>
               <li><a href="ruerup.html">Rürup</a></li>
             </ul>
           </section>
+
           <section class="menu-section">
             <h2 class="menu-section-title">Karriere &amp; Ausbildung</h2>
             <ul class="menu-section-links">
@@ -1585,14 +1641,7 @@
                   <button type="button" class="roi-stepper-btn" data-target="roi-au" data-delta="0.5" aria-label="AU-Tage erhöhen">+</button>
                 </div>
               </div>
-              <div class="roi-field">
-                <label>Geplante Reduktion AU-Tage pro MA</label>
-                <div class="roi-stepper">
-                  <button type="button" class="roi-stepper-btn" data-target="roi-redtage" data-delta="-0.5" aria-label="Reduktion verringern">−</button>
-                  <input type="number" id="roi-redtage" value="2" min="0" max="20" step="0.5" />
-                  <button type="button" class="roi-stepper-btn" data-target="roi-redtage" data-delta="0.5" aria-label="Reduktion erhöhen">+</button>
-                </div>
-              </div>
+
             </div>
 
             <div class="roi-ergebnis" id="roi-ergebnis"></div>
@@ -1670,20 +1719,22 @@
       </section>
 
       <section id="kontakt">
-        <div class="kontakt-box animate-on-scroll">
-          <h2>Jetzt bKV für deinen Betrieb prüfen</h2>
-          <p>Wir zeigen dir, welche Lösung zu deiner Betriebsgröße passt, wie viel du gegenüber einer Gehaltserhöhung sparst und wie die Einführung unkompliziert läuft.</p>
-          <div class="kontakt-btn-row">
-            <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-primary">bKV für deinen Betrieb anfragen</a>
-            <a href="https://wa.me/4915141678134" target="_blank" rel="noopener" class="btn-wa">Jonas via WhatsApp</a>
-            <a href="https://wa.me/4917663796605" target="_blank" rel="noopener" class="btn-secondary">Timo via WhatsApp</a>
+        <div class="contact-strip animate-on-scroll">
+          <div class="contact-card">
+            <div class="contact-name">Jonas Plener</div>
+            <div class="contact-role">Finanzberater</div>
+            <div class="contact-links">
+              <a href="tel:+4915141678134">0151 41678134</a>
+              <a href="mailto:Jonas.Plener@dvag.de">Jonas.Plener@dvag.de</a>
+            </div>
           </div>
-          <div class="kontakt-mini-row">
-            <a href="tel:+4915141678134" class="kontakt-mini-link">Jonas: 0151 41678134</a>
-            <span style="color:var(--border);">|</span>
-            <a href="tel:+4917663796605" class="kontakt-mini-link">Timo: 0176 63796605</a>
-            <span style="color:var(--border);">|</span>
-            <a href="leistung.html" class="kontakt-mini-link">Alle Leistungen →</a>
+          <div class="contact-card">
+            <div class="contact-name">Timo Hügel</div>
+            <div class="contact-role">Finanzberater</div>
+            <div class="contact-links">
+              <a href="tel:+4917663796605">0176 63796605</a>
+              <a href="mailto:Timo.Huegel@dvag.de">Timo.Huegel@dvag.de</a>
+            </div>
           </div>
         </div>
       </section>
@@ -1803,7 +1854,7 @@
         const kostenProTag = 400;
         const ma = Math.max(1, parseInt(document.getElementById("roi-ma").value, 10) || 1);
         const auTageProMA = Math.max(0, parseFloat(document.getElementById("roi-au").value) || 0);
-        const reduzierteTageProMA = Math.max(0, parseFloat(document.getElementById("roi-redtage").value) || 0);
+        const reduzierteTageProMA = 2;
 
         const auTageGesamt = ma * auTageProMA;
         const wegfallendeTage = Math.min(auTageGesamt, ma * reduzierteTageProMA);
@@ -1837,7 +1888,7 @@
       }
 
       document.addEventListener("DOMContentLoaded", function () {
-        ["roi-ma", "roi-au", "roi-redtage"].forEach(function (id) {
+        ["roi-ma", "roi-au"].forEach(function (id) {
           const el = document.getElementById(id);
           if (el) el.addEventListener("input", berechne);
         });
