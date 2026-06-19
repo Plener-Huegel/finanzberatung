@@ -368,7 +368,7 @@
       justify-content: center;
       align-items: center;
       min-width: 360px;
-      min-height: 430px;
+      min-height: 420px;
     }
 
     .hero-photo::before {
@@ -392,13 +392,17 @@
       justify-content: center;
       align-items: flex-end;
       gap: 16px;
-      padding: 28px 24px 118px;
+      padding: 28px 24px 112px;
       z-index: 1;
     }
 
     .hero-person {
       display: flex;
-      align-items: flex-end;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      position: relative;
+      z-index: 1;
     }
 
     .hero-image-box {
@@ -416,38 +420,41 @@
       filter: drop-shadow(0 10px 20px rgba(15, 23, 42, 0.16));
     }
 
-    .hero-person.jonas { left: 80px; top: -6px; position: relative; }
-    .hero-person.jonas .hero-image-box img { width: 381px; max-width: none; max-height: 475px; transform: translateY(12px); }
-    .hero-person.timo { left: -5px; top: -3px; position: relative; }
-    .hero-person.timo .hero-image-box img { width: 178px; max-width: none; max-height: 235px; transform: translateY(12px); }
+    .hero-person.jonas { left: 52px; top: -8px; }
+    .hero-person.jonas .hero-image-box img { width: 341px; max-height: 435px; transform: translateY(12px); }
+    .hero-person.timo { left: -40px; top: -8px; }
+    .hero-person.timo .hero-image-box img { width: 168px; max-height: 225px; transform: translateY(12px); }
 
     .hero-card {
       position: absolute;
-      bottom: -12px;
-      right: 52px;
+      bottom: 18px;
+      right: 57px;
       background: #fff;
-      padding: 16px 22px;
-      border-radius: 20px;
+      padding: 18px 30px;
+      border-radius: 22px;
       border: 1px solid rgba(148, 163, 184, 0.6);
       box-shadow: 0 8px 20px rgba(15, 23, 42, 0.18);
       z-index: 3;
-      width: 338px;
+      width: 333px;
       color: var(--muted);
     }
 
     .hero-card h3 {
-      margin: 0 0 8px;
+      margin: 0 0 10px;
       color: var(--primary);
       font-family: "Raleway", system-ui, sans-serif;
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       text-align: center;
       font-weight: 800;
     }
 
     .hero-card ul {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       margin: 0;
-      padding-left: 1.1rem;
-      font-size: 0.83rem;
+      padding: 0;
+      list-style: none;
     }
 
     .hero-card li {
@@ -864,16 +871,6 @@
       background: #f9fafb;
     }
 
-    @media (min-width: 768px) {
-      .cta-row .btn-primary {
-        flex: 0 0 100%;
-      }
-      .cta-row .btn-wa,
-      .cta-row .btn-secondary {
-        flex: 1 1 0;
-      }
-    }
-
     @media (max-width: 767px) {
       .topbar { padding-inline: 1rem; }
       .menu-panel { width: 100vw; }
@@ -886,26 +883,59 @@
       .hero-photo {
         min-width: 0;
         flex: 1 1 100%;
-        min-height: 330px;
+        min-height: 320px;
+        overflow: visible;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 0 0 10px;
       }
       .hero-photo::before {
-        width: 300px;
-        height: 300px;
+        width: min(270px, 86vw);
+        height: min(270px, 86vw);
+        top: 8px;
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 0.7;
       }
       .hero-people {
-        padding: 22px 10px 120px;
-        gap: 8px;
+        position: relative;
+        width: min(100%, 320px);
+        min-height: 220px;
+        padding: 4px 0 0;
+        gap: 0;
+        align-items: flex-end;
+        justify-content: center;
+        z-index: 2;
       }
-      .hero-person.jonas { left: 20px; }
-      .hero-person.jonas .hero-image-box img { width: 230px; }
-      .hero-person.timo { left: -20px; }
-      .hero-person.timo .hero-image-box img { width: 130px; }
+      .hero-person {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        right: auto;
+        transform: none;
+        display: flex;
+        align-items: flex-end;
+        margin: 0;
+        z-index: auto;
+      }
+      .hero-person.jonas { margin-left: 0; margin-right: -10px; z-index: 2; transform: translate(0px, 10px); }
+      .hero-person.timo { margin-left: -10px; margin-right: 0; z-index: 1; transform: translate(-80px, 10px); }
+      .hero-image-box { width: auto; height: auto; display: flex; align-items: flex-end; justify-content: center; }
+      .hero-person.jonas .hero-image-box { width: min(348px, 100vw); }
+      .hero-person.jonas .hero-image-box img { width: min(362px, 104vw); max-width: 362px; max-height: none; transform: none; }
+      .hero-person.timo .hero-image-box { width: min(168px, 48vw); }
+      .hero-person.timo .hero-image-box img { width: min(176px, 50vw); max-width: 176px; max-height: none; transform: none; }
       .hero-card {
-        right: 50%;
-        transform: translateX(50%);
-        width: min(92vw, 340px);
-        bottom: 8px;
-        padding: 14px 18px;
+        position: relative;
+        right: auto;
+        bottom: auto;
+        transform: none;
+        width: min(92vw, 300px);
+        margin: 8px auto 0;
+        padding: 12px 14px;
+        z-index: 3;
       }
       .contact-strip { grid-template-columns: 1fr; }
       .cta-row,
@@ -923,7 +953,7 @@
         max-height: 88vh;
       }
     }
-
+  
     /* Responsive: iPhone Mini & kleine Android Phones (375px - 414px) */
     @media (max-width: 414px) {
       body { font-size: 14px; }
@@ -939,6 +969,15 @@
       .cta-row { gap: 0.4rem; flex-direction: column; }
       .btn-primary, .btn-secondary, .btn-wa, .btn-gold { padding: 0.7rem 1rem; font-size: 0.85rem; width: 100%; }
       .hero-photo { min-height: 280px; }
+      .hero-photo::before { width: min(240px, 82vw); height: min(240px, 82vw); top: 2px; }
+      .hero-people { width: min(100%, 300px); min-height: 200px; }
+      .hero-person.jonas { transform: translate(0px, 10px); }
+      .hero-person.timo { transform: translate(-80px, 10px); }
+      .hero-person.jonas .hero-image-box { width: min(305px, 92vw); }
+      .hero-person.jonas .hero-image-box img { max-width: 318px; }
+      .hero-person.timo .hero-image-box { width: min(154px, 46vw); }
+      .hero-person.timo .hero-image-box img { max-width: 162px; }
+      .hero-card { width: min(94vw, 290px); padding: 11px 12px; }
       main { padding: 1.2rem 0.8rem 1.8rem; }
       h2 { font-size: 1.2rem; }
       .grid-3, .grid-2 { grid-template-columns: 1fr; }
@@ -980,7 +1019,7 @@
         </button>
       </div>
 
-       <div class="menu-overlay" id="menuOverlay"></div>
+      <div class="menu-overlay" id="menuOverlay"></div>
       <nav class="menu-panel" id="menuPanel" aria-label="Navigation">
         <div class="menu-header">
           <span class="menu-header-title">Menü</span>
@@ -997,7 +1036,8 @@
               <li><a href="vermoegen-aufbauen-investieren.html">Vermögen aufbauen</a></li>
               <li><a href="bav.html">bAV</a></li>
               <li><a href="arbeitskraftabsicherung.html">Arbeitskraft absichern</a></li>
-              <li><a href="sachversicherungen.html"class="active">Sachversicherungen</a></li>
+              <li><a href="risikoleben.html">Familie absichern</a></li>
+              <li><a href="sachversicherungen.html" class="active">Sachversicherungen</a></li>
               <li><a href="immobilien-finanzierung.html">Immobilien &amp; Finanzierung</a></li>
             </ul>
           </section>
@@ -1014,9 +1054,9 @@
             <h2 class="menu-section-title">Unternehmer &amp; Selbstständig</h2>
             <ul class="menu-section-links">
               <li><a href="liquiditaet.html">Liquidität</a></li>
-              <li><a href="betriebliche-krankenversicherung.html">Betriebliche Krankenversicherung</a></li>
+              <li><a href="mitarbeiter-benefits.html">Betriebliche Krankenversicherung</a></li>
               <li><a href="energie.html">Energie</a></li>
-              <li><a href="betriebliche-sachversicherung.html">Unternehmer absichern</a></li>
+              <li><a href="betriebliche-sachversicherung.html">Betriebliche Sachversicherungen</a></li>
               <li><a href="ruerup.html">Rürup</a></li>
             </ul>
           </section>
@@ -1360,24 +1400,21 @@
         </div>
       </section>
 
-      <!-- KONTAKT -->
       <section id="kontakt">
-        <div class="contact-strip">
-          <div class="contact-card">
-            <div class="contact-name">Jonas Plener</div>
-            <div class="contact-role">Finanzberater</div>
-            <div class="contact-links">
-              <a href="tel:+4915141678134">0151 41678134</a>
-              <a href="mailto:Jonas.Plener@dvag.de">Jonas.Plener@dvag.de</a>
-            </div>
+        <div class="kontakt-box">
+          <h2>Jetzt eure Sachversicherungen persönlich sortieren</h2>
+          <p>Wir schauen gemeinsam, welche Risiken euch im Alltag wirklich treffen können, welche Bausteine Pflicht sind und was ihr bewusst weglassen könnt.</p>
+          <div class="kontakt-btn-row">
+            <a href="https://forms.cloud.microsoft/e/DYguRWAj0N" target="_blank" rel="noopener" class="btn-primary">Sachversicherungen gemeinsam sortieren</a>
+            <a href="https://wa.me/4915141678134" target="_blank" rel="noopener" class="btn-wa">Jonas via WhatsApp</a>
+            <a href="https://wa.me/4917663796605" target="_blank" rel="noopener" class="btn-secondary">Timo via WhatsApp</a>
           </div>
-          <div class="contact-card">
-            <div class="contact-name">Timo Hügel</div>
-            <div class="contact-role">Finanzberater</div>
-            <div class="contact-links">
-              <a href="tel:+4917663796605">0176 63796605</a>
-              <a href="mailto:Timo.Huegel@dvag.de">Timo.Huegel@dvag.de</a>
-            </div>
+          <div class="kontakt-mini-row">
+            <a href="tel:+4915141678134" class="kontakt-mini-link">Jonas: 0151 41678134</a>
+            <span style="color:var(--border);">|</span>
+            <a href="tel:+4917663796605" class="kontakt-mini-link">Timo: 0176 63796605</a>
+            <span style="color:var(--border);">|</span>
+            <a href="leistung.html" class="kontakt-mini-link">Alle Leistungen →</a>
           </div>
         </div>
       </section>
@@ -1474,3 +1511,7 @@
   </script>
 </body>
 </html>
+
+
+
+
