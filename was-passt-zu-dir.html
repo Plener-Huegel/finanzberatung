@@ -18,7 +18,7 @@
       --text:       #050809;
       --text-light: #0f1419;
       --muted:      #3d4652;
-      --bg:         #ebe4db;
+      --bg:         #f7fafc;
       --card-bg:    rgba(255, 255, 255, 0.49);
       --card-bg-dark: rgba(248, 245, 240, 0.38);
       --white:      #ffffff;
@@ -32,7 +32,7 @@
 
     body {
       font-family: "Arimo", system-ui, -apple-system, sans-serif;
-      background: #ebe4db;
+      background: #f7fafc;
       min-height: 100vh;
       color: var(--text);
       position: relative;
@@ -170,25 +170,25 @@
     .cat-card:active::after { opacity: 1; }
 
     .cat-card.angestellt {
-      background: linear-gradient(148deg, rgba(61,101,105,.56) 0%, rgba(42,69,71,.56) 100%);
+      background: linear-gradient(148deg, #0f4c81 0%, #1f6fb2 100%);
       color: #fff;
       backdrop-filter: blur(12px);
       border-color: rgba(61,101,105,.3);
     }
     .cat-card.unternehmer {
-      background: linear-gradient(148deg, rgba(10,77,72,.51) 0%, rgba(14,96,130,.51) 100%);
+      background: linear-gradient(148deg, #0b6b5a 0%, #11a088 100%);
       color: #fff;
       backdrop-filter: blur(12px);
       border-color: rgba(10,77,72,.25);
     }
     .cat-card.eltern {
-      background: linear-gradient(148deg, rgba(217,155,48,.54) 0%, rgba(184,122,20,.54) 100%);
+      background: linear-gradient(148deg, #d58a00 0%, #f4b63f 100%);
       color: #1a1200;
       backdrop-filter: blur(12px);
       border-color: rgba(217,155,48,.3);
     }
     .cat-card.start {
-      background: linear-gradient(148deg, rgba(79,70,229,.51) 0%, rgba(124,58,237,.51) 100%);
+      background: linear-gradient(148deg, #4b3df0 0%, #7b61ff 100%);
       color: #fff;
       backdrop-filter: blur(12px);
       border-color: rgba(79,70,229,.25);
@@ -327,10 +327,17 @@
   <section class="screen active" id="screen-1" aria-label="Themenauswahl">
 
     <p class="intro-label">Deine Finanzthemen</p>
-    <h1 class="screen-headline">Was passt gerade <em>am besten</em> zu dir?</h1>
+    <h1 class="screen-headline">Was passt <em>am besten</em> zu dir?</h1>
     <p class="screen-sub">Wähle dein Thema – in 2 Klicks zu den passenden Infos.</p>
 
-    <div class="cards-grid">
+    
+<div style="text-align:center;margin:0 0 1.5rem 0;">
+<img src="Timo Jonas Website funnel.png"
+alt="Jonas Plener und Timo Hügel"
+style="width:100%;max-width:420px;height:auto;display:block;margin:0 auto;">
+</div>
+
+<div class="cards-grid">
 
       <button class="cat-card angestellt" onclick="showScreen2('angestellt')" aria-label="Kategorie: Angestellt">
         <span class="card-icon">💼</span>
