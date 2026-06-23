@@ -1151,7 +1151,30 @@
       }
     }
 
-  </style>
+  
+/* Nur Mobil: Zurück nach oben */
+@media (max-width:767px){
+  .back-to-top-mobile{
+    display:flex;
+    justify-content:center;
+    margin-top:1rem;
+    margin-bottom:1rem;
+    width:100%;
+  }
+
+  .back-to-top-mobile .btn-primary{
+    width:100%;
+    max-width:100%;
+  }
+}
+
+@media (min-width:768px){
+  .back-to-top-mobile{
+    display:none !important;
+  }
+}
+
+</style>
 </head>
 <body>
   <div class="page">
@@ -1598,7 +1621,13 @@
           </div>
         </div>
       </section>
+
+      <div class="back-to-top-mobile">
+        <a href="#" class="btn-primary">↑ Zurück nach oben</a>
+      </div>
+
 </main>
+
 
     <footer>
       Diese Seite ersetzt keine individuelle Rechts-, Steuer- oder Sozialversicherungsberatung.
@@ -1701,6 +1730,5 @@
   </script>
 </body>
 </html>
-
 
 
