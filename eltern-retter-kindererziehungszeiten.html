@@ -1021,6 +1021,142 @@
   }
 }
 
+
+/* Desktop-Aufbau wie Riester */
+@media (min-width:768px){
+  header.hero{
+    padding:2.2rem 1.6rem 2.1rem !important;
+  }
+
+  .hero-inner{
+    display:flex !important;
+    flex-wrap:wrap !important;
+    gap:2rem !important;
+    align-items:center !important;
+  }
+
+  .hero-text{
+    flex:1 1 260px !important;
+    min-width:0 !important;
+  }
+
+  .hero-lead{
+    max-width:44rem !important;
+  }
+
+  .cta-row{
+    display:flex !important;
+    flex-wrap:wrap !important;
+    gap:.8rem !important;
+    align-items:stretch !important;
+    margin-top:1rem !important;
+  }
+
+  .btn-primary,
+  .btn-secondary,
+  .btn-wa{
+    padding:0 1.7rem !important;
+    min-height:54px !important;
+    height:54px !important;
+    line-height:1.2 !important;
+    flex:0 0 auto !important;
+    white-space:nowrap !important;
+  }
+
+  .hero-photo{
+    flex:0 0 450px !important;
+    position:relative !important;
+    display:flex !important;
+    justify-content:center !important;
+    align-items:center !important;
+    min-width:360px !important;
+    min-height:430px !important;
+  }
+
+  .hero-photo::before{
+    width:360px !important;
+    height:360px !important;
+    top:0 !important;
+    left:50% !important;
+    transform:translateX(-50%) !important;
+  }
+
+  .hero-people{
+    position:absolute !important;
+    inset:0 !important;
+    display:flex !important;
+    justify-content:center !important;
+    align-items:flex-end !important;
+    gap:16px !important;
+    padding:28px 24px 118px !important;
+    z-index:1 !important;
+  }
+
+  .hero-person{
+    display:flex !important;
+    align-items:flex-end !important;
+  }
+
+  .hero-image-box{
+    width:210px !important;
+    height:290px !important;
+    display:flex !important;
+    align-items:flex-end !important;
+    justify-content:center !important;
+  }
+
+  .hero-person.jonas{
+    left:52px !important;
+    top:-3px !important;
+    position:relative !important;
+  }
+
+  .hero-person.jonas .hero-image-box img{
+    width:341px !important;
+    max-width:none !important;
+    max-height:435px !important;
+    transform:translateY(12px) !important;
+  }
+
+  .hero-person.timo{
+    left:-40px !important;
+    top:-3px !important;
+    position:relative !important;
+  }
+
+  .hero-person.timo .hero-image-box img{
+    width:168px !important;
+    max-width:none !important;
+    max-height:225px !important;
+    transform:translateY(12px) !important;
+  }
+
+  .hero-card{
+    position:absolute !important;
+    bottom:-12px !important;
+    right:52px !important;
+    background:#fff !important;
+    padding:16px 22px !important;
+    border-radius:20px !important;
+    border:1px solid rgba(148,163,184,.6) !important;
+    box-shadow:0 8px 20px rgba(15,23,42,.18) !important;
+    z-index:3 !important;
+    width:338px !important;
+    color:var(--muted) !important;
+  }
+
+  .hero-card h3{
+    margin:0 0 8px !important;
+    font-size:.9rem !important;
+  }
+
+  .hero-card ul{
+    margin:0 !important;
+    padding-left:1.1rem !important;
+    font-size:.83rem !important;
+  }
+}
+
 </style>
 </head>
 <body id="top">
@@ -1121,8 +1257,6 @@
           </div>
         </div>
 
-        </div>
-
         <div class="hero-photo">
           <div class="hero-people">
             <div class="hero-person jonas"><div class="hero-image-box"><img src="jonas-halbkoerper.png" alt="Jonas Plener" /></div></div>
@@ -1188,6 +1322,11 @@
               <div class="field">
                 <label for="children">Wie viele Kinder werden berücksichtigt?</label>
                 <input type="number" id="children" min="0" max="10" step="1" placeholder="Anzahl der Kinder" />
+              </div>
+              <div class="calc-btn-row">
+                <button type="button" class="btn-primary" onclick="calculatePension()">
+                  Ergebnis berechnen
+                </button>
               </div>
             </div>
 
