@@ -6,9 +6,7 @@
   <title>Festival Gewinnspiel | PH Finanzen</title>
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -40,12 +38,6 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 36px;
-      align-items: start;
-    }
-
-    .left-side {
-      position: sticky;
-      top: 30px;
     }
 
     .badge {
@@ -72,47 +64,6 @@
       line-height: 1.5;
     }
 
-    .prizes {
-      display: grid;
-      gap: 14px;
-      margin-bottom: 24px;
-    }
-
-    .prize {
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 18px;
-      padding: 18px;
-      font-size: 19px;
-      font-weight: 700;
-    }
-
-    .info-box {
-      margin-top: 20px;
-      padding: 16px;
-      border-radius: 18px;
-      background: rgba(244, 190, 105, 0.12);
-      border: 1px solid rgba(244, 190, 105, 0.35);
-      color: #fef3c7;
-      font-size: 15px;
-      line-height: 1.5;
-    }
-
-    form {
-      display: grid;
-      gap: 14px;
-    }
-
-    input[type="text"],
-    input[type="email"],
-    input[type="tel"] {
-      width: 100%;
-      padding: 15px 16px;
-      border-radius: 14px;
-      border: none;
-      font-size: 16px;
-      outline: none;
-    }
-
     .section-title {
       margin-top: 12px;
       font-size: 20px;
@@ -126,9 +77,57 @@
       margin-bottom: 4px;
     }
 
-    .checkbox-group {
+    .prizes,
+    .checkbox-group,
+    form {
       display: grid;
-      gap: 10px;
+      gap: 12px;
+    }
+
+    .prize {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 18px;
+      padding: 18px;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid transparent;
+    }
+
+    .prize input {
+      width: 20px;
+      height: 20px;
+      accent-color: #f4be69;
+    }
+
+    .prize:has(input:checked) {
+      background: rgba(244, 190, 105, 0.25);
+      border-color: #f4be69;
+    }
+
+    .info-box {
+      margin-top: 20px;
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(244, 190, 105, 0.12);
+      border: 1px solid rgba(244, 190, 105, 0.35);
+      color: #fef3c7;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"] {
+      width: 100%;
+      padding: 15px 16px;
+      border-radius: 14px;
+      border: none;
+      font-size: 16px;
+      outline: none;
     }
 
     label.checkbox {
@@ -167,7 +166,6 @@
       font-size: 18px;
       font-weight: 900;
       cursor: pointer;
-      transition: transform 0.2s ease, background 0.2s ease;
       text-decoration: none;
       display: inline-block;
       text-align: center;
@@ -175,7 +173,6 @@
 
     button:hover,
     .bonus-button:hover {
-      transform: translateY(-2px);
       background: #ffd27a;
     }
 
@@ -215,7 +212,6 @@
       border: 1px solid rgba(255, 255, 255, 0.15);
     }
 
-    /* Mobile-Version */
     @media (max-width: 768px) {
       .page {
         align-items: flex-start;
@@ -230,10 +226,6 @@
 
       .desktop-layout {
         display: block;
-      }
-
-      .left-side {
-        position: static;
       }
 
       h1 {
@@ -260,167 +252,189 @@
       label.checkbox {
         font-size: 14px;
       }
-
-      .success h2 {
-        font-size: 30px;
-      }
     }
   </style>
 </head>
 
 <body>
 
-  <main class="page">
-    <section class="card">
+<main class="page">
+  <section class="card">
 
-      <div id="formArea" class="desktop-layout">
+    <div id="formArea" class="desktop-layout">
 
-        <div class="left-side">
-          <span class="badge">Nur wenige Sekunden</span>
+      <div>
+        <span class="badge">Nur wenige Sekunden</span>
 
-          <h1>🎉 Festival-Gewinnspiel</h1>
+        <h1>🎉 Festival-Gewinnspiel</h1>
 
-          <p class="subtitle">
-            Gewinne einen von drei Preisen und sichere dir deine Chance auf Festival-Vibes 2027.
-          </p>
-
-          <div class="prizes">
-            <div class="prize">🎟️ 1× Southside Festival Ticket 2027</div>
-            <div class="prize">🎧 1× AirPods Pro</div>
-            <div class="prize">💶 1× 150 €</div>
-          </div>
-
-          <div class="info-box">
-            Teilnahme dauert weniger als 30 Sekunden. Einfach Formular ausfüllen und mit etwas Glück gewinnen.
-          </div>
-        </div>
-
-        <div class="right-side">
-          <form id="raffleForm">
-            <input type="text" name="vorname" placeholder="Vorname" required>
-            <input type="text" name="nachname" placeholder="Nachname" required>
-            <input type="email" name="email" placeholder="E-Mail-Adresse" required>
-            <input type="tel" name="telefon" placeholder="Telefonnummer" required>
-
-            <div class="section-title">Über welche Themen dürfen wir dich informieren?</div>
-            <div class="hint">Mehrfachauswahl möglich.</div>
-
-            <div class="checkbox-group">
-              <label class="checkbox">
-                <input type="checkbox" name="themen" value="Geld anlegen & Investment">
-                Geld anlegen & Investment
-              </label>
-
-              <label class="checkbox">
-                <input type="checkbox" name="themen" value="Immobilien & Baufinanzierung">
-                Immobilien & Baufinanzierung
-              </label>
-
-              <label class="checkbox">
-                <input type="checkbox" name="themen" value="Versicherungen">
-                Versicherungen
-              </label>
-
-              <label class="checkbox">
-                <input type="checkbox" name="themen" value="Altersvorsorge & Rente">
-                Altersvorsorge & Rente
-              </label>
-
-              <label class="checkbox">
-                <input type="checkbox" name="themen" value="Berufsunfähigkeit">
-                Berufsunfähigkeit
-              </label>
-
-              <label class="checkbox">
-                <input type="checkbox" name="themen" value="Krankenversicherung">
-                Krankenversicherung
-              </label>
-
-              <label class="checkbox">
-                <input type="checkbox" name="themen" value="Sparen & Vermögensaufbau">
-                Sparen & Vermögensaufbau
-              </label>
-
-              <label class="checkbox">
-                <input type="checkbox" name="themen" value="Karriere bei PH Finanzen">
-                Karriere bei PH Finanzen
-              </label>
-
-              <label class="checkbox">
-                <input type="checkbox" name="themen" value="Keine Werbung">
-                Ich möchte nur am Gewinnspiel teilnehmen.
-              </label>
-            </div>
-
-            <label class="checkbox">
-              <input type="checkbox" required>
-              Ich bin mindestens 18 Jahre alt.
-            </label>
-
-            <label class="checkbox">
-              <input type="checkbox" required>
-              Ich akzeptiere die
-              <span>
-                <a href="/teilnahmebedingungen.html" target="_blank">Teilnahmebedingungen</a>
-                und
-                <a href="/datenschutz.html" target="_blank">Datenschutzhinweise</a>.
-              </span>
-            </label>
-
-            <button type="submit">🎉 Jetzt kostenlos teilnehmen</button>
-          </form>
-
-          <p class="small">
-            Veranstalter des Gewinnspiels ist PH Finanzen. Die Gewinner werden nach Ende des Gewinnspiels per E-Mail oder Telefon benachrichtigt.
-          </p>
-        </div>
-
-      </div>
-
-      <div class="success" id="successArea">
-        <h2>✅ Teilnahme erfolgreich!</h2>
-        <p>Du bist erfolgreich im Lostopf.</p>
-        <p>Die Gewinner werden nach Ende des Gewinnspiels benachrichtigt.</p>
-
-        <hr class="success-divider">
-
-        <h3>🎁 Bonus für alle Teilnehmer</h3>
-
-        <p>
-          Finde in nur 2 Minuten heraus, welche Finanzlösung wirklich zu deiner aktuellen Lebenssituation passt –
-          kostenlos und unverbindlich.
+        <p class="subtitle">
+          Wähle deinen Wunschgewinn aus, fülle kurz das Formular aus und sichere dir deine Chance.
         </p>
 
-        <a
-          href="https://www.ph-finanzen.de/was-passt-zu-dir.html"
-          target="_blank"
-          class="bonus-button"
-        >
-          🚀 Jetzt Finanz-Check starten
-        </a>
+        <div class="section-title">Wähle deinen Wunschgewinn:</div>
+        <div class="hint">Bitte genau einen Preis auswählen.</div>
+
+        <div class="prizes">
+          <label class="prize">
+            <input type="radio" name="Wunschgewinn" value="Southside Festival Ticket 2027" form="raffleForm" required>
+            🎟️ Southside Festival Ticket 2027
+          </label>
+
+          <label class="prize">
+            <input type="radio" name="Wunschgewinn" value="AirPods Pro" form="raffleForm" required>
+            🎧 AirPods Pro
+          </label>
+
+          <label class="prize">
+            <input type="radio" name="Wunschgewinn" value="150 Euro" form="raffleForm" required>
+            💶 150 €
+          </label>
+        </div>
+
+        <div class="info-box">
+          Teilnahme dauert weniger als 30 Sekunden. Einfach Wunschgewinn auswählen, Daten eintragen und absenden.
+        </div>
       </div>
 
-    </section>
-  </main>
+      <div>
+        <form id="raffleForm" action="https://formspree.io/f/mdardwoy" method="POST">
+          <input type="text" name="Vorname" placeholder="Vorname" required>
+          <input type="text" name="Nachname" placeholder="Nachname" required>
+          <input type="email" name="E-Mail" placeholder="E-Mail-Adresse" required>
+          <input type="tel" name="Telefonnummer" placeholder="Telefonnummer" required>
 
-  <script>
-    const form = document.getElementById("raffleForm");
-    const formArea = document.getElementById("formArea");
-    const successArea = document.getElementById("successArea");
+          <div class="section-title">Über welche Themen dürfen wir dich informieren?</div>
+          <div class="hint">Mehrfachauswahl möglich.</div>
 
-    form.addEventListener("submit", function(event) {
-      event.preventDefault();
+          <div class="checkbox-group">
+            <label class="checkbox">
+              <input type="checkbox" name="Themen[]" value="Geld anlegen & Investment">
+              Geld anlegen & Investment
+            </label>
 
-      formArea.style.display = "none";
-      successArea.style.display = "block";
-      window.scrollTo({ top: 0, behavior: "smooth" });
+            <label class="checkbox">
+              <input type="checkbox" name="Themen[]" value="Immobilien & Baufinanzierung">
+              Immobilien & Baufinanzierung
+            </label>
 
-      /*
-        Hier später die echte Formular-Übermittlung einbauen,
-        z. B. an Google Forms, Brevo, Zapier, Make oder ein eigenes Backend.
-      */
-    });
-  </script>
+            <label class="checkbox">
+              <input type="checkbox" name="Themen[]" value="Versicherungen">
+              Versicherungen
+            </label>
+
+            <label class="checkbox">
+              <input type="checkbox" name="Themen[]" value="Altersvorsorge & Rente">
+              Altersvorsorge & Rente
+            </label>
+
+            <label class="checkbox">
+              <input type="checkbox" name="Themen[]" value="Berufsunfähigkeit">
+              Berufsunfähigkeit
+            </label>
+
+            <label class="checkbox">
+              <input type="checkbox" name="Themen[]" value="Krankenversicherung">
+              Krankenversicherung
+            </label>
+
+            <label class="checkbox">
+              <input type="checkbox" name="Themen[]" value="Sparen & Vermögensaufbau">
+              Sparen & Vermögensaufbau
+            </label>
+
+            <label class="checkbox">
+              <input type="checkbox" name="Themen[]" value="Karriere bei PH Finanzen">
+              Karriere bei PH Finanzen
+            </label>
+
+            <label class="checkbox">
+              <input type="checkbox" name="Themen[]" value="Keine Werbung">
+              Ich möchte nur am Gewinnspiel teilnehmen.
+            </label>
+          </div>
+
+          <label class="checkbox">
+            <input type="checkbox" name="Alter bestätigt" value="Ja" required>
+            Ich bin mindestens 18 Jahre alt.
+          </label>
+
+          <label class="checkbox">
+            <input type="checkbox" name="Teilnahmebedingungen akzeptiert" value="Ja" required>
+            Ich akzeptiere die
+            <span>
+              <a href="/teilnahmebedingungen.html" target="_blank">Teilnahmebedingungen</a>
+              und
+              <a href="/datenschutz.html" target="_blank">Datenschutzhinweise</a>.
+            </span>
+          </label>
+
+          <input type="hidden" name="_subject" value="Neue Gewinnspiel-Teilnahme PH Finanzen">
+
+          <button type="submit">🎉 Jetzt kostenlos teilnehmen</button>
+        </form>
+
+        <p class="small">
+          Veranstalter des Gewinnspiels ist PH Finanzen. Die Gewinner werden nach Ende des Gewinnspiels per E-Mail oder Telefon benachrichtigt.
+        </p>
+      </div>
+
+    </div>
+
+    <div class="success" id="successArea">
+      <h2>✅ Teilnahme erfolgreich!</h2>
+      <p>Du bist erfolgreich im Lostopf.</p>
+      <p>Die Gewinner werden nach Ende des Gewinnspiels benachrichtigt.</p>
+
+      <hr class="success-divider">
+
+      <h3>🎁 Bonus für alle Teilnehmer</h3>
+
+      <p>
+        Finde in nur 2 Minuten heraus, welche Finanzlösung wirklich zu deiner aktuellen Lebenssituation passt –
+        kostenlos und unverbindlich.
+      </p>
+
+      <a href="https://www.ph-finanzen.de/was-passt-zu-dir.html" target="_blank" class="bonus-button">
+        🚀 Jetzt Finanz-Check starten
+      </a>
+    </div>
+
+  </section>
+</main>
+
+<script>
+  const form = document.getElementById("raffleForm");
+  const formArea = document.getElementById("formArea");
+  const successArea = document.getElementById("successArea");
+
+  form.addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch(form.action, {
+        method: form.method,
+        body: formData,
+        headers: {
+          "Accept": "application/json"
+        }
+      });
+
+      if (response.ok) {
+        formArea.style.display = "none";
+        successArea.style.display = "block";
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        form.reset();
+      } else {
+        alert("Leider gab es ein Problem beim Absenden. Bitte versuche es erneut.");
+      }
+    } catch (error) {
+      alert("Verbindung fehlgeschlagen. Bitte versuche es erneut.");
+    }
+  });
+</script>
 
 </body>
 </html>
