@@ -1,30 +1,426 @@
-<div class="success" id="successArea">
-  <h2>✅ Teilnahme erfolgreich!</h2>
-  <p>Du bist erfolgreich im Lostopf.</p>
-  <p>Die Gewinner werden nach Ende des Gewinnspiels benachrichtigt.</p>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Festival Gewinnspiel | PH Finanzen</title>
 
-  <hr style="margin:32px 0;border:1px solid rgba(255,255,255,.15);">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-  <h3>🎁 Bonus für alle Teilnehmer</h3>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #111827, #1f2937);
+      color: #ffffff;
+    }
 
-  <p>
-    Finde in nur 2 Minuten heraus, welche Finanzlösung wirklich zu deiner aktuellen Lebenssituation passt –
-    kostenlos und unverbindlich.
-  </p>
+    .page {
+      min-height: 100vh;
+      padding: 24px 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-  <a href="https://www.ph-finanzen.de/was-passt-zu-dir.html"
-     target="_blank"
-     style="
-        display:inline-block;
-        margin-top:15px;
-        padding:15px 28px;
-        background:#f4be69;
-        color:#111827;
-        text-decoration:none;
-        font-weight:bold;
-        border-radius:14px;
-        font-size:17px;
-     ">
-     🚀 Jetzt Finanz-Check starten
-  </a>
-</div>
+    .card {
+      width: 100%;
+      max-width: 1120px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 28px;
+      padding: 28px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(12px);
+    }
+
+    .desktop-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 36px;
+      align-items: start;
+    }
+
+    .left-side {
+      position: sticky;
+      top: 30px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #f4be69;
+      color: #111827;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: 44px;
+      line-height: 1.05;
+      margin: 0 0 14px;
+    }
+
+    .subtitle {
+      color: #d1d5db;
+      font-size: 18px;
+      margin-bottom: 26px;
+      line-height: 1.5;
+    }
+
+    .prizes {
+      display: grid;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .prize {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 18px;
+      padding: 18px;
+      font-size: 19px;
+      font-weight: 700;
+    }
+
+    .info-box {
+      margin-top: 20px;
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(244, 190, 105, 0.12);
+      border: 1px solid rgba(244, 190, 105, 0.35);
+      color: #fef3c7;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    form {
+      display: grid;
+      gap: 14px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"] {
+      width: 100%;
+      padding: 15px 16px;
+      border-radius: 14px;
+      border: none;
+      font-size: 16px;
+      outline: none;
+    }
+
+    .section-title {
+      margin-top: 12px;
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .hint {
+      color: #d1d5db;
+      font-size: 14px;
+      margin-top: -6px;
+      margin-bottom: 4px;
+    }
+
+    .checkbox-group {
+      display: grid;
+      gap: 10px;
+    }
+
+    label.checkbox {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 12px;
+      border-radius: 14px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    input[type="checkbox"] {
+      margin-top: 3px;
+      width: 18px;
+      height: 18px;
+      accent-color: #f4be69;
+      flex-shrink: 0;
+    }
+
+    a {
+      color: #f4be69;
+      text-decoration: underline;
+    }
+
+    button,
+    .bonus-button {
+      margin-top: 10px;
+      width: 100%;
+      border: none;
+      border-radius: 16px;
+      padding: 17px;
+      background: #f4be69;
+      color: #111827;
+      font-size: 18px;
+      font-weight: 900;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.2s ease;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+    }
+
+    button:hover,
+    .bonus-button:hover {
+      transform: translateY(-2px);
+      background: #ffd27a;
+    }
+
+    .small {
+      color: #cbd5e1;
+      font-size: 12px;
+      line-height: 1.5;
+      margin-top: 16px;
+    }
+
+    .success {
+      display: none;
+      text-align: center;
+      max-width: 620px;
+      margin: 0 auto;
+      padding: 30px 0;
+    }
+
+    .success h2 {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    .success h3 {
+      font-size: 24px;
+      margin: 0 0 12px;
+    }
+
+    .success p {
+      color: #d1d5db;
+      font-size: 17px;
+      line-height: 1.5;
+    }
+
+    .success-divider {
+      margin: 32px 0;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    /* Mobile-Version */
+    @media (max-width: 768px) {
+      .page {
+        align-items: flex-start;
+        padding: 18px 12px;
+      }
+
+      .card {
+        max-width: 560px;
+        padding: 22px;
+        border-radius: 22px;
+      }
+
+      .desktop-layout {
+        display: block;
+      }
+
+      .left-side {
+        position: static;
+      }
+
+      h1 {
+        font-size: 30px;
+      }
+
+      .subtitle {
+        font-size: 16px;
+      }
+
+      .prize {
+        font-size: 16px;
+        padding: 15px;
+      }
+
+      .info-box {
+        margin-bottom: 24px;
+      }
+
+      .section-title {
+        font-size: 18px;
+      }
+
+      label.checkbox {
+        font-size: 14px;
+      }
+
+      .success h2 {
+        font-size: 30px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="page">
+    <section class="card">
+
+      <div id="formArea" class="desktop-layout">
+
+        <div class="left-side">
+          <span class="badge">Nur wenige Sekunden</span>
+
+          <h1>🎉 Festival-Gewinnspiel</h1>
+
+          <p class="subtitle">
+            Gewinne einen von drei Preisen und sichere dir deine Chance auf Festival-Vibes 2027.
+          </p>
+
+          <div class="prizes">
+            <div class="prize">🎟️ 1× Southside Festival Ticket 2027</div>
+            <div class="prize">🎧 1× AirPods Pro</div>
+            <div class="prize">💶 1× 150 €</div>
+          </div>
+
+          <div class="info-box">
+            Teilnahme dauert weniger als 30 Sekunden. Einfach Formular ausfüllen und mit etwas Glück gewinnen.
+          </div>
+        </div>
+
+        <div class="right-side">
+          <form id="raffleForm">
+            <input type="text" name="vorname" placeholder="Vorname" required>
+            <input type="text" name="nachname" placeholder="Nachname" required>
+            <input type="email" name="email" placeholder="E-Mail-Adresse" required>
+            <input type="tel" name="telefon" placeholder="Telefonnummer" required>
+
+            <div class="section-title">Über welche Themen dürfen wir dich informieren?</div>
+            <div class="hint">Mehrfachauswahl möglich.</div>
+
+            <div class="checkbox-group">
+              <label class="checkbox">
+                <input type="checkbox" name="themen" value="Geld anlegen & Investment">
+                Geld anlegen & Investment
+              </label>
+
+              <label class="checkbox">
+                <input type="checkbox" name="themen" value="Immobilien & Baufinanzierung">
+                Immobilien & Baufinanzierung
+              </label>
+
+              <label class="checkbox">
+                <input type="checkbox" name="themen" value="Versicherungen">
+                Versicherungen
+              </label>
+
+              <label class="checkbox">
+                <input type="checkbox" name="themen" value="Altersvorsorge & Rente">
+                Altersvorsorge & Rente
+              </label>
+
+              <label class="checkbox">
+                <input type="checkbox" name="themen" value="Berufsunfähigkeit">
+                Berufsunfähigkeit
+              </label>
+
+              <label class="checkbox">
+                <input type="checkbox" name="themen" value="Krankenversicherung">
+                Krankenversicherung
+              </label>
+
+              <label class="checkbox">
+                <input type="checkbox" name="themen" value="Sparen & Vermögensaufbau">
+                Sparen & Vermögensaufbau
+              </label>
+
+              <label class="checkbox">
+                <input type="checkbox" name="themen" value="Karriere bei PH Finanzen">
+                Karriere bei PH Finanzen
+              </label>
+
+              <label class="checkbox">
+                <input type="checkbox" name="themen" value="Keine Werbung">
+                Ich möchte nur am Gewinnspiel teilnehmen.
+              </label>
+            </div>
+
+            <label class="checkbox">
+              <input type="checkbox" required>
+              Ich bin mindestens 18 Jahre alt.
+            </label>
+
+            <label class="checkbox">
+              <input type="checkbox" required>
+              Ich akzeptiere die
+              <span>
+                <a href="/teilnahmebedingungen.html" target="_blank">Teilnahmebedingungen</a>
+                und
+                <a href="/datenschutz.html" target="_blank">Datenschutzhinweise</a>.
+              </span>
+            </label>
+
+            <button type="submit">🎉 Jetzt kostenlos teilnehmen</button>
+          </form>
+
+          <p class="small">
+            Veranstalter des Gewinnspiels ist PH Finanzen. Die Gewinner werden nach Ende des Gewinnspiels per E-Mail oder Telefon benachrichtigt.
+          </p>
+        </div>
+
+      </div>
+
+      <div class="success" id="successArea">
+        <h2>✅ Teilnahme erfolgreich!</h2>
+        <p>Du bist erfolgreich im Lostopf.</p>
+        <p>Die Gewinner werden nach Ende des Gewinnspiels benachrichtigt.</p>
+
+        <hr class="success-divider">
+
+        <h3>🎁 Bonus für alle Teilnehmer</h3>
+
+        <p>
+          Finde in nur 2 Minuten heraus, welche Finanzlösung wirklich zu deiner aktuellen Lebenssituation passt –
+          kostenlos und unverbindlich.
+        </p>
+
+        <a
+          href="https://www.ph-finanzen.de/was-passt-zu-dir.html"
+          target="_blank"
+          class="bonus-button"
+        >
+          🚀 Jetzt Finanz-Check starten
+        </a>
+      </div>
+
+    </section>
+  </main>
+
+  <script>
+    const form = document.getElementById("raffleForm");
+    const formArea = document.getElementById("formArea");
+    const successArea = document.getElementById("successArea");
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      formArea.style.display = "none";
+      successArea.style.display = "block";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+
+      /*
+        Hier später die echte Formular-Übermittlung einbauen,
+        z. B. an Google Forms, Brevo, Zapier, Make oder ein eigenes Backend.
+      */
+    });
+  </script>
+
+</body>
+</html>
