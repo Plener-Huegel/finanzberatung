@@ -1,0 +1,30 @@
+<div class="success" id="successArea">
+  <h2>✅ Teilnahme erfolgreich!</h2>
+  <p>Du bist erfolgreich im Lostopf.</p>
+  <p>Die Gewinner werden nach Ende des Gewinnspiels benachrichtigt.</p>
+
+  <hr style="margin:32px 0;border:1px solid rgba(255,255,255,.15);">
+
+  <h3>🎁 Bonus für alle Teilnehmer</h3>
+
+  <p>
+    Finde in nur 2 Minuten heraus, welche Finanzlösung wirklich zu deiner aktuellen Lebenssituation passt –
+    kostenlos und unverbindlich.
+  </p>
+
+  <a href="https://www.ph-finanzen.de/was-passt-zu-dir.html"
+     target="_blank"
+     style="
+        display:inline-block;
+        margin-top:15px;
+        padding:15px 28px;
+        background:#f4be69;
+        color:#111827;
+        text-decoration:none;
+        font-weight:bold;
+        border-radius:14px;
+        font-size:17px;
+     ">
+     🚀 Jetzt Finanz-Check starten
+  </a>
+</div>
