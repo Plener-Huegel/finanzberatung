@@ -412,11 +412,12 @@ const DATA = {
     badgeClass: "unternehmer",
     headline:   "Wo siehst du gerade Potenzial?",
     items: [
-      { icon:"💧", title:"Liquidität",                      desc:"Geld schneller verfügbar, Cash-Flow optimiert",  href:"liquiditaet.html" },
+      { icon:"💧", title:"Liquidität & Mietkauf",                      desc:"Geld schneller verfügbar, Cash-Flow optimiert",  href:"liquiditaet.html" },
       { icon:"👥", title:"Betriebliche Krankenversicherung", desc:"Mitarbeiterbindung mit echtem Mehrwert",         href:"betriebliche-krankenversicherung.html" },
       { icon:"⚡", title:"Energie",                         desc:"Kosten senken ohne großen Aufwand",              href:"energie.html" },
       { icon:"🔒", title:"Betriebliche Sachversicherungen", desc:"Risiken im Betrieb gezielt absichern",          href:"betriebliche-sachversicherung.html" },
       { icon:"📊", title:"Rürup",                           desc:"Steuern sparen & Altersvorsorge aufbauen",       href:"ruerup.html" },
+      { icon:"🏡", title:"Baufinanzierung", desc:"Immobilien kaufen, bauen & passend finanzieren", href:"immobilien-finanzierung.html" },
     ]
   },
   eltern: {
@@ -442,6 +443,7 @@ const DATA = {
 };
 
 function showScreen2(catKey) {
+  if (!Object.prototype.hasOwnProperty.call(DATA, catKey)) return;
   const cat = DATA[catKey];
 
   try {
@@ -454,11 +456,11 @@ function showScreen2(catKey) {
 
   document.getElementById('s2-headline').textContent = cat.headline;
 
-  document.getElementById('sub-list').innerHTML = cat.items.map(item => `
+  document.getElementById('sub-list').innerHTML = cat.items.map((item, index) => `
     <a class="sub-item"
        href="${item.href}"
        role="listitem"
-       onclick="trackSub('${catKey}', ${JSON.stringify(item.title)})">
+       onclick="trackSub('${catKey}', DATA['${catKey}'].items[${index}].title)">
       <span class="sub-icon" aria-hidden="true">${item.icon}</span>
       <span class="sub-text">
         <span class="sub-title">${item.title}</span>
@@ -593,6 +595,15 @@ function trackSub(cat, sub) {
   }
 
   requestAnimationFrame(draw);
+}());
+</script>
+<script>
+/* Direktaufruf, zum Beispiel über den Unternehmer-QR-Code */
+(function () {
+  const kategorie = new URLSearchParams(window.location.search).get('kategorie');
+  if (kategorie && Object.prototype.hasOwnProperty.call(DATA, kategorie)) {
+    showScreen2(kategorie);
+  }
 }());
 </script>
 </body>
