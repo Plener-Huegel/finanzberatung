@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Altersvorsorgedepot-Rechner</title>
+  <style>
+    :root {
+      --ink: #142f29;
+      --muted: #50665e;
+      --green: #00755e;
+      --mint: #c5efad;
+      --line: #d8e4da;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #f2f6ef;
+      color: var(--ink);
+      font: 15px/1.5 "Segoe UI", system-ui, sans-serif;
+    }
+    .wrap { width: min(1050px, calc(100% - 32px)); margin: auto; }
+    header { background: #102e29; color: white; padding: 24px 0; }
+    header p { color: #d4e6da; }
+    h1, h2, h3, p { margin: 0; }
+    h1 { font-size: clamp(34px, 6vw, 56px); letter-spacing: -.055em; }
+    h2 { font-size: 19px; }
+    h3 { font-size: 15px; }
+    main {
+      display: grid;
+      grid-template-columns: 310px minmax(0, 1fr);
+      gap: 20px;
+      padding: 20px 0 32px;
+      align-items: start;
+    }
+    .box {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+    .row { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    .fields { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+    .wide { grid-column: 1 / -1; }
+    label { display: block; font-size: 12px; font-weight: 650; }
+    input, select, button { font: inherit; }
+    input[type="number"], select {
+      display: block;
+      width: 100%;
+      margin-top: 3px;
+      padding: 7px;
+      background: #f8faf7;
+      color: var(--ink);
+      border: 1px solid #bfcfc3;
+      border-radius: 7px;
+    }
+    .row select { width: auto; margin: 0; }
+    button {
+      border: 0;
+      border-radius: 8px;
+      background: var(--mint);
+      color: var(--ink);
+      padding: 7px 11px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    :focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
+    summary { cursor: pointer; font-weight: 650; }
+    form details { margin-top: 16px; }
+    details p { margin-top: 8px; }
+    .small, small { color: var(--muted); font-size: 12px; }
+    .child { display: grid; grid-template-columns: 1fr 1fr auto; align-items: end; gap: 6px; margin: 8px 0; }
+    .check { display: flex; align-items: center; gap: 6px; }
+    .breakdown { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin: 10px 0 0; }
+    .breakdown div { background: #f6f9f5; border-top: 3px solid #31534a; border-radius: 6px; padding: 8px; }
+    .breakdown div:nth-child(2) { border-color: var(--green); }
+    .breakdown div:nth-child(3) { border-color: #81aa5c; }
+    dt { color: var(--muted); font-size: 12px; }
+    dd { margin: 4px 0 0; font-size: clamp(14px, 2.5vw, 24px); font-weight: 750; overflow-wrap: anywhere; }
+    .quote { background: #102e29; color: white; padding: 7px 10px; border-radius: 8px; margin-top: 10px; }
+    .quote strong { color: var(--mint); font-size: 28px; margin-right: 6px; }
+    .hero { background: #e8f5e7; }
+    .amount { font-size: clamp(35px, 7vw, 60px); font-weight: 750; letter-spacing: -.06em; }
+    .totals dd { font-size: 15px; }
+    .totals p { margin-top: 8px; }
+    .stack { display: flex; height: 12px; overflow: hidden; border-radius: 8px; background: #e8ede7; margin-top: 10px; }
+    .stack span { background: #31534a; }
+    .stack span:nth-child(2) { background: var(--green); }
+    .stack span:nth-child(3) { background: #81aa5c; }
+    canvas { display: block; width: 100%; height: 145px; margin-top: 8px; }
+    .notice { background: #fff2df; padding: 12px; border-radius: 8px; }
+    .print-only { display: none; }
+    a { color: var(--green); }
+    @media (max-width: 710px) { main { grid-template-columns: 1fr; } }
+    @page { size: A4; margin: 13mm; }
+    @media print {
+      * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+      body { background: white; }
+      .wrap { width: 100%; }
+      header { padding: 10px 14px; }
+      h1 { font-size: 31px; }
+      main { display: block; padding-top: 10px; }
+      form, .no-print { display: none !important; }
+      .print-only { display: block; margin-bottom: 8px; }
+      .box { break-inside: avoid; padding: 10px; margin-bottom: 8px; }
+      .amount { font-size: 36px; }
+      canvas { height: 105px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="row">
+        <span>Private Altersvorsorge</span>
+        <button id="print" class="no-print" type="button">Drucken / PDF</button>
+      </div>
+      <h1>Altersvorsorgedepot</h1>
+      <p>Depotregeln ab 2027 · Rechtsstand 12.11.2026</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <form id="inputs" class="box">
+      <h2>Deine Angaben</h2>
+      <div class="fields">
+        <label>Eigenbeitrag / Monat (€)
+          <input id="monthly" type="number" min="0" max="570" step="0.01" value="150" required>
+        </label>
+        <label>Rendite nach Kosten (% p. a.)
+          <input id="rate" type="number" min="-50" max="30" step="0.1" value="4.5" required>
+        </label>
+        <label>Alter Anfang 2027
+          <input id="age" type="number" min="18" max="65" value="37" required>
+          <small>Ansparziel: 65 Jahre</small>
+        </label>
+        <label>Mitgebrachtes Startkapital (€)
+          <input id="start" type="number" min="0" max="100000000" step="0.01" value="0" required>
+        </label>
+        <label class="wide">Zu versteuerndes Einkommen / Jahr (€)
+          <input id="income" type="number" min="0" max="10000000" value="40000" required>
+          <small>Betrag laut Steuerbescheid vor Depot-Abzug</small>
+        </label>
+        <label class="wide">Veranlagung
+          <select id="filing">
+            <option value="single">Einzelveranlagung</option>
+            <option value="joint">Zusammenveranlagung · gemeinsames Einkommen</option>
+          </select>
+        </label>
+      </div>
+      <details>
+        <summary>Kinder &amp; weitere Angaben</summary>
+        <div id="children"></div>
+        <p><button id="add" type="button">+ Kind hinzufügen</button></p>
+        <p class="small">Nur Kinder mit zugeordneter Zulage eintragen. Das letzte Kindergeldjahr zählt mit.</p>
+        <div class="fields">
+          <label>Auszahlplan bis Alter
+            <input id="endAge" type="number" min="85" max="120" value="90" required>
+          </label>
+          <label class="wide check">
+            <input id="bonus" type="checkbox"> U25-Einmalbonus im ersten Jahr verfügbar
+          </label>
+        </div>
+      </details>
+    </form>
+
+    <section aria-label="Ergebnis">
+      <p id="error" class="notice" role="status" hidden></p>
+      <div id="result">
+        <p id="printInputs" class="print-only small"></p>
+        <section class="box">
+          <div class="row">
+            <h2>Förderung pro Jahr</h2>
+            <select id="year" class="no-print" aria-label="Beitragsjahr auswählen"></select>
+          </div>
+          <p id="annualCaption" class="small"></p>
+          <dl class="breakdown">
+            <div><dt>Selbst eingezahlt</dt><dd id="annualPayment"></dd></div>
+            <div><dt>Zulagen ins Depot</dt><dd id="annualGrant"></dd></div>
+            <div><dt>Zusätzlicher Steuervorteil</dt><dd id="annualTax"></dd></div>
+          </dl>
+          <p id="annualQuote" class="quote">
+            <strong id="annualPercent"></strong> Förderquote im Beitragsjahr
+          </p>
+        </section>
+
+        <section class="box hero">
+          <h2>Voraussichtliches Depotkapital mit 65</h2>
+          <p id="capital" class="amount"></p>
+          <p id="return"></p>
+          <p id="payout" class="small"></p>
+          <p id="milestone" class="small"></p>
+        </section>
+
+        <section class="box totals">
+          <h3>Einzahlungen und Förderung bis 65</h3>
+          <div id="stack" class="stack" aria-hidden="true"><span></span><span></span><span></span></div>
+          <dl class="breakdown">
+            <div><dt>Selbst eingezahlt</dt><dd id="totalPayment"></dd></div>
+            <div><dt>Zulagen ins Depot</dt><dd id="totalGrant"></dd></div>
+            <div><dt>Zusätzlicher Steuervorteil</dt><dd id="totalTax"></dd></div>
+          </dl>
+          <p id="totalQuote" class="small"></p>
+        </section>
+
+        <section class="box">
+          <h3>Depotkapital im Zeitverlauf</h3>
+          <p id="chartText" class="small"></p>
+          <canvas id="chart" role="img" aria-label="Verlauf des Depotkapitals"></canvas>
+        </section>
+
+        <details class="box no-print">
+          <summary>Berechnung und Rechtsgrundlagen</summary>
+          <p id="taxDetails"></p>
+          <p class="small">Modell für eine unmittelbar förderberechtigte Person. Der Rechner schätzt den zusätzlichen Steuervorteil aus der tariflichen Einkommensteuer vor und nach dem Sonderausgabenabzug. Vom Unterschied wird der Zulagenanspruch abgezogen. Kirchensteuer, Solidaritätszuschlag und weitere Wechselwirkungen des Steuerbescheids bleiben außen vor.</p>
+          <p class="small">Ab 120 € Eigenbeitrag pro Jahr beträgt die Grundzulage 50 % auf die ersten 360 € und 25 % auf den weiteren Beitrag bis 1.800 €. Je zugeordnetem Kind gibt es bis zu 300 €. Der Sonderausgabenabzug umfasst bis zu 1.800 € Eigenbeitrag plus Zulagenanspruch.</p>
+          <p class="small">Die Förderquote setzt Zulagen und zusätzlichen Steuervorteil ins Verhältnis zu den eigenen Einzahlungen. Das Startkapital zählt zum Depotwert. Beiträge und Zulagen werden zum Jahresende angelegt. Die Steuerersparnis bleibt außerhalb des Depots. Die Beispielauszahlung verteilt das Kapital mit 65 gleichmäßig über den gewählten Zeitraum.</p>
+          <p class="small">
+            <a href="https://recht.bund.de/bgbl/1/2026/156/VO.html">Altersvorsorgereformgesetz</a>
+            · <a href="https://www.gesetze-im-internet.de/estg/__32a.html">§ 32a EStG</a>
+          </p>
+        </details>
+        <p class="small">Steuervorteil geschätzt nach § 32a EStG, Tarif ab 2026. Rendite ist eine Annahme. Auszahlung vor Steuern.</p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    'use strict';
+
+    const $ = id => document.getElementById(id);
+    const form = $('inputs');
+    const firstYear = 2027;
+    const endOfSaving = 65;
+    const number = new Intl.NumberFormat('de-DE', { maximumFractionDigits: 2 });
+    const euros = new Intl.NumberFormat('de-DE', {
+      style: 'currency', currency: 'EUR', maximumFractionDigits: 0
+    });
+    const cents = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' });
+    let annualResults = [];
+    let balances = [];
+
+    function incomeTax(income, joint) {
+      const units = joint ? 2 : 1;
+      const x = Math.max(0, Math.floor(income / units));
+      const y = (x - 12348) / 10000;
+      const z = (x - 17799) / 10000;
+      let tax = 0;
+
+      if (x >= 277826) tax = 0.45 * x - 19470.38;
+      else if (x >= 69879) tax = 0.42 * x - 11135.63;
+      else if (x >= 17800) tax = (173.10 * z + 2397) * z + 1034.87;
+      else if (x >= 12349) tax = (914.51 * y + 1400) * y;
+
+      return units * Math.floor(tax);
+    }
+
+    function calculateYear(payment, children, bonus, income, joint) {
+      const grant = payment < 120 ? 0 :
+        0.5 * Math.min(payment, 360) +
+        0.25 * Math.max(0, Math.min(payment, 1800) - 360) +
+        children * Math.min(payment, 300) +
+        (bonus ? 200 : 0);
+      const deduction = Math.min(payment, 1800) + grant;
+      const before = incomeTax(income, joint);
+      const after = incomeTax(income - deduction, joint);
+      const extraTax = Math.max(0, before - after - grant);
+      return { payment, grant, deduction, before, after, extraTax };
+    }
+
+    function addChild() {
+      const row = document.createElement('div');
+      row.className = 'child';
+      row.innerHTML = `
+        <label>Geburtsjahr
+          <input type="number" min="1900" max="2096" value="2020" required>
+        </label>
+        <label>Letztes Kindergeldjahr
+          <input type="number" min="1900" max="2199" value="2038" required>
+        </label>
+        <button type="button" aria-label="Kind entfernen">×</button>`;
+      const [birth, last] = row.querySelectorAll('input');
+      birth.addEventListener('input', () => {
+        if (Number.isFinite(birth.valueAsNumber)) last.value = birth.valueAsNumber + 18;
+      });
+      row.querySelector('button').onclick = () => {
+        row.remove();
+        update();
+      };
+      $('children').append(row);
+      update();
+      birth.focus();
+    }
+
+    function showYear() {
+      const year = Number($('year').value);
+      const result = annualResults[year - firstYear];
+
+      $('annualCaption').textContent = result
+        ? `Beitragsjahr ${year} · Steuervorteil geschätzt`
+        : 'Die Ansparphase umfasst keine weiteren Beitragsjahre.';
+      $('annualPayment').textContent = result ? cents.format(result.payment) : '–';
+      $('annualGrant').textContent = result ? cents.format(result.grant) : '–';
+      $('annualTax').textContent = result ? cents.format(result.extraTax) : '–';
+      $('annualQuote').hidden = !result?.payment;
+      $('annualPercent').textContent = result?.payment
+        ? number.format(100 * (result.grant + result.extraTax) / result.payment) + ' %'
+        : '';
+      $('taxDetails').textContent = result
+        ? `Im Jahr ${year} ergibt sich durch ${cents.format(result.deduction)} Sonderausgaben eine tarifliche Einkommensteuer von ${euros.format(result.after)} (zuvor ${euros.format(result.before)}). Der zusätzliche Steuervorteil nach Anrechnung der Zulagen beträgt ${cents.format(result.extraTax)}.`
+        : '';
+    }
+
+    function update() {
+      const value = id => $(id).valueAsNumber;
+      const age = value('age');
+      const years = endOfSaving - age;
+      const children = [...document.querySelectorAll('.child')].map(row =>
+        [...row.querySelectorAll('input')].map(input => input.valueAsNumber)
+      );
+      let error = '';
+      if (!form.checkValidity()) {
+        error = 'Bitte prüfe die Eingaben. Das Alter muss zwischen 18 und 65 liegen und der Monatsbeitrag darf höchstens 570 € betragen.';
+      } else if (children.some(([birth, last]) => last < birth)) {
+        error = 'Das letzte Kindergeldjahr muss im Geburtsjahr oder später liegen.';
+      }
+
+      $('error').textContent = error;
+      $('error').hidden = !error;
+      $('result').hidden = Boolean(error);
+      $('print').disabled = Boolean(error);
+      if (error) {
+        annualResults = [];
+        balances = [];
+        return;
+      }
+
+      const payment = Math.round(value('monthly') * 1200) / 100;
+      const income = value('income');
+      const start = value('start');
+      const rate = value('rate');
+      const endAge = value('endAge');
+      const joint = $('filing').value === 'joint';
+      const bonus = age < 25 && $('bonus').checked;
+      annualResults = [];
+      balances = [start];
+      let grantTotal = 0;
+      let taxTotal = 0;
+
+      for (let i = 0; i < years; i++) {
+        const year = firstYear + i;
+        const childCount = children.filter(([birth, last]) => birth <= year && year <= last).length;
+        const result = calculateYear(payment, childCount, bonus && i === 0, income, joint);
+        annualResults.push(result);
+        grantTotal += result.grant;
+        taxTotal += result.extraTax;
+        balances.push(balances[i] * (1 + rate / 100) + payment + result.grant);
+      }
+
+      const capital = balances.at(-1);
+      const paymentTotal = payment * years;
+      const supportTotal = grantTotal + taxTotal;
+      $('capital').textContent = euros.format(capital);
+      $('return').textContent = `${number.format(rate)} % angenommene Rendite pro Jahr nach Kosten`;
+      $('payout').textContent = `${cents.format(capital / (12 * (endAge - endOfSaving)))} / Monat brutto · Beispielauszahlung von 65 bis ${endAge}`;
+      $('milestone').textContent = age <= 56
+        ? `Zwischenstand mit 56: ${euros.format(balances[56 - age])}` : '';
+      $('totalPayment').textContent = cents.format(paymentTotal);
+      $('totalGrant').textContent = cents.format(grantTotal);
+      $('totalTax').textContent = cents.format(taxTotal);
+      $('totalQuote').textContent = paymentTotal
+        ? `Förderquote bis 65: ${number.format(100 * supportTotal / paymentTotal)} % · ${cents.format(supportTotal)} Gesamtförderung`
+        : 'Förderquote bis 65: –';
+      const segments = [paymentTotal, grantTotal, taxTotal];
+      [...$('stack').children].forEach((segment, i) => {
+        segment.style.width = `${100 * segments[i] / (paymentTotal + supportTotal || 1)}%`;
+      });
+
+      $('chartText').textContent = `${years} Jahre Ansparzeit · ${euros.format(start)} Startkapital`;
+      const childText = children.map(([birth, last]) => `${birth}–${last}`).join(', ') || 'keine';
+      $('printInputs').textContent = `Alter zu Beginn ${age} · zu versteuerndes Einkommen ${euros.format(income)} · ${joint ? 'Zusammenveranlagung' : 'Einzelveranlagung'} · Kinder (Geburtsjahr–letztes Kindergeldjahr) ${childText} · U25-Bonus ${bonus ? 'ja' : 'nein'}`;
+
+      const select = $('year');
+      const selected = Number(select.value) || firstYear;
+      if (select.options.length !== years) {
+        select.replaceChildren(...annualResults.map((_, i) => new Option(firstYear + i, firstYear + i)));
+        if (years) select.value = String(Math.min(selected, firstYear + years - 1));
+      }
+      select.hidden = !years;
+      showYear();
+      drawChart();
+    }
+
+    function drawChart() {
+      if (!balances.length) return;
+      const canvas = $('chart');
+      const { width, height } = canvas.getBoundingClientRect();
+      if (!width || !height) return;
+      const scale = Math.max(2, window.devicePixelRatio || 1);
+      canvas.width = Math.round(width * scale);
+      canvas.height = Math.round(height * scale);
+      const ctx = canvas.getContext('2d');
+      ctx.scale(scale, scale);
+      ctx.font = '11px Segoe UI, sans-serif';
+
+      const peak = Math.max(1, ...balances);
+      const compact = new Intl.NumberFormat('de-DE', { notation: 'compact', maximumFractionDigits: 1 });
+      const left = Math.max(48, ctx.measureText(compact.format(peak) + ' €').width + 7);
+      const right = width - 9;
+      const bottom = height - 23;
+      const x = i => left + (right - left) * i / Math.max(1, balances.length - 1);
+      const y = amount => bottom - (bottom - 10) * amount / peak;
+
+      ctx.fillStyle = '#50665e';
+      for (let i = 0; i <= 3; i++) {
+        const amount = peak * i / 3;
+        const gridY = y(amount);
+        ctx.strokeStyle = '#d8e4da';
+        ctx.beginPath();
+        ctx.moveTo(left, gridY);
+        ctx.lineTo(right, gridY);
+        ctx.stroke();
+        ctx.fillText(compact.format(amount) + ' €', 0, gridY + 4);
+      }
+
+      ctx.fillText('Start 2027', left, height - 5);
+      if (balances.length > 1) {
+        ctx.textAlign = 'right';
+        ctx.fillText(String(firstYear + balances.length - 2), right, height - 5);
+      }
+
+      ctx.strokeStyle = '#00755e';
+      ctx.fillStyle = '#00755e';
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      if (balances.length === 1) {
+        ctx.arc(left, y(balances[0]), 3, 0, 2 * Math.PI);
+        ctx.fill();
+      } else {
+        ctx.moveTo(x(0), y(balances[0]));
+        for (let i = 1; i < balances.length; i++) ctx.lineTo(x(i), y(balances[i]));
+        ctx.stroke();
+        ctx.lineTo(right, bottom);
+        ctx.lineTo(left, bottom);
+        ctx.closePath();
+        ctx.fillStyle = '#00755e16';
+        ctx.fill();
+      }
+
+      canvas.setAttribute('aria-label',
+        `Depotkapital von ${euros.format(balances[0])} zu Beginn bis ${euros.format(balances.at(-1))} mit 65`);
+    }
+
+    form.addEventListener('input', update);
+    form.addEventListener('submit', event => event.preventDefault());
+    $('add').addEventListener('click', addChild);
+    $('year').addEventListener('change', showYear);
+    $('print').addEventListener('click', () => window.print());
+    window.addEventListener('beforeprint', drawChart);
+    window.addEventListener('afterprint', drawChart);
+    new ResizeObserver(drawChart).observe($('chart').parentElement);
+    update();
+  </script>
+</body>
+</html>
